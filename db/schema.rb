@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140330072525) do
+ActiveRecord::Schema.define(version: 20140330124038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,56 @@ ActiveRecord::Schema.define(version: 20140330072525) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "channels", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.string   "type",       default: "", null: false
+    t.string   "source",     default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "heaps", force: true do |t|
+    t.integer  "rake_id"
+    t.integer  "leaflet_ids", default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "leaflets", force: true do |t|
+    t.integer  "channel_id"
+    t.string   "content",    default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "master_rakes", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree
+
+  create_table "rake_channel_maps", force: true do |t|
+    t.integer  "channel_id"
+    t.integer  "rake_id"
+    t.string   "options",    default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rake_channel_maps", ["channel_id"], name: "index_rake_channel_maps_on_channel_id", using: :btree
+  add_index "rake_channel_maps", ["rake_id", "channel_id"], name: "index_rake_channel_maps_on_rake_id_and_channel_id", unique: true, using: :btree
+  add_index "rake_channel_maps", ["rake_id"], name: "index_rake_channel_maps_on_rake_id", using: :btree
+
+  create_table "rakes", force: true do |t|
+    t.string   "name",           default: "", null: false
+    t.integer  "master_rake_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -62,9 +112,11 @@ ActiveRecord::Schema.define(version: 20140330072525) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end

@@ -1,0 +1,18 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.jumbotron {
+  background: url(image-path('skyline_header.jpg'));
+  height: 581px;
+  min-width: 948px;
+  top: 0;
+  width: inherit;
+  div {
+    margin-top: 20px;
+  }
+  p, h2 {
+    color: white;
+    text-align: right;
+  }
+}
