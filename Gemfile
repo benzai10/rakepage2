@@ -4,6 +4,7 @@ ruby "2.1.1"
 gem "bootstrap-sass"
 gem 'jquery-turbolinks'
 gem 'devise'
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 group :production do
 # pre-req for Heroku integration, RoR 4+
