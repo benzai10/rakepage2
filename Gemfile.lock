@@ -79,6 +79,8 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hike (1.2.3)
+    holder_rails (2.3.1)
+      railties (>= 3.1.0)
     i18n (0.6.9)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
@@ -182,6 +184,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   foreman
+  holder_rails
   jbuilder (~> 1.2)
   jquery-rails
   jquery-turbolinks

@@ -16,3 +16,7 @@
 //= require bootstrap
 //= require_tree .
 //= require turbolinks
+//= require holder
+
+$(document).bind 'page:change', ->
+  Holder.run()

@@ -1,9 +1,8 @@
 class RakesController < ApplicationController
 
   def show
-    @leaflets = something
-    @stats = something
-    @heaps = something
+    @leaflets = Leaflet.all
+    @channels = Channel.all
   end
 
 end
