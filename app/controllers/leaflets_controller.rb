@@ -1,0 +1,2 @@
+class LeafletsController < ApplicationController
+end

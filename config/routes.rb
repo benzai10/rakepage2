@@ -1,9 +1,15 @@
 Rakepage2::Application.routes.draw do
-  get "pages/landing"
+  root to: "pages#landing"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
-  root to: "pages#landing"
+
+  resources :channels
+  resources :heaps
+  resources :leaflets
+  resources :master_rakes
+  resources :rakes
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

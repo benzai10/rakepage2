@@ -1,0 +1,2 @@
+class HeapsController < ApplicationController
+end
