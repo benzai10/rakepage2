@@ -1,6 +1,6 @@
 ActiveAdmin.register Rake do
+  permit_params :name, :master_rake_id, :user_id
 
-  
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -13,5 +13,5 @@ ActiveAdmin.register Rake do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-  
+
 end

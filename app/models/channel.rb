@@ -1,6 +1,6 @@
 class Channel < ActiveRecord::Base
   validates :name, presence: true
-  validates :type, presence: true
+  validates :channel_type, presence: true
   validates :source, presence: true
 
   has_many :rake_channel_maps, dependent: :destroy
