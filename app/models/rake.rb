@@ -10,8 +10,15 @@ class Rake < ActiveRecord::Base
 
   has_many :rake_channel_maps, dependent: :destroy
   has_many :channels, through: :rake_channel_maps, dependent: :destroy
-
   has_one :heap, dependent: :destroy
+
+  def add_channel(channel)
+    self.rake_channel_maps.create(channel_id: channel.id)
+  end
+
+  def remove_channel(channel)
+    self.rake_channel_maps.find_by(channel_id: channel.id).destroy
+  end
 
   private
 
