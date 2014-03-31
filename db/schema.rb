@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140330125853) do
+ActiveRecord::Schema.define(version: 20140331050444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,11 @@ ActiveRecord::Schema.define(version: 20140330125853) do
     t.string   "source",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "channels_master_rakes", force: true do |t|
+    t.integer "master_rake_id"
+    t.integer "channel_id"
   end
 
   create_table "heaps", force: true do |t|
