@@ -13,5 +13,14 @@ ActiveAdmin.register Leaflet do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-  
+
+  index do
+    selectable_column
+    id_column
+    column :content
+    column :channel
+    column :created_at
+    column :updated_at
+    actions
+  end
 end

@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20140331050444) do
 
   create_table "leaflets", force: true do |t|
     t.integer  "channel_id"
-    t.string   "content",    default: "", null: false
+    t.text     "content",    default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

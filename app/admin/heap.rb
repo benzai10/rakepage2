@@ -13,5 +13,14 @@ ActiveAdmin.register Heap do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-  
+
+  index do
+    selectable_column
+    id_column
+    column :rake
+    column :leaflet_ids
+    column :created_at
+    column :updated_at
+    actions
+  end
 end
