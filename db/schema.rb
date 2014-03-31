@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20140331050444) do
     t.integer "channel_id"
   end
 
+  add_index "channels_master_rakes", ["channel_id", "master_rake_id"], name: "index_channel_master_rake_on_master_rake_id_and_channel_id", unique: true, using: :btree
+
   create_table "heaps", force: true do |t|
     t.integer  "rake_id"
     t.integer  "leaflet_ids", default: [], array: true
