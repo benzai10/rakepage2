@@ -1,7 +1,11 @@
+<h1>MasterRake#New</h1>
 <div class="container">
-  <h1>MasterRake#New</h1>
-  <%= bootstrap_form_for(@master_rake) do |f| %>
-    <%= f.text_field :name %>
-    <%= f.submit "Save" %>
-  <% end %>
+<div class="row">
+<div class="col-md-6">
+<%= bootstrap_form_for(@master_rake) do |f| %>
+  <%= f.text_field :name, class: "txtfield", placeholder: "Enter Master Rake" %>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>
+</div>
+</div>
 </div>

@@ -1,9 +1,17 @@
-<h3>Channels</h3>
-<ul class="leaflet-list list-inline">
+<h3 class="title-rake-show"><%= @channels.count.to_s %> Channels 
+  <%# if user_signed_in? %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_channel_path %></small>
+  <%# end %>
+</h3>
+<ul class="leaflet-list">
   <% @channels.each do |c| %>
-    <li>
-      <img data-src="holder.js/60x60">
-      <p class="text-center"><%= c.name %></p>
-    </li>
+    <a class="pull-left" href=<%= "#{c.source}" %>>
+      <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+      <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+    </a>
+    <div class="media-body">
+      <h5 class="media-heading channel-heading"><%= c.name %><span class="badge pull-right"><%= rand(1..100) %></span></h5>
+      <i class="fa fa-rss-square"> <%= c.source %></i>
+    </div>
   <% end %>
 </ul>

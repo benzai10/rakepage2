@@ -12,6 +12,11 @@
 
   <body>
     <%= render 'shared/navbar' %>
-    <%= yield %>
+    <div class="container">
+      <% if !flash.empty? %>
+        <%= render 'shared/flash_message' %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

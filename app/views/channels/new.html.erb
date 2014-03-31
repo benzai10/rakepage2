@@ -1,0 +1,7 @@
+<h1>Channel#New</h1>
+<%= bootstrap_form_for(@channel) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :channel_type %>
+  <%= f.text_field :source %>
+  <%= f.submit "Save" %>
+<% end %>

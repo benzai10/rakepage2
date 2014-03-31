@@ -10,15 +10,48 @@ body {
   margin-top: 50px;
 }
 
+h1 {
+  font-weight: 200;
+}
+
+h2 {
+  font-weight: 200;
+}
+
 h3 {
   font-weight: 200;
 }
 
-.col-title {
-  text-align: center;
+h4 {
+  font-weight: 200;
+}
+
+h5 {
+  font-weight: 200;
+}
+
+.thumbnail {
+  border-radius: 0px;
 }
 
 .leaflet-list {
+  margin-left: 16px;
   list-style-type: none;
   font-size: 0.85em;
+}
+
+input[type=text] {
+  height: 2.2em;
+}
+
+.title-rake-show {
+  margin-left: 16px;
+}
+
+.channel-heading {
+  margin-bottom: 0px;
+}
+
+.img-rake-show {
+  margin-right: 10px;
 }

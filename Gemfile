@@ -2,11 +2,9 @@ source 'https://rubygems.org'
 
 ruby "2.1.1"
 gem "bootstrap-sass"
-
-# Rails Bootstrap Forms is a rails form builder that makes it super easy to
-# integrate twitter bootstrap-style forms into your rails application.
-gem 'bootstrap-form'
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap_form'
+gem 'font-awesome-sass'
 
 gem 'jquery-turbolinks'
 gem 'devise'
