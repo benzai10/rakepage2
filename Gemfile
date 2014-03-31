@@ -5,6 +5,7 @@ gem "bootstrap-sass"
 gem 'jquery-turbolinks'
 gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'feedjira'
 
 group :production do
 # pre-req for Heroku integration, RoR 4+
