@@ -14,4 +14,15 @@ ActiveAdmin.register Rake do
   #  permitted
   # end
 
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :master_rake
+    column :user
+    column :heap
+    column :updated_at
+    column :created_at
+    actions
+  end
 end
