@@ -5,9 +5,7 @@ class ChannelsController < ApplicationController
   end
 
   def new
-    if user_signed_in?
-      @channel = Channel.new
-    end
+    @channel = Channel.new
   end
 
   def create

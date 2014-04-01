@@ -1,15 +1,13 @@
-<h1>MasterRake#Index <small class="pull-right"><%= link_to "New Master Rake", new_master_rake_path %></small></h1>
-<div class="row">
-  <% @master_rakes.each do |m| %>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <div class="caption">
-          <h4><%= m.name %> <small class="pull-right"><%= link_to "show", master_rake_path(m) %></small></h4>
-          <h5>Channels <span class="badge pull-right"><%= m.channels.count.to_s %></span></h5>
-          <h5>Feed <span class="badge pull-right"><%= rand(1..100) %></span></h5>
-          <h5>Heap <span class="badge pull-right"><%= rand(1..100) %></span></h5>          
-         </div>
-      </div>
+<h1>MasterRake#Index <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_master_rake_path %></small></h1>
+<% @master_rakes.each do |m| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h4><%= m.name %> <small class="pull-right"><%= link_to "show", master_rake_path(m) %></small></h4>
+        <h5>Channels <span class="badge pull-right"><%= m.channels.count.to_s %></span></h5>
+        <h5>Feed <span class="badge pull-right"><%= rand(1..100) %></span></h5>
+        <h5>Heap <span class="badge pull-right"><%= rand(1..100) %></span></h5>          
+       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

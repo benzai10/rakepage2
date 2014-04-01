@@ -1,17 +1,15 @@
 <h1>Channel#Index <small><%= link_to "New Channel", new_channel_path %></small></h1>
-<div class="row">
-  <% @channels.each do |c| %>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <div class="caption">
-          <h3><%= c.name %></h3>
-          <% if c.channel_type == "RSS" %>
-            <i class="fa fa-rss-square"></i> <%= c.source %></p>
-          <% else %>
-            <%= c.source %></p>
-          <% end %>
-        </div>
+<% @channels.each do |c| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3><%= c.name %></h3>
+        <% if c.channel_type == "RSS" %>
+          <i class="fa fa-rss-square"></i> <%= c.source %></p>
+        <% else %>
+          <%= c.source %></p>
+        <% end %>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
