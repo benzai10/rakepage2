@@ -19,6 +19,7 @@ ActiveAdmin.register Leaflet do
     id_column
     column :content
     column :channel
+    column :published_at
     column :created_at
     column :updated_at
     actions
