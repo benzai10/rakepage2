@@ -1,23 +1,18 @@
 namespace :web do
 
+  desc "Delete all leaflets in db"
+  task :crush_leaflets => :environment do
+    print Leaflet.delete_all
+    print " Leaflets crushed!\n"
+  end
 
-  desc "TODO"
+  desc "Get all exisiting feed from all channels"
   task :get_feeds => :environment do
 
     require 'feedjira'
+    require 'feed_helper'
 
-    urls = []
-    channels=Channel.where(channel_type: "rss").each do |channel|
-      urls << channel.source
-    end
-
-    feeds = Feedjira::Feed.fetch_and_parse urls
-    feeds.each do |url,feed|
-      feed.entries.each do |entry|
-        channel = Channel.find_by(source: url)
-        Leaflet.create!(channel_id: channel.id, content: entry.summary, published_at: entry.published)
-      end
-    end
-
+    feeds = Feedjira::Feed.fetch_and_parse FeedHelper::Web.get_feeds
+    FeedHelper::Web.process_feed(feeds)
   end
 end

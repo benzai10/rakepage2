@@ -17,6 +17,7 @@ ActiveAdmin.register Leaflet do
   index do
     selectable_column
     id_column
+    column :identifier
     column :content
     column :channel
     column :published_at
