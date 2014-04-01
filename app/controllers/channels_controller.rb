@@ -11,7 +11,8 @@ class ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     if @channel.save
-      redirect_to :back
+      MasterRake.find(params[:channel][:master_rake_id]).add_channel(@channel)
+      redirect_to master_rake_path(params[:channel][:master_rake_id])
     else
       flash[:error] = @channel.errors.full_messages
       redirect_to :back
