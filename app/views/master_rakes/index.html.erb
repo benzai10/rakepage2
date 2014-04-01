@@ -5,8 +5,8 @@
       <div class="caption">
         <h4><%= m.name %> <small class="pull-right"><%= link_to "show", master_rake_path(m) %></small></h4>
         <h5>Channels <span class="badge pull-right"><%= m.channels.count.to_s %></span></h5>
-        <h5>Feed <span class="badge pull-right"><%= rand(1..100) %></span></h5>
-        <h5>Heap <span class="badge pull-right"><%= rand(1..100) %></span></h5>          
+        <h5>Feed <span class="badge pull-right"><%= Leaflet.where("channel_id IN (?)", m.channels.all).count %></span></h5>
+        <h5>Heap <span class="badge pull-right">?</span></h5>          
        </div>
     </div>
   </div>

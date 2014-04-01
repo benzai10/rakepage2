@@ -7,7 +7,7 @@ class MasterRakesController < ApplicationController
   def show
     @master_rake = MasterRake.find(params[:id])
     @channels = @master_rake.channels.all
-    @leaflets = Leaflet.all
+    @leaflets = Leaflet.where("channel_id IN (?)", @channels)
   end
 
   def new

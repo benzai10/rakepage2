@@ -1,13 +1,16 @@
 <h3>Feed</h3>
-<div class="media">
-  <% @leaflets.each do |l| %>
-    <a class="pull-left" href="#">
-      <img class="media-object" data-src="holder.js/60x60" alt="media image">
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading"><%= l.content %></h4>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, architecto, harum, sed, saepe qui fugiat sunt temporibus natus facilis commodi debitis reiciendis ad deserunt esse dicta nobis tenetur quisquam ab.
-    </div>
-    <br />
+<ul class="leaflet-list">
+  <% @leaflets.order("published_at DESC").each do |l| %>
+    <li class="rake-show-list">
+      <a class="pull-left" href="#">
+        <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
+        <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+      </a>
+      <div class="media-body">
+        <p class="feed-timestamp pull-right"><%= time_ago_in_words(l.published_at) %> ago</p>
+        <br>
+        <p class="feed-body"><%= l.content.html_safe %></p>
+      </div>
+    </li>
   <% end %>
-</div>
+</ul>
