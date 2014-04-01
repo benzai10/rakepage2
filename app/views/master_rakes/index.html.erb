@@ -1,7 +1,13 @@
 <% if !flash.empty? %>
   <%= render 'shared/flash_message' %>
 <% end %>
-<h1>MasterRake#Index <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_master_rake_path %></small></h1>
+<h1>MasterRake#Index 
+  <% if user_signed_in? %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_master_rake_path %></small>
+  <% else %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
+  <% end %>
+</h1>
 <% @master_rakes.each do |m| %>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
