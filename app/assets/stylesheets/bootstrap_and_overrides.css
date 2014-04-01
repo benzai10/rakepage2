@@ -104,6 +104,14 @@ input[type=text] {
   height: 2.2em;
 }
 
+input[type=email] {
+  height: 2.2em;
+}
+
+input[type=password] {
+  height: 2.2em;
+}
+
 .title-rake-show {
   /*margin-left: 16px;*/
 }

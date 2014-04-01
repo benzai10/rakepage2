@@ -4,7 +4,7 @@ module FeedHelper
 
     def self.get_feeds
       urls = []
-      Channel.where(channel_type: "rss").each do |channel|
+      Channel.where(channel_type: "RSS").each do |channel|
         urls << channel.source
       end
       urls
