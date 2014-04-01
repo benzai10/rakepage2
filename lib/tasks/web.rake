@@ -15,4 +15,5 @@ namespace :web do
     feeds = Feedjira::Feed.fetch_and_parse FeedHelper::Web.get_feeds
     FeedHelper::Web.process_feed(feeds)
   end
+
 end
