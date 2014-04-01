@@ -9,13 +9,20 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    @channel = Channel.new(channel_params)
-    if @channel.save
-      MasterRake.find(params[:channel][:master_rake_id]).add_channel(@channel)
-      redirect_to master_rake_path(params[:channel][:master_rake_id])
+    master_rake_id = params[:channel][:master_rake_id]
+    if params[:channel][:id].empty?
+      @channel = Channel.new(channel_params)
+      if @channel.save
+        MasterRake.find(master_rake_id).add_channel(@channel)
+        redirect_to master_rake_path(master_rake_id)
+      else
+        flash[:error] = @channel.errors.full_messages
+        redirect_to :back
+      end
     else
-      flash[:error] = @channel.errors.full_messages
-      redirect_to :back
+      @channel = Channel.find(params[:channel][:id])
+      MasterRake.find(master_rake_id).add_channel(@channel)
+      redirect_to master_rake_path(master_rake_id)
     end
   end
 
