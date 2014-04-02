@@ -8,7 +8,7 @@ class RakesController < ApplicationController
     @rake = Rake.find(params[:id])
     @channels = @rake.channels.all
     @leaflets = Leaflet.where("channel_id IN (?)", @channels)
-    @heap_leaflets = Leaflet.where("id IN (?)", @rake.heap.leaflet_ids)
+    @heap_leaflets = @rake.heap.leaflets
   end
 
   def new

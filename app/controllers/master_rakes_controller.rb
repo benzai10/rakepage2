@@ -11,7 +11,7 @@ class MasterRakesController < ApplicationController
     if user_signed_in?
       @rake = @master_rake.rakes.find_by_user_id(current_user.id)
     end
-    #@heap_leaflets = Leaflet.all
+    @heap_leaflets = Leaflet.none
   end
 
   def new

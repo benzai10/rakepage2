@@ -15,7 +15,11 @@
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
-            <%= link_to '<i class="fa fa-save"></i>'.html_safe, edit_heap_path(@rake.heap, leaflet_id: l.id, :method => :put) %>
+            <% if !@rake.nil? && @rake.user_id == current_user.id %>
+              <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
+                    heap_path(@rake.heap, leaflet_id: l.id, heap_method: "save"), 
+                    :method => :put %>
+            <% end %>
           </span>
         </p>
         <p class="feed-body"><%= l.content.html_safe %></p>

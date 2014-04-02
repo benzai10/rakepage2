@@ -1,8 +1,5 @@
 <h3>Heap</h3>
 <ul class="leaflet-list">
-
-  <% if false %>
-
   <% @heap_leaflets.order("published_at DESC").each do |l| %>
     <li class="rake-show-list">
       <a class="pull-left" href="#">
@@ -12,16 +9,22 @@
       <div class="media-body">
         <p class="feed-timestamp">
           <span class="leaflet-title"><%= l.title %></span>
-          <% if !l.published_at.nil? %>
-            <span class="pull-right"><%= time_ago_in_words(l.published_at) %> ago</span>
-          <% else %>
-            <span class="pull-right"><%= time_ago_in_words(l.created_at) %> ago</span>
-          <% end %>
+          <span class="pull-right">
+            <% if !l.published_at.nil? %>
+              <%= time_ago_in_words(l.published_at) %> ago 
+            <% else %>
+              <%= time_ago_in_words(l.created_at) %> ago 
+            <% end %>
+            <% if !@rake.nil? && @rake.user_id == current_user.id %>
+              <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
+                    heap_path(@rake.heap, leaflet_id: l.id, heap_method: "remove"),
+                    :data => { :confirm => "Are you sure?" },
+                    :method => :put %>
+            <% end %>
+          </span>
         </p>
         <p class="feed-body"><%= l.content.html_safe %></p>
       </div>
     </li>
-  <% end %>
-
   <% end %>
 </ul>
