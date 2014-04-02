@@ -69,14 +69,18 @@ module FeedHelper
       curl.url = url
       begin
         curl.perform
-        title = Nokogiri::HTML(curl.body).title ||= "No title available"
-      rescue
+        title = Nokogiri::HTML(curl.body).title
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
         count += 1
         p "Reconnecting..."
         retry unless count > 5
         p "Aborting! Can't connect to " + url.to_s
       end
-      p title ||= url.to_s
+      if title.nil? || title.blank?
+        p url.to_s
+      else
+        p title
+      end
     end
 
     def self.detect_feed(url)
@@ -87,6 +91,12 @@ module FeedHelper
       curl.url = url
       begin
         curl.perform
+
+        if Nokogiri::XML(curl.body).children.first.name == 'rss'
+          p "ITS a FEED!"
+          return [url]
+        end
+
         Nokogiri::HTML(curl.body).css('link').each do |link|
           if link.attribute("type").respond_to?(:value) && (link.attribute("type").value.include?("rss") || link.attribute("type").value.include?("atom"))
             unless feed_urls.include? (link.attribute("href").value)
@@ -101,7 +111,7 @@ module FeedHelper
           end
         end
         p feed_urls
-      rescue Curl::Err::HostResolutionError
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
         count += 1
         p "Reconnecting..."
         retry unless count > 5
