@@ -1,9 +1,10 @@
 class Channel < ActiveRecord::Base
-  after_create :pull_source
+  require 'feed_helper'
+  before_validation :analyze_source, on: :create
 
+  validates :source, presence: true, :uniqueness => {:case_sensitive => false}
   validates :name, presence: true
   validates :channel_type, presence: true
-  validates :source, presence: true
 
   has_many :channels_master_rakes, dependent: :destroy
   has_many :master_rakes, through: :channels_master_rakes, dependent: :destroy
@@ -13,9 +14,26 @@ class Channel < ActiveRecord::Base
 
   def pull_source
     if self.channel_type == 0
-      require 'feed_helper'
       feeds = Feedjira::Feed.fetch_and_parse [self.source]
       FeedHelper::Web.process_feeds(feeds)
+    end
+  end
+
+  private
+
+  def analyze_source
+    if source =~ URI::regexp
+      spike = FeedHelper::Spike.new
+
+      self.channel_type = 0
+      if self.name.blank?
+        self.name = spike.detect_title(source)
+      end
+
+      feed_url = spike.detect_feed(source)
+      unless feed_url.nil? 
+        self.source = feed_url.first
+      end
     end
   end
 
