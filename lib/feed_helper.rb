@@ -54,6 +54,74 @@ module FeedHelper
       end
       count
     end
-
   end
+
+  class Spike
+    require 'uri'
+    require 'nokogiri'
+    require 'curb'
+
+    def initialize
+      @count=0
+    end
+
+    def detect_title(url)
+      title = String.new
+      begin
+        title = Nokogiri::HTML(Curl.get(url).body).title ||= "No title available"
+      rescue
+        reconnect(0,url)
+      end
+      title
+    end
+
+    def chd
+      Channel.all.each do |channel|
+        title(channel.source)
+        detect(channel.source)
+      end
+      return nil
+    end
+
+    def detect_feed(url)
+      begin
+        feed_urls = []
+        Nokogiri::HTML(Curl.get(url).body).css('link').each do |link|
+          if link.attribute("type").respond_to?(:value) && (link.attribute("type").value.include?("rss") || link.attribute("type").value.include?("atom"))
+            unless feed_urls.include? (link.attribute("href").value)
+              if link.attribute("href").value =~ URI::regexp
+                feed_urls << link.attribute("href").value
+              else
+                uri = URI.parse(url)
+                uri.path = link.attribute("href").value
+                feed_urls << uri.to_s
+              end
+            end
+          end
+        end
+        feed_urls
+      rescue Curl::Err::HostResolutionError
+        reconnect(1,url)
+      end
+    end
+
+    private
+
+    def reconnect(func,url)
+      if @count < 5
+        p "Reconnecting..."
+        @count += 1
+        if func == 0
+          self.title(url)
+        elsif func == 1
+          self.detect(url)
+        end
+      else
+        p "Aborting! Can't get " + url.to_s
+        @count = 0
+        return
+      end
+    end
+  end
+
 end

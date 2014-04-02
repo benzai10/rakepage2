@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401123918) do
+ActiveRecord::Schema.define(version: 20140402100543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,9 +64,17 @@ ActiveRecord::Schema.define(version: 20140401123918) do
 
   add_index "channels_master_rakes", ["channel_id", "master_rake_id"], name: "index_channel_master_rake_on_master_rake_id_and_channel_id", unique: true, using: :btree
 
+  create_table "heap_leaflet_maps", force: true do |t|
+    t.integer  "heap_id"
+    t.integer  "leaflet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "heap_leaflet_maps", ["heap_id", "leaflet_id"], name: "index_heap_leaflet_maps_on_heap_id_and_leaflet_id", unique: true, using: :btree
+
   create_table "heaps", force: true do |t|
     t.integer  "rake_id"
-    t.integer  "leaflet_ids", default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
