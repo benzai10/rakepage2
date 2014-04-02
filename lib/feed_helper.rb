@@ -13,7 +13,7 @@ module FeedHelper
 
     def self.process_feeds(feeds)
       if feeds.nil?
-        p "No  feed is nil!"
+        p "Aborting! Feed can't be nil."
         return
       end
 
@@ -34,11 +34,12 @@ module FeedHelper
           unless Leaflet.where(identifier: entry.entry_id).exists?
             p entry.entry_id
             count+=1
-
-            if entry.summary.blank?
+            content = entry.summary
+            if content.blank?
               content = entry.content
-            elsif
-              content = entry.summary
+              if content.blank?
+                content = "Could not retrive data!"
+              end
             end
             channel = Channel.find_by(source: url)
             Leaflet.create!(channel_id: channel.id,
@@ -65,22 +66,21 @@ module FeedHelper
       @count=0
     end
 
-    def detect_title(url)
-      title = String.new
-      begin
-        title = Nokogiri::HTML(Curl.get(url).body).title ||= "No title available"
-      rescue
-        reconnect(0,url)
-      end
-      title
-    end
-
     def chd
       Channel.all.each do |channel|
         title(channel.source)
         detect(channel.source)
       end
       return nil
+    end
+
+    def detect_title(url)
+      begin
+        title = Nokogiri::HTML(Curl.get(url).body).title ||= "No title available"
+      rescue
+        reconnect(0,url)
+      end
+      title ||= url.to_s
     end
 
     def detect_feed(url)
@@ -112,12 +112,12 @@ module FeedHelper
         p "Reconnecting..."
         @count += 1
         if func == 0
-          self.title(url)
+          self.detect_title(url)
         elsif func == 1
-          self.detect(url)
+          self.detect_feed(url)
         end
       else
-        p "Aborting! Can't get " + url.to_s
+        p "Aborting! Can't connect to " + url.to_s
         @count = 0
         return
       end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140402100543) do
+ActiveRecord::Schema.define(version: 20140402103803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20140402100543) do
     t.datetime "updated_at"
     t.integer  "channel_type"
   end
+
+  add_index "channels", ["source"], name: "index_channels_on_source", unique: true, using: :btree
 
   create_table "channels_master_rakes", force: true do |t|
     t.integer "master_rake_id"
