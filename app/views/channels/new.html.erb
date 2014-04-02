@@ -1,14 +1,22 @@
 <% if !flash.empty? %>
   <%= render 'shared/flash_message' %>
 <% end %>
-<h1>New Channel for <%= MasterRake.find_by_id(params[:master_rake_id]).name %></h1>
+<% if params[:master_rake_id].nil? %>
+  <h1>New Channel for <%= Rake.find_by_id(params[:rake_id]).name %></h1>
+<% else %>
+  <h1>New Channel for <%= MasterRake.find_by_id(params[:master_rake_id]).name %></h1>
+<% end %>
 <div class="row">
   <div class="col-md-6">
     <%= bootstrap_form_for(@channel) do |f| %>
       <%= f.text_field :name %>
       <%= f.text_field :channel_type %>
       <%= f.text_field :source %>
-      <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
+      <% if params[:master_rake_id].nil? %>
+        <%= f.hidden_field :rake_id, value: params[:rake_id] %>
+      <% else %>
+        <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
+      <% end %>
       <br>
       Or choose an existing one (don't do both at the moment!):
       <% channel_array = Channel.all.map { |channel| [channel.name, channel.id] } %>

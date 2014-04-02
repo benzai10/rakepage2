@@ -7,8 +7,17 @@
         <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
       </a>
       <div class="media-body">
-        <p class="feed-timestamp pull-right"><%= time_ago_in_words(l.published_at) %> ago</p>
-        <br>
+        <p class="feed-timestamp">
+          <span class="leaflet-title"><%= l.title %></span>
+          <span class="pull-right">
+            <% if !l.published_at.nil? %>
+              <%= time_ago_in_words(l.published_at) %> ago 
+            <% else %>
+              <%= time_ago_in_words(l.created_at) %> ago 
+            <% end %>
+            <%= link_to '<i class="fa fa-save"></i>'.html_safe, edit_heap_path(@rake.heap, leaflet_id: l.id, :method => :put) %>
+          </span>
+        </p>
         <p class="feed-body"><%= l.content.html_safe %></p>
       </div>
     </li>

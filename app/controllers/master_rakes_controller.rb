@@ -8,6 +8,10 @@ class MasterRakesController < ApplicationController
     @master_rake = MasterRake.find(params[:id])
     @channels = @master_rake.channels.all
     @leaflets = Leaflet.where("channel_id IN (?)", @channels)
+    if user_signed_in?
+      @rake = @master_rake.rakes.find_by_user_id(current_user.id)
+    end
+    #@heap_leaflets = Leaflet.all
   end
 
   def new

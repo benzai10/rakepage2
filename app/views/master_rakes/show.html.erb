@@ -1,6 +1,19 @@
 <% if !flash.empty? %>
   <%= render 'shared/flash_message' %>
 <% end %>
-<h1><%= @master_rake.name %></h1>
+<h1>
+  <%= @master_rake.name %>
+  <small>
+    <% if user_signed_in? %>
+      <% if !@rake.nil? %>
+        <%= link_to "My Rake", rake_path(@rake) %>
+      <% else %>
+        <%= link_to "Customize Rake", new_rake_path(master_rake_id: @master_rake, user_id: current_user) %>
+      <% end %>
+    <% else %>
+        <%= link_to "Customize Rake", new_user_session_path %>
+    <% end %>
+  </small>
+</h1>
 <%= render 'shared/rake_show' %>
 </div>
