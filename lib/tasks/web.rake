@@ -9,11 +9,10 @@ namespace :web do
   desc "Get all exisiting feed from all channels"
   task :get_feeds => :environment do
 
-    require 'feedjira'
     require 'feed_helper'
 
-    feeds = Feedjira::Feed.fetch_and_parse FeedHelper::Web.get_feeds
-    FeedHelper::Web.process_feed(feeds)
+    feeds = Feedjira::Feed.fetch_and_parse FeedHelper::Web.get_channel_feeds
+    FeedHelper::Web.process_feeds(feeds)
   end
 
 end
