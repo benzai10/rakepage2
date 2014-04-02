@@ -62,31 +62,32 @@ module FeedHelper
     require 'nokogiri'
     require 'curb'
 
-    def initialize
-      @count=0
-    end
-
-    def chd
-      Channel.all.each do |channel|
-        title(channel.source)
-        detect(channel.source)
-      end
-      return nil
-    end
-
-    def detect_title(url)
+    def self.detect_title(url)
+      count = 0
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
       begin
-        title = Nokogiri::HTML(Curl.get(url).body).title ||= "No title available"
+        curl.perform
+        title = Nokogiri::HTML(curl.body).title ||= "No title available"
       rescue
-        reconnect(0,url)
+        count += 1
+        p "Reconnecting..."
+        retry unless count > 5
+        p "Aborting! Can't connect to " + url.to_s
       end
-      title ||= url.to_s
+      p title ||= url.to_s
     end
 
-    def detect_feed(url)
+    def self.detect_feed(url)
+      count = 0
+      feed_urls = []
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
       begin
-        feed_urls = []
-        Nokogiri::HTML(Curl.get(url).body).css('link').each do |link|
+        curl.perform
+        Nokogiri::HTML(curl.body).css('link').each do |link|
           if link.attribute("type").respond_to?(:value) && (link.attribute("type").value.include?("rss") || link.attribute("type").value.include?("atom"))
             unless feed_urls.include? (link.attribute("href").value)
               if link.attribute("href").value =~ URI::regexp
@@ -99,29 +100,13 @@ module FeedHelper
             end
           end
         end
-        feed_urls
+        p feed_urls
       rescue Curl::Err::HostResolutionError
-        reconnect(1,url)
-      end
-    end
-
-    private
-
-    def reconnect(func,url)
-      if @count < 5
+        count += 1
         p "Reconnecting..."
-        @count += 1
-        if func == 0
-          self.detect_title(url)
-        elsif func == 1
-          self.detect_feed(url)
-        end
-      else
+        retry unless count > 5
         p "Aborting! Can't connect to " + url.to_s
-        @count = 0
-        return
       end
     end
   end
-
 end
