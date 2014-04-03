@@ -32,9 +32,12 @@ class RakesController < ApplicationController
   def remove_channel
     @rake = Rake.find(params[:id])
     if !params[:channel].nil?
-      channel = Channel.find(params[:channel])
-      @rake.remove_channel(channel)
-      redirect_to rake_path(@rake)
+      @channel = Channel.find(params[:channel])
+      @rake.remove_channel(@channel)
+      respond_to do |format|
+        format.html { redirect_to rake_path(@rake) }
+        format.js { render 'remove_channel' }
+      end
     end
   end
 

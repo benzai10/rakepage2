@@ -15,10 +15,12 @@
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
-            <% if !@rake.nil? && @rake.user_id == current_user.id %>
-              <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
-                    add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
-                    :method => :get %>
+            <% if session[:rake_class] == Rake %>
+              <% if @rake.user_id == current_user.id %>
+                <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
+                      add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
+                      :method => :get, remote: true %>
+              <% end %>
             <% end %>
           </span>
         </p>
