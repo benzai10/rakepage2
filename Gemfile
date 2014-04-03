@@ -6,6 +6,7 @@ gem 'jquery-turbolinks'
 gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'feedjira'
+gem 'pry'
 
 group :production do
 # pre-req for Heroku integration, RoR 4+
@@ -15,6 +16,7 @@ end
 group :development, :test do
 # Read env settings from .env file like heroku does
   gem "foreman"
+  gem "pry-rails"
 end
 
 #### Default
