@@ -61,30 +61,43 @@ module FeedHelper
     require 'uri'
     require 'nokogiri'
     require 'curb'
-    
+    require 'logger'
+    require 'rails'
+
+    @logger = Logger.new("feed_helper.log")
+    @logger.progname = 'Spike'
+
     LINK_TYPE = ['application/rss+xml', 'application/atom+xml']
     XML_NAME = ['rss', 'feed']
+    DEBUG_MSG_A = "- Aborting can't connect to: "
+    DEBUG_MSG_RE = "- Reconnecting to: "
+    DEBUG_MSG_P = " - Parameter: "
+    DEBUG_MSG_R = "Reconnecting..."
 
     def self.detect_title(url)
-      count = 0
-      curl = Curl::Easy.new
-      curl.follow_location = true
-      curl.url = url
+      count = 1
+      curl = get_curl(url)
       begin
         curl.perform
         title = Nokogiri::HTML(curl.body).title
       rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
         count += 1
-        p "Reconnecting..."
+        p DEBUG_MSG_R
         retry unless count > 5
-        p "Aborting! Can't connect to " + url.to_s
+         @logger.debug __method__.to_s + DEBUG_MSG_A  + url
+         p DEBUG_MSG_A + url
+      rescue Exception => e
+        @logger.error e.message
+        @logger.error __method__.to_s + DEBUG_MSG_P + url
+        title = "No title avialable"
       end
-      if title.nil? || title.blank?
+      if title.nil? || title.empty?
         uri = URI.parse(url)
-        if uri.path.blank?
+        if uri.path.empty? || uri.path == '/'
           p url.to_s
         else
           uri.path = ""
+          @logger.debug {__method__.to_s + DEBUG_MSG_RE + uri.to_s }
           detect_title(uri.to_s)
         end
       else
@@ -95,9 +108,7 @@ module FeedHelper
     def self.detect_feed(url)
       count = 0
       feed_urls = []
-      curl = Curl::Easy.new
-      curl.follow_location = true
-      curl.url = url
+      curl = get_curl(url)
       begin
         curl.perform
 
@@ -118,13 +129,32 @@ module FeedHelper
             end
           end
         end
-        p feed_urls
       rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
         count += 1
-        p "Reconnecting..."
+        p DEBUG_MSG_R
         retry unless count > 5
-        p "Aborting! Can't connect to " + url.to_s
+        @logger.debug __method__.to_s + DEBUG_MSG_A  + url
+      rescue Exception => e
+        @logger.error __method__.to_s + " " + e.message + DEBUG_MSG_P + url
       end
+      if feed_urls.empty?
+        raise FeedNotFoundError, "Somehow you fucked up!"
+      end
+      p feed_urls
     end
+
+    private
+
+    def self.get_curl(url)
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
+      curl
+    end
+
   end
+
+  class FeedNotFoundError < StandardError
+  end
+
 end
