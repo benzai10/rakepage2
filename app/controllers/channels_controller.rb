@@ -21,6 +21,7 @@ class ChannelsController < ApplicationController
           MasterRake.find(master_rake_id).add_channel(@channel)
           redirect_to master_rake_path(master_rake_id)
         end
+        @channel.pull_source
       else
         flash[:error] = @channel.errors.full_messages
         redirect_to :back
@@ -34,6 +35,7 @@ class ChannelsController < ApplicationController
         MasterRake.find(master_rake_id).add_channel(@channel)
         redirect_to master_rake_path(master_rake_id)
       end
+      @channel.pull_source
     end
   end
 
