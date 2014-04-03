@@ -7,8 +7,18 @@ Rakepage2::Application.routes.draw do
   resources :channels
   resources :heaps
   resources :leaflets
-  resources :master_rakes
-  resources :rakes
+  resources :master_rakes do
+    member do
+      get 'add_channel'
+      get 'remove_channel'
+    end
+  end
+  resources :rakes do
+    member do
+      get 'add_channel'
+      get 'remove_channel'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

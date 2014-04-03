@@ -6,6 +6,7 @@ class RakesController < ApplicationController
 
   def show
     @rake = Rake.find(params[:id])
+    session[:rake_class] = @rake.class
     @channels = @rake.channels.all
     @leaflets = Leaflet.where("channel_id IN (?)", @channels)
     @heap_leaflets = @rake.heap.leaflets
@@ -25,7 +26,10 @@ class RakesController < ApplicationController
     end
   end
 
-  def update
+  def add_channel
+  end
+
+  def remove_channel
     @rake = Rake.find(params[:id])
     if !params[:channel].nil?
       channel = Channel.find(params[:channel])

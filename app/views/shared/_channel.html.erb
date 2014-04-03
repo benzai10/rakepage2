@@ -1,10 +1,10 @@
-<h3 class="title-rake-show"><%= @channels.count.to_s %> Channels 
+<h3 class="title-rake-show"><%= @channels.count.to_s %> Channels
   <% if user_signed_in? %>
-    <% if @master_rake.nil? %>
-      <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_channel_path(rake_id: params[:id]) %></small>    
-    <% else %>
-      <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_channel_path(master_rake_id: params[:id]) %></small>
-    <% end %>
+    <small>
+      <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
+                  new_channel_path(rake_id: params[:id],
+                  rake_class: session[:rake_class]) %>
+    </small>
   <% else %>
     <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
   <% end %>
@@ -26,7 +26,7 @@
         <i class="fa fa-rss-square"> <%= c.source %></i>
         <% if @master_rake.nil? %>
           <span class="pull-right">
-            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :put %>
+            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
           </span>
         <% end %>
       </div>

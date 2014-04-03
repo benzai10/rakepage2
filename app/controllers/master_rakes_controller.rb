@@ -6,6 +6,7 @@ class MasterRakesController < ApplicationController
 
   def show
     @master_rake = MasterRake.find(params[:id])
+    session[:rake_class] = @master_rake.class
     @channels = @master_rake.channels.all
     @leaflets = Leaflet.where("channel_id IN (?)", @channels)
     if user_signed_in?
