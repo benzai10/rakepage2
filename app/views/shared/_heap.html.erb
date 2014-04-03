@@ -17,9 +17,9 @@
             <% end %>
             <% if !@rake.nil? && @rake.user_id == current_user.id %>
               <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
-                    heap_path(@rake.heap, leaflet_id: l.id, heap_method: "remove"),
+                    remove_leaflet_heap_path(@rake.heap, leaflet_id: l.id),
                     :data => { :confirm => "Are you sure?" },
-                    :method => :put %>
+                    :method => :get %>
             <% end %>
           </span>
         </p>

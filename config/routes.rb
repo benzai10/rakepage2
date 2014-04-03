@@ -5,7 +5,12 @@ Rakepage2::Application.routes.draw do
   devise_for :users
 
   resources :channels
-  resources :heaps
+  resources :heaps do
+    member do
+      get 'add_leaflet'
+      get 'remove_leaflet'
+    end
+  end
   resources :leaflets
   resources :master_rakes do
     member do

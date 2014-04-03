@@ -4,25 +4,27 @@ class HeapsController < ApplicationController
     @heap = Heap.find(params[:id])
   end
 
-  def update
+  def add_leaflet
     @heap = Heap.find(params[:id])
     leaflet = Leaflet.find(params[:leaflet_id])
-    if params[:heap_method] == "remove"
-      begin
-        @heap.remove_leaflet(leaflet)
-        redirect_to rake_path(@heap.rake_id)
-      rescue ActiveRecord::RecordNotUnique
-        flash[:error] = "Error while deleting. Try again."
-        redirect_to :back
-      end
-    else
-      begin
-        @heap.add_leaflet(leaflet)
-        redirect_to rake_path(@heap.rake_id)
-      rescue ActiveRecord::RecordNotUnique
-        flash[:error] = "Leaflet is already in your heap!"
-        redirect_to :back
-      end
+    begin
+      @heap.add_leaflet(leaflet)
+      redirect_to rake_path(@heap.rake_id)
+    rescue ActiveRecord::RecordNotUnique
+      flash[:error] = "Leaflet is already in your heap!"
+      redirect_to :back
+    end
+  end
+
+  def remove_leaflet
+    @heap = Heap.find(params[:id])
+    leaflet = Leaflet.find(params[:leaflet_id])
+    begin
+      @heap.remove_leaflet(leaflet)
+      redirect_to rake_path(@heap.rake_id)
+    rescue ActiveRecord::RecordNotUnique
+      flash[:error] = "Error while deleting. Try again."
+      redirect_to :back
     end
   end
 
