@@ -11,6 +11,7 @@ class ChannelsController < ApplicationController
   def create
     rake_id = params[:channel][:rake_id]
     rake_class = session[:rake_class]
+
     if params[:channel][:id].empty?
       @channel = Channel.new(channel_params)
       if @channel.save
@@ -26,6 +27,7 @@ class ChannelsController < ApplicationController
       rake_class.find(rake_id).add_channel(@channel)
       redirect_to controller: rake_class.to_s.downcase + "s", action: "show", id: rake_id
     end
+
   end
 
   def channel_params
