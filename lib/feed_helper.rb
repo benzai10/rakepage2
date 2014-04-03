@@ -61,33 +61,52 @@ module FeedHelper
     require 'uri'
     require 'nokogiri'
     require 'curb'
+    
+    LINK_TYPE = ['application/rss+xml', 'application/atom+xml']
+    XML_NAME = ['rss', 'feed']
 
-    def initialize
-      @count=0
-    end
-
-    def chd
-      Channel.all.each do |channel|
-        title(channel.source)
-        detect(channel.source)
-      end
-      return nil
-    end
-
-    def detect_title(url)
+    def self.detect_title(url)
+      count = 0
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
       begin
-        title = Nokogiri::HTML(Curl.get(url).body).title ||= "No title available"
-      rescue
-        reconnect(0,url)
+        curl.perform
+        title = Nokogiri::HTML(curl.body).title
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
+        count += 1
+        p "Reconnecting..."
+        retry unless count > 5
+        p "Aborting! Can't connect to " + url.to_s
       end
-      title ||= url.to_s
+      if title.nil? || title.blank?
+        uri = URI.parse(url)
+        if uri.path.blank?
+          p url.to_s
+        else
+          uri.path = ""
+          detect_title(uri.to_s)
+        end
+      else
+        p title
+      end
     end
 
-    def detect_feed(url)
+    def self.detect_feed(url)
+      count = 0
+      feed_urls = []
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
       begin
-        feed_urls = []
-        Nokogiri::HTML(Curl.get(url).body).css('link').each do |link|
-          if link.attribute("type").respond_to?(:value) && (link.attribute("type").value.include?("rss") || link.attribute("type").value.include?("atom"))
+        curl.perform
+
+        if XML_NAME.include? Nokogiri::XML(curl.body).children.first.name
+          return p [url]
+        end
+
+        Nokogiri::HTML(curl.body).css('link').each do |link|
+          if link.attribute("type").respond_to?(:value) && LINK_TYPE.include?(link.attribute("type").value)
             unless feed_urls.include? (link.attribute("href").value)
               if link.attribute("href").value =~ URI::regexp
                 feed_urls << link.attribute("href").value
@@ -99,29 +118,13 @@ module FeedHelper
             end
           end
         end
-        feed_urls
-      rescue Curl::Err::HostResolutionError
-        reconnect(1,url)
-      end
-    end
-
-    private
-
-    def reconnect(func,url)
-      if @count < 5
+        p feed_urls
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
+        count += 1
         p "Reconnecting..."
-        @count += 1
-        if func == 0
-          self.detect_title(url)
-        elsif func == 1
-          self.detect_feed(url)
-        end
-      else
+        retry unless count > 5
         p "Aborting! Can't connect to " + url.to_s
-        @count = 0
-        return
       end
     end
   end
-
 end
