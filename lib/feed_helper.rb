@@ -61,6 +61,9 @@ module FeedHelper
     require 'uri'
     require 'nokogiri'
     require 'curb'
+    
+    LINK_TYPE = ['application/rss+xml', 'application/atom+xml']
+    XML_NAME = ['rss', 'feed']
 
     def self.detect_title(url)
       count = 0
@@ -77,7 +80,13 @@ module FeedHelper
         p "Aborting! Can't connect to " + url.to_s
       end
       if title.nil? || title.blank?
-        p url.to_s
+        uri = URI.parse(url)
+        if uri.path.blank?
+          p url.to_s
+        else
+          uri.path = ""
+          detect_title(uri.to_s)
+        end
       else
         p title
       end
@@ -92,13 +101,12 @@ module FeedHelper
       begin
         curl.perform
 
-        if Nokogiri::XML(curl.body).children.first.name == 'rss'
-          p "ITS a FEED!"
-          return [url]
+        if XML_NAME.include? Nokogiri::XML(curl.body).children.first.name
+          return p [url]
         end
 
         Nokogiri::HTML(curl.body).css('link').each do |link|
-          if link.attribute("type").respond_to?(:value) && (link.attribute("type").value.include?("rss") || link.attribute("type").value.include?("atom"))
+          if link.attribute("type").respond_to?(:value) && LINK_TYPE.include?(link.attribute("type").value)
             unless feed_urls.include? (link.attribute("href").value)
               if link.attribute("href").value =~ URI::regexp
                 feed_urls << link.attribute("href").value
