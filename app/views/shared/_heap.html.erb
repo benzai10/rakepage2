@@ -1,6 +1,6 @@
 <h3>Heap</h3>
 <%= debug session[:current_user] %>
-<ul class="leaflet-list" id="heap">
+<ul class="leaflet-list">
   <% @heap_leaflets.order("published_at DESC").each do |l| %>
     <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
       <a class="pull-left" href="#">
