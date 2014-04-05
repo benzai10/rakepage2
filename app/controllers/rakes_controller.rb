@@ -1,7 +1,7 @@
 class RakesController < ApplicationController
 
   def index
-    Rake.find(:all, conditions: [ "user_id = ?", current_user.id ])
+    @rakes = Rake.find(:all, conditions: [ "user_id = ?", current_user.id ])
   end
 
   def show

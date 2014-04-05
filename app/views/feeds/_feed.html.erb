@@ -21,7 +21,7 @@
                 <% if @rake.user_id == current_user.id %>
                   <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
                         add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
-                        :method => :get, remote: true %>
+                        :method => :get %>
                 <% end %>
               <% end %>
             </span>
