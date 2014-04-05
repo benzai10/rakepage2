@@ -1,5 +1,5 @@
 <div class="col-md-4">
-  <h3>Feed</h3>
+  <h3>Feed <small><%= link_to "refresh", "#" %></h3>
   <ul class="leaflet-list">
     <%# @leaflets.order("published_at DESC").each do |l| %>
     <% @rake.feed_leaflets.order("published_at DESC").each do |l| %>
