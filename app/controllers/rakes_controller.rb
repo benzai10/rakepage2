@@ -7,9 +7,10 @@ class RakesController < ApplicationController
   def show
     @rake = Rake.find(params[:id])
     session[:rake_class] = @rake.class
-    @channels = @rake.channels.all
-    @leaflets = Leaflet.where("channel_id IN (?)", @channels)
-    @heap_leaflets = @rake.heap.leaflets
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def new
@@ -42,6 +43,6 @@ class RakesController < ApplicationController
   end
 
   def rake_params
-    params.require(:rake).permit(:name, :master_rake_id, :user_id)
+    params.require(:rake).permit(:name, :master_rake_id, :user_id, :feed_leaflets)
   end
 end

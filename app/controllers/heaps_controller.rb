@@ -11,7 +11,7 @@ class HeapsController < ApplicationController
       @heap.add_leaflet(leaflet)
       respond_to do |format|
         format.html { redirect_to rake_path(@heap.rake_id) }
-        format.js { render 'add_leaflet' }
+        format.js { render 'heaps/add_leaflet.js.erb' }
       end
     rescue ActiveRecord::RecordNotUnique
       flash[:error] = "Leaflet is already in your heap!"

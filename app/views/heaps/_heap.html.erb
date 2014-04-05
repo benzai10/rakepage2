@@ -1,0 +1,32 @@
+<div class="col-md-4">
+  <h3>Heap</h3>
+  <ul class="leaflet-list" id="heap">
+    <% @rake.heap.leaflets.order("published_at DESC").each do |l| %>
+      <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
+        <a class="pull-left" href="#">
+          <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
+          <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+        </a>
+        <div class="media-body">
+          <p class="feed-timestamp">
+            <span class="leaflet-title"><%= l.title %></span>
+            <span class="pull-right">
+              <% if !l.published_at.nil? %>
+                <%= time_ago_in_words(l.published_at) %> ago 
+              <% else %>
+                <%= time_ago_in_words(l.created_at) %> ago 
+              <% end %>
+              <% if !@rake.nil? && @rake.user_id == current_user.id %>
+                <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
+                      remove_leaflet_heap_path(@rake.heap, leaflet_id: l.id),
+                      :data => { :confirm => "Are you sure?" },
+                      :method => :get, remote: true %>
+              <% end %>
+            </span>
+          </p>
+          <p class="feed-body"><%= l.content.html_safe %></p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
