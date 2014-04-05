@@ -12,5 +12,6 @@ class User < ActiveRecord::Base
             length: { maximum: 20 }, format: { with: VALID_USERNAME_REGEX }
 
   has_many :rakes
+  has_many :authentications
 
 end

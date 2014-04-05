@@ -13,6 +13,10 @@ gem 'feedjira'
 gem 'gon'
 gem 'pry'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem "koala", "~> 1.8.0rc1"
+
 group :production do
 # pre-req for Heroku integration, RoR 4+
   gem "rails_12factor"

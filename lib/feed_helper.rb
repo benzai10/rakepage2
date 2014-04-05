@@ -57,6 +57,38 @@ module FeedHelper
     end
   end
 
+  class Facebook
+    require 'koala'
+    require 'uri'
+
+    def get_likes(oauth_token)
+      liked_pages = []
+      url_pages = {}
+
+      graph = Koala::Facebook::API.new(oauth_token)
+      user_likes = graph.get_connections("me","likes")
+
+      user_likes.each do |like|
+        liked_pages << like["id"]
+      end
+
+      pages = graph.batch do |batch_api|
+        liked_pages.each do |page|
+          batch_api.get_object(page)
+        end
+      end
+
+      pages.each do |page|
+        unless page["website"].nil?
+          url_pages[page["name"]] = page["website"].split(%r{[\s,]}).reject(&:empty?)
+          #url_pages << page["website"].split(%r{[\s,]}).reject(&:empty?)
+        end
+      end
+      url_pages
+    end
+
+  end
+
   class Spike
     require 'uri'
     require 'nokogiri'
@@ -106,7 +138,7 @@ module FeedHelper
     end
 
     def self.detect_feed(url)
-      count = 0
+      count = 1
       feed_urls = []
       curl = get_curl(url)
       begin
@@ -133,12 +165,13 @@ module FeedHelper
         count += 1
         p DEBUG_MSG_R
         retry unless count > 5
+        p DEBUG_MSG_A
         @logger.debug __method__.to_s + DEBUG_MSG_A  + url
       rescue Exception => e
         @logger.error __method__.to_s + " " + e.message + DEBUG_MSG_P + url
       end
       if feed_urls.empty?
-        raise FeedNotFoundError, "Somehow you fucked up!"
+        raise FeedNotFoundError, "Feed not found."
       end
       p feed_urls
     end
