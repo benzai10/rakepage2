@@ -12,6 +12,23 @@ class Channel < ActiveRecord::Base
   has_many :rake_channel_maps, dependent: :destroy
   has_many :rakes, through: :rake_channel_maps, dependent: :destroy
 
+
+  def self.create_channels(urls)
+    urls.each do |url|
+      begin
+        Channel.create!(source: url)
+      rescue FeedHelper::FeedNotFoundError => e
+        p e.message
+      rescue URI::InvalidURIError => e
+        p e.message
+      rescue ActiveRecord::RecordInvalid => e
+        p e.message
+        p url
+      end
+    end
+  end
+
+
   def pull_source
     if self.channel_type == 0
       feeds = Feedjira::Feed.fetch_and_parse [self.source]
@@ -36,7 +53,6 @@ class Channel < ActiveRecord::Base
 
   def parse_link(url)
     u=URI.parse(url)
-
     if (!u.scheme)
         url = "http://" + url
     end

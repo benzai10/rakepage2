@@ -1,8 +1,8 @@
 Rakepage2::Application.routes.draw do
   root to: "pages#landing"
   devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
   devise_for :users
+  ActiveAdmin.routes(self)
 
   resources :channels
   resources :heaps
@@ -10,6 +10,14 @@ Rakepage2::Application.routes.draw do
   resources :master_rakes
   resources :rakes
 
+  resources :authentications do
+    collection do
+      get 'connect_facebook'
+    end
+  end
+
+  match 'auth/:provider/callback', to: 'authentications#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
