@@ -1,5 +1,5 @@
 <div class="col-md-4">
-  <h3>Feed <small><%= link_to "refresh", refresh_feed_channel_path(@rake) %></h3>
+  <h3>Feed <small><%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake), id: "refresh-link" %></small></h3>
   <ul class="leaflet-list">
     <% @rake.feed_leaflets.order("published_at DESC").each do |l| %>
       <li class="rake-show-list">
@@ -26,9 +26,16 @@
             </span>
           </p>
           <p class="feed-body"><%= l.content.html_safe %></p>
-          <p class="feed-body pull-right"><%= link_to "read more", l.url %></p>
+          <% if !l.content.downcase.include? "read more" %>
+            <p class="feed-timestamp pull-right"><%= link_to "read more", l.url %></p>
+          <% end %>
         </div>
       </li>
     <% end %>
   </ul>
 </div>
+<script>
+  $('#refresh-link').click(function() {
+    $('#refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
+  });
+</script>

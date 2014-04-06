@@ -31,3 +31,5 @@ D, [2014-04-05T22:22:59.583717 #79834] DEBUG -- Spike: detect_title- Reconnectin
 E, [2014-04-05T22:22:59.602687 #79834] ERROR -- Spike: Curl::Err::MalformedURLError
 E, [2014-04-05T22:22:59.603500 #79834] ERROR -- Spike: detect_title - Parameter: 
 E, [2014-04-05T22:23:00.696449 #79834] ERROR -- Spike: detect_feed undefined method `name' for nil:NilClass - Parameter: fcb.ch
+D, [2014-04-06T18:54:14.093750 #8385] DEBUG -- Spike: detect_title- Aborting can't connect to: http://stevehuffphoto.com
+D, [2014-04-06T18:54:20.484240 #8385] DEBUG -- Spike: detect_feed- Aborting can't connect to: http://stevehuffphoto.com

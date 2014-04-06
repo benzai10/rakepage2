@@ -24,4 +24,8 @@ class MasterRake < ActiveRecord::Base
     self.heap.leaflets
   end
 
+  def existing_custom_rakes(user)
+    Rake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
+  end
+
 end

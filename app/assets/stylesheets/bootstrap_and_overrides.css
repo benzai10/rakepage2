@@ -50,7 +50,7 @@ h5 {
 .leaflet-list {
   margin-left: 0px;
   list-style-type: none;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 .leaflet-title {
@@ -60,7 +60,7 @@ h5 {
 }
 
 .feed-timestamp {
-  font-size: 0.9em;
+  font-size: 0.85em;
   color: gray;
 }
 

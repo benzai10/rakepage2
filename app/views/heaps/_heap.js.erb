@@ -20,8 +20,10 @@
                     :method => :get, remote: true %>
             </span>
         </p>
-        <p class="feed-body"><%= l.content %></p>
-        <p class="feed-body pull-right"><%= link_to "read more", l.url %></p>
+        <p class="feed-body"><%= l.content.html_safe %></p>
+        <% if !l.content.downcase.include? "read more" %>
+          <p class="feed-timestamp pull-right"><%= link_to "read more", l.url %></p>
+        <% end %>
       </div>
     </li>
   <% end %>
