@@ -2,17 +2,16 @@ class MasterRakesController < ApplicationController
 
   def index
     @master_rakes = MasterRake.all
+    session[:rake_class] = MasterRake
   end
 
   def show
-    @master_rake = MasterRake.find(params[:id])
-    session[:rake_class] = @master_rake.class
-    @channels = @master_rake.channels.all
-    @leaflets = Leaflet.where("channel_id IN (?)", @channels)
-    if user_signed_in?
-      @rake = @master_rake.rakes.find_by_user_id(current_user.id)
+    @rake = MasterRake.find(params[:id])
+    session[:rake_class] = MasterRake
+    respond_to do |format|
+      format.html
+      format.json
     end
-    @heap_leaflets = Leaflet.none
   end
 
   def new

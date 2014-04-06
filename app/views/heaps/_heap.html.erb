@@ -1,7 +1,7 @@
 <div class="col-md-4">
   <h3>Heap</h3>
   <ul class="leaflet-list" id="heap">
-    <% @rake.heap.leaflets.order("published_at DESC").each do |l| %>
+    <% @heap_leaflets.each do |l| %>
       <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
         <a class="pull-left" href="#">
           <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
@@ -25,6 +25,7 @@
             </span>
           </p>
           <p class="feed-body"><%= l.content.html_safe %></p>
+          <p class="feed-body pull-right"><%= link_to "read more", l.url %></p>
         </div>
       </li>
     <% end %>

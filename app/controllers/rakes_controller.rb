@@ -1,11 +1,13 @@
 class RakesController < ApplicationController
 
   def index
+    session[:rake_class] = Rake
     @rakes = Rake.find(:all, conditions: [ "user_id = ?", current_user.id ])
   end
 
   def show
     @rake = Rake.find(params[:id])
+    @heap_leaflets = @rake.heap.leaflets
     session[:rake_class] = @rake.class
     respond_to do |format|
       format.html

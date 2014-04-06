@@ -1,5 +1,7 @@
 <div class="row">
   <%= render 'channels/channel' %>
   <%= render 'feeds/feed' %>
-  <%= render 'heaps/heap' %>  
+  <% if session[:rake_class] == Rake %>
+    <%= render 'heaps/heap' %>
+  <% end %>
 </div>

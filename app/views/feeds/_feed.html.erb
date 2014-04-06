@@ -1,7 +1,6 @@
 <div class="col-md-4">
-  <h3>Feed <small><%= link_to "refresh", "#" %></h3>
+  <h3>Feed <small><%= link_to "refresh", refresh_feed_channel_path(@rake) %></h3>
   <ul class="leaflet-list">
-    <%# @leaflets.order("published_at DESC").each do |l| %>
     <% @rake.feed_leaflets.order("published_at DESC").each do |l| %>
       <li class="rake-show-list">
         <a class="pull-left" href="#">
@@ -21,12 +20,13 @@
                 <% if @rake.user_id == current_user.id %>
                   <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
                         add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
-                        :method => :get %>
+                        :method => :get, remote: true %>
                 <% end %>
               <% end %>
             </span>
           </p>
           <p class="feed-body"><%= l.content.html_safe %></p>
+          <p class="feed-body pull-right"><%= link_to "read more", l.url %></p>
         </div>
       </li>
     <% end %>

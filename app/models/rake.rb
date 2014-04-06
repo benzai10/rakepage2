@@ -1,5 +1,5 @@
 class Rake < ActiveRecord::Base
-  after_create :create_hea
+  after_create :create_heap
   attr_accessor :feed_leaflets
 
   validates :name, presence: true

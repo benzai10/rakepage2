@@ -121,7 +121,7 @@ module FeedHelper
       rescue Exception => e
         @logger.error e.message
         @logger.error __method__.to_s + DEBUG_MSG_P + url
-        title = "No title avialable"
+        title = "No title available"
       end
       if title.nil? || title.empty?
         uri = URI.parse(url)
