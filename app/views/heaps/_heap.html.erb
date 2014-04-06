@@ -1,5 +1,12 @@
 <div class="col-md-4">
-  <h3>Heap</h3>
+  <h3>
+    Heap
+    <% if user_signed_in? && session[:rake_class] == Rake %>
+      <small>
+        <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_leaflet_path(rake_id: params[:id]) %>
+      </small>
+    <% end %>
+  </h3>
   <ul class="leaflet-list" id="heap">
     <% @heap_leaflets.each do |l| %>
       <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
@@ -26,7 +33,7 @@
           </p>
           <p class="feed-body"><%= l.content.html_safe %></p>
           <% if !l.content.downcase.include? "read more" %>
-            <p class="feed-timestamp pull-right"><%= link_to "read more", l.url %></p>
+            <p class="leaflet-read-more  pull-right"><%= link_to "read more", l.url %></p>
           <% end %>
         </div>
       </li>

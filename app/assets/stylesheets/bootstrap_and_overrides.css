@@ -59,6 +59,11 @@ h5 {
   color: black;
 }
 
+.leaflet-read-more {
+  font-size: 0.85em;
+  color: gray;
+}
+
 .feed-timestamp {
   font-size: 0.85em;
   color: gray;

@@ -36,6 +36,8 @@ class MasterRakesController < ApplicationController
     @master_rake = MasterRake.find(params[:id])
   end
 
+  protected
+
   def master_rake_params
     params.require(:master_rake).permit(:name)
   end

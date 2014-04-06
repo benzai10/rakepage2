@@ -33,3 +33,5 @@ E, [2014-04-05T22:22:59.603500 #79834] ERROR -- Spike: detect_title - Parameter:
 E, [2014-04-05T22:23:00.696449 #79834] ERROR -- Spike: detect_feed undefined method `name' for nil:NilClass - Parameter: fcb.ch
 D, [2014-04-06T18:54:14.093750 #8385] DEBUG -- Spike: detect_title- Aborting can't connect to: http://stevehuffphoto.com
 D, [2014-04-06T18:54:20.484240 #8385] DEBUG -- Spike: detect_feed- Aborting can't connect to: http://stevehuffphoto.com
+D, [2014-04-06T22:15:36.033476 #8385] DEBUG -- Spike: detect_title- Reconnecting to: http://gdata.youtube.com
+E, [2014-04-06T22:15:37.794321 #8385] ERROR -- Spike: detect_feed undefined method `name' for nil:NilClass - Parameter: http://gdata.youtube.com/feeds/api/users/stevehuffphoto/uploads

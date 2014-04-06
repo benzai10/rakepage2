@@ -44,6 +44,8 @@ class RakesController < ApplicationController
     end
   end
 
+  protected
+
   def rake_params
     params.require(:rake).permit(:name, :master_rake_id, :user_id, :feed_leaflets)
   end
