@@ -41,19 +41,16 @@ class Channel < ActiveRecord::Base
   def analyze_source
     if parse_link(source) =~ URI::regexp
 
+      feed = FeedHelper::Spike.new(source)
+      self.source = feed.get_feed.first
+      self.name = feed.get_title
       self.channel_type = 0
-      if self.name.blank?
-        self.name = FeedHelper::Spike.detect_title(source)
-      end
-
-      feed_url = FeedHelper::Spike.detect_feed(source)
-      self.source = feed_url.first
     end
   end
 
   def parse_link(url)
-    u=URI.parse(url)
-    if (!u.scheme)
+    uri = Addressable::URI.parse(url)
+    if (!uri.scheme)
         url = "http://" + url
     end
     url

@@ -14,4 +14,18 @@ class User < ActiveRecord::Base
   has_many :rakes
   has_many :authentications
 
+  def get_fb_likes
+    fb_token = get_fb_token
+    unless fb_token.nil?
+      FeedHelper::Facebook.new.get_likes(fb_token)
+    end
+  end
+
+  def get_fb_token
+    fb_provider = authentications.find_by(provider: "facebook")
+    unless fb_provider.nil?
+      fb_provider.oauth_token
+    end
+  end
+
 end
