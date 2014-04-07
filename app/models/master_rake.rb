@@ -17,7 +17,7 @@ class MasterRake < ActiveRecord::Base
   end
 
   def toggle_channel_display(channel, display)
-    self.rake_channel_maps.find_by(channel_id: channel.id).update!(display: display)
+    self.channels_master_rakes.find_by(channel_id: channel.id).update!(display: display)
   end
 
   def feed_leaflets

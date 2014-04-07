@@ -1,1 +1,0 @@
-json.(@channel, :id, :name, :published_at)

@@ -21,12 +21,22 @@
         </a>
         <div class="media-body">
           <h5 class="media-heading channel-heading">
-          <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
-            <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                        toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+          <% if session[:rake_class] == Rake %>
+            <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
+              <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                          toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+            <% else %>
+              <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                          toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+            <% end %>
           <% else %>
-            <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                        toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+            <% if c.channels_master_rakes.find_by_master_rake_id(@rake.id).display %>
+              <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                          toggle_channel_display_master_rake_path(@rake, channel: c.id, display: false) %>
+            <% else %>
+              <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                          toggle_channel_display_master_rake_path(@rake, channel: c.id, display: true) %>
+            <% end %>
           <% end %>
           <%= c.name %>
             <span class="badge pull-right">
