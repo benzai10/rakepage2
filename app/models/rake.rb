@@ -13,7 +13,8 @@ class Rake < ActiveRecord::Base
   has_many :channels, through: :rake_channel_maps, dependent: :destroy
   has_one :heap, dependent: :destroy
 
-  def self.create_page_rake(hash,user,master_rake)
+  def self.create_page_rake(user,master_rake)
+    hash = user.get_fb_likes
     hash.each do |name,urls|
       channels = []
       urls.each do |url|
@@ -25,7 +26,6 @@ class Rake < ActiveRecord::Base
           p e.message
         rescue ActiveRecord::RecordInvalid => e
           p e.message
-          p url
         end
       end
 

@@ -33,7 +33,7 @@ module FeedHelper
         feed.entries.each do |entry|
           unless Leaflet.where(identifier: entry.entry_id).exists?
             p entry.entry_id
-            count+=1
+            count += 1
             content = entry.summary
             if content.blank?
               content = entry.content
@@ -90,101 +90,84 @@ module FeedHelper
   end
 
   class Spike
-    require 'uri'
-    require 'nokogiri'
+    require 'addressable/uri'
     require 'curb'
     require 'logger'
-    require 'rails'
+    require 'nokogiri'
 
-    @logger = Logger.new("feed_helper.log")
-    @logger.progname = 'Spike'
+    @@logger = Logger.new("log/feed_helper.log")
+    @@logger.progname = 'Spike'
 
     LINK_TYPE = ['application/rss+xml', 'application/atom+xml']
     XML_NAME = ['rss', 'feed']
-    DEBUG_MSG_A = "- Aborting can't connect to: "
-    DEBUG_MSG_RE = "- Reconnecting to: "
-    DEBUG_MSG_P = " - Parameter: "
-    DEBUG_MSG_R = "Reconnecting..."
 
-    def self.detect_title(url)
-      count = 1
-      curl = get_curl(url)
-      begin
-        curl.perform
-        title = Nokogiri::HTML(curl.body).title
-      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
-        count += 1
-        p DEBUG_MSG_R
-        retry unless count > 5
-         @logger.debug __method__.to_s + DEBUG_MSG_A  + url
-         p DEBUG_MSG_A + url
-      rescue Exception => e
-        @logger.error e.message
-        @logger.error __method__.to_s + DEBUG_MSG_P + url
-        title = "No title available"
-      end
-      if title.nil? || title.empty?
-        uri = URI.parse(url)
-        if uri.path.empty? || uri.path == '/'
-          p url.to_s
-        else
-          uri.path = ""
-          @logger.debug {__method__.to_s + DEBUG_MSG_RE + uri.to_s }
-          detect_title(uri.to_s)
-        end
-      else
-        p title
-      end
+    DEBUG_MSG_ABORT = "- Aborting can't connect to: "
+    DEBUG_MSG_PARAM = " - Parameter: "
+    DEBUG_MSG_RECONNECTING = "Reconnecting..."
+    MSG_NO_TITLE = "Title not available."
+
+    def initialize(url)
+      @url = parse_link(url)
+      @html=get_html(@url)
     end
 
-    def self.detect_feed(url)
-      count = 1
+    def get_title
+      title = Nokogiri::HTML(@html).title
+      return MSG_NO_TITLE if title.nil? || title.empty?
+      title
+    end
+
+    def get_feed
+      #if its a xml file, check if its a feed
+      return [@url] if Nokogiri::XML(@html).root.respond_to?(:name) && XML_NAME.include?(Nokogiri::XML(@html).root.name)
+
       feed_urls = []
-      curl = get_curl(url)
-      begin
-        curl.perform
-
-        if XML_NAME.include? Nokogiri::XML(curl.body).children.first.name
-          return p [url]
-        end
-
-        Nokogiri::HTML(curl.body).css('link').each do |link|
-          if link.attribute("type").respond_to?(:value) && LINK_TYPE.include?(link.attribute("type").value)
-            unless feed_urls.include? (link.attribute("href").value)
-              if link.attribute("href").value =~ URI::regexp
-                feed_urls << link.attribute("href").value
-              else
-                uri = URI.parse(url)
-                uri.path = link.attribute("href").value
-                feed_urls << uri.to_s
-              end
-            end
+      Nokogiri::HTML(@html).css('link').each do |link|
+        #check all <link> in Head of html for rss/atom
+        if link.attribute("type").respond_to?(:value) && LINK_TYPE.include?(link.attribute("type").value)
+          #if link got scheme(http) host(example.com)
+          if link.attribute("href").value =~ /^#{URI::regexp}$/
+            feed_urls << link.attribute("href").value
+          else #its relative path so we add the url
+            uri = Addressable::URI.parse(@url)
+            uri.path = link.attribute("href").value
+            feed_urls << uri.to_s
           end
         end
-      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
-        count += 1
-        p DEBUG_MSG_R
-        retry unless count > 5
-        p DEBUG_MSG_A
-        @logger.debug __method__.to_s + DEBUG_MSG_A  + url
-      rescue Exception => e
-        @logger.error __method__.to_s + " " + e.message + DEBUG_MSG_P + url
       end
-      if feed_urls.empty?
-        raise FeedNotFoundError, "Feed not found."
-      end
-      p feed_urls
+      feed_urls.uniq
     end
 
     private
 
-    def self.get_curl(url)
+    def get_html(url)
+      count = 1
       curl = Curl::Easy.new
       curl.follow_location = true
       curl.url = url
-      curl
+      begin
+        curl.perform
+        @html = curl.body
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
+        count += 1
+        p DEBUG_MSG_RECONNECTING + url
+        retry unless count > 5
+        p DEBUG_MSG_ABORT
+        @@logger.debug DEBUG_MSG_ABORT + url
+      rescue Exception => e
+        p e.message
+        @@logger.error + e.message + DEBUG_MSG_PARAM + url
+      end
     end
 
+    def parse_link(url)
+      uri = Addressable::URI.parse(url)
+      if (!uri.scheme)
+        url = "http://" + url
+      end
+      return url if url =~ /^#{URI::regexp}$/
+      raise URI::InvalidURIError
+    end
   end
 
   class FeedNotFoundError < StandardError

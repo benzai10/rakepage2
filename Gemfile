@@ -12,6 +12,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'feedjira'
 gem 'gon'
 gem 'pry'
+gem 'pry-byebug'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
