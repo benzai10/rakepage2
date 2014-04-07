@@ -6,7 +6,7 @@
   <div class="col-md-6">
     <%= bootstrap_form_for(@channel) do |f| %>
       <%#= f.text_field :name %>
-      <%#= f.text_field :channel_type %>
+      <%= f.text_field :channel_type %>
       <%= f.text_field :source %>
       <% if params[:master_rake_id].nil? %>
         <%= f.hidden_field :rake_id, value: params[:rake_id] %>
