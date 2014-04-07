@@ -46,9 +46,16 @@ class Channel < ActiveRecord::Base
 
   def analyze_source
     if channel_type == 0 && parse_link(source) =~ URI::regexp
-      feed = FeedHelper::Spike.new(source)
-      self.source = feed.get_feed.first
-      self.name = feed.get_title
+      feed_helper = FeedHelper::Spike.new(source)
+      feeds = feed_helper.get_feed
+
+      self.name = feed_helper.get_title
+      self.source = feeds.shift
+
+      feeds.each do |feed|
+        Channel.create!(source: feed, channel_type: 0)
+      end
+
     end
   end
 

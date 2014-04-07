@@ -80,7 +80,9 @@ module FeedHelper
 
       pages.each do |page|
         unless page["website"].nil?
-          url_pages[page["category"]] = page["website"].split(%r{[\s,]}).reject(&:empty?)
+          url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,]}).reject(&:empty?),
+                                      :fb_link => page["link"],
+                                      :category => page["category"] }
           #url_pages << page["website"].split(%r{[\s,]}).reject(&:empty?)
         end
       end
@@ -108,7 +110,7 @@ module FeedHelper
 
     def initialize(url)
       @url = parse_link(url)
-      @html=get_html(@url)
+      @html = get_html(url)
     end
 
     def get_title
@@ -138,6 +140,10 @@ module FeedHelper
       feed_urls.uniq
     end
 
+    def parse(url)
+      initialize(url)
+    end
+
     private
 
     def get_html(url)
@@ -147,17 +153,18 @@ module FeedHelper
       curl.url = url
       begin
         curl.perform
-        @html = curl.body
+        return curl.body
       rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
         count += 1
         p DEBUG_MSG_RECONNECTING + url
         retry unless count > 5
-        p DEBUG_MSG_ABORT
+        p DEBUG_MSG_ABORT + url
         @@logger.debug DEBUG_MSG_ABORT + url
       rescue Exception => e
         p e.message
         @@logger.error + e.message + DEBUG_MSG_PARAM + url
       end
+      nil
     end
 
     def parse_link(url)
