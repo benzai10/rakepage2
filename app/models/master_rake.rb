@@ -21,7 +21,9 @@ class MasterRake < ActiveRecord::Base
   end
 
   def feed_leaflets
-    feed_leaflets = Leaflet.where("channel_id IN (?)", self.channels.all)
+    feed_leaflets = Leaflet.where("channel_id IN (?)", 
+                      self.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
+
   end
 
   def get_heap

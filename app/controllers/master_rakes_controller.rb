@@ -36,6 +36,18 @@ class MasterRakesController < ApplicationController
     @master_rake = MasterRake.find(params[:id])
   end
 
+  def toggle_channel_display
+    @master_rake = MasterRake.find(params[:id])
+    @channel = Channel.find(params[:channel])
+    display = params[:display] == "true"
+    @master_rake.toggle_channel_display(@channel, display)
+    respond_to do |format|
+      format.html { redirect_to master_rake_path(@master_rake) }
+
+    end
+  end
+
+
   protected
 
   def master_rake_params
