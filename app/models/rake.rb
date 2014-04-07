@@ -15,10 +15,10 @@ class Rake < ActiveRecord::Base
   def self.create_page_rake(user)
     hash = user.get_fb_likes
     hash.each do |name,data|
-      channels = []
+      feed_channels = []
       data[:url].each do |url|
         begin
-          channels << Channel.create!(source: url, channel_type: 0)
+          feed_channels << Channel.create!(source: url, channel_type: 0)
         rescue FeedHelper::FeedNotFoundError => e
           p e.message
         rescue URI::InvalidURIError => e
@@ -28,10 +28,12 @@ class Rake < ActiveRecord::Base
         end
       end
 
-      unless channels.empty?
-        master_rake = MasterRake.find_or_create_by!(name: data[:category])
-        rake = Rake.create(name: data[:category], master_rake_id: master_rake.id, user_id: user.id)
-        channels.each do |channel|
+      master_rake = MasterRake.find_or_create_by!(name: data[:category])
+      rake = Rake.create(name: data[:category], master_rake_id: master_rake.id, user_id: user.id)
+      rake.add_channel(Channel.create!(source: data[:fb_link], channel_type: 1, name: name))
+
+      unless feed_channels.empty?
+        feed_channels.each do |channel|
           rake.add_channel(channel)
           master_rake.add_channel(channel)
         end
