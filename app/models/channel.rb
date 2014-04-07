@@ -5,6 +5,12 @@ class Channel < ActiveRecord::Base
   validates :source, presence: true, :uniqueness => {:case_sensitive => false}
   validates :name, presence: true
   validates :channel_type, presence: true
+  # Enum values
+  # 0: rss/atom
+  # 1: facebook
+  # 2: twitter
+  # 3: rake
+  # 4: reddit
 
   has_many :channels_master_rakes, dependent: :destroy
   has_many :master_rakes, through: :channels_master_rakes, dependent: :destroy
@@ -39,12 +45,10 @@ class Channel < ActiveRecord::Base
   private
 
   def analyze_source
-    if parse_link(source) =~ URI::regexp
-
+    if channel_type == 0 && parse_link(source) =~ URI::regexp
       feed = FeedHelper::Spike.new(source)
       self.source = feed.get_feed.first
       self.name = feed.get_title
-      self.channel_type = 0
     end
   end
 
