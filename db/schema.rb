@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20140407131527) do
   create_table "channels_master_rakes", force: true do |t|
     t.integer "master_rake_id"
     t.integer "channel_id"
-    t.boolean "display"
+    t.boolean "display",        default: true
   end
 
   add_index "channels_master_rakes", ["channel_id", "master_rake_id"], name: "index_channel_master_rake_on_master_rake_id_and_channel_id", unique: true, using: :btree
