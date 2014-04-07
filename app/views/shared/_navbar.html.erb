@@ -20,9 +20,11 @@
                 <ul class="dropdown-menu">
                     <li><%= link_to "Master Rake Index", master_rakes_path %></li>
                     <li><%= link_to "Channel Index", channels_path %></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">My Stuff</li>
-                    <li><%= link_to "My Rakes", rakes_path %></li>
+                    <% if user_signed_in? %>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">My Stuff</li>
+                        <li><%= link_to "My Rakes", rakes_path %></li>
+                    <% end %>
                 </ul>
                 </li>
             </ul>

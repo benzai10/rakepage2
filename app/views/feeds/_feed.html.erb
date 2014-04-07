@@ -1,5 +1,9 @@
 <div class="col-md-4">
-  <h3>Feed <small><%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake), id: "refresh-link" %></small></h3>
+  <h3>Feed 
+    <small>
+      <%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake), id: "refresh-link" %>
+    </small>
+  </h3>
   <ul class="leaflet-list">
     <% @rake.feed_leaflets.order("published_at DESC").each do |l| %>
       <li class="rake-show-list">
@@ -18,13 +22,15 @@
               <% end %>
               <% if session[:rake_class] == Rake %>
                 <% if @rake.user_id == current_user.id %>
-                  <% if @rake.heap.leaflets.include? l %>
-                    <i class="fa fa-star"></i>
-                  <% else %>
-                    <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
-                          add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
-                          :method => :get, remote: true %>
-                  <% end %>
+                  <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
+                    <% if @rake.heap.leaflets.include? l %>
+                      <i class="fa fa-star"></i>
+                    <% else %>
+                      <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
+                            add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
+                            :method => :get, remote: true %>
+                    <% end %>
+                  </span>
                 <% end %>
               <% end %>
             </span>
