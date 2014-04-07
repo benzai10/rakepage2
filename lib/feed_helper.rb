@@ -80,7 +80,8 @@ module FeedHelper
 
       pages.each do |page|
         unless page["website"].nil?
-          url_pages[page["name"]] = page["website"].split(%r{[\s,]}).reject(&:empty?)
+          url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,]}).reject(&:empty?),
+                                      :category => page["category"] }
           #url_pages << page["website"].split(%r{[\s,]}).reject(&:empty?)
         end
       end
