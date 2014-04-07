@@ -26,6 +26,7 @@ Rakepage2::Application.routes.draw do
     member do
       get 'add_channel'
       get 'remove_channel'
+      get 'toggle_channel_display'
     end
   end
 

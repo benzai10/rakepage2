@@ -21,7 +21,13 @@
         </a>
         <div class="media-body">
           <h5 class="media-heading channel-heading">
-          <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe, "#", :method => :get %>
+          <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
+            <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                        toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+          <% else %>
+            <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                        toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+          <% end %>
           <%= c.name %>
             <span class="badge pull-right">
               <%= Leaflet.where("channel_id = ?", c.id).count %>

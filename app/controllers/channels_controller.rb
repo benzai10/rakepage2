@@ -42,7 +42,6 @@ class ChannelsController < ApplicationController
         redirect_to master_rake_path(rake_id)
       end
     end
-
   end
 
   def refresh_feed

@@ -44,6 +44,17 @@ class RakesController < ApplicationController
     end
   end
 
+  def toggle_channel_display
+    @rake = Rake.find(params[:id])
+    @channel = Channel.find(params[:channel])
+    display = params[:display] == "true"
+    @rake.toggle_channel_display(@channel, display)
+    respond_to do |format|
+      format.html { redirect_to rake_path(@rake) }
+
+    end
+  end
+
   protected
 
   def rake_params
