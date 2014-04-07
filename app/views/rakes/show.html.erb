@@ -1,14 +1,5 @@
-<div class="container">
-  <h1>Rake#Show</h1>
-  <div class="row">
-    <div class="col-md-4">
-      <%= render 'shared/channel' %>
-    </div>
-    <div class="col-md-4">
-      <%= render 'shared/feed' %>
-    </div>
-    <div class="col-md-4">
-      <%= render 'shared/heap' %>  
-    </div>
-  </div>
-</div>
+<% if !flash.empty? %>
+  <%= render 'shared/flash_message' %>
+<% end %>
+<h1><%= @rake.name %></h1>
+<%= render 'shared/rake_show' %>

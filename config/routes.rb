@@ -4,11 +4,32 @@ Rakepage2::Application.routes.draw do
   devise_for :users
   ActiveAdmin.routes(self)
 
-  resources :channels
-  resources :heaps
+  resources :channels do
+    member do
+      get 'refresh_feed'
+    end
+  end
+  resources :heaps do
+    member do
+      get 'add_leaflet'
+      get 'remove_leaflet'
+    end
+  end
   resources :leaflets
-  resources :master_rakes
-  resources :rakes
+  resources :master_rakes do
+    member do
+      get 'add_channel'
+      get 'remove_channel'
+      get 'toggle_channel_display'
+    end
+  end
+  resources :rakes do
+    member do
+      get 'add_channel'
+      get 'remove_channel'
+      get 'toggle_channel_display'
+    end
+  end
 
   resources :authentications do
     collection do

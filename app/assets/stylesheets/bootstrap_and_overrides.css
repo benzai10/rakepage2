@@ -1,0 +1,150 @@
+/*
+  =require twitter-bootstrap-static/bootstrap
+
+  Use Font Awesome icons (default)
+  To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
+  =require twitter-bootstrap-static/fontawesome
+  */
+
+body {
+  margin-top: 50px;
+}
+
+.fa {
+  color: black !important;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.ul {
+  margin-left: 0px;
+}
+
+h1 {
+  font-weight: 200;
+}
+
+h2 {
+  font-weight: 200;
+}
+
+h3 {
+  font-weight: 200;
+}
+
+h4 {
+  font-weight: 200;
+}
+
+h5 {
+  font-weight: 200;
+}
+
+.thumbnail {
+  border-radius: 0px;
+}
+
+.leaflet-list {
+  margin-left: 0px;
+  list-style-type: none;
+  font-size: 0.9em;
+}
+
+.leaflet-title {
+  font-size: 1.6em;
+  font-weight: 200;
+  color: black;
+}
+
+.leaflet-read-more {
+  font-size: 0.85em;
+  color: gray;
+}
+
+.feed-timestamp {
+  font-size: 0.85em;
+  color: gray;
+}
+
+.media-body {
+  margin-left: 10px;
+}
+
+.feed-body {
+  font-size: 1em !important;
+}
+
+.feed-body~p {
+  font-size: 1em !important;
+}
+
+.feed-body~h1 {
+  font-weight: 500;
+  font-size: 1em !important;
+}
+
+.feed-body~h2 {
+  font-weight: 500;
+  font-size: 1em !important;
+  line-height: 20px;
+}
+
+.feed-body~h3 {
+  font-weight: 500;
+  font-size: 0.9em !important;
+}
+
+.feed-body~h4 {
+  font-weight: 500;
+  font-size: 0.9em !important;
+}
+
+.feed-body~h5 {
+  font-weight: 500;
+  font-size: 0.9em !important;
+}
+
+.feed-body~ul {
+  font-size: 0.9em !important;
+}
+
+.feed-body~ol {
+  font-size: 0.9em !important;
+}
+
+input[type=text] {
+  height: 2.2em;
+}
+
+input[type=email] {
+  height: 2.2em;
+}
+
+input[type=password] {
+  height: 2.2em;
+}
+
+.title-rake-show {
+  /*margin-left: 16px;*/
+}
+
+.channel-heading {
+  margin-bottom: 0px;
+}
+
+ul.leaflet-list li.rake-show-list {
+  /*background-color: lightgray;*/
+  border-bottom: solid 1px lightgray;
+  padding-top: 5px;
+}
+
+.img-rake-show {
+  margin-right: 10px;
+}
+
+.img-feed-show {
+  margin-right: 10px;
+}

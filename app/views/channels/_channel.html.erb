@@ -1,0 +1,74 @@
+<div class="col-md-4">
+  <% channels = @rake.channels.all %>
+  <h3 class="title-rake-show"><%= channels.count.to_s %> Channels
+    <% if user_signed_in? %>
+      <small>
+        <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
+                    new_channel_path(rake_id: params[:id],
+                    rake_class: session[:rake_class]) %>
+        <%#= link_to "Open modal", "#my-modal", :class => "btn", "data-toggle" => "modal" %>
+      </small>
+    <% else %>
+      <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
+    <% end %>
+  </h3>
+  <ul class="leaflet-list">
+    <% channels.each do |c| %>
+      <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+        <a class="pull-left" href=<%= "#{c.source}" %>>
+          <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+          <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+        </a>
+        <div class="media-body">
+          <h5 class="media-heading channel-heading">
+          <% if session[:rake_class] == Rake %>
+            <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
+              <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                          toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+            <% else %>
+              <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                          toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+            <% end %>
+          <% else %>
+            <% if c.channels_master_rakes.find_by_master_rake_id(@rake.id).display %>
+              <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                          toggle_channel_display_master_rake_path(@rake, channel: c.id, display: false) %>
+            <% else %>
+              <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                          toggle_channel_display_master_rake_path(@rake, channel: c.id, display: true) %>
+            <% end %>
+          <% end %>
+          <%= c.name %>
+            <span class="badge pull-right">
+              <%= Leaflet.where("channel_id = ?", c.id).count %>
+            </span>
+          </h5>
+          <i class="fa fa-rss-square"> <%= c.source %></i>
+          <% if @master_rake.nil? %>
+            <span class="pull-right">
+              <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+            </span>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="modal fade" id="my-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog --> 
+  </div><!-- /.modal -->
+</div>

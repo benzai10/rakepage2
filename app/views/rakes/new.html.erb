@@ -1,0 +1,14 @@
+<% if !flash.empty? %>
+  <%= render 'shared/flash_message' %>
+<% end %>
+<h1>Rake#New</h1>
+<div class="row">
+  <div class="col-md-6">
+  <%= bootstrap_form_for(@rake) do |f| %>
+    <%= f.text_field :name, class: "txtfield", placeholder: "Enter Rake Name" %>
+    <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
+    <%= f.hidden_field :user_id, value: params[:user_id] %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+  <% end %>
+  </div>
+</div>

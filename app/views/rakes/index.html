@@ -1,0 +1,22 @@
+<% if !flash.empty? %>
+  <%= render 'shared/flash_message' %>
+<% end %>
+<h1>Rake#Index 
+  <% if user_signed_in? %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_rake_path %></small>
+  <% else %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
+  <% end %>
+</h1>
+<% @rakes.each do |r| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h4><%= r.name %> <small class="pull-right"><%= link_to "show", rake_path(r) %></small></h4>
+        <h5>Channels <span class="badge pull-right"><%= r.channels.count.to_s %></span></h5>
+        <h5>Feed <span class="badge pull-right"><%= Leaflet.where("channel_id IN (?)", r.channels.all).count %></span></h5>
+        <h5>Heap <span class="badge pull-right"><%= r.heap.leaflets.count %></span></h5>          
+       </div>
+    </div>
+  </div>
+<% end %>

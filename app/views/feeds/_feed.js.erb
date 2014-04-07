@@ -1,0 +1,37 @@
+<ul class="leaflet-list">
+  <% @rake.feed_leaflets.order("published_at DESC").each do |l| %>
+    <li class="rake-show-list" id="<%= 'feed_leaflet_' + l.id.to_s %>">
+      <a class="pull-left" href="#">
+        <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
+        <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+      </a>
+      <div class="media-body">
+        <p class="feed-timestamp">
+          <span class="leaflet-title"><%= l.title %></span>
+          <span class="pull-right">
+            <% if !l.published_at.nil? %>
+              <%= time_ago_in_words(l.published_at) %> ago 
+            <% else %>
+              <%= time_ago_in_words(l.created_at) %> ago 
+            <% end %>
+            <% if session[:rake_class] == Rake %>
+              <% if @rake.user_id == current_user.id %>
+                <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
+                  <% if @rake.heap.leaflets.include? l %>
+                    <i class="fa fa-star"></i>
+                  <% else %>
+                    <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
+                          add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
+                          :method => :get, remote: true %>
+                  <% end %>
+                </span>
+              <% end %>
+            <% end %>
+          </span>
+        </p>
+        <p class="feed-body"><%= l.content.html_safe %></p>
+        <p class="feed-body pull-right"><%= link_to "read more", l.url %></p>
+      </div>
+    </li>
+  <% end %>
+</ul>

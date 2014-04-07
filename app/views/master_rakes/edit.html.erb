@@ -1,0 +1,9 @@
+<% if !flash.empty? %>
+  <%= render 'shared/flash_message' %>
+<% end %>
+<h1>MasterRake#Edit</h1>
+<%= bootstrap_form_for(@master_rake) do |f| %>
+  <%= f.text_field :name, class: "form-control", placeholder: "Text here" %>
+  <h5>Channels</h5>
+  <%= f.submit "Update" %>
+<% end %>

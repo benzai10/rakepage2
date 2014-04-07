@@ -1,29 +1,22 @@
-<div class="container">
-  <h1>Master rake index</h1>
-  <div class="row">
-    <% @master_rakes.each do |m| %>
-      <div class="col-sm-6 col-md-3">
-        <div class="thumbnail">
-          <div class="caption">
-            <h3><%= m.name %></h3>
-            <ul class="list-group">
-              <li class="list-group-item">
-                <span class="badge">14</span>
-                Cras justo odio
-              </li>
-              <li class="list-group-item">
-                <span class="badge">8</span>
-                Lorem ipsum dolor.
-              </li>
-              <li class="list-group-item">
-                <span class="badge">2</span>
-                Sit amet, consectetur.
-              </li>
-            </ul>
-            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
+<% if !flash.empty? %>
+  <%= render 'shared/flash_message' %>
+<% end %>
+<h1>MasterRake#Index 
+  <% if user_signed_in? %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_master_rake_path %></small>
+  <% else %>
+    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
+  <% end %>
+</h1>
+<% @master_rakes.each do |m| %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h4><%= m.name %> <small class="pull-right"><%= link_to "show", master_rake_path(m) %></small></h4>
+        <h5>Channels <span class="badge pull-right"><%= m.channels.count.to_s %></span></h5>
+        <h5>Feed <span class="badge pull-right"><%= Leaflet.where("channel_id IN (?)", m.channels.all).count %></span></h5>
+        <h5>Heap <span class="badge pull-right">?</span></h5>          
+       </div>
+    </div>
   </div>
-</div>
+<% end %>
