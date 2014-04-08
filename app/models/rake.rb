@@ -24,7 +24,10 @@ class Rake < ActiveRecord::Base
         feed_channels << Channel.find_or_create_by!(source: data[:fb_link], channel_type: 1, name: name)
 
         data[:url].each do |url|
-          feed_channels << Channel.find_or_create_by!(source: url, channel_type: 0)
+          feeds = FeedHelper::Spike.new(url).get_feed
+          feeds.each do |feed|
+            feed_channels << Channel.find_or_create_by!(source: feed, channel_type: 0)
+          end
         end
         feed_channels.each do |channel|
           rake.add_channel(channel)
