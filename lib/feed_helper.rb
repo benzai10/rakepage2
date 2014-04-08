@@ -1,59 +1,44 @@
 module FeedHelper
 
-  class Web
-    require 'feedjira'
+  class Cget
+    require 'curb'
+    require 'logger'
 
-#    def self.get_channel_feeds
-#      urls = []
-#      Channel.where(channel_type: 0).each do |channel|
-#        urls << channel.source
-#      end
-#      urls
-#    end
+    @@logger = Logger.new("log/feed_helper.log")
+    @@logger.progname = 'Spike'
 
-    def self.process_feeds(feeds)
-      if feeds.nil?
-        p "Aborting! Feed can't be nil."
-        return
+    DEBUG_MSG_ABORT = "- Aborting can't connect to: "
+    DEBUG_MSG_PARAM = " - Parameter: "
+    DEBUG_MSG_RECONNECTING = "Reconnecting..."
+
+    def self.get(url)
+      count = 1
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
+      curl.timeout = 3
+
+      begin
+        curl.perform
+        return curl.body
+
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
+        count += 1
+        p DEBUG_MSG_RECONNECTING + url
+
+      retry unless count > 5
+        p DEBUG_MSG_ABORT + url
+        @@logger.debug DEBUG_MSG_ABORT + url
+
+      rescue Curl::Err::TimeoutError => e
+        p e.message
+        @@logger.debug DEBUG_MSG_ABORT + url
+
+      rescue Exception => e
+        p e.message
+        @@logger.error + e.message + DEBUG_MSG_PARAM + url
       end
-
-      count = 0
-      feeds.each do |url,feed|
-        count += create_leaflet(url,feed)
-      end
-      print count
-      print " Leaflets created\n"
-    end
-
-    private
-
-    def self.create_leaflet(url,feed)
-      count = 0
-      if feed.respond_to?(:entries)
-        feed.entries.each do |entry|
-          unless Leaflet.where(identifier: entry.entry_id).exists?
-            p entry.entry_id
-            count += 1
-            content = entry.summary
-            if content.blank?
-              content = entry.content
-              if content.blank?
-                content = "Could not retrive data!"
-              end
-            end
-            channel = Channel.find_by(source: url)
-            Leaflet.create!(channel_id: channel.id,
-                            identifier: entry.entry_id,
-                            title: entry.title,
-                            url: entry.url,
-                            author: entry.author,
-                            image: entry.image,
-                            content: content,
-                            published_at: entry.published)
-          end
-        end
-      end
-      count
+      nil
     end
   end
 
@@ -92,12 +77,15 @@ module FeedHelper
   end
 
   class Reddit
-    require 'curb'
     require 'json'
 
     def initialize(url)
       @url = url
-      @json = get_json(url)
+      @json = Cget.get(url)
+    end
+
+    def parse(url)
+      initialize(url)
     end
 
     def process_reddit
@@ -111,58 +99,36 @@ module FeedHelper
 
     def create_leaflet(hash)
       channel = Channel.find_by!(source: @url)
+      if hash["selftext_html"]
+        content = hash["selftext_html"]
+      elsif hash["media_embed"]["content"]
+        content = hash["media_embed"]["content"]
+      else
+        content = "No more content available."
+      end
       Leaflet.create!(channel_id: channel.id,
                       identifier: hash["id"],
-                      title: hash["subreddit"],
+                      title: hash["title"],
                       url: hash["url"],
                       author: hash["author"],
                       image: hash["thumbnail"],
-                      content: hash["title"],
+                      content: content,
                       published_at: Time.at(hash["created"]))
     end
-
-    def get_json(url)
-      curl = Curl::Easy.new
-      curl.follow_location = true
-      curl.url = url
-      begin
-        curl.perform
-        return curl.body
-      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
-        count += 1
-        p DEBUG_MSG_RECONNECTING + url
-        retry unless count > 5
-        p DEBUG_MSG_ABORT + url
-        @@logger.debug DEBUG_MSG_ABORT + url
-      rescue Exception => e
-        p e.message
-        @@logger.error + e.message + DEBUG_MSG_PARAM + url
-      end
-      nil
-    end
-
   end
 
   class Spike
     require 'addressable/uri'
-    require 'curb'
-    require 'logger'
     require 'nokogiri'
-
-    @@logger = Logger.new("log/feed_helper.log")
-    @@logger.progname = 'Spike'
 
     LINK_TYPE = ['application/rss+xml', 'application/atom+xml']
     XML_NAME = ['rss', 'feed']
 
-    DEBUG_MSG_ABORT = "- Aborting can't connect to: "
-    DEBUG_MSG_PARAM = " - Parameter: "
-    DEBUG_MSG_RECONNECTING = "Reconnecting..."
     MSG_NO_TITLE = "Title not available."
 
     def initialize(url)
       @url = parse_link(url)
-      @html = get_html(url)
+      @html = Cget.get(url)
     end
 
     def get_title
@@ -198,27 +164,6 @@ module FeedHelper
 
     private
 
-    def get_html(url)
-      count = 1
-      curl = Curl::Easy.new
-      curl.follow_location = true
-      curl.url = url
-      begin
-        curl.perform
-        return curl.body
-      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
-        count += 1
-        p DEBUG_MSG_RECONNECTING + url
-        retry unless count > 5
-        p DEBUG_MSG_ABORT + url
-        @@logger.debug DEBUG_MSG_ABORT + url
-      rescue Exception => e
-        p e.message
-        @@logger.error + e.message + DEBUG_MSG_PARAM + url
-      end
-      nil
-    end
-
     def parse_link(url)
       uri = Addressable::URI.parse(url)
       if (!uri.scheme)
@@ -229,7 +174,57 @@ module FeedHelper
     end
   end
 
+
   class FeedNotFoundError < StandardError
   end
 
+
+  class Web
+    require 'feedjira'
+
+#    def self.get_channel_feeds
+#      urls = []
+#      Channel.where(channel_type: 0).each do |channel|
+#        urls << channel.source
+#      end
+#      urls
+#    end
+
+    def self.process_feeds(feeds)
+
+      return p "Aborting! Feed can't be nil." if feeds.nil?
+
+      feeds.each do |url,feed|
+        create_leaflet(url,feed)
+      end
+    end
+
+    private
+
+    def self.create_leaflet(url,feed)
+      if feed.respond_to?(:entries)
+        feed.entries.each do |entry|
+          unless Leaflet.where(identifier: entry.entry_id).exists?
+            content = entry.summary
+            if content.blank?
+              content = entry.content
+              if content.blank?
+                content = "Could not retrive data!"
+              end
+            end
+            channel = Channel.find_by(source: url)
+            Leaflet.create!(channel_id: channel.id,
+                            identifier: entry.entry_id,
+                            title: entry.title,
+                            url: entry.url,
+                            author: entry.author,
+                            image: entry.image,
+                            content: content,
+                            published_at: entry.published)
+          end
+        end
+      end
+    end
+
+  end
 end
