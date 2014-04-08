@@ -3,13 +3,13 @@ module FeedHelper
   class Web
     require 'feedjira'
 
-    def self.get_channel_feeds
-      urls = []
-      Channel.where(channel_type: 0).each do |channel|
-        urls << channel.source
-      end
-      urls
-    end
+#    def self.get_channel_feeds
+#      urls = []
+#      Channel.where(channel_type: 0).each do |channel|
+#        urls << channel.source
+#      end
+#      urls
+#    end
 
     def self.process_feeds(feeds)
       if feeds.nil?
@@ -80,13 +80,65 @@ module FeedHelper
 
       pages.each do |page|
         unless page["website"].nil?
-          url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,]}).reject(&:empty?),
+          url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,;]}).reject(&:empty?),
                                       :fb_link => page["link"],
                                       :category => page["category"] }
           #url_pages << page["website"].split(%r{[\s,]}).reject(&:empty?)
         end
       end
       url_pages
+    end
+
+  end
+
+  class Reddit
+    require 'curb'
+    require 'json'
+
+    def initialize(url)
+      @url = url
+      @json = get_json(url)
+    end
+
+    def process_reddit
+      hash_map = JSON.load(@json) unless @json.nil?
+      hash_map["data"]["children"].each do |hash|
+        create_leaflet(hash["data"])
+      end
+    end
+
+    private
+
+    def create_leaflet(hash)
+      channel = Channel.find_by!(source: @url)
+      Leaflet.create!(channel_id: channel.id,
+                      identifier: hash["id"],
+                      title: hash["subreddit"],
+                      url: hash["url"],
+                      author: hash["author"],
+                      image: hash["thumbnail"],
+                      content: hash["title"],
+                      published_at: Time.at(hash["created"]))
+    end
+
+    def get_json(url)
+      curl = Curl::Easy.new
+      curl.follow_location = true
+      curl.url = url
+      begin
+        curl.perform
+        return curl.body
+      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
+        count += 1
+        p DEBUG_MSG_RECONNECTING + url
+        retry unless count > 5
+        p DEBUG_MSG_ABORT + url
+        @@logger.debug DEBUG_MSG_ABORT + url
+      rescue Exception => e
+        p e.message
+        @@logger.error + e.message + DEBUG_MSG_PARAM + url
+      end
+      nil
     end
 
   end
