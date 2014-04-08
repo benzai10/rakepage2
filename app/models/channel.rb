@@ -36,9 +36,13 @@ class Channel < ActiveRecord::Base
 
 
   def pull_source
-    if self.channel_type == 0
+    case self.channel_type
+
+    when 0
       feeds = Feedjira::Feed.fetch_and_parse [self.source]
       FeedHelper::Web.process_feeds(feeds)
+    when 4
+      FeedHelper::Reddit.new(self.source).process_reddit
     end
   end
 
