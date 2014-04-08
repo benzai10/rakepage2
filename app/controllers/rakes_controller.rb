@@ -8,6 +8,7 @@ class RakesController < ApplicationController
   def show
     @rake = Rake.find(params[:id])
     @heap_leaflets = @rake.heap.leaflets
+    @channels = @rake.channels.where("channel_type <> 1")
     session[:rake_class] = @rake.class
     respond_to do |format|
       format.html

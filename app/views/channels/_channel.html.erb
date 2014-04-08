@@ -1,6 +1,5 @@
 <div class="col-md-4">
-  <% channels = @rake.channels.all %>
-  <h3 class="title-rake-show"><%= channels.count.to_s %> Channels
+  <h3 class="title-rake-show"><%= @channels.count.to_s %> Channels
     <% if user_signed_in? %>
       <small>
         <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
@@ -13,7 +12,7 @@
     <% end %>
   </h3>
   <ul class="leaflet-list">
-    <% channels.each do |c| %>
+    <% @channels.each do |c| %>
       <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
         <a class="pull-left" href=<%= "#{c.source}" %>>
           <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
