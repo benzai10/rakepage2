@@ -99,21 +99,23 @@ module FeedHelper
 
     def create_leaflet(hash)
       channel = Channel.find_by!(source: @url)
-      if hash["selftext_html"]
-        content = hash["selftext_html"]
-      elsif hash["media_embed"]["content"]
-        content = hash["media_embed"]["content"]
-      else
-        content = "No more content available."
+      unless Leaflet.where(identifier: hash["id"]).exists?
+        if hash["selftext_html"]
+          content = hash["selftext_html"]
+        elsif hash["media_embed"]["content"]
+          content = hash["media_embed"]["content"]
+        else
+          content = "No more content available."
+        end
+        Leaflet.create!(channel_id: channel.id,
+                        identifier: hash["id"],
+                        title: hash["title"],
+                        url: hash["url"],
+                        author: hash["author"],
+                        image: hash["thumbnail"],
+                        content: content,
+                        published_at: Time.at(hash["created"]))
       end
-      Leaflet.create!(channel_id: channel.id,
-                      identifier: hash["id"],
-                      title: hash["title"],
-                      url: hash["url"],
-                      author: hash["author"],
-                      image: hash["thumbnail"],
-                      content: content,
-                      published_at: Time.at(hash["created"]))
     end
   end
 
