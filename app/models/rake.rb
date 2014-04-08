@@ -20,10 +20,10 @@ class Rake < ActiveRecord::Base
 
         master_rake = MasterRake.find_or_create_by!(name: data[:category])
         rake = Rake.find_or_create_by!(name: data[:category], master_rake_id: master_rake.id, user_id: user.id)
-        feed_channels << Channel.create!(source: data[:fb_link], channel_type: 1, name: name)
+        feed_channels << Channel.find_or_create_by!(source: data[:fb_link], channel_type: 1, name: name)
 
         data[:url].each do |url|
-          feed_channels << Channel.create!(source: url, channel_type: 0)
+          feed_channels << Channel.find_or_create_by!(source: url, channel_type: 0)
         end
         feed_channels.each do |channel|
           rake.add_channel(channel)
