@@ -13,36 +13,6 @@ class Rake < ActiveRecord::Base
   has_many :channels, through: :rake_channel_maps, dependent: :destroy
   has_one :heap, dependent: :destroy
 
-  def self.create_page_rake(user)
-    hash = user.get_fb_likes
-    hash.each do |name,data|
-      feed_channels = []
-      data[:url].each do |url|
-        begin
-          feed_channels << Channel.create!(source: url, channel_type: 0)
-        rescue FeedHelper::FeedNotFoundError => e
-          p e.message
-        rescue URI::InvalidURIError => e
-          p e.message
-        rescue ActiveRecord::RecordInvalid => e
-          p e.message
-        end
-      end
-
-      master_rake = MasterRake.find_or_create_by!(name: data[:category])
-      rake = Rake.create(name: data[:category], master_rake_id: master_rake.id, user_id: user.id)
-      rake.add_channel(Channel.create!(source: data[:fb_link], channel_type: 1, name: name))
-
-      unless feed_channels.empty?
-        feed_channels.each do |channel|
-          rake.add_channel(channel)
-          master_rake.add_channel(channel)
-        end
-      end
-    end
-
-  end
-
   def add_channel(channel)
     self.rake_channel_maps.create(channel_id: channel.id)
   end
