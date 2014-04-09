@@ -9,23 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require font-awesome
  *= require_tree .
  */
 @import "bootstrap";
-
-body {
-  margin-top: 50px;
-}
-
-h3 {
-  font-weight: 200;
-}
-
-.col-title {
-  text-align: center;
-}
-
-.leaflet-list {
-  list-style-type: none;
-  font-size: 0.85em;
-}

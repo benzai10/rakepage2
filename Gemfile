@@ -2,11 +2,15 @@ source 'https://rubygems.org'
 
 ruby "2.1.1"
 gem "bootstrap-sass"
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap_form'
+gem 'font-awesome-sass'
+
 gem 'jquery-turbolinks'
 gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'feedjira'
-
+gem 'gon'
 gem 'pry'
 gem 'pry-byebug'
 
@@ -53,6 +57,7 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+gem 'rabl'
 
 # Provides Holder.js to render image placeholders entirely on the client side
 gem 'holder_rails'
