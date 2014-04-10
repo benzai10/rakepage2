@@ -1,5 +1,5 @@
 class Rake < ActiveRecord::Base
-  after_create :create_heap
+  after_create :create_heap, :create_channel
   attr_accessor :feed_leaflets
 
   validates :name, presence: true
@@ -38,6 +38,10 @@ class Rake < ActiveRecord::Base
 
   def create_heap
     self.heap = Heap.create
+  end
+
+  def create_channel
+    add_channel(Channel.create!(source: id.to_s, name: name, channel_type: 3))
   end
 
 end
