@@ -59,8 +59,11 @@ class Channel < ActiveRecord::Base
       feeds.each do |feed|
         Channel.create!(source: feed, channel_type: 0)
       end
-
+    elsif channel_type == 4
+      feed_helper = FeedHelper::Spike.new(source)
+      self.name = feed_helper.get_title
     end
+
   end
 
   def parse_link(url)

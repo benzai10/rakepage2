@@ -100,10 +100,12 @@ module FeedHelper
     def create_leaflet(hash)
       channel = Channel.find_by!(source: @url)
       unless Leaflet.where(identifier: hash["id"]).exists?
-        if hash["selftext_html"]
-          content = hash["selftext_html"]
-        elsif hash["media_embed"]["content"]
-          content = hash["media_embed"]["content"]
+        if !hash["selftext_html"].nil?
+          content = CGI.unescapeHTML(hash["selftext_html"])
+        elsif !hash["media_embed"]["content"].nil?
+          content = CGI.unescapeHTML(hash["media_embed"]["content"])
+        elsif !hash["thumbnail"].nil?
+          content = "<img src=#{hash["thumbnail"]} />"
         else
           content = "No more content available."
         end
