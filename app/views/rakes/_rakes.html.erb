@@ -1,0 +1,22 @@
+<div class="col-md-4">
+  <h3 class="title-rake-show"><%= @rakes.count.to_s %> Rakes
+    <% if user_signed_in? %>
+      <small>
+        <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_rake_path %>
+      </small>
+    <% else %>
+      <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
+    <% end %>
+  </h3>
+  <ul class="leaflet-list">
+    <% @rakes.each do |r| %>
+      <li class="rake-show-list" id="<%= 'rake_' + r.id.to_s %>">
+        <div class="media-body">
+          <h5 class="media-heading channel-heading">
+            <%= link_to r.name, rake_path(r.id) %>
+          </h5>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
