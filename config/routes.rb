@@ -23,8 +23,8 @@ Rakepage2::Application.routes.draw do
       get 'toggle_channel_display'
     end
     collection do
-      get 'choose_master_rake'
-      post 'choose_master_rake'
+      get 'add_rake'
+      post 'add_rake'
     end
   end
   resources :rakes do
