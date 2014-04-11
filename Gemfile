@@ -5,6 +5,8 @@ gem "bootstrap-sass"
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap_form'
 gem 'font-awesome-sass'
+gem 'chartkick', '~> 1.2.4'
+gem 'groupdate', '~> 2.1.0'
 
 gem 'jquery-turbolinks'
 gem 'devise'

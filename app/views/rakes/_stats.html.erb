@@ -3,5 +3,6 @@
     Statistics
   </h3>
   <ul class="leaflet-list">
+    <%= column_chart Leaflet.group_by_day(:created_at).count %>
   </ul>
 </div>
