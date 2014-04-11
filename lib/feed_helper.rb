@@ -216,13 +216,22 @@ module FeedHelper
                 content = "Could not retrive data!"
               end
             end
+
+            if entry.respond_to?(:image)
+              image = entry.image 
+            elsif entry.respond_to?(:itunes_image)
+              image = entry.itunes_image
+            else
+              image = nil
+            end
+
             channel = Channel.find_by(source: url)
             Leaflet.create!(channel_id: channel.id,
                             identifier: entry.entry_id,
                             title: entry.title,
                             url: entry.url,
                             author: entry.author,
-                            image: entry.image,
+                            image: image,
                             content: content,
                             published_at: entry.published)
           end
