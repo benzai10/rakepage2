@@ -38,9 +38,9 @@
             <% end %>
           <% end %>
           <%= c.name %>
-            <span class="badge pull-right">
-              <%= Leaflet.where("channel_id = ?", c.id).count %>
-            </span>
+<!--             <span class="badge pull-right">
+              <%#= Leaflet.where("channel_id = ?", c.id).count %>
+            </span> -->
           </h5>
           <i class="fa fa-rss-square"> <%= c.source %></i>
           <% if @master_rake.nil? %>
