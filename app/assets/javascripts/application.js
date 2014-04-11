@@ -14,7 +14,6 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
-//= require twitter/bootstrap
 //= require_tree .
 //= require facebook
 //= require turbolinks
