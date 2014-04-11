@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby "2.1.1"
 gem "bootstrap-sass"
-#gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails'
 gem 'bootstrap_form'
 gem 'font-awesome-sass'
 gem 'chartkick', '~> 1.2.4'
@@ -19,6 +19,9 @@ gem 'pry-byebug'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem "koala", "~> 1.8.0rc1"
+
+gem 'execjs'
+
 
 group :production do
 # pre-req for Heroku integration, RoR 4+
