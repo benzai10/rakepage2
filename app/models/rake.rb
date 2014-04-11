@@ -1,5 +1,5 @@
 class Rake < ActiveRecord::Base
-  after_create :create_heap, :create_channel
+  after_create :create_heap, :create_channel, :inherit_channels
   attr_accessor :feed_leaflets
 
   validates :name, presence: true
@@ -47,6 +47,10 @@ class Rake < ActiveRecord::Base
 
   def create_channel
     add_channel(Channel.create!(source: id.to_s, name: name, channel_type: 3))
+  end
+
+  def inherit_channels
+    MasterRake.find(self.master_rake_id).channels.each { |channel| add_channel(channel) }
   end
 
 end

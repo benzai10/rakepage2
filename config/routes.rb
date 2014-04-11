@@ -1,7 +1,7 @@
 Rakepage2::Application.routes.draw do
   root to: "pages#landing"
   devise_for :admin_users, ActiveAdmin::Devise.config
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" }
   ActiveAdmin.routes(self)
 
   resources :channels do
@@ -21,6 +21,10 @@ Rakepage2::Application.routes.draw do
       get 'add_channel'
       get 'remove_channel'
       get 'toggle_channel_display'
+    end
+    collection do
+      get 'choose_master_rake'
+      post 'choose_master_rake'
     end
   end
   resources :rakes do

@@ -48,10 +48,22 @@ class MasterRakesController < ApplicationController
     end
   end
 
+  def choose_master_rake
+    @master_rakes = MasterRake.all
+
+    unless params[:master_rake].nil?
+      params[:master_rake][:rakes].each do |master_rake_id,val|
+        m_rake = MasterRake.find(master_rake_id)
+        Rake.create!(name: m_rake.name, master_rake_id: master_rake_id, user_id: current_user.id)
+      end
+      redirect_to rakes_path
+    end
+  end
+
 
   protected
 
   def master_rake_params
-    params.require(:master_rake).permit(:name)
+    params.require(:master_rake).permit(:name, :rake)
   end
 end
