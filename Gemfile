@@ -20,9 +20,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem "koala", "~> 1.8.0rc1"
 
-gem 'execjs'
-
-
 group :production do
 # pre-req for Heroku integration, RoR 4+
   gem "rails_12factor"
@@ -52,7 +49,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -19,6 +19,3 @@
 //= require facebook
 //= require turbolinks
 //= require holder
-
-$(document).bind 'page:change', ->
-  Holder.run()
