@@ -13,7 +13,7 @@
     <div class="thumbnail">
       <div class="caption">
         <h4><%= r.name %> <small class="pull-right"><%= link_to "show", rake_path(r) %></small></h4>
-        <h5>Channels <span class="badge pull-right"><%= r.channels.count.to_s %></span></h5>
+        <h5>Channels <span class="badge pull-right"><%= r.channels.where("channel_type <> 1").count.to_s %></span></h5>
         <h5>Feed <span class="badge pull-right"><%= Leaflet.where("channel_id IN (?)", r.channels.all).count %></span></h5>
         <h5>Heap <span class="badge pull-right"><%= r.heap.leaflets.count %></span></h5>          
        </div>

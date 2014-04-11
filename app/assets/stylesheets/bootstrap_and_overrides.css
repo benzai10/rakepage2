@@ -50,17 +50,17 @@ h5 {
 .leaflet-list {
   margin-left: 0px;
   list-style-type: none;
-  font-size: 0.9em;
+  font-size: 12px;
 }
 
 .leaflet-title {
-  font-size: 1.6em;
+  font-size: 16px;
   font-weight: 200;
   color: black;
 }
 
 .leaflet-read-more {
-  font-size: 0.85em;
+  font-size: 12px;
   color: gray;
 }
 

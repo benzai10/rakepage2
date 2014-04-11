@@ -7,6 +7,7 @@ class MasterRakesController < ApplicationController
 
   def show
     @rake = MasterRake.find(params[:id])
+    @channels = @rake.channels.where("channel_type <> 1")
     session[:rake_class] = MasterRake
     respond_to do |format|
       format.html
