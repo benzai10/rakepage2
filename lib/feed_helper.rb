@@ -90,7 +90,7 @@ module FeedHelper
     end
 
     def get_title
-      @hash_map["data"]["children"].each { |hash| return hash["data"]["subreddit"] }
+      @hash_map["data"]["children"].each { |hash| return "/r/" << hash["data"]["subreddit"] }
     end
 
     def parse(url)
