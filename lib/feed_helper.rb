@@ -82,10 +82,15 @@ module FeedHelper
   class Reddit
     require 'json'
 
-    def initialize(url)
-      @url = reddify_url(url)
+    def initialize(path)
+      @path = path
+      @url = reddify_url(path)
       json = Cget.get(@url)
       @hash_map = JSON.load(json) unless json.nil?
+    end
+
+    def get_title
+      @hash_map["data"]["children"].each { |hash| return hash["data"]["subreddit"] }
     end
 
     def parse(url)
@@ -100,7 +105,7 @@ module FeedHelper
     private
 
     def create_leaflet(hash)
-      channel = Channel.find_by!(source: @url)
+      channel = Channel.find_by!(source: @path)
       unless Leaflet.where(identifier: hash["id"]).exists?
         if !hash["selftext_html"].nil?
           content = CGI.unescapeHTML(hash["selftext_html"])
