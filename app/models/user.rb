@@ -16,35 +16,48 @@ class User < ActiveRecord::Base
 
   def import_fb
     hash = get_fb_likes
+    webdev = false
     hash.each do |name,data|
-      begin
-
-        feed_channels = []
-
-        master_rake = MasterRake.find_or_create_by!(name: data[:category])
-        rake = Rake.find_or_create_by!(name: data[:category], master_rake_id: master_rake.id, user_id: id)
-        feed_channels << Channel.find_or_create_by!(source: data[:fb_link], channel_type: 1, name: name)
-
-        data[:url].each do |url|
-          feeds = FeedHelper::Spike.new(url).get_feed
-          feeds.each do |feed|
-            feed_channels << Channel.find_or_create_by!(source: feed, channel_type: 0)
-          end
-        end
-
-        feed_channels.each do |channel|
-          rake.add_channel(channel)
-          master_rake.add_channel(channel)
-        end
-
-      rescue FeedHelper::FeedNotFoundError => e
-        p e.message
-      rescue URI::InvalidURIError => e
-        p e.message
-      rescue ActiveRecord::RecordInvalid => e
-        p e.message
+      case name.downcase
+      when "ruby on rails" then webdev = true
+      when "javascript" then webdev = true
+      when "nodejs" then webdev = true
       end
     end
+
+    if webdev == true
+      master_rake = MasterRake.find_by(name: "Web Development")
+      Rake.create!(name: master_rake.name, master_rake_id: master_rake.id, user_id: id)
+    end
+    #    hash.each do |name,data|
+    #      begin
+    #
+    #        feed_channels = []
+    #
+    #        master_rake = MasterRake.find_or_create_by!(name: data[:category])
+    #        rake = Rake.find_or_create_by!(name: data[:category], master_rake_id: master_rake.id, user_id: id)
+    #        feed_channels << Channel.find_or_create_by!(source: data[:fb_link], channel_type: 1, name: name)
+    #
+    #        data[:url].each do |url|
+    #          feeds = FeedHelper::Spike.new(url).get_feed
+    #          feeds.each do |feed|
+    #            feed_channels << Channel.find_or_create_by!(source: feed, channel_type: 0)
+    #          end
+    #        end
+    #
+    #        feed_channels.each do |channel|
+    #          rake.add_channel(channel)
+    #          master_rake.add_channel(channel)
+    #        end
+    #
+    #      rescue FeedHelper::FeedNotFoundError => e
+    #        p e.message
+    #      rescue URI::InvalidURIError => e
+    #        p e.message
+    #      rescue ActiveRecord::RecordInvalid => e
+    #        p e.message
+    #      end
+    #    end
   end
 
   def get_fb_likes
