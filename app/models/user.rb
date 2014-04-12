@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
     if webdev == true
       master_rake = MasterRake.find_by(name: "Web Development")
-      Rake.create!(name: master_rake.name, master_rake_id: master_rake.id, user_id: id)
+      Rake.find_or_create_by!(name: master_rake.name, master_rake_id: master_rake.id, user_id: id)
     end
     #    hash.each do |name,data|
     #      begin
