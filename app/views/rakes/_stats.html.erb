@@ -2,7 +2,12 @@
   <h3 class="title-rake-show">
     Statistics
   </h3>
-  <ul class="leaflet-list">
+  <div>
+    <%= pluralize(User.find(current_user.id).get_snapshot_count, "Snapshot") %> processed
+  </div>
+  <br>
+  <div>
+    Number of Leaflets per day
     <%= column_chart Leaflet.group_by_day(:created_at).count %>
-  </ul>
+  </div>
 </div>

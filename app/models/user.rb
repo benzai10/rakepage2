@@ -74,4 +74,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_snapshot_count
+    get_snapshot_count = 0
+    self.rakes.each do |r|
+      get_snapshot_count += r.snapshot_count
+    end
+    return get_snapshot_count
+  end
+
 end
