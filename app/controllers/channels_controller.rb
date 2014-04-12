@@ -47,7 +47,7 @@ class ChannelsController < ApplicationController
   def refresh_feed
     rake_class = session[:rake_class]
     rake = rake_class.find(params[:id])
-    rake.update_attribute(:refreshed_at, DateTime.now)
+    #rake.update_attribute(:refreshed_at, DateTime.now)
     rake.channels.each do |c|
       c.pull_source
     end

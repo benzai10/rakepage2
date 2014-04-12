@@ -28,10 +28,10 @@ class Rake < ActiveRecord::Base
   def feed_leaflets
     if self.refreshed_at.nil?
       feed_leaflets = Leaflet.where("channel_id IN (?)", 
-                      self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).limit(10)
+                      self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
     else
       feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}'", 
-                      self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).limit(10)
+                      self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
     end
   end
 

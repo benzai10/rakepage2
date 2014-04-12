@@ -14,6 +14,9 @@
         <div class="media-body">
           <h5 class="media-heading channel-heading">
             <%= link_to r.name, rake_path(r.id) %>
+             <span class="badge pull-right">
+              <%= r.feed_leaflets.count %>
+            </span>
           </h5>
         </div>
       </li>
