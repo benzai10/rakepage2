@@ -7,4 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 AdminUser.create(email: "admin@example.com", password: "password")
 MasterRake.create!(name: "Web Development")
+User.create!(email: "example@example.com", username: "example_user", password: "password")
 

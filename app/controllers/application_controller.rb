@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    rakes_path
+    if resource.is_a?(User)
+      rakes_path
+    else
+      super
+    end
   end
 
   protected

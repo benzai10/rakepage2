@@ -2,7 +2,11 @@ class AuthenticationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @authentications = current_user.authentications if current_user
+    if current_user
+      @authentications = current_user.authentications
+      current_user.import_fb unless @authentications.find_by(provider: "facebook").nil? ||
+                                    @authentications.find_by(provider: "facebook").empty?
+    end
   end
 
   def create
