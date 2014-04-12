@@ -9,8 +9,7 @@ class RakesController < ApplicationController
     @rake = Rake.find(params[:id])
     @heap_leaflets = @rake.heap.leaflets
     @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
-    @feed_leaflets = Leaflet.where("channel_id IN (?)", 
-                     @rake.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).page(params[:page]).per(10)
+    @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
     session[:rake_class] = @rake.class
     respond_to do |format|
       format.html
