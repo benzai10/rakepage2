@@ -4,8 +4,7 @@ class AuthenticationsController < ApplicationController
   def index
     if current_user
       @authentications = current_user.authentications
-      current_user.import_fb unless @authentications.find_by(provider: "facebook").nil? ||
-                                    @authentications.find_by(provider: "facebook").empty?
+      current_user.import_fb unless @authentications.find_by(provider: "facebook").nil?
     end
   end
 
