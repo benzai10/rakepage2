@@ -2,7 +2,7 @@
   <h3 class="title-rake-show"><%= @rakes.count.to_s %> Rakes
     <% if user_signed_in? %>
       <small>
-        <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_rake_path %>
+        <%= link_to '<i class="fa fa-plus"></i>'.html_safe, add_rake_master_rakes_path %>
       </small>
     <% else %>
       <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>

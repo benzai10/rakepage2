@@ -64,12 +64,15 @@ module FeedHelper
       end
 
       pages.each do |page|
-        unless page["website"].nil?
-          url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,;]}).reject(&:empty?),
-                                      :fb_link => page["link"],
-                                      :category => page["category"] }
+        hash = { :url => nil}
+        hash[:url] = page["website"].split(%r{[\s,;]}).reject(&:empty?) unless page["website"].nil?
+        hash[:fb_link] = page["link"]
+        hash[:category] = page["category"]
+          #url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,;]}).reject(&:empty?),
+                                      #:fb_link => page["link"],
+                                      #:category => page["category"] }
           #url_pages << page["website"].split(%r{[\s,]}).reject(&:empty?)
-        end
+          url_pages[page["name"]] = hash
       end
       url_pages
     end
@@ -80,8 +83,9 @@ module FeedHelper
     require 'json'
 
     def initialize(url)
-      @url = url
-      @json = Cget.get(url)
+      @url = reddify_url(url)
+      json = Cget.get(@url)
+      @hash_map = JSON.load(json) unless json.nil?
     end
 
     def parse(url)
@@ -89,10 +93,8 @@ module FeedHelper
     end
 
     def process_reddit
-      hash_map = JSON.load(@json) unless @json.nil?
-      hash_map["data"]["children"].each do |hash|
-        create_leaflet(hash["data"])
-      end
+      @hash_map["data"]["children"].each { |hash|
+        create_leaflet(hash["data"]) } unless @hash_map.nil?
     end
 
     private
@@ -119,6 +121,12 @@ module FeedHelper
                         published_at: Time.at(hash["created"]))
       end
     end
+
+    def reddify_url(url)
+      raise FeedNotFoundError if url.empty?
+      "http://www.reddit.com/r/" << url << ".json"
+    end
+
   end
 
   class Spike

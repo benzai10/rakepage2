@@ -48,8 +48,9 @@ class MasterRakesController < ApplicationController
     end
   end
 
-  def choose_master_rake
-    @master_rakes = MasterRake.all
+  def add_rake
+    ids = current_user.rakes.pluck(:master_rake_id)
+    @master_rakes = MasterRake.where.not(id: ids)
 
     unless params[:master_rake].nil?
       params[:master_rake][:rakes].each do |master_rake_id,val|

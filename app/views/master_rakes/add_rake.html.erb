@@ -4,7 +4,7 @@
 <h1>Pick your rakes!</h1>
 <div class="row">
   <div class="col-md-6">
-  <%= form_tag choose_master_rake_master_rakes_path do %>
+  <%= form_tag add_rake_master_rakes_path do %>
     <% @master_rakes.each do |rake| %>
       <p>
       <%= label_tag rake.name, nil, class: "checkbox inline" %>
