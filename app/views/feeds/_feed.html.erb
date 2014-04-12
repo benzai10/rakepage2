@@ -5,6 +5,9 @@
     </small>
   </h3>
   <ul class="leaflet-list">
+    <% if session[:rake_class] != MasterRake %>
+      <% @rake.update_attribute(:snapshot_count, @rake.snapshot_count + @feed_leaflets.count) %>
+    <% end %>
     <% @feed_leaflets.each do |l| %>
       <li class="rake-show-list">
         <a class="pull-left" href="#">

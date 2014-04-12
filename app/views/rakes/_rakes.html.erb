@@ -1,5 +1,5 @@
 <div class="col-md-4">
-  <h3 class="title-rake-show"><%= @rakes.count.to_s %> Rakes
+  <h3 class="title-rake-show"><%= pluralize(@rakes.count.to_s, "Rake") %>
     <% if user_signed_in? %>
       <small>
         <%= link_to '<i class="fa fa-plus"></i>'.html_safe, add_rake_master_rakes_path %>
