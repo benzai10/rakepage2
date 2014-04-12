@@ -1,8 +1,8 @@
 Rakepage2::Application.routes.draw do
   root to: "pages#landing"
   devise_for :admin_users, ActiveAdmin::Devise.config
-  devise_for :users, :controllers => { :registrations => "registrations" }
   ActiveAdmin.routes(self)
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   resources :channels do
     member do
