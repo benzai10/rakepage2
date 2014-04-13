@@ -1,7 +1,21 @@
 <div class="col-md-4">
-  <h3>Feed 
+  <h3>
+    <% if session[:feed_type] == "saved" %>
+      <span class="feed-type-inactive">Feed</span>
+    <% else %>
+      <span class="feed-type-active">Feed</span>
+    <% end %>
     <small>
-      <%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake), id: "refresh-link" %>
+      <%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake, feed_type: "news"), id: "refresh-link" %>
+    </small>
+    |
+    <% if session[:feed_type] == "saved" %>
+      <span class="feed-type-active">Saved</span>
+    <% else %>
+      <span class="feed-type-inactive">Saved</span>
+    <% end %>
+    <small>
+      <%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake, feed_type: "saved"), id: "saved-refresh-link" %>
     </small>
   </h3>
   <ul class="leaflet-list">
@@ -52,5 +66,9 @@
 <script>
   $('#refresh-link').click(function() {
     $('#refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
+  });
+</script>
+  $('#saved-refresh-link').click(function() {
+    $('#saved-refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
   });
 </script>

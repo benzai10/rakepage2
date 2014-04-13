@@ -43,6 +43,16 @@ h5 {
   font-weight: 200;
 }
 
+.feed-type-inactive {
+}
+
+.feed-type-active {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  background-color: gray;
+}
+
 .thumbnail {
   border-radius: 0px;
 }
