@@ -82,4 +82,13 @@ class User < ActiveRecord::Base
     return get_snapshot_count
   end
 
+  def get_notifications
+    ids = []
+    self.rakes.each do |rake|
+      ids << rake.master_rake_id
+    end
+    Rake.find(ids)
+
+  end
+
 end

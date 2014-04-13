@@ -15,6 +15,7 @@ class MasterRakesController < ApplicationController
       format.html
       format.json
     end
+    @notifications = current_user.get_notifcations
   end
 
   def new
