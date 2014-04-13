@@ -111,7 +111,7 @@ module FeedHelper
           content = CGI.unescapeHTML(hash["selftext_html"])
         elsif !hash["media_embed"]["content"].nil?
           content = CGI.unescapeHTML(hash["media_embed"]["content"])
-        elsif !hash["thumbnail"].nil?
+        elsif !hash["thumbnail"].empty?
           content = "<img src=#{hash["thumbnail"]} />"
         else
           content = "No more content available."
