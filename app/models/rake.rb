@@ -65,7 +65,7 @@ class Rake < ActiveRecord::Base
   end
 
   def inherit_channels
-    MasterRake.find(self.master_rake_id).channels.each { |channel| add_channel(channel) }
+    MasterRake.find(self.master_rake_id).channels.each { |channel| add_channel(channel) unless channel.channel_type == 5 }
   end
 
 end

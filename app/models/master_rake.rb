@@ -16,7 +16,7 @@ class MasterRake < ActiveRecord::Base
                     content: "Channel " + channel.name + " has been added to " + name,
                     published_at: Time.new,
                     author: "Rakepage",
-                    identifier: "channel_" + channel.id)
+                    identifier: "channel_" + channel.id.to_s)
   end
 
   def remove_channel(channel)
