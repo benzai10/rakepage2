@@ -54,8 +54,9 @@
           </p>
           <p class="feed-body"><%= l.content.html_safe %></p>
           <% if !l.content.downcase.include? "read more" %>
-            <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url %></p>
+            <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url, class: "external", value: l.id, target: "_blank" %></p>
           <% end %>
+          <span class="v_count_<%= l.id %>">view count: <%= l.view_count %></span>
         </div>
       </li>
     <% end %>

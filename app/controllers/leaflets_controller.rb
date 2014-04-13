@@ -21,6 +21,13 @@ class LeafletsController < ApplicationController
     end
   end
 
+  def view_add
+    unless params['leaflet']['id'].empty?
+    Leaflet.increment_counter(:view_count, params['leaflet']['id']) 
+    end
+    render nothing: true
+  end
+
   protected
 
   def leaflet_params
