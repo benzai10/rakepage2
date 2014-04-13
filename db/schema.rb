@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412070258) do
+ActiveRecord::Schema.define(version: 20140413081908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(version: 20140412070258) do
     t.string   "url"
     t.string   "author"
     t.string   "image"
+    t.integer  "save_count",   default: 0
+    t.integer  "view_count",   default: 0
   end
 
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree
