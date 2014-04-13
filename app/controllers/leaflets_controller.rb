@@ -6,7 +6,7 @@ class LeafletsController < ApplicationController
 
   def new
     @leaflet = Leaflet.new
-    @channels = Rake.find(params[:rake_id]).channels
+    @channel_id = Rake.find(params[:rake_id]).channels.where("channel_type = 3").first.id
   end
 
   def create
