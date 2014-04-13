@@ -17,4 +17,13 @@ $(function() {
         success: function(resp){ }
         });
     });
+
+
+    $('#refresh-link').click(function() {
+        $('#refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
+    });
+    $('#saved-refresh-link').click(function() {
+        $('#saved-refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
+    });
+
 });
