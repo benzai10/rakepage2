@@ -9,6 +9,33 @@ class RakesController < ApplicationController
     @rake = Rake.find(params[:id])
     @heap_leaflets = @rake.heap.leaflets
     @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
+    session[:feed_type] = params[:feed_type]
+    @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
+    session[:rake_class] = @rake.class
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
+  def news
+    @rake = Rake.find(params[:id])
+    @heap_leaflets = @rake.heap.leaflets
+    @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
+    session[:feed_type] = "news"
+    @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
+    session[:rake_class] = @rake.class
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
+  def saved
+    @rake = Rake.find(params[:id])
+    @heap_leaflets = @rake.heap.leaflets
+    @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
+    session[:feed_type] = "saved"
     @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
     session[:rake_class] = @rake.class
     respond_to do |format|
