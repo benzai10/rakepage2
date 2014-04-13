@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412070258) do
+ActiveRecord::Schema.define(version: 20140413094312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,13 +130,14 @@ ActiveRecord::Schema.define(version: 20140412070258) do
   add_index "rake_channel_maps", ["rake_id"], name: "index_rake_channel_maps_on_rake_id", using: :btree
 
   create_table "rakes", force: true do |t|
-    t.string   "name",           default: "", null: false
+    t.string   "name",               default: "", null: false
     t.integer  "master_rake_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "refreshed_at"
-    t.integer  "snapshot_count", default: 0
+    t.integer  "snapshot_count",     default: 0
+    t.datetime "saved_refreshed_at"
   end
 
   create_table "users", force: true do |t|

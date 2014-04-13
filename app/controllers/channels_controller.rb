@@ -45,11 +45,16 @@ class ChannelsController < ApplicationController
   end
 
   def refresh_feed
+    session[:feed_type] = params[:feed_type]
     rake_class = session[:rake_class]
     rake = rake_class.find(params[:id])
-    rake.update_attribute(:refreshed_at, DateTime.now) unless rake_class == MasterRake
-    rake.channels.each do |c|
-      c.pull_source
+    if session[:feed_type] == "saved"
+      rake.update_attribute(:saved_refreshed_at, DateTime.now) unless rake_class == MasterRake
+    else
+      rake.update_attribute(:refreshed_at, DateTime.now) unless rake_class == MasterRake
+      rake.channels.each do |c|
+        c.pull_source
+      end
     end
     if session[:rake_class] == Rake
       redirect_to rake_path(params[:id])
