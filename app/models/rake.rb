@@ -36,7 +36,7 @@ class Rake < ActiveRecord::Base
       if self.saved_refreshed_at.nil?
         feed_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
       else
-        feed_leaflets = Leaflet.where("id IN (?) AND created_at >= '#{self.saved_refreshed_at}'", leaflet_ids)
+        feed_leaflets = Leaflet.where("id IN (?) AND updated_at >= '#{self.saved_refreshed_at}'", leaflet_ids)
       end
     else
       if self.refreshed_at.nil?
@@ -46,7 +46,7 @@ class Rake < ActiveRecord::Base
         feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}'", 
                         self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
       end
-      #feed_leaflets = feed_leaflets.where("id NOT IN (?)", self.heap.leaflets.pluck(:id))
+      #feed_leaflets = temp.where("id NOT IN (?)", self.heap.leaflets.pluck(:id))
     end
   end
 

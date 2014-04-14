@@ -1,0 +1,5 @@
+<% if !flash.empty? %>
+  <%= render 'shared/flash_message' %>
+<% end %>
+<h1><%= @rake.name %></h1>
+<%= render 'shared/rake_show' %>

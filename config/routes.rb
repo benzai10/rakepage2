@@ -36,6 +36,8 @@ Rakepage2::Application.routes.draw do
       get 'add_channel'
       get 'remove_channel'
       get 'toggle_channel_display'
+      get 'news'
+      get 'saved'
     end
   end
 

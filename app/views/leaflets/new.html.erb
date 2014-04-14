@@ -1,16 +1,17 @@
 <% if !flash.empty? %>
   <%= render 'shared/flash_message' %>
 <% end %>
-<h1>Leaflet#New</h1>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 col-md-offset-3">
+  <h1>Leaflet#New</h1>
   <%= bootstrap_form_for(@leaflet) do |f| %>
     <%= f.hidden_field :rake_id, value: params[:rake_id] %>
     <%= f.text_field :title, class: "txtfield", placeholder: "Enter Title" %>
     <%= f.text_field :content, class: "txtfield", placeholder: "Enter Description or Content" %>
     <%= f.text_field :url, class: "txtfield", placeholder: "Enter a URL" %>
-    <% channel_array = @channels.map { |channel| [channel.name, channel.id] } %>
-    <%= f.select :channel_id, options_for_select(channel_array), { include_blank: true }, { hide_label: true, } %>
+    <%# channel_array = @channels.map { |channel| [channel.name, channel.id] } %>
+    <%#= f.select :channel_id, options_for_select(channel_array), { include_blank: true }, { hide_label: true, } %>
+    <%= f.hidden_field :channel_id, value: @channel_id %>
     <%= f.submit "Save", class: "btn btn-primary" %>
   <% end %>
   </div>
