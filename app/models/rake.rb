@@ -47,6 +47,7 @@ class Rake < ActiveRecord::Base
                         self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
       end
       #feed_leaflets = temp.where("id NOT IN (?)", self.heap.leaflets.pluck(:id))
+      feed_leaflets.order('published_at DESC')
     end
   end
 

@@ -123,7 +123,7 @@ module FeedHelper
                         author: hash["author"],
                         image: hash["thumbnail"],
                         content: content,
-                        published_at: Time.at(hash["created"]))
+                        published_at: Time.at(hash["created_utc"]).utc)
       end
     end
 
@@ -198,6 +198,7 @@ module FeedHelper
 
   class Web
     require 'feedjira'
+    require 'digest/md5'
 
 #    def self.get_channel_feeds
 #      urls = []
@@ -231,16 +232,23 @@ module FeedHelper
             end
 
             if entry.respond_to?(:image)
-              image = entry.image 
+              image = entry.image
             elsif entry.respond_to?(:itunes_image)
               image = entry.itunes_image
             else
               image = nil
             end
 
+            if entry.entry_id.nil?
+              ident = Digest::MD5.hexdigest(entry.url + entry.title).to_s
+              return if Leaflet.where(identifier: ident).exists?
+            else
+              ident = entry.entry_id
+            end
+
             channel = Channel.find_by(source: url)
             Leaflet.create!(channel_id: channel.id,
-                            identifier: entry.entry_id,
+                            identifier: ident,
                             title: entry.title,
                             url: entry.url,
                             author: entry.author,
