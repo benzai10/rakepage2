@@ -26,7 +26,7 @@ module FeedHelper
         count += 1
         p DEBUG_MSG_RECONNECTING + url
 
-      retry unless count > 10
+      retry unless count > 5
         p DEBUG_MSG_ABORT + url
         @@logger.debug DEBUG_MSG_ABORT + url
 
