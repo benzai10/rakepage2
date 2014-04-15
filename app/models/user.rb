@@ -29,35 +29,6 @@ class User < ActiveRecord::Base
       master_rake = MasterRake.find_by(name: "Web Development")
       Rake.find_or_create_by!(name: master_rake.name, master_rake_id: master_rake.id, user_id: id)
     end
-    #    hash.each do |name,data|
-    #      begin
-    #
-    #        feed_channels = []
-    #
-    #        master_rake = MasterRake.find_or_create_by!(name: data[:category])
-    #        rake = Rake.find_or_create_by!(name: data[:category], master_rake_id: master_rake.id, user_id: id)
-    #        feed_channels << Channel.find_or_create_by!(source: data[:fb_link], channel_type: 1, name: name)
-    #
-    #        data[:url].each do |url|
-    #          feeds = FeedHelper::Spike.new(url).get_feed
-    #          feeds.each do |feed|
-    #            feed_channels << Channel.find_or_create_by!(source: feed, channel_type: 0)
-    #          end
-    #        end
-    #
-    #        feed_channels.each do |channel|
-    #          rake.add_channel(channel)
-    #          master_rake.add_channel(channel)
-    #        end
-    #
-    #      rescue FeedHelper::FeedNotFoundError => e
-    #        p e.message
-    #      rescue URI::InvalidURIError => e
-    #        p e.message
-    #      rescue ActiveRecord::RecordInvalid => e
-    #        p e.message
-    #      end
-    #    end
   end
 
   def get_fb_likes
@@ -88,7 +59,30 @@ class User < ActiveRecord::Base
       ids << Leaflet.where(channel_id: rake.master_rake.get_notification.id).pluck(:id)
     end
     Leaflet.find(ids.flatten!) unless ids.empty?
+  end
 
+  def get_created_leaflets
+    rake_ids = self.rakes.pluck(:id)
+    channel_ids = Channel.where("channels.source IN (?)", rake_ids.map(&:to_s)).pluck(:id)
+    Leaflet.where("leaflets.channel_id IN (?)", channel_ids.map(&:to_s)).uniq
+  end
+
+  def get_created_leaflets_count
+    get_created_leaflets.count
+  end
+
+  def get_save_count
+    self.rakes.map{ |rake| rake.heap.leaflets.count }.sum
+  end
+
+  def get_saves
+    leaflets = self.rakes.map{ |rake| rake.heap.leaflets }.flatten
+    leaflets.inject(Hash.new(0)) { |total, e| total[e.channel.name] += 1 ;total }
+  end
+
+  def get_save_score
+    leaflets = get_created_leaflets
+    leaflets.map(&:save_count).sum - leaflets.count
   end
 
 end

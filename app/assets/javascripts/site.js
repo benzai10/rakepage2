@@ -7,7 +7,7 @@ $(function() {
 
         element = $(".v_count_" + id);
         sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
-        element.text(" view count: " + sum);
+        element.text(sum);
 
         $.ajax({
             url: "/leaflets/view_add",

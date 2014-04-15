@@ -50,6 +50,7 @@
           <% end %>
           <p>
             <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+            <i class="fa fa-user"></i> <%= c.count_subscribers %>
             <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
           </p>
         </div>

@@ -1,13 +1,25 @@
 <div class="col-md-4">
   <h3 class="title-rake-show">
-    Statistics
+    Stats
   </h3>
-  <div>
-    <%= pluralize(User.find(current_user.id).get_snapshot_count, "Snapshot") %> processed
-  </div>
   <br>
   <div>
-    Number of Leaflets per day
-    <%= column_chart Leaflet.group_by_day(:created_at).count %>
+      
+    <h4><i class='fa fa-trophy'></i> <strong>Power Contributor</strong>
+      <small>
+        <i class='fa fa-star'></i> <%= current_user.get_save_count %>
+        <i class='fa fa-leaf'></i> <%= current_user.get_created_leaflets_count %>
+        <i class='fa fa-share'></i> <%= current_user.get_save_score %>
+      </small>
+    </h4>
+      <br>
+  </div>
+  <div>
+    <strong>Curation History</strong>
+    <%= column_chart Leaflet.group_by_day(:created_at, format: "%D").count, height: "250px" %>
+  </div>
+  <div>
+    <strong>Channel Relevance</strong>
+    <%= pie_chart(current_user.get_saves) %>
   </div>
 </div>

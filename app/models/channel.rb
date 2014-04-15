@@ -34,6 +34,9 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  def count_subscribers
+    RakeChannelMap.where(channel_id: id, display: true).count
+  end
 
   def pull_source
     case self.channel_type
