@@ -1,2 +1,2 @@
- 115.times {Leaflet.create(channel_id: Channel.first.id, title: "No title", content: "No content", identifier: rand.to_s, url: "#", author: "3", created_at: 7.day.ago)}
+ 115.times {Leaflet.create(channel_id: Channel.last.id, title: "No title", content: "No content", identifier: rand.to_s, url: "#", author: "3", created_at: 7.day.ago)}
 

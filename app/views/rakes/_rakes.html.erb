@@ -22,4 +22,8 @@
       </li>
     <% end %>
   </ul>
+  <div>
+    <strong>Channel Relevance</strong>
+    <%= pie_chart(current_user.get_saves) %>
+  </div>
 </div>

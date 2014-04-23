@@ -18,8 +18,4 @@
     <strong>Curation History</strong>
     <%= column_chart Leaflet.group_by_day(:created_at, format: "%D").count, height: "250px" %>
   </div>
-  <div>
-    <strong>Channel Relevance</strong>
-    <%= pie_chart(current_user.get_saves) %>
-  </div>
 </div>
