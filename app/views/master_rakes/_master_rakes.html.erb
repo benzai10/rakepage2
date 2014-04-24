@@ -1,0 +1,23 @@
+<div class="col-md-4">
+  <h3>Rake Templates</h3>
+  <ul>
+    <% @master_rakes.each_with_index do |m, i| %>
+      <% if m.id == params[:id].to_i %>
+        <li class="rake-list-active">
+      <% else %>
+        <li class="rake-list">
+      <% end %>
+        <% rake = Rake.where("user_id = ? AND master_rake_id = ?", current_user.id, m.id).first %>
+        <% if !rake.nil? %>
+          <%= link_to "<i class='fa fa-rocket'></i>".html_safe, rake_path(rake.id), title: "go to my rake" %>
+        <% else %>
+          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: m.id), title: "create a new rake" %>
+        <% end %>
+        <%= link_to m.name, master_rakes_path(id: m.id) %>
+        <span class="badge pull-right">
+          <%= m.channels.count %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,14 +1,76 @@
-<% if !flash.empty? %>
-  <%= render 'shared/flash_message' %>
+<% rake_name = MasterRake.find(params[:master_rake_id].to_i).name %>
+<h1><%= rake_name %></h1>
+<%= bootstrap_form_for(@rake) do |f| %>
+  <%= f.hidden_field :name, value: rake_name %>
+  <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>
-<h1>Rake#New</h1>
 <div class="row">
-  <div class="col-md-6">
-  <%= bootstrap_form_for(@rake) do |f| %>
-    <%= f.text_field :name, class: "txtfield", placeholder: "Enter Rake Name" %>
-    <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
-    <%= f.hidden_field :user_id, value: params[:user_id] %>
-    <%= f.submit "Save", class: "btn btn-primary" %>
-  <% end %>
+  <div class="col-md-4">
+    <h3 class="title-rake-show">Channels</h3>
+    <ul class="leaflet-list">
+      <% @channels.each do |c| %>
+        <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+          <span class="pull-left" >
+            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+            <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading channel-heading">
+
+              <% if session[:displayed_channels].include?(c.id) %>
+                <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe, new_rake_path(master_rake_id: @master_rake.id, display_channel: "no", channel_id: c.id) %>
+              <% else %>
+                <%= link_to '<i class="fa fa-square-o"></i>'.html_safe, new_rake_path(master_rake_id: @master_rake.id, display_channel: "yes", channel_id: c.id) %>
+              <% end %>
+
+              <%= c.name %>
+            </h5>
+            <i class="fa fa-rss-square"> <%= c.source %></i>
+            <p>
+              <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+              <i class="fa fa-user"></i> <%= c.count_subscribers %>
+              <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <h3 class="title-rake-show">Feed Preview</h3>
+    <ul class="leaflet-list">
+      <% @feed_leaflets.each do |l| %>
+        <li class="rake-show-list">
+          <a class="pull-left" href="#">
+            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
+            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+          </a>
+          <div class="media-body">
+            <p class="feed-timestamp">
+              <span class="leaflet-title"><%= l.title %></span>
+              <span class="pull-right">
+                <% if !l.published_at.nil? %>
+                  <%= time_ago_in_words(l.published_at) %> ago 
+                <% else %>
+                  <%= time_ago_in_words(l.created_at) %> ago 
+                <% end %>
+              </span>
+            </p>
+            <p class="feed-body"><%= l.content.html_safe %></p>
+            <% if !l.content.downcase.include? "read more" %>
+              <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url, class: "external", value: l.id, target: "_blank" %></p>
+            <% end %>
+            <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+            <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <%= paginate @feed_leaflets %>
+  </div>
+  <div class="col-md-4">
+    <h3 class="title-rake-show">Customized Filters</h3>
   </div>
 </div>

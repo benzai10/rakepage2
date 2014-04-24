@@ -1,8 +1,14 @@
 class MasterRakesController < ApplicationController
 
   def index
+    session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
+    if params[:id].nil?
+      @channels = @master_rakes.first.channels
+    else
+      @channels = @master_rakes.find_by_id(params[:id].to_i).channels
+    end
   end
 
   def show

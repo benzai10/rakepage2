@@ -1,0 +1,23 @@
+<div class="col-md-4">
+  <h3>Channels</h3>
+  <% if params[:id].nil? %>
+    <div class="select-rake-info">
+      Select a rake template to see available channels!
+    </div>
+  <% else %>
+    <% @channels.each do |c| %>
+      <% if c.channel_type != 5 %>
+        <div class="media">
+          <% if c.channel_type == 4 %>
+            <span class="pull-left"><%= image_tag("reddit-32.png", class: "media-object", size: "16x16") %></span>
+          <% else %>
+            <span class="pull-left"><%= image_tag("rss-32.png", class: "media-object", size: "16x16") %></span>
+          <% end %>
+          <div class="media-body">
+            <h5 class="media-heading"><%= c.name %></h5>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

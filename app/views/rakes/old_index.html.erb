@@ -1,0 +1,14 @@
+<h1>My Rakes</h1>
+<div class="row">
+  <%= render 'stats' %>
+  <%= render 'rakes' %>
+
+  <div class="col-md-4">
+    <h3 class="title-rake-show">
+      Notifications
+    </h3>
+  <%= render partial: 'notification', collection: @notifications %>
+  </div>
+
+
+</div>

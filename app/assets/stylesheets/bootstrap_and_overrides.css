@@ -43,6 +43,10 @@ h5 {
   font-weight: 200;
 }
 
+.desc-text {
+  font-size: 0.9em;
+}
+
 .feed-type-inactive {
 }
 
@@ -55,6 +59,39 @@ h5 {
 
 .thumbnail {
   border-radius: 0px;
+}
+
+.select-rake-info {
+  padding: 20px;
+  border: dotted 1px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 200;
+}
+
+.rake-list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: -24px;
+  list-style-type: none;
+  border-bottom: dotted 1px;
+}
+
+.rake-list-active {
+  background-color: gainsboro;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: -24px;
+  list-style-type: none;
+  border-bottom: dotted 1px;
+}
+
+.channel-list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: -24px;
+  list-style-type: none;
+  border-bottom: dotted 1px;
 }
 
 .leaflet-list {

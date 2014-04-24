@@ -8,12 +8,16 @@
       <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
     <% end %>
   </h3>
-  <ul class="leaflet-list">
+  <ul>
     <% @rakes.each do |r| %>
-      <li class="rake-show-list" id="<%= 'rake_' + r.id.to_s %>">
+      <% if r.id == params[:rake_id].to_i %>
+        <li class="rake-list-active" id="<%= 'rake_' + r.id.to_s %>">
+      <% else %>
+        <li class="rake-list" id="<%= 'rake_' + r.id.to_s %>">
+      <% end %>
         <div class="media-body">
           <h5 class="media-heading channel-heading">
-            <%= link_to r.name, rake_path(r.id) %>
+            <%= link_to r.name, rakes_path(rake_id: r.id) %>
              <span class="badge pull-right">
               <%= r.feed_leaflets("news").count %>
             </span>
@@ -22,8 +26,4 @@
       </li>
     <% end %>
   </ul>
-  <div>
-    <strong>Channel Relevance</strong>
-    <%= pie_chart(current_user.get_saves) %>
-  </div>
 </div>

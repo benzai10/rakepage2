@@ -1,5 +1,5 @@
 <div class="col-md-4">
-  <h3 class="title-rake-show"><%= @channels.count.to_s %> Channels
+  <h3 class="title-rake-show"><%= pluralize(@channels.count.to_s, "Channel") %>
     <% if user_signed_in? %>
       <small>
         <%= link_to '<i class="fa fa-plus"></i>'.html_safe,

@@ -1,5 +1,5 @@
 class Rake < ActiveRecord::Base
-  after_create :create_heap, :create_channel, :inherit_channels
+  after_create :create_heap, :create_channel #, :inherit_channels
   attr_accessor :feed_leaflets
 
   validates :name, presence: true

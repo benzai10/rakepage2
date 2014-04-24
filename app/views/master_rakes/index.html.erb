@@ -1,22 +1,11 @@
-<% if !flash.empty? %>
-  <%= render 'shared/flash_message' %>
-<% end %>
-<h1>MasterRake#Index 
-  <% if user_signed_in? %>
-    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_master_rake_path %></small>
-  <% else %>
-    <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
-  <% end %>
-</h1>
-<% @master_rakes.each do |m| %>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <div class="caption">
-        <h4><%= m.name %> <small class="pull-right"><%= link_to "show", master_rake_path(m) %></small></h4>
-        <h5>Channels <span class="badge pull-right"><%= m.channels.where("channel_type <> 1").count.to_s %></span></h5>
-        <h5>Feed <span class="badge pull-right"><%= Leaflet.where("channel_id IN (?)", m.channels.all).count %></span></h5>
-        <h5>Heap <span class="badge pull-right">?</span></h5>          
-       </div>
-    </div>
-  </div>
-<% end %>
+<br>
+<div class="row">
+  <%#= render 'master_rakes/master_rakes_desc' %>
+  <%#= render 'master_rakes/channels_desc' %>
+  <%#= render 'master_rakes/notes_desc' %>
+</div>
+<div class="row">
+  <%= render 'master_rakes/master_rakes' %>
+  <%= render 'master_rakes/channels' %>
+  <%= render 'master_rakes/notes' %>
+</div>
