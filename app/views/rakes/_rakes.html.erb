@@ -22,6 +22,7 @@
               <%= r.feed_leaflets("news").count %>
             </span>
           </h5>
+          <span class="feed-timestamp"><%= link_to pluralize(r.channels.where("channel_type <> 3").count, "Channel"), rake_path(r.id) %></span>
         </div>
       </li>
     <% end %>

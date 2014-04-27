@@ -70,6 +70,10 @@ class RakesController < ApplicationController
     @rake = Rake.new(rake_params)
     if @rake.save
       MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 || !session[:displayed_channels].include?(channel.id) }
+      filter_array = rake_params[:rake_filters].split(", ")
+      filter_array.each do |f|
+        @rake.add_filter(f, 1)
+      end
       redirect_to rakes_path
     else
       flash[:error] = @rake.errors.full_messages
@@ -105,6 +109,6 @@ class RakesController < ApplicationController
   protected
 
   def rake_params
-    params.require(:rake).permit(:name, :master_rake_id, :user_id, :feed_leaflets)
+    params.require(:rake).permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters)
   end
 end

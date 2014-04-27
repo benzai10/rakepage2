@@ -5,7 +5,7 @@
   <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.submit "Save", class: "btn btn-primary" %>
-<% end %>
+
 <div class="row">
   <div class="col-md-4">
     <h3 class="title-rake-show">Channels</h3>
@@ -74,3 +74,6 @@
     <h3 class="title-rake-show">Customized Filters</h3>
   </div>
 </div>
+
+  <%= f.text_field :rake_filters %>
+<% end %>

@@ -9,7 +9,7 @@
       <% end %>
         <% rake = Rake.where("user_id = ? AND master_rake_id = ?", current_user.id, m.id).first %>
         <% if !rake.nil? %>
-          <%= link_to "<i class='fa fa-rocket'></i>".html_safe, rake_path(rake.id), title: "go to my rake" %>
+          <%= link_to "<i class='fa fa-rocket'></i>".html_safe, rakes_path(rake_id: rake.id), title: "go to my rake" %>
         <% else %>
           <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: m.id), title: "create a new rake" %>
         <% end %>
