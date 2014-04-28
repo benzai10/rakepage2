@@ -13,13 +13,29 @@ class RakesController < ApplicationController
       return
     end
     if params[:rake_id].nil? || params[:rake_id].empty?
-      @feed_leaflets = @rakes.first.feed_leaflets("news").page(params[:page]).per(10)
-      @heap_leaflets = @rakes.first.heap.leaflets.page(params[:page]).per(10)
-      @rake_filter = @rakes.first.filters.map{ |f| f.keyword }.join(",")
+      @rake = @rakes.first
+      if session[:heap] == "no"
+        @rake.channels.each do |c|
+          if Time.now - c.last_pull_at > 1200 
+            c.pull_source
+          end
+        end
+      end
+      @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
+      @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
+      @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     else
-      @feed_leaflets = @rakes.where("id = ?", params[:rake_id].to_i).first.feed_leaflets("news").page(params[:page]).per(10)
-      @heap_leaflets = @rakes.where("id = ?", params[:rake_id].to_i).first.heap.leaflets.page(params[:page]).per(10)
-      @rake_filter = @rakes.where("id = ?", params[:rake_id].to_i).first.filters.map{ |f| f.keyword }.join(",")
+      @rake = @rakes.where("id = ?", params[:rake_id].to_i).first
+      if session[:heap] == "no"
+        @rake.channels.each do |c|
+          if Time.now - c.last_pull_at > 1200 
+            c.pull_source
+          end
+        end
+      end
+      @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
+      @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
+      @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     end
     @notifications = current_user.get_notifications
   end
@@ -111,6 +127,15 @@ class RakesController < ApplicationController
   end
 
   def update
+    @rake = Rake.find(params[:id])
+    @rake.filters.each do |f|
+      f.destroy
+    end
+    filter_array = rake_params[:rake_filters].split(", ")
+    filter_array.each do |f|
+      @rake.add_filter(f, 1)
+    end
+    redirect_to rakes_path(rake_id: @rake.id)
   end
 
   def destroy

@@ -18,11 +18,11 @@
               <% end %>
 
               <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
-                <% if Rake.find(params[:rake_id].to_i).heap.leaflets.include? l %>
+                <% if @rake.heap.leaflets.include? l %>
                   <i class="fa fa-star"></i>
                 <% else %>
                   <%= link_to '<i class="fa fa-save"></i>'.html_safe, 
-                        add_leaflet_heap_path(Rake.find(params[:rake_id].to_i).heap, leaflet_id: l.id), 
+                        add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
                         :method => :get, remote: true %>
                 <% end %>
               </span>

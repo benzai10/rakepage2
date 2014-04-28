@@ -33,8 +33,16 @@
         </div>
         <div id="rake_<%= "#{r.id.to_s}" %>" class="panel-collapse collapse">
           <div class="panel-body">
-            Filters:
-            <input type="text" class="tokenize" value="<%= @rake_filter %>" disabled="true" />
+            <!-- <div class="input-group"> -->
+              <!-- <input type="text" class="tokenize" value="<%#= @rake_filter %>" /> -->
+              <!-- <span class="input-group-btn"> -->
+                <%#= link_to "Refresh", update_filter_rake_path(r), class: "btn btn-default" %>
+              <!-- </span> -->
+            <!-- </div> -->
+            <%= bootstrap_form_for(r) do |f| %>
+              <%= f.text_field :rake_filters, class: "tokenize", value: @rake_filter %>
+              <%= f.submit "Refresh", class: "btn btn-primary" %>
+            <% end %>
             <br>
             Channels:
             <ul class="leaflet-list">
