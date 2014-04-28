@@ -86,6 +86,14 @@ h5 {
   border-bottom: dotted 1px;
 }
 
+.panel-heading {
+  background-color: white !important;
+}
+
+.panel-heading.active {
+  background-color: gainsboro !important;
+}
+
 .channel-list {
   padding-top: 10px;
   padding-bottom: 10px;

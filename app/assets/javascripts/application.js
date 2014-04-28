@@ -17,5 +17,5 @@
 //= require twitter/bootstrap
 //= require_tree .
 //= require facebook
-//= require holder
 //= require turbolinks
+//= require bootstrap-tokenfield

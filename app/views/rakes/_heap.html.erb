@@ -1,0 +1,37 @@
+<div class="col-md-7">
+  <h3>Heap</h3>
+  <ul class="leaflet-list">
+    <% @heap_leaflets.each do |l| %>
+      <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
+        <a class="pull-left" href="#">
+          <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
+          <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+        </a>
+        <div class="media-body">
+          <p class="feed-timestamp">
+            <span class="leaflet-title"><%= l.title %></span>
+            <span class="pull-right">
+              <% if !l.published_at.nil? %>
+                <%= time_ago_in_words(l.published_at) %> ago 
+              <% else %>
+                <%= time_ago_in_words(l.created_at) %> ago 
+              <% end %>
+              <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
+                    remove_leaflet_heap_path(Rake.find(params[:rake_id].to_i).heap, leaflet_id: l.id),
+                    :data => { :confirm => "Are you sure?" },
+                    :method => :get, remote: true %>
+            </span>
+          </p>
+          <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
+          <p class="feed-body"><%= l.content.html_safe %></p>
+          <% if !l.content.downcase.include? "read more" %>
+            <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url, class: "external", value: l.id, target: "_blank" %></p>
+          <% end %>
+          <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+          <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <%= paginate @heap_leaflets %>
+</div>

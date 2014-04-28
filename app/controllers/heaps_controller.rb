@@ -25,7 +25,7 @@ class HeapsController < ApplicationController
     begin
       @heap.remove_leaflet(@leaflet)
       respond_to do |format|
-        format.html { redirect_to rake_path(@heap.rake_id) }
+        format.html { redirect_to rakes_path(rake_id: @heap.rake_id), heap: "yes" }
         format.js { render 'remove_leaflet'}
       end 
     rescue ActiveRecord::RecordNotUnique

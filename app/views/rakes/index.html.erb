@@ -3,5 +3,9 @@
 </div>
 <div class="row">
   <%= render 'rakes' %>
-  <%= render 'feeds' %>
+  <% if session[:heap] == "yes" %>
+    <%= render 'heap' %>
+  <% else %>
+    <%= render 'feed' %>
+  <% end %>
 </div>
