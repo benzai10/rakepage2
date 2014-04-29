@@ -244,6 +244,7 @@ module FeedHelper
     require 'digest/md5'
 
     def initialize(url)
+      @url = url
       if (@feed = Feedjira::Feed.fetch_and_parse(url)) == 0
         raise FeedNotFoundError
       end
@@ -290,7 +291,7 @@ module FeedHelper
               ident = entry.entry_id
             end
 
-            channel = Channel.find_by(source: url)
+            channel = Channel.find_by(source: @url)
             Leaflet.create!(channel_id: channel.id,
                             identifier: ident,
                             title: entry.title,
