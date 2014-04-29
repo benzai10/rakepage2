@@ -26,6 +26,10 @@ class AuthenticationsController < ApplicationController
     redirect_to '/auth/facebook'
   end
 
+  def connect_twitter
+    redirect_to '/auth/twitter'
+  end
+
   def show
   end
 

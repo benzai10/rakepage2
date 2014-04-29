@@ -5,7 +5,7 @@ module FeedHelper
     require 'logger'
 
     @@logger = Logger.new("log/feed_helper.log")
-    @@logger.progname = 'Spike'
+    @@logger.progname = 'FeedHelper'
 
     DEBUG_MSG_ABORT = "- Aborting can't connect to: "
     DEBUG_MSG_PARAM = " - Parameter: "
@@ -44,20 +44,63 @@ module FeedHelper
 
   class Facebook
     require 'koala'
-    require 'uri'
 
-    def get_likes(oauth_token)
+    def initialize(oauth_token)
+      @graph = Koala::Facebook::API.new(oauth_token)
+      @uid = Authentication.find_by(oauth_token: oauth_token).uid
+    end
+
+    def get_news_feed
+      @graph.get_connections("me","home")
+    end
+
+    def process_news_feed
+      posts = get_news_feed
+      posts.each do |post|
+        create_leaflet(post)
+      end
+    end
+
+    def create_leaflet(post)
+      channel = Channel.find_by!(source: @uid)
+      content = String.new
+
+      content << ("<p>" + post["story"] + "</p>") unless post["story"].nil?
+      content << ("<p>" + post["message"] + "</p>") unless post["message"].nil?
+      content << ("<img src=" + CGI.unescapeHTML(post["picture"]) + " />") unless post["picture"].nil?
+      content << ("<p><strong>" + post["name"] + "</strong></p>")  unless post["name"].nil?
+      content << ("<p>" + post["description"] + "</p>")  unless post["description"].nil?
+      content << ("<p><small>" + post["caption"] + "</small></p>")  unless post["caption"].nil?
+      content << ("<p>" + post["type"] + "</p>") unless post["type"].nil?
+
+      title = "<a href=http://www.facebook.com/#{post['from']['id']}/>#{post['from']['name']}</a>"
+      title << " >> <a href=http://www.facebook.com/#{post['to']['data'][0]['id']}/>#{post['to']['data'][0]['name']}</a>" unless post['to'].nil?
+
+      link = post["link"] || "http://www.facebook.com/#{post['id']}"
+
+      unless Leaflet.where(identifier: post["id"]).exists?
+        Leaflet.create!(channel_id: channel.id,
+                        identifier: post["id"],
+                        title: title,
+                        url: link,
+                        author: post["from"]["name"],
+                        image: post["picture"],
+                        content: content,
+                        published_at: post["created_time"])
+      end
+    end
+
+    def get_likes
       liked_pages = []
       url_pages = {}
 
-      graph = Koala::Facebook::API.new(oauth_token)
-      user_likes = graph.get_connections("me","likes")
+      user_likes = @graph.get_connections("me","likes")
 
       user_likes.each do |like|
         liked_pages << like["id"]
       end
 
-      pages = graph.batch do |batch_api|
+      pages = @graph.batch do |batch_api|
         liked_pages.each do |page|
           batch_api.get_object(page)
         end
@@ -134,7 +177,7 @@ module FeedHelper
 
   end
 
-  class Spike
+  class Scrapper
     require 'addressable/uri'
     require 'nokogiri'
 
@@ -196,30 +239,31 @@ module FeedHelper
   end
 
 
-  class Web
+  class WebFeed
     require 'feedjira'
     require 'digest/md5'
 
-#    def self.get_channel_feeds
-#      urls = []
-#      Channel.where(channel_type: 0).each do |channel|
-#        urls << channel.source
-#      end
-#      urls
-#    end
-
-    def self.process_feeds(feeds)
-
-      return p "Aborting! Feed can't be nil." if feeds.nil?
-
-      feeds.each do |url,feed|
-        create_leaflet(url,feed)
+    def initialize(url)
+      if (@feed = Feedjira::Feed.fetch_and_parse(url)) == 0
+        raise FeedNotFoundError
       end
+    end
+
+    def get_title
+      @feed.title
+    end
+
+    def parse(url)
+      initialize(url)
+    end
+
+    def process_feeds
+      create_leaflet(@feed)
     end
 
     private
 
-    def self.create_leaflet(url,feed)
+    def create_leaflet(feed)
       if feed.respond_to?(:entries)
         feed.entries.each do |entry|
           unless Leaflet.where(identifier: entry.entry_id).exists?

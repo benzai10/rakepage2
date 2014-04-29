@@ -44,6 +44,7 @@ Rakepage2::Application.routes.draw do
   resources :authentications do
     collection do
       get 'connect_facebook'
+      get 'connect_twitter'
     end
   end
 
