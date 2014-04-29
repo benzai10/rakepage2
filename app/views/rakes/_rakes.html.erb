@@ -2,29 +2,84 @@
   <h3 class="title-rake-show"><%= pluralize(@rakes.count.to_s, "Rake") %>
     <% if user_signed_in? %>
       <small>
-        <%= link_to '<i class="fa fa-plus"></i>'.html_safe, add_rake_master_rakes_path %>
+        <%= link_to '<i class="fa fa-plus"></i>'.html_safe, master_rakes_path %>
       </small>
     <% else %>
       <small><%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_user_session_path %></small>
     <% end %>
   </h3>
-  <ul>
-    <% @rakes.each do |r| %>
+
+  <div class="panel-group" id="accordion">
+    <% @rakes.each_with_index do |r, i| %>
+      <div class="panel panel-default">
       <% if r.id == params[:rake_id].to_i %>
-        <li class="rake-list-active" id="<%= 'rake_' + r.id.to_s %>">
+        <div class="panel-heading active">
       <% else %>
-        <li class="rake-list" id="<%= 'rake_' + r.id.to_s %>">
+        <div class="panel-heading">
       <% end %>
-        <div class="media-body">
-          <h5 class="media-heading channel-heading">
-            <%= link_to r.name, rakes_path(rake_id: r.id) %>
-             <span class="badge pull-right">
-              <%= r.feed_leaflets("news").count %>
-            </span>
+          <h5 class="panel-title">
+            <% href_id = "#rake_" + r.id.to_s %>
+              <%= link_to r.name, rakes_path(rake_id: r.id) %>
+              <% if r.id == params[:rake_id].to_i %>
+                <span class="pull-right">
+                  <%= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: r.id, heap: "yes") %>
+                  <%= link_to '<i class="fa fa-cog"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+<!--                   <span class="badge">
+                    <%#= Leaflet.where("channel_id = ?", c.id).count %>
+                  </span> -->
+                </span>
+              <% end %>
           </h5>
-          <span class="feed-timestamp"><%= link_to pluralize(r.channels.where("channel_type <> 3").count, "Channel"), rake_path(r.id) %></span>
         </div>
-      </li>
+        <div id="rake_<%= "#{r.id.to_s}" %>" class="panel-collapse collapse">
+          <div class="panel-body">
+            <!-- <div class="input-group"> -->
+              <!-- <input type="text" class="tokenize" value="<%#= @rake_filter %>" /> -->
+              <!-- <span class="input-group-btn"> -->
+                <%#= link_to "Refresh", update_filter_rake_path(r), class: "btn btn-default" %>
+              <!-- </span> -->
+            <!-- </div> -->
+            <%= bootstrap_form_for(r) do |f| %>
+              <%= f.text_field :rake_filters, class: "tokenize", value: @rake_filter %>
+              <%= f.submit "Refresh", class: "btn btn-primary" %>
+            <% end %>
+            <br>
+            Channels:
+            <ul class="leaflet-list">
+              <% r.channels.each do |c| %>
+                <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+                  <span class="pull-left" >
+                    <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+                    <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading channel-heading">
+                      <% if c.rake_channel_maps.find_by_rake_id(r.id).display %>
+                        <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                                    toggle_channel_display_rake_path(r, channel: c.id, display: false) %>
+                      <% else %>
+                        <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                                    toggle_channel_display_rake_path(r, channel: c.id, display: true) %>
+                      <% end %>
+                      <%= c.name %>
+                      <span class="pull-right">
+                        <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(r, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+                      </span>
+                    </h5>
+                    <p>
+                      <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+                      <i class="fa fa-user"></i> <%= c.count_subscribers %>
+                      <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+                    </p>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+            <%= link_to "add channel(s)", edit_rake_path(r) %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
+
 </div>

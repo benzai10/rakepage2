@@ -2,11 +2,12 @@ source 'https://rubygems.org'
 
 ruby "2.1.1"
 gem "bootstrap-sass"
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'bootstrap_form'
 gem 'font-awesome-sass'
 gem 'chartkick', '~> 1.2.4'
 gem 'groupdate', '~> 2.1.0'
+gem 'bootstrap_tokenfield_rails'
 
 gem 'jquery-turbolinks'
 gem 'devise'

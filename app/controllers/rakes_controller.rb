@@ -2,11 +2,40 @@ class RakesController < ApplicationController
 
   def index
     session[:rake_class] = Rake
-    @rakes = Rake.where("user_id = ?", current_user.id)
-    if params[:rake_id].nil? || params[:rake_id].empty?
-      @feed_leaflets = @rakes.first.feed_leaflets("news").page(params[:page]).per(10)
+    if params[:heap] == "yes"
+      session[:heap] = "yes"
     else
-      @feed_leaflets = @rakes.where("id = ?", params[:rake_id].to_i).first.feed_leaflets("news").page(params[:page]).per(10)
+      session[:heap] = "no"
+    end
+    @rakes = Rake.where("user_id = ?", current_user.id)
+    if @rakes.empty?
+      redirect_to master_rakes_path
+      return
+    end
+    if params[:rake_id].nil? || params[:rake_id].empty?
+      @rake = @rakes.first
+      if session[:heap] == "no"
+        @rake.channels.each do |c|
+          if Time.now - c.last_pull_at > 1200 
+            c.pull_source
+          end
+        end
+      end
+      @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
+      @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
+      @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
+    else
+      @rake = @rakes.where("id = ?", params[:rake_id].to_i).first
+      if session[:heap] == "no"
+        @rake.channels.each do |c|
+          if Time.now - c.last_pull_at > 1200 
+            c.pull_source
+          end
+        end
+      end
+      @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
+      @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
+      @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     end
     @notifications = current_user.get_notifications
   end
@@ -81,6 +110,40 @@ class RakesController < ApplicationController
     end
   end
 
+  def edit
+    @rake = Rake.find(params[:id])
+    @master_rake = MasterRake.find_by_id(@rake.master_rake_id)
+    @channels = @master_rake.channels.where("channel_type <> 5")
+    if session[:displayed_channels].nil? || session[:displayed_channels].empty?
+      session[:displayed_channels] = @channels.pluck(:id)
+    else
+      if params[:display_channel] == "yes"
+        session[:displayed_channels] << params[:channel_id].to_i
+      else
+        session[:displayed_channels].delete(params[:channel_id].to_i)
+      end
+    end
+    @feed_leaflets = @master_rake.feed_leaflets.where("channel_id IN (?)", session[:displayed_channels]).page(params[:page]).per(10)
+  end
+
+  def update
+    @rake = Rake.find(params[:id])
+    @rake.filters.each do |f|
+      f.destroy
+    end
+    filter_array = rake_params[:rake_filters].split(", ")
+    filter_array.each do |f|
+      @rake.add_filter(f, 1)
+    end
+    redirect_to rakes_path(rake_id: @rake.id)
+  end
+
+  def destroy
+    rake = Rake.find_by_id(params[:id])
+    rake.destroy
+    redirect_to rakes_path, :notice => "Rake Deleted."
+  end
+
   def add_channel
   end
 
@@ -90,7 +153,7 @@ class RakesController < ApplicationController
       @channel = Channel.find(params[:channel])
       @rake.remove_channel(@channel)
       respond_to do |format|
-        format.html { redirect_to rake_path(@rake) }
+        format.html { redirect_to rakes_path(rake_id: @rake.id) }
         format.js { render 'remove_channel' }
       end
     end
@@ -102,7 +165,7 @@ class RakesController < ApplicationController
     display = params[:display] == "true"
     @rake.toggle_channel_display(@channel, display)
     respond_to do |format|
-      format.html { redirect_to rake_path(@rake) }
+      format.html { redirect_to rakes_path(rake_id: @rake.id) }
     end
   end
 

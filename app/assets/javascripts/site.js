@@ -26,4 +26,6 @@ $(function() {
         $('#saved-refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
     });
 
+    $('input.tokenize').tokenfield();
+
 });

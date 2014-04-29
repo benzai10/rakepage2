@@ -46,6 +46,7 @@ class Channel < ActiveRecord::Base
     when 4
       FeedHelper::Reddit.new(self.source).process_reddit
     end
+    self.update_attribute(:last_pull_at, Time.now)
   end
 
   private
