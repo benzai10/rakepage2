@@ -42,8 +42,7 @@ class Channel < ActiveRecord::Base
     case self.channel_type
 
     when 0
-      feeds = Feedjira::Feed.fetch_and_parse [self.source]
-      FeedHelper::Web.process_feeds(feeds)
+      FeedHelper::WebFeed.new(self.source).process_feeds
     when 4
       FeedHelper::Reddit.new(self.source).process_reddit
     end
@@ -54,7 +53,7 @@ class Channel < ActiveRecord::Base
 
   def analyze_source
     if channel_type == 0 && parse_link(source) =~ URI::regexp
-      feed_helper = FeedHelper::Spike.new(source)
+      feed_helper = FeedHelper::Scrapper.new(source)
       feeds = feed_helper.get_feed
 
       self.name = feed_helper.get_title

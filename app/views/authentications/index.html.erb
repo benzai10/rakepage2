@@ -18,12 +18,11 @@
     <p><strong>Sign in through one of these services:</strong></p>
 <% end %>
 
-<!--
-<a href="/auth/twitter" class="auth_provider">
-<%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>
-Twitter
-</a>
--->
+<% unless @authentications.select{ |a| a.provider == "twitter" }.any? %>
+    <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter_64" %>
+    <%= link_to "Twitter Server-flow", connect_twitter_authentications_path %>
+<% end %>
+
 <% unless @authentications.select{ |a| a.provider == "facebook" }.any? %>
     <%= link_to_function image_tag("facebook_64.png", :size => "64x64", :alt => "Facebook looogin"), 'fblogin()' %>
     <%= link_to_function "Client-flow", "fblogin()" %>

@@ -34,7 +34,21 @@ class User < ActiveRecord::Base
   def get_fb_likes
     fb_token = get_fb_token
     unless fb_token.nil?
-      FeedHelper::Facebook.new.get_likes(fb_token)
+      FeedHelper::Facebook.new(fb_token).get_likes
+    end
+  end
+
+  def get_fb_news_feed
+    fb_token = get_fb_token
+    unless fb_token.nil?
+      FeedHelper::Facebook.new(fb_token).process_news_feed
+    end
+  end
+
+  def get_fb_news_feed_json
+    fb_token = get_fb_token
+    unless fb_token.nil?
+      FeedHelper::Facebook.new(fb_token).get_news_feed
     end
   end
 
