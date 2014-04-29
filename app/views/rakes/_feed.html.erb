@@ -9,7 +9,7 @@
         </a>
         <div class="media-body">
           <p class="feed-timestamp">
-            <span class="leaflet-title"><%= l.title %></span>
+            <span class="leaflet-title"><%= l.title.html_safe %></span>
             <span class="pull-right">
               <% if !l.published_at.nil? %>
                 <%= time_ago_in_words(l.published_at) %> ago 
