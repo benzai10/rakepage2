@@ -19,7 +19,7 @@
       <% end %>
           <h5 class="panel-title">
             <% href_id = "#rake_" + r.id.to_s %>
-              <%= link_to r.name, rakes_path(rake_id: r.id) %>
+              <%= link_to r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
               <% if r.id == params[:rake_id].to_i %>
                 <span class="pull-right">
                   <%= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: r.id, heap: "yes") %>
