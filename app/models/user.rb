@@ -66,6 +66,14 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def get_tw_news_feed
+    tw_token = get_tw_token
+    unless tw_token.nil?
+      FeedHelper::RTwitter.new(tw_token).process_news_feed
+    end
+  end
+
   def get_snapshot_count
     get_snapshot_count = 0
     self.rakes.each do |r|
