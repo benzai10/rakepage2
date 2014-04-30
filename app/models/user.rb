@@ -59,6 +59,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_tw_token
+    tw_provider = authentications.find_by(provider: "twitter")
+    unless tw_provider.nil?
+      return tw_provider.oauth_token, tw_provider.oauth_secret
+    end
+  end
+
   def get_snapshot_count
     get_snapshot_count = 0
     self.rakes.each do |r|
