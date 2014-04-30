@@ -10,6 +10,7 @@ class Authentication < ActiveRecord::Base
       authentication.uid = auth.uid
       authentication.name = auth.info.name
       authentication.oauth_token = auth.credentials.token
+      authentication.oauth_secret = auth.credentials.secret
       authentication.oauth_expires_at = set_oauth_expire(auth)
       authentication.save!
     end

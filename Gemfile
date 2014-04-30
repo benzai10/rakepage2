@@ -21,6 +21,8 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem "koala", "~> 1.8.0rc1"
+gem "twitter"
+
 
 group :production do
 # pre-req for Heroku integration, RoR 4+

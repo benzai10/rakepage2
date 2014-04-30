@@ -1,5 +1,8 @@
 module FeedHelper
 
+  class FeedNotFoundError < StandardError
+  end
+
   class Cget
     require 'curb'
     require 'logger'
@@ -50,6 +53,32 @@ module FeedHelper
       @uid = Authentication.find_by(oauth_token: oauth_token).uid
     end
 
+    def get_likes
+      liked_pages = []
+      url_pages = {}
+
+      user_likes = @graph.get_connections("me","likes")
+
+      user_likes.each do |like|
+        liked_pages << like["id"]
+      end
+
+      pages = @graph.batch do |batch_api|
+        liked_pages.each do |page|
+          batch_api.get_object(page)
+        end
+      end
+
+      pages.each do |page|
+        hash = { :url => nil}
+        hash[:url] = page["website"].split(%r{[\s,;]}).reject(&:empty?) unless page["website"].nil?
+        hash[:fb_link] = page["link"]
+        hash[:category] = page["category"]
+        url_pages[page["name"]] = hash
+      end
+      url_pages
+    end
+
     def get_news_feed
       @graph.get_connections("me","home")
     end
@@ -60,6 +89,8 @@ module FeedHelper
         create_leaflet(post)
       end
     end
+
+    private
 
     def create_leaflet(post)
       channel = Channel.find_by!(source: @uid)
@@ -89,37 +120,6 @@ module FeedHelper
                         published_at: post["created_time"])
       end
     end
-
-    def get_likes
-      liked_pages = []
-      url_pages = {}
-
-      user_likes = @graph.get_connections("me","likes")
-
-      user_likes.each do |like|
-        liked_pages << like["id"]
-      end
-
-      pages = @graph.batch do |batch_api|
-        liked_pages.each do |page|
-          batch_api.get_object(page)
-        end
-      end
-
-      pages.each do |page|
-        hash = { :url => nil}
-        hash[:url] = page["website"].split(%r{[\s,;]}).reject(&:empty?) unless page["website"].nil?
-        hash[:fb_link] = page["link"]
-        hash[:category] = page["category"]
-          #url_pages[page["name"]] = { :url => page["website"].split(%r{[\s,;]}).reject(&:empty?),
-                                      #:fb_link => page["link"],
-                                      #:category => page["category"] }
-          #url_pages << page["website"].split(%r{[\s,]}).reject(&:empty?)
-          url_pages[page["name"]] = hash
-      end
-      url_pages
-    end
-
   end
 
   class Reddit
@@ -174,7 +174,6 @@ module FeedHelper
       raise FeedNotFoundError if url.empty?
       "http://www.reddit.com/r/" << url << ".json"
     end
-
   end
 
   class Scrapper
@@ -234,10 +233,57 @@ module FeedHelper
     end
   end
 
+  class RTwitter
+    require 'twitter'
+    require 'dotenv'
+    Dotenv.load
 
-  class FeedNotFoundError < StandardError
+    def initialize(arr)
+      oauth_token, oauth_secret = arr
+      @uid = Authentication.find_by(oauth_token: oauth_token).uid
+      @client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = ENV["TWITTER_KEY"]
+        config.consumer_secret     = ENV["TWITTER_SECRET"]
+        config.access_token        = oauth_token
+        config.access_token_secret = oauth_secret
+      end
+    end
+
+    def get_news_feed
+      result = []
+      @client.home_timeline.reject do |object|
+          Leaflet.exists?(identifier: object.id.to_s)
+          result << [object, Time.at(object.created_at).utc]
+      end
+      result
+    end
+
+    def process_news_feed
+      count = 0
+      tweets = []
+      arr = get_news_feed
+      arr.each { |item| tweets << item.shift }.flatten!
+      @client.oembeds(tweets, { maxwidth: 550 }).each do |tweet|
+        create_leaflet(tweet,arr[count])
+        count += 1
+      end
+    end
+
+    private
+
+    def create_leaflet(tweet, date)
+
+      channel = Channel.find_by!(source: @uid)
+      Leaflet.create!(channel_id: channel.id,
+                      identifier: tweet.url.path.slice(/\d+$/),
+                      title: "@" + tweet.author_uri.path.slice(1,tweet.author_uri.path.size),
+                      url: tweet.url.to_s,
+                      author: tweet.author_name,
+                      image: nil,
+                      content: tweet.html,
+                      published_at: date)
+    end
   end
-
 
   class WebFeed
     require 'feedjira'
@@ -304,6 +350,6 @@ module FeedHelper
         end
       end
     end
-
   end
+
 end
