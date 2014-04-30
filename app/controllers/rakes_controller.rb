@@ -12,31 +12,24 @@ class RakesController < ApplicationController
       redirect_to master_rakes_path
       return
     end
-    if params[:rake_id].nil? || params[:rake_id].empty?
-      @rake = @rakes.first
-      if session[:heap] == "no"
-        @rake.channels.each do |c|
-          if Time.now - c.last_pull_at > 1200 
-            c.pull_source
-          end
-        end
-      end
-      @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
-      @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
-      @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
-    else
+    @rake = @rakes.first
+    if !params[:rake_id].nil?
       @rake = @rakes.where("id = ?", params[:rake_id].to_i).first
       if session[:heap] == "no"
         @rake.channels.each do |c|
-          if Time.now - c.last_pull_at > 1200 
-            c.pull_source
+          if Time.now - c.last_pull_at > 1200
+            if c.channel_type == 1
+              current_user.get_fb_news_feed
+            else
+              c.pull_source
+            end
           end
         end
       end
-      @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
-      @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
-      @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     end
+    @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
+    @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
+    @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     @notifications = current_user.get_notifications
   end
 

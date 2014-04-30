@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(version: 20140428120523) do
   end
 
   create_table "channels", force: true do |t|
-    t.string   "name",         default: "", null: false
-    t.string   "source",       default: "", null: false
+    t.string   "name",         default: "",                    null: false
+    t.string   "source",       default: "",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "channel_type"
-    t.datetime "last_pull_at"
+    t.datetime "last_pull_at", default: '2014-04-29 08:26:48'
   end
 
   add_index "channels", ["source"], name: "index_channels_on_source", unique: true, using: :btree
