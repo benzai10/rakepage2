@@ -318,7 +318,7 @@ module FeedHelper
             if content.blank?
               content = entry.content
               if content.blank?
-                content = "Could not retrive data!"
+                content = "Could not retrieve data!"
               end
             end
 

@@ -1,5 +1,12 @@
 $(function() {
 
+    $(".leaflet-save").click(function() {
+        var leafletid = $(this).data('id');
+        $(".leaflet-id").val(leafletid);
+    });
+
+    $('input.tokenize').tokenfield();
+
    //Navigation Menu Slider
     $('#nav-expander').on('click',function(e){
       e.preventDefault();
@@ -11,21 +18,21 @@ $(function() {
     });
 
     // Initialize navgoco with default options
-    $(".main-menu").navgoco({
-        caret: '<span class="caret"></span>',
-        accordion: false,
-        openClass: 'open',
-        save: true,
-        cookie: {
-            name: 'navgoco',
-            expires: false,
-            path: '/'
-        },
-        slide: {
-            duration: 300,
-            easing: 'swing'
-        }
-    });
+    // $(".main-menu").navgoco({
+    //     caret: '<span class="caret"></span>',
+    //     accordion: false,
+    //     openClass: 'open',
+    //     save: true,
+    //     cookie: {
+    //         name: 'navgoco',
+    //         expires: false,
+    //         path: '/'
+    //     },
+    //     slide: {
+    //         duration: 300,
+    //         easing: 'swing'
+    //     }
+    // });
 
     //When link on mood
     $('.external').click(function() {
@@ -45,7 +52,6 @@ $(function() {
         });
     });
 
-
     $('#refresh-link').click(function() {
         $('#refresh-link').html("<i class='fa fa-spinner fa-spin'></i>");
     });
@@ -58,16 +64,5 @@ $(function() {
         $('.leaflet-list').html("<i class='fa fa-spinner fa-spin'></i>");
     });
 
-    $('#feed-chevron').click(function() {
-        alert("test");
-    });
-
-    $('#feed').on('show.bs.collapse', function() {
-        // $('#feed-chevron').html("<i class='fa fa-chevron-up'></i>");
-        alert("test");
-    });
-
-
-    $('input.tokenize').tokenfield();
 
 });

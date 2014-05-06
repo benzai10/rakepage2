@@ -4,11 +4,19 @@ class HeapsController < ApplicationController
     @heap = Heap.find(params[:id])
   end
 
+  def update
+    redirect_to add_leaflet_heap_path(id: params[:id], 
+                                      leaflet_id: params[:heap][:leaflet_id], 
+                                      leaflet_type_id: params[:heap][:leaflet_type_id])
+  end
+
   def add_leaflet
+    #@heap = Heap.find(params[:id])
+    #leaflet = Leaflet.find(params[:leaflet_id])
     @heap = Heap.find(params[:id])
     leaflet = Leaflet.find(params[:leaflet_id])
     begin
-      @heap.add_leaflet(leaflet)
+      @heap.add_leaflet(leaflet, params[:leaflet_type_id])
       respond_to do |format|
         format.html { redirect_to rake_path(@heap.rake_id) }
         format.js   #{ render 'heaps/add_leaflet.js.erb' }
