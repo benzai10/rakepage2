@@ -1,11 +1,46 @@
-<br>
+<%= render 'master_rakes/master_rakes' %>
 <div class="row">
-  <%#= render 'master_rakes/master_rakes_desc' %>
-  <%#= render 'master_rakes/channels_desc' %>
-  <%#= render 'master_rakes/notes_desc' %>
-</div>
-<div class="row">
-  <%= render 'master_rakes/master_rakes' %>
-  <%= render 'master_rakes/channels' %>
-  <%= render 'master_rakes/notes' %>
+  <div class="col-md-6 col-md-offset-3">
+    <h1><%= @rake.name %></h1>
+
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title">
+            <% href_id = "#channels" %>
+            Channels
+            <span class="pull-right">
+              <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
+                          :data => { :toggle => "collapse" },
+                          id: "feed-chevron" %>
+            </span>
+          </h5>
+        </div>
+        <div id="channels" class="panel-collapse collapse">
+          <div class="panel-body">
+            <%= render 'master_rakes/channels' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title">
+            <% href_id = "#feed" %>
+            News
+            <span class="pull-right">
+              <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
+                          :data => { :toggle => "collapse" },
+                          id: "feed-chevron" %>
+            </span>
+          </h5>
+        </div>
+        <div id="feed" class="panel-collapse collapse">
+          <div class="panel-body">
+            <%= render 'master_rakes/feed' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

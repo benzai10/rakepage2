@@ -1,18 +1,3 @@
 <h1>
   <%= @rake.name %>
-  <small>
-    <% if user_signed_in? %>
-      <% custom_rakes = @rake.existing_custom_rakes(current_user) %>
-      <% if !custom_rakes.empty? %>
-        <% custom_rakes.each do |cr| %>
-          <%= link_to cr.name, rake_path(cr) %>
-        <% end %>
-      <% else %>
-        <%= link_to "Customize Rake", new_rake_path(master_rake_id: @rake, user_id: current_user) %>
-      <% end %>
-    <% else %>
-        <%= link_to "Customize Rake", new_user_session_path %>
-    <% end %>
-  </small>
 </h1>
-<%= render 'shared/rake_show' %>

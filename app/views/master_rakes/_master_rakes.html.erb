@@ -1,23 +1,56 @@
-<div class="col-md-4">
-  <h3>Rake Templates</h3>
-  <ul>
-    <% @master_rakes.each_with_index do |m, i| %>
-      <% if m.id == params[:id].to_i %>
-        <li class="rake-list-active">
-      <% else %>
-        <li class="rake-list">
-      <% end %>
-        <% rake = Rake.where("user_id = ? AND master_rake_id = ?", current_user.id, m.id).first %>
-        <% if !rake.nil? %>
-          <%= link_to "<i class='fa fa-rocket'></i>".html_safe, rakes_path(rake_id: rake.id), title: "go to my rake" %>
-        <% else %>
-          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: m.id), title: "create a new rake" %>
-        <% end %>
-        <%= link_to m.name, master_rakes_path(id: m.id) %>
-        <span class="badge pull-right">
-          <%= m.channels.count %>
-        </span>
-      </li>
-    <% end %>
-  </ul>
+<div class="navbar navbar-fixed-top">
+  <!--Include your brand here-->
+  <a class="navbar-brand" href="#">Rakepage</a>
+  <div class="navbar-header">
+    <a id="nav-expander" class="nav-expander fixed">
+      MENU &nbsp;<i class="fa fa-bars"></i>
+    </a>
+  </div>
 </div>
+
+<nav>
+  <ul>
+    <li class="text-right"><a href="#" id="nav-close">X</a></li>
+  </ul>
+  <br>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h5 class="panel-title">
+          <%= link_to "My Rakes", rakes_path %>
+        </h5>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h5 class="panel-title">
+          <%= link_to "Add Rake Template", new_master_rake_path %>
+        </h5>
+      </div>
+    </div>
+    <% @master_rakes.each_with_index do |m, i| %>
+      <div class="panel panel-default">
+      <% if m.id == params[:rake_id].to_i %>
+        <div class="panel-heading active">
+      <% else %>
+        <div class="panel-heading">
+      <% end %>
+          <h5 class="panel-title">
+            <% href_id = "#master_rake_" + m.id.to_s %>
+              <%= link_to m.name, master_rakes_path(rake_id: m.id), class: "rake_title" %>
+              <% if m.id == params[:rake_id].to_i %>
+                <span class="pull-right">
+                  <%= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: m.id, heap: "yes") %>
+                  <%= link_to '<i class="fa fa-cog"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+                </span>
+              <% end %>
+          </h5>
+        </div>
+        <div id="master_rake_<%= "#{m.id.to_s}" %>" class="panel-collapse collapse">
+          <div class="panel-body">
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</nav>
