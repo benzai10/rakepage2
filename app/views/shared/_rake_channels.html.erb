@@ -8,14 +8,14 @@
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-home'></i>".html_safe + "  HOME", root_path %>
+          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
         </h5>
       </div>
     </div>
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-sitemap'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
+          <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
         </h5>
       </div>
     </div>
@@ -28,11 +28,15 @@
       <% end %>
           <h5 class="panel-title">
             <% href_id = "#rake_" + r.id.to_s %>
-              <%= link_to "<i class='fa fa-leaf'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
+              <% if r.id == params[:rake_id].to_i %>
+                <%= link_to "<i class='fa fa-leaf green'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
+              <% else %>
+                <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
+              <% end %>
               <% if r.id == params[:rake_id].to_i %>
                 <span class="pull-right">
                   <%#= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: r.id, heap: "yes") %>
-                  <%= link_to '<i class="fa fa-cog"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+                  <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
 <!--                   <span class="badge">
                     <%#= Leaflet.where("channel_id = ?", c.id).count %>
                   </span> -->
@@ -93,9 +97,9 @@
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <% if user_signed_in? %>
-            <%= link_to "<i class='fa fa-user'></i>".html_safe + "  SIGN OUT", destroy_user_session_path, method: :delete %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN OUT", destroy_user_session_path, method: :delete %>
           <% else %>
-            <%= link_to "<i class='fa fa-user'></i>".html_safe + "  SIGN IN", new_user_session_path %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN IN", new_user_session_path %>
           <% end %>
         </h5>
       </div>

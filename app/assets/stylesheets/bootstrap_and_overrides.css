@@ -10,28 +10,25 @@ body {
   margin-top: 50px;
 }
 
+.btn-primary {
+  background-color: #2ccf73 !important;
+  border-color: #2ccf73 !important;
+}
+
 .fa {
   color: #4a2b88 !important;
 }
 
-.fa-bars {
+.white {
   color: white !important;
 }
 
-.fa-home {
-  color: white !important;
+.purple {
+  color: #4a2b88 !important;
 }
 
-.fa-leaf {
-  color: white !important;
-}
-
-.fa-sitemap {
-  color: white !important;
-}
-
-.fa-user {
-  color: white !important;
+.green {
+  color: #2ccf73 !important;
 }
 
 .row {
