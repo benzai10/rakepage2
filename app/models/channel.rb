@@ -52,20 +52,23 @@ class Channel < ActiveRecord::Base
   private
 
   def analyze_source
-    if channel_type == 0 && parse_link(source) =~ URI::regexp
-      feed_helper = FeedHelper::Scrapper.new(source)
-      feeds = feed_helper.get_feed
+    begin
+      if channel_type == 0 && parse_link(source) =~ URI::regexp
+        feed_helper = FeedHelper::Scrapper.new(source)
+        feeds = feed_helper.get_feed
 
-      self.name = feed_helper.get_title
-      self.source = feeds.shift
+        self.name = feed_helper.get_title
+        self.source = feeds.shift
 
-      feeds.each do |feed|
-        Channel.create!(source: feed, channel_type: 0)
+        feeds.each do |feed|
+          Channel.create!(source: feed, channel_type: 0)
+        end
+      elsif channel_type == 4
+        self.name = FeedHelper::Reddit.new(source).get_title
       end
-    elsif channel_type == 4
-      self.name = FeedHelper::Reddit.new(source).get_title
+    rescue FeedHelper::FeedNotFoundError
+      self.errors.add(:base, "Could not retrieve data")
     end
-
   end
 
   def parse_link(url)

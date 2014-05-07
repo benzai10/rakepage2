@@ -19,7 +19,7 @@ module FeedHelper
       curl = Curl::Easy.new
       curl.follow_location = true
       curl.url = url
-      curl.timeout = 3
+      curl.timeout = 10 #time in seconds to wait for connection
 
       begin
         curl.perform
@@ -187,7 +187,9 @@ module FeedHelper
 
     def initialize(url)
       @url = parse_link(url)
-      @html = Cget.get(url)
+      unless @html = Cget.get(url)
+        raise FeedNotFoundError
+      end
     end
 
     def get_title
