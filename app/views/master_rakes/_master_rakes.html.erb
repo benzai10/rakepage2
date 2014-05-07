@@ -1,39 +1,37 @@
-<div class="navbar navbar-fixed-top">
-  <!--Include your brand here-->
-  <a class="navbar-brand" href="#">Rakepage</a>
-  <div class="navbar-header">
-    <a id="nav-expander" class="nav-expander fixed">
-      MENU &nbsp;<i class="fa fa-bars"></i>
-    </a>
-  </div>
-</div>
+<%= render 'shared/navbar' %>
 
 <nav>
-  <ul>
+  <ul class="nav-close-x">
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
-  <br>
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-home'></i>".html_safe + "  HOME", root_path %>
+        </h5>
+      </div>
+    </div>
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <%= link_to "My Rakes", rakes_path %>
         </h5>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <%= link_to "Add Rake Template", new_master_rake_path %>
         </h5>
       </div>
     </div>
     <% @master_rakes.each_with_index do |m, i| %>
-      <div class="panel panel-default">
+      <div class="panel panel-default panel-menu">
       <% if m.id == params[:rake_id].to_i %>
-        <div class="panel-heading active">
+        <div class="panel-heading active panel-heading-menu">
       <% else %>
-        <div class="panel-heading">
+        <div class="panel-heading panel-heading-menu">
       <% end %>
           <h5 class="panel-title">
             <% href_id = "#master_rake_" + m.id.to_s %>

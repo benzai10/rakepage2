@@ -1,5 +1,6 @@
 <ul class="leaflet-list">
-  <% @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id]).leaflets.each do |l| %>
+  <% heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id]) %>
+  <% heap.leaflets.each do |l| %>
     <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
       <a class="pull-left" href="#">
         <% favicon_path = "http://www.google.com/s2/favicons?domain=" + Channel.find(l.channel_id).source %>
@@ -14,8 +15,8 @@
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
-            <%#= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
-                  remove_leaflet_heap_path(Rake.find(params[:rake_id].to_i).heap, leaflet_id: l.id),
+            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
+                  remove_leaflet_heap_path(heap, leaflet_id: l.id),
                   :data => { :confirm => "Are you sure?" },
                   :method => :get, remote: true %>
           </span>

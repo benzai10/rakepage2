@@ -22,7 +22,7 @@
               <%= link_to r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
               <% if r.id == params[:rake_id].to_i %>
                 <span class="pull-right">
-                  <%= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: r.id, heap: "yes") %>
+                  <%#= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: r.id, heap: "yes") %>
                   <%= link_to '<i class="fa fa-cog"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
 <!--                   <span class="badge">
                     <%#= Leaflet.where("channel_id = ?", c.id).count %>
