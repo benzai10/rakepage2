@@ -1,6 +1,5 @@
 class Heap < ActiveRecord::Base
   attr_accessor :leaflet_id
-  attr_accessor :leaflet_type_id
 
   validates :rake_id, presence: true
 

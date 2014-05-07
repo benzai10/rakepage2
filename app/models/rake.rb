@@ -1,7 +1,9 @@
 class Rake < ActiveRecord::Base
-  after_create :create_heap, :create_channel #, :inherit_channels
+  after_create :create_channel #, :inherit_channels
   attr_accessor :feed_leaflets
   attr_accessor :rake_filters
+  attr_accessor :leaflet_id
+  attr_accessor :leaflet_type_id
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
@@ -13,7 +15,7 @@ class Rake < ActiveRecord::Base
   has_many :rake_channel_maps, dependent: :destroy
   has_many :channels, through: :rake_channel_maps, dependent: :destroy
   has_many :filters, dependent: :destroy
-  has_one :heap, dependent: :destroy
+  has_many :heaps, dependent: :destroy
 
   def add_channel(channel)
     self.rake_channel_maps.create(channel_id: channel.id)
@@ -65,6 +67,17 @@ class Rake < ActiveRecord::Base
     end
   end
 
+  def add_leaflet(leaflet, leaflet_type_id)
+    if self.heaps.where("leaflet_type_id = ?", leaflet_type_id).empty?
+      self.add_heap(leaflet_type_id)
+    end
+    self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id)
+  end
+
+  def add_heap(leaflet_type_id)
+    self.heaps.create(rake_id: self.id, leaflet_type_id: leaflet_type_id)
+  end
+
   def get_heap
     self.heap.leaflets
   end
@@ -74,10 +87,6 @@ class Rake < ActiveRecord::Base
   end
 
   private
-
-  def create_heap
-    self.heap = Heap.create
-  end
 
   def create_channel
     add_channel(Channel.create!(source: id.to_s, name: name, channel_type: 3))

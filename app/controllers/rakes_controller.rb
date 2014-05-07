@@ -28,7 +28,10 @@ class RakesController < ApplicationController
       end
     end
     @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
-    @heap_leaflets = @rake.heap.leaflets.page(params[:page]).per(10)
+    @heaps = @rake.heaps
+    heap_ids = @heaps.pluck(:id)
+    leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
+    @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     @notifications = current_user.get_notifications
   end
@@ -121,14 +124,20 @@ class RakesController < ApplicationController
 
   def update
     @rake = Rake.find(params[:id])
-    @rake.filters.each do |f|
-      f.destroy
+    leaflet = Leaflet.find(params[:rake][:leaflet_id])
+    if params[:commit] == "Save Leaflet"
+      @rake.add_leaflet(leaflet, params[:rake][:leaflet_type_id])
+      redirect_to rakes_path(rake_id: @rake.id)
+    else
+      @rake.filters.each do |f|
+        f.destroy
+      end
+      filter_array = rake_params[:rake_filters].split(", ")
+      filter_array.each do |f|
+        @rake.add_filter(f, 1)
+      end
+      redirect_to rakes_path(rake_id: @rake.id)
     end
-    filter_array = rake_params[:rake_filters].split(", ")
-    filter_array.each do |f|
-      @rake.add_filter(f, 1)
-    end
-    redirect_to rakes_path(rake_id: @rake.id)
   end
 
   def destroy

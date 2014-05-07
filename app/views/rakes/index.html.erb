@@ -24,6 +24,21 @@
             </div>
           </div>
         </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <%# leaflet_type_desc = LeafletType.find_by_leaflet_type(lt).leaflet_type_desc %>
+              <%# leaflet_type_desc_id = leaflet_type_desc.gsub(/[^A-Za-z]/, '').downcase %>
+              <%# href_id = "#" + leaflet_type_desc_id %>
+              <%#= leaflet_type_desc %>
+            </h5>
+          </div>
+          <div id="#{leaflet_type_desc_id}" class="panel-collapse collapse">
+            <div class="panel-body">
+              <%#= render 'heap' %>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

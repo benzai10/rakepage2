@@ -16,13 +16,11 @@
             <% end %>
 
             <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
-              <% if @rake.heap.leaflets.include? l %>
+              <% if @heap_leaflets.include? l %>
                 <i class="fa fa-star"></i>
               <% else %>
-                <%#= link_to '<i class="fa fa-save"></i>'.html_safe, 
-                      add_leaflet_heap_path(@rake.heap, leaflet_id: l.id), 
-                      :method => :get, remote: true %>
-                <%= link_to '<i class="fa fa-save"></i>'.html_safe, "#", 
+                <%#= link_to '<i class="fa fa-save"></i>'.html_safe, "#" %>
+                <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
                             data: { toggle: "modal", target: "#myModal", id: l.id }, class: "leaflet-save" %>
                 <%#= link_to '<i class="fa fa-save"></i>'.html_safe, "#", data: { to } %>
               <% end %>
@@ -51,16 +49,15 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Choose a Leaflet Category</h4>
       </div>
-      <%= bootstrap_form_for(@rake.heap) do |f| %>
+      <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
           <%= f.text_field :leaflet_id, class: "leaflet-id" %>
           <%= f.text_field :leaflet_type_id %>
-          <%#= f.submit "Refresh", class: "btn btn-primary" %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <!-- <button type="button" class="btn btn-primary">Save Leaflet</button> -->
-          <%= f.submit "Save", class: "btn btn-primary" %>
+          <%= f.submit "Save Leaflet", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
