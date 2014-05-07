@@ -19,10 +19,8 @@
               <% if @heap_leaflets.include? l %>
                 <i class="fa fa-star"></i>
               <% else %>
-                <%#= link_to '<i class="fa fa-save"></i>'.html_safe, "#" %>
                 <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
                             data: { toggle: "modal", target: "#myModal", id: l.id }, class: "leaflet-save" %>
-                <%#= link_to '<i class="fa fa-save"></i>'.html_safe, "#", data: { to } %>
               <% end %>
             </span>
 
