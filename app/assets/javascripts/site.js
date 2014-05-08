@@ -7,8 +7,6 @@ $(function() {
 
     $('input.tokenize').tokenfield();
 
-    $('body').toggleClass('nav-expanded');
-
    //Navigation Menu Slider
     $('#nav-expander').on('click',function(e){
       e.preventDefault();
