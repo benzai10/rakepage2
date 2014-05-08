@@ -124,8 +124,8 @@ class RakesController < ApplicationController
 
   def update
     @rake = Rake.find(params[:id])
-    leaflet = Leaflet.find(params[:rake][:leaflet_id])
     if params[:commit] == "Save Leaflet"
+      leaflet = Leaflet.find(params[:rake][:leaflet_id])
       @rake.add_leaflet(leaflet, params[:rake][:leaflet_type_id])
       redirect_to rakes_path(rake_id: @rake.id)
     else
