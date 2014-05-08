@@ -15,32 +15,34 @@
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "My Rakes", rakes_path %>
+          <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", rakes_path %>
         </h5>
       </div>
     </div>
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "Add Rake Template", new_master_rake_path %>
+          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + "  " + "Add Rake Template", new_master_rake_path %>
         </h5>
       </div>
     </div>
-    <% @master_rakes.each_with_index do |m, i| %>
+    <% @master_rakes.each do |m| %>
       <div class="panel panel-default panel-menu">
-      <% if m.id == params[:rake_id].to_i %>
+      <% if @rake.id == m.id %>
         <div class="panel-heading active panel-heading-menu">
       <% else %>
         <div class="panel-heading panel-heading-menu">
       <% end %>
           <h5 class="panel-title">
             <% href_id = "#master_rake_" + m.id.to_s %>
-              <%= link_to m.name, master_rakes_path(rake_id: m.id), class: "rake_title" %>
-              <% if m.id == params[:rake_id].to_i %>
+              <% if @rake.id == m.id %>
+                <%= link_to "<i class='fa fa-leaf green'></i>".html_safe + "  " + m.name, master_rakes_path(rake_id: m.id), class: "rake_title" %>
                 <span class="pull-right">
-                  <%= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: m.id, heap: "yes") %>
-                  <%= link_to '<i class="fa fa-cog"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+                  <%#= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: m.id, heap: "yes") %>
+                  <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
                 </span>
+              <% else %>
+                <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + "  " + m.name, master_rakes_path(rake_id: m.id), class: "rake_title" %>
               <% end %>
           </h5>
         </div>
