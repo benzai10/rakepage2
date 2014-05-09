@@ -12,17 +12,57 @@ class RakesController < ApplicationController
       redirect_to master_rakes_path
       return
     end
-    @rake = @rakes.first
-    if !params[:rake_id].nil?
-      @rake = @rakes.where("id = ?", params[:rake_id].to_i).first
-      if session[:heap] == "no"
-        @rake.channels.each do |c|
-          if Time.now - c.last_pull_at > 1200
-            if c.channel_type == 1
-              current_user.get_fb_news_feed
-            else
-              c.pull_source
-            end
+    #@rake = @rakes.first
+    # if !params[:rake_id].nil?
+    #   @rake = @rakes.where("id = ?", params[:rake_id].to_i).first
+    #   if session[:heap] == "no"
+    #     @rake.channels.each do |c|
+    #       if Time.now - c.last_pull_at > 1200
+    #         if c.channel_type == 1
+    #           current_user.get_fb_news_feed
+    #         else
+    #           c.pull_source
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
+    #@feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
+    #@heaps = @rake.heaps
+    #heap_ids = @heaps.pluck(:id)
+    #leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
+    #@heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
+    #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
+    #@notifications = current_user.get_notifications
+    category_ids = MasterRake.where("id IN (?)", @rakes.pluck(:master_rake_id)).pluck(:category_id).uniq
+    @categories = Category.where("id IN (?)", category_ids)
+  end
+
+  def show
+    # @rake = Rake.find(params[:id])
+    # @heap_leaflets = @rake.heap.leaflets
+    # @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
+    # session[:feed_type] = params[:feed_type]
+    # @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
+    # session[:rake_class] = @rake.class
+    # respond_to do |format|
+    #   format.html
+    #   format.json
+    # end
+    session[:rake_class] = Rake
+    if params[:heap] == "yes"
+      session[:heap] = "yes"
+    else
+      session[:heap] = "no"
+    end
+    @rake = Rake.find(params[:id])
+    if session[:heap] == "no"
+      @rake.channels.each do |c|
+        if Time.now - c.last_pull_at > 1200
+          if c.channel_type == 1
+            current_user.get_fb_news_feed
+          else
+            c.pull_source
           end
         end
       end
@@ -34,19 +74,6 @@ class RakesController < ApplicationController
     @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     @notifications = current_user.get_notifications
-  end
-
-  def show
-    @rake = Rake.find(params[:id])
-    @heap_leaflets = @rake.heap.leaflets
-    @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
-    session[:feed_type] = params[:feed_type]
-    @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
-    session[:rake_class] = @rake.class
-    respond_to do |format|
-      format.html
-      format.json
-    end
   end
 
   def news

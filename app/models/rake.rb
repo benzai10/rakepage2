@@ -8,6 +8,7 @@ class Rake < ActiveRecord::Base
   attr_accessor :leaflet_desc
   attr_accessor :leaflet_url
   attr_accessor :heap_id
+  attr_accessor :category_id
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
