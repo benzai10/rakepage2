@@ -1,0 +1,37 @@
+<%= render 'shared/navbar' %>
+
+<nav>
+  <ul class="nav-close-x">
+    <li class="text-right"><a href="#" id="nav-close">X</a></li>
+  </ul>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
+        </h5>
+      </div>
+    </div>
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + " All Rake Templates", master_rakes_path %>
+        </h5>
+      </div>
+    </div>
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + "  " + "Add Rake Template", new_master_rake_path %>
+        </h5>
+      </div>
+    </div>
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", rakes_path %>
+        </h5>
+      </div>
+    </div>
+  </div>
+</nav>

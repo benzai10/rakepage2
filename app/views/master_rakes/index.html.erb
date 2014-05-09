@@ -1,46 +1,38 @@
-<%= render 'master_rakes/master_rakes' %>
+<%= render 'master_rakes/master_rakes_menu' %>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1><%= @rake.name %></h1>
-
+    <h1>Rake Templates</h1>
     <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="panel-title">
-            <% href_id = "#channels" %>
-            Channels
-            <span class="pull-right">
-              <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
-                          :data => { :toggle => "collapse" },
-                          id: "feed-chevron" %>
-            </span>
-          </h5>
-        </div>
-        <div id="channels" class="panel-collapse collapse">
-          <div class="panel-body">
-            <%= render 'master_rakes/channels' %>
+      <% @categories.each do |c| %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5 class="panel-title">
+              <%= c.desc %>
+              <% href_id = "#category_" + c.id.to_s %>
+              <span class="pull-right">
+                <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
+                            :data => { :toggle => "collapse" },
+                            id: "feed-chevron" %>
+              </span>
+            </h5>
+          </div>
+          <div id="category_<%= "#{c.id.to_s}" %>"  class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="row">
+              <% @master_rakes.where("category_id = ?", c.id).each do |m| %>
+                <div class="col-md-6">
+                  <div class="thumbnail">
+                    <div class="caption">
+                      <%= link_to m.name, master_rake_path(m) %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="panel-title">
-            <% href_id = "#feed" %>
-            News
-            <span class="pull-right">
-              <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
-                          :data => { :toggle => "collapse" },
-                          id: "feed-chevron" %>
-            </span>
-          </h5>
-        </div>
-        <div id="feed" class="panel-collapse collapse">
-          <div class="panel-body">
-            <%= render 'master_rakes/feed' %>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

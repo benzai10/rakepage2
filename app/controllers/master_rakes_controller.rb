@@ -13,19 +13,27 @@ class MasterRakesController < ApplicationController
     else
       @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
     end
+    category_ids = MasterRake.all.pluck(:category_id).uniq
+    @categories = Category.where("id IN (?)", category_ids)
     @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
   end
 
   def show
-    @rake = MasterRake.find(params[:id])
-    @channels = @rake.channels.where("channel_type <> 1")
-    @feed_leaflets = Leaflet.where("channel_id IN (?)", 
-                     @rake.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).page(params[:page]).per(10)
+    # @rake = MasterRake.find(params[:id])
+    # @channels = @rake.channels.where("channel_type <> 1")
+    # @feed_leaflets = Leaflet.where("channel_id IN (?)", 
+    #                  @rake.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).page(params[:page]).per(10)
+    # session[:rake_class] = MasterRake
+    # respond_to do |format|
+    #   format.html
+    #   format.json
+    # end
+    session[:displayed_channels] = []
+    @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    @rake = @master_rakes.where("id = ?", params[:id].to_i).first
+    @channels = @rake.channels
+    @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
   end
 
   def new

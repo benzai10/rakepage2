@@ -8,6 +8,7 @@ class MasterRake < ActiveRecord::Base
   has_many :channels, through: :channels_master_rakes, dependent: :destroy
 
   has_many :rakes
+  has_one :category
 
   def add_channel(channel)
     self.channels_master_rakes.create(channel_id: channel.id)
