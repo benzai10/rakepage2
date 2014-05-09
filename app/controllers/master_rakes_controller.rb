@@ -30,6 +30,9 @@ class MasterRakesController < ApplicationController
     @rake = @master_rakes.where("id = ?", params[:id].to_i).first
     @channels = @rake.channels
     @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
+    rake_ids = @rake.rakes.pluck(:id)
+    @heaps = Heap.where("rake_id IN (?)", rake_ids)
+    @heap_types = @heaps.pluck(:leaflet_type_id).uniq
   end
 
   def new
