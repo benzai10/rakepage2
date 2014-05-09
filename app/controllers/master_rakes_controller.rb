@@ -4,18 +4,14 @@ class MasterRakesController < ApplicationController
     session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    @rake = @master_rakes.first
+    #@rake = @master_rakes.first
     if !params[:rake_id].nil?
       @rake = @master_rakes.where("id = ?", params[:rake_id].to_i).first
-    end
-    if params[:rake_id].nil?
-      @channels = @master_rakes.first.channels
-    else
       @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
+      @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
     end
     category_ids = MasterRake.all.pluck(:category_id).uniq
     @categories = Category.where("id IN (?)", category_ids)
-    @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
   end
 
   def show

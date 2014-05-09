@@ -36,7 +36,7 @@
           </span>
         </h5>
         <div id="master_rake" class="panel-collapse collapse">
-          <div class="panel-body">
+          <div class="panel-body menu black">
             Channels:
             <ul class="leaflet-list">
               <% @rake.channels.each do |c| %>
@@ -47,13 +47,14 @@
                   </span>
                   <div class="media-body">
                     <h5 class="media-heading channel-heading">
-                      <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
-                        <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                      <!-- <i class="fa fa-check-square-o"></i> -->
+                      <%# if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
+                        <%#= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
                                     toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
-                      <% else %>
-                        <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                      <%# else %>
+                        <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
                                     toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
-                      <% end %>
+                      <%# end %>
                       <%= c.name %>
                       <span class="pull-right">
                         <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
