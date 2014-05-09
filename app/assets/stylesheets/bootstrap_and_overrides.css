@@ -229,7 +229,7 @@ input[type=password] {
 
 ul.leaflet-list li.rake-show-list {
   /*background-color: lightgray;*/
-  border-bottom: solid 1px lightgray;
+  /*border-bottom: solid 1px lightgray;*/
   padding-top: 5px;
 }
 

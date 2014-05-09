@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507023913) do
+ActiveRecord::Schema.define(version: 20140508103509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,12 +62,12 @@ ActiveRecord::Schema.define(version: 20140507023913) do
   end
 
   create_table "channels", force: true do |t|
-    t.string   "name",         default: "", null: false
-    t.string   "source",       default: "", null: false
+    t.string   "name",         default: "",                    null: false
+    t.string   "source",       default: "",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "channel_type"
-    t.datetime "last_pull_at"
+    t.datetime "last_pull_at", default: '2014-04-29 08:26:48'
   end
 
   add_index "channels", ["source"], name: "index_channels_on_source", unique: true, using: :btree
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 20140507023913) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "leaflet_type_id", default: 0
+    t.text     "leaflet_desc"
+    t.text     "leaflet_title"
   end
 
   add_index "heap_leaflet_maps", ["heap_id", "leaflet_id"], name: "index_heap_leaflet_maps_on_heap_id_and_leaflet_id", unique: true, using: :btree

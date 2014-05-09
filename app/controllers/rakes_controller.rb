@@ -126,7 +126,16 @@ class RakesController < ApplicationController
     @rake = Rake.find(params[:id])
     if params[:commit] == "Save Leaflet"
       leaflet = Leaflet.find(params[:rake][:leaflet_id])
-      @rake.add_leaflet(leaflet, params[:rake][:leaflet_type_id])
+      @rake.add_leaflet(leaflet, 
+                        params[:rake][:leaflet_type_id],
+                        params[:rake][:leaflet_title],
+                        params[:rake][:leaflet_desc])
+      redirect_to rakes_path(rake_id: @rake.id)
+    elsif params[:commit] == "Create Leaflet"
+      @rake.create_leaflet(params[:rake][:leaflet_type_id],
+                           params[:rake][:leaflet_title],
+                           params[:rake][:leaflet_desc],
+                           params[:rake][:leaflet_url])
       redirect_to rakes_path(rake_id: @rake.id)
     else
       @rake.filters.each do |f|

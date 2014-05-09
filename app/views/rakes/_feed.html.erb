@@ -20,7 +20,7 @@
                 <i class="fa fa-star"></i>
               <% else %>
                 <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
-                            data: { toggle: "modal", target: "#myModal", id: l.id }, class: "leaflet-save" %>
+                            data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
               <% end %>
             </span>
 
@@ -38,26 +38,3 @@
   <% end %>
 </ul>
 <%= paginate @feed_leaflets %>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Choose a Leaflet Category</h4>
-      </div>
-      <%= bootstrap_form_for(@rake) do |f| %>
-        <div class="modal-body">
-          <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
-          <% leaflet_types_array = LeafletType.all.map { |lt| [lt.leaflet_type_desc, lt.leaflet_type] } %>
-          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { hide_label: true, } %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Save Leaflet", class: "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
