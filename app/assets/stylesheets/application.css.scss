@@ -14,3 +14,63 @@
  *= require_tree .
  */
 @import "bootstrap";
+
+.cool {
+  position: fixed;
+  float: left;
+  left: 0px;
+  height: 100%;
+  background: #4A2B88;
+  ul {
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 15px 4px 17px 0;
+    list-style: none;
+
+    li {
+      margin-right: -4px;
+      position: relative;
+      padding: 10px 5px;
+      cursor: pointer;
+
+      &:hover {
+        background: #2CCF73;
+        color: #fff;
+      }
+
+      i {
+        color: white !important;
+        font-size: 2em;
+      }
+
+      ul {
+        padding: 0;
+        position: absolute;
+        top: 0;
+        left: 40px;
+        width: 150px;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: visibility 0.2s linear, opacity 0.2s linear;
+        -moz-transition: visibility 0.2s linear, opacity 0.2s linear;
+        -o-transition: visibility 0.2s linear, opacity 0.2s linear;
+
+        li {
+          background: #2CCF73;
+          display: block;
+          color: #fff;
+
+          &:hover {
+            color: #4A2B88;
+          }
+        }
+      }
+      &:hover ul {
+        visibility: visible;
+        display: block;
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,4 +1,38 @@
 <%= render 'shared/rake_channels' %>
+
+<div class="cool" >
+  <ul>
+    <li><i class="fa fa-bell"></i>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul>
+    </li>
+    <li><i class="fa fa-pagelines"></i>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul>
+    </li>
+    <li><i class="fa fa-pencil"></i>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul>
+    </li>
+    <li><i class="fa fa-users"></i>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul>
+    </li>
+    <li><i class="fa fa-user"></i>
+    </li>
+    <li><i class="fa fa-gear"></i>
+    </li>
+  </ul>
+</div>
+
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <h1><%= @rake.name %></h1>
@@ -12,7 +46,7 @@
               <% href_id = "#feed" %>
               News
               <span class="pull-right">
-                <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
+                <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id,
                             :data => { :toggle => "collapse" },
                             id: "feed-chevron" %>
               </span>
@@ -33,7 +67,7 @@
                 <% href_id_link = "#" + href_id %>
                 <%= leaflet_type_desc %>
                 <span class="pull-right">
-                  <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id_link, 
+                  <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id_link,
                               :data => { :toggle => "collapse" },
                               id: "feed-chevron" %>
                 </span>
