@@ -4,6 +4,11 @@ class Rake < ActiveRecord::Base
   attr_accessor :rake_filters
   attr_accessor :leaflet_id
   attr_accessor :leaflet_type_id
+  attr_accessor :leaflet_title
+  attr_accessor :leaflet_desc
+  attr_accessor :leaflet_url
+  attr_accessor :heap_id
+  attr_accessor :category_id
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
@@ -67,11 +72,21 @@ class Rake < ActiveRecord::Base
     end
   end
 
-  def add_leaflet(leaflet, leaflet_type_id)
+  def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
     if self.heaps.where("leaflet_type_id = ?", leaflet_type_id).empty?
       self.add_heap(leaflet_type_id)
     end
-    self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id)
+    self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+  end
+
+  def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url)
+    channel_id = self.channels.where("channel_type = 3").first.id
+    leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
+                             title: leaflet_title,
+                             url: leaflet_url,
+                             channel_id: channel_id,
+                             content: leaflet_desc)
+    self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
   end
 
   def add_heap(leaflet_type_id)

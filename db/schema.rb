@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507023913) do
+ActiveRecord::Schema.define(version: 20140509050456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(version: 20140507023913) do
     t.string   "oauth_secret"
   end
 
+  create_table "categories", force: true do |t|
+    t.string   "desc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "channels", force: true do |t|
     t.string   "name",         default: "", null: false
     t.string   "source",       default: "", null: false
@@ -94,6 +100,8 @@ ActiveRecord::Schema.define(version: 20140507023913) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "leaflet_type_id", default: 0
+    t.text     "leaflet_desc"
+    t.text     "leaflet_title"
   end
 
   add_index "heap_leaflet_maps", ["heap_id", "leaflet_id"], name: "index_heap_leaflet_maps_on_heap_id_and_leaflet_id", unique: true, using: :btree
@@ -131,9 +139,10 @@ ActiveRecord::Schema.define(version: 20140507023913) do
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree
 
   create_table "master_rakes", force: true do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",        default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id", default: 1
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree

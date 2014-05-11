@@ -4,28 +4,35 @@ class MasterRakesController < ApplicationController
     session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    @rake = @master_rakes.first
+    #@rake = @master_rakes.first
     if !params[:rake_id].nil?
       @rake = @master_rakes.where("id = ?", params[:rake_id].to_i).first
-    end
-    if params[:rake_id].nil?
-      @channels = @master_rakes.first.channels
-    else
       @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
+      @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
     end
-    @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
+    category_ids = MasterRake.all.pluck(:category_id).uniq
+    @categories = Category.where("id IN (?)", category_ids)
   end
 
   def show
-    @rake = MasterRake.find(params[:id])
-    @channels = @rake.channels.where("channel_type <> 1")
-    @feed_leaflets = Leaflet.where("channel_id IN (?)", 
-                     @rake.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).page(params[:page]).per(10)
+    # @rake = MasterRake.find(params[:id])
+    # @channels = @rake.channels.where("channel_type <> 1")
+    # @feed_leaflets = Leaflet.where("channel_id IN (?)", 
+    #                  @rake.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).page(params[:page]).per(10)
+    # session[:rake_class] = MasterRake
+    # respond_to do |format|
+    #   format.html
+    #   format.json
+    # end
+    session[:displayed_channels] = []
+    @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    @rake = @master_rakes.where("id = ?", params[:id].to_i).first
+    @channels = @rake.channels
+    @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
+    rake_ids = @rake.rakes.pluck(:id)
+    @heaps = Heap.where("rake_id IN (?)", rake_ids)
+    @heap_types = @heaps.pluck(:leaflet_type_id).uniq
   end
 
   def new

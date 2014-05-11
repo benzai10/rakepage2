@@ -2,7 +2,16 @@ $(function() {
 
     $(".leaflet-save").click(function() {
         var leafletid = $(this).data('id');
+        var leaflettitle = $(this).data('title');
         $(".leaflet-id").val(leafletid);
+        $(".leaflet-custom-title").val(leaflettitle);
+    });
+
+    $(".leaflet-create").click(function() {
+        var leafletTypeId = $(this).data('typeid');
+        // var heapId = $(this).data('heap_id');
+        $(".leaflet-type-id").val(leafletTypeId);
+        // $(".heap-id").val(heapId);
     });
 
     $('input.tokenize').tokenfield();

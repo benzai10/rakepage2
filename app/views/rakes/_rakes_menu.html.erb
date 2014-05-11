@@ -12,54 +12,42 @@
         </h5>
       </div>
     </div>
+
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
+          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
         </h5>
       </div>
     </div>
-    <% @rakes.each do |r| %>
-      <div class="panel panel-default panel-menu">
-      <% if @rake.id == r.id %>
-        <div class="panel-heading active panel-heading-menu">
-      <% else %>
-        <div class="panel-heading panel-heading-menu">
-      <% end %>
-          <h5 class="panel-title">
-            <% href_id = "#rake_" + r.id.to_s %>
-              <% if @rake.id == r.id %>
-                <%= link_to "<i class='fa fa-leaf green'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
-              <% else %>
-                <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
-              <% end %>
-              <% if r.id == params[:rake_id].to_i %>
-                <span class="pull-right">
-                  <%#= link_to '<i class="fa fa-leaf"></i>'.html_safe, rakes_path(rake_id: r.id, heap: "yes") %>
-                  <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
-<!--                   <span class="badge">
-                    <%#= Leaflet.where("channel_id = ?", c.id).count %>
-                  </span> -->
-                </span>
-              <% end %>
-          </h5>
-        </div>
-        <div id="rake_<%= "#{r.id.to_s}" %>" class="panel-collapse collapse">
-          <div class="panel-body">
-            <!-- <div class="input-group"> -->
-              <!-- <input type="text" class="tokenize" value="<%#= @rake_filter %>" /> -->
-              <!-- <span class="input-group-btn"> -->
-                <%#= link_to "Refresh", update_filter_rake_path(r), class: "btn btn-default" %>
-              <!-- </span> -->
-            <!-- </div> -->
-            <%= bootstrap_form_for(r) do |f| %>
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
+        </h5>
+      </div>
+    </div>
+
+    <% if !@rake.nil? %>
+      <div class="panel-heading active panel-heading-menu">
+        <h5 class="panel-title">
+          <% href_id = "#rake" %>
+          <i class='fa fa-leaf green'></i>&nbsp;<%= @rake.name %>
+          <span class="pull-right">
+            <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+          </span>
+        </h5>
+        <div id="rake" class="panel-collapse collapse">
+          <div class="panel-body menu black">
+            <%= bootstrap_form_for(@rake) do |f| %>
               <%= f.text_field :rake_filters, class: "tokenize", value: @rake_filter %>
               <%= f.submit "Refresh", class: "btn btn-primary" %>
             <% end %>
             <br>
             Channels:
             <ul class="leaflet-list">
-              <% r.channels.each do |c| %>
+              <% @rake.channels.each do |c| %>
                 <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
                   <span class="pull-left" >
                     <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
@@ -67,16 +55,16 @@
                   </span>
                   <div class="media-body">
                     <h5 class="media-heading channel-heading">
-                      <% if c.rake_channel_maps.find_by_rake_id(r.id).display %>
+                      <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
                         <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                                    toggle_channel_display_rake_path(r, channel: c.id, display: false) %>
+                                    toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
                       <% else %>
                         <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                                    toggle_channel_display_rake_path(r, channel: c.id, display: true) %>
+                                    toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
                       <% end %>
                       <%= c.name %>
                       <span class="pull-right">
-                        <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(r, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+                        <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
                       </span>
                     </h5>
                     <p>
@@ -93,6 +81,7 @@
         </div>
       </div>
     <% end %>
+
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
