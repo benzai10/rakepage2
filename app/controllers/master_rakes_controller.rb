@@ -55,6 +55,11 @@ class MasterRakesController < ApplicationController
 
   def update
     @master_rake = MasterRake.find(params[:id])
+    if @master_rake.update_attributes(master_rake_params)
+      redirect_to master_rake_path(@master_rake)
+    else
+      redirect_to :back
+    end
   end
 
   def toggle_channel_display
@@ -85,6 +90,6 @@ class MasterRakesController < ApplicationController
   protected
 
   def master_rake_params
-    params.require(:master_rake).permit(:name, :rake)
+    params.require(:master_rake).permit(:name, :rake, :category_id)
   end
 end

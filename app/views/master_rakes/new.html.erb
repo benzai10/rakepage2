@@ -3,6 +3,8 @@
   <div class="col-md-6">
   <%= bootstrap_form_for(@master_rake) do |f| %>
     <%= f.text_field :name, class: "txtfield", placeholder: "Enter Master Rake" %>
+    <% categories_array = Category.all.map { |c| [c.desc, c.id] } %>
+    <%= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
     <%= f.submit "Save", class: "btn btn-primary" %>
   <% end %>
   </div>

@@ -24,6 +24,9 @@
                   <div class="thumbnail">
                     <div class="caption">
                       <%= link_to m.name, master_rake_path(m) %>
+                      <span class="pull-right">
+                        <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: m.id), title: "create a new rake" %>
+                      </span>
                     </div>
                   </div>
                 </div>

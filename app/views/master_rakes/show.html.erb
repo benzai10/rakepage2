@@ -1,7 +1,12 @@
 <%= render 'master_rakes/master_rakes_menu' %>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1><%= @rake.name %></h1>
+    <h1>
+      <%= @rake.name %>
+      <small>
+        <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: @rake.id), title: "create a new rake" %>
+      </small>
+    </h1>
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -22,7 +27,7 @@
         </div>
       </div>
       <% @heap_types.each do |ht| %>
-        <div class="panel panel-default"%>
+        <div class="panel panel-default">
           <div class="panel-heading">
             <h5 class="panel-title">
               <% href_id = "#heap_" + ht.to_s %>

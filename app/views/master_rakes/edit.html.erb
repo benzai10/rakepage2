@@ -1,6 +1,7 @@
 <h1>MasterRake#Edit</h1>
 <%= bootstrap_form_for(@master_rake) do |f| %>
   <%= f.text_field :name, class: "form-control", placeholder: "Text here" %>
-  <h5>Channels</h5>
+  <% categories_array = Category.all.map { |c| [c.desc, c.id] } %>
+  <%= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
   <%= f.submit "Update" %>
 <% end %>

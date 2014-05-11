@@ -172,7 +172,7 @@ class RakesController < ApplicationController
       filter_array.each do |f|
         @rake.add_filter(f, 1)
       end
-      redirect_to rakes_path(rake_id: @rake.id)
+      redirect_to rake_path(@rake)
     end
   end
 
