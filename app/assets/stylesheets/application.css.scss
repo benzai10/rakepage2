@@ -35,7 +35,7 @@
       cursor: pointer;
 
       &:hover {
-        background: #2CCF73;
+        background: #4A2B88;
         color: #fff;
       }
 
@@ -57,12 +57,12 @@
         -o-transition: visibility 0.2s linear, opacity 0.2s linear;
 
         li {
-          background: #2CCF73;
+          background: #4A2B88;
           display: block;
           color: #fff;
 
           &:hover {
-            color: #4A2B88;
+            color: #2CCF73;
           }
         }
       }

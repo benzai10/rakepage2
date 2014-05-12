@@ -4,7 +4,11 @@
     <h1>
       <%= @rake.name %>
       <small>
-        <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: @rake.id), title: "create a new rake" %>
+        <% if !current_user.nil? %>
+          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: @rake.id), title: "create a new rake" %>
+        <% else %>
+          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_user_session_path %>
+        <% end %>
       </small>
     </h1>
     <div class="panel-group" id="accordion">

@@ -15,15 +15,6 @@ class MasterRakesController < ApplicationController
   end
 
   def show
-    # @rake = MasterRake.find(params[:id])
-    # @channels = @rake.channels.where("channel_type <> 1")
-    # @feed_leaflets = Leaflet.where("channel_id IN (?)", 
-    #                  @rake.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact).page(params[:page]).per(10)
-    # session[:rake_class] = MasterRake
-    # respond_to do |format|
-    #   format.html
-    #   format.json
-    # end
     session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
