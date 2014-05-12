@@ -83,12 +83,29 @@
         </div>
       </div>
     <% end %>
+    <% if user_signed_in? %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", rakes_path %>
+          </h5>
+        </div>
+      </div>
+    <% end %>
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", rakes_path %>
+          <% if user_signed_in? %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN OUT", destroy_user_session_path, method: :delete %>
+            <span class="pull-right">
+              <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+            </span>
+          <% else %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN IN", new_user_session_path %>
+          <% end %>
         </h5>
       </div>
     </div>
+
   </div>
 </nav>
