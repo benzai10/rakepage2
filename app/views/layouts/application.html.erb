@@ -5,9 +5,9 @@
     <%# Mobile responsivenes %>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <%#= include_gon %>
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :async => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true, :async => true %>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick", :async => true %>
     <%= csrf_meta_tags %>
   </head>
 
