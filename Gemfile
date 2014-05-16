@@ -14,8 +14,6 @@ gem 'devise'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'feedjira'
 gem 'gon'
-gem 'pry'
-gem 'pry-byebug'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -23,6 +21,7 @@ gem 'omniauth-twitter'
 gem "koala", "~> 1.8.0rc1"
 gem "twitter"
 
+gem 'dotenv'
 
 group :production do
 # pre-req for Heroku integration, RoR 4+
@@ -33,6 +32,8 @@ group :development, :test do
 # Read env settings from .env file like heroku does
   gem "foreman"
   gem "pry-rails"
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 #### Default
@@ -77,7 +78,7 @@ end
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
