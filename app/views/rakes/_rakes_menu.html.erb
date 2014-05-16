@@ -5,35 +5,12 @@
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
-        </h5>
-      </div>
-    </div>
-
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
-        </h5>
-      </div>
-    </div>
-
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
-        </h5>
-      </div>
-    </div>
 
     <% if !@rake.nil? %>
       <div class="panel-heading active panel-heading-menu">
         <h5 class="panel-title">
           <% href_id = "#rake" %>
-          <i class='fa fa-leaf green'></i>&nbsp;<%= @rake.name %>
+          <i class='fa fa-code-fork green'></i>&nbsp;<%= @rake.name %>
           <span class="pull-right">
             <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
           </span>
@@ -76,25 +53,93 @@
                 </li>
               <% end %>
             </ul>
-            <%= link_to "Add Channel", new_channel_path(rake_id: @rake.id) %>
+            <p><%= link_to "Add Channel", new_channel_path(rake_id: @rake.id) %></p>
+            <p><%= link_to "Delete Rake", rake_path(@rake), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
           </div>
+        </div>
+      </div>
+
+      <% @heaps.each do |h| %>
+        <div class="panel panel-default panel-menu">
+          <div class="panel-heading panel-heading-menu">
+            <h5 class="panel-title">
+              <% leaflet_type_desc = LeafletType.find_by_leaflet_type(h.leaflet_type_id).leaflet_type_desc %>
+              <% href_id = leaflet_type_desc.gsub(/[^A-Za-z]/, '').downcase %>
+              <% href_id_link = "#" + href_id %>
+              <i class='fa fa-leaf white'></i>&nbsp;<%= leaflet_type_desc %>
+              <span class="pull-right">
+                <%= link_to '<i class="fa fa-chevron-down white"></i>'.html_safe, href_id_link, 
+                            :data => { :toggle => "collapse" },
+                            id: "feed-chevron" %>
+              </span>
+            </h5>
+          </div>
+          <div id=<%= "#{href_id}" %> class="panel-collapse collapse">
+            <div class="panel-body">
+              <%= render 'heap', locals: { leaflet_type_id: h.leaflet_type_id } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    <% end %>
+
+
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
+        </h5>
+      </div>
+    </div>
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
+        </h5>
+      </div>
+    </div>
+
+    <% if !@rake.nil? %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
+          </h5>
+        </div>
+      </div>
+    <% else %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading active panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "<i class='fa fa-sitemap green'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
+          </h5>
         </div>
       </div>
     <% end %>
 
+
     <div class="panel panel-default panel-menu">
-      <div class="panel-heading active panel-heading-menu">
+      <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <% if user_signed_in? %>
-            <i class="fa fa-user green"></i> <%= current_user.username %>
+            <i class="fa fa-user white"></i> <%= current_user.username %>
             <span class="pull-right">
             <% href_id = "#user" %>
-              <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+              <%= link_to '<i class="fa fa-cog white"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
             </span>
             <div id="user" class="panel-collapse collapse">
               <div class="panel-body menu black">
-              <%= link_to "Social Accounts", authentications_path %>
-              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
+                <ul class="leaflet-list">
+                  <li class="rake-show-list">
+                    <%= link_to "Social Accounts", authentications_path %>
+                  </li>
+                  <li class="rake-show-list">
+                    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
+                  </li>
+                </ul>
               </div>
             </div>
           <% else %>

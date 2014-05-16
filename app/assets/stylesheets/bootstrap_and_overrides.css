@@ -256,7 +256,8 @@ ul.leaflet-list li.rake-show-list {
 
 .navbar-inverse {
   background-color: #4a2b88;
-  border-color: #4a2b88;
+  /*border-color: #4a2b88;*/
+  border: none;
 }
 
 .navbar-brand {
@@ -334,6 +335,7 @@ body.nav-expanded {
 
 .nav-close-x {
   padding-top: 10px;
+  margin-bottom: 6px;
 }
  
 #nav-close {

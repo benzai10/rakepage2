@@ -1,6 +1,6 @@
 class Authentication < ActiveRecord::Base
-  after_create :create_channel
-  before_destroy :delete_channel
+  after_create :create_channel, :create_rake
+  before_destroy :delete_rake
   belongs_to :user
 
   def self.from_omniauth(user, auth)
@@ -31,6 +31,16 @@ class Authentication < ActiveRecord::Base
 
   def delete_channel
     Channel.find_by!(source: uid.to_s).destroy
+  end
+
+  def create_rake
+    rake = Rake.create!(name: provider, user_id: user.id, master_rake_id: MasterRake.find_by(name: provider.humanize + " Import").id)
+    rake.add_channel(Channel.find_by(source: uid.to_s))
+  end
+
+  def delete_rake
+    RakeChannelMap.find_by(channel_id: Channel.find_by!(source: uid.to_s)).rake.destroy
+    delete_channel
   end
 
   def channel_type

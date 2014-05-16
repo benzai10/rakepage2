@@ -27,7 +27,7 @@
           </span>
         </p>
         <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-        <p class="feed-body"><%= l.content[0..199].html_safe + "..." %></p>
+        <p class="feed-body"><%= raw l.content + "..." %></p>
         <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
       </div>

@@ -1,38 +1,56 @@
-<% if @authentications %>
-    <% unless @authentications.empty? %>
-    <p><strong>You can sign in to this account using:</strong></p>
-<div class="authentications">
-    <% for authentication in @authentications %>
-        <div class="authentication">
-        <%= image_tag "#{authentication.provider}_32.png", :size => "32x32" %>
-        <div class="provider"><%= authentication.provider.titleize %></div>
-        <div class="uid"><%= authentication.uid %></div>
-        <%= link_to "X", authentication, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" %>
-    </div>
-<% end %>
-    <div class="clear"></div>
+<%= render 'authentications_menu' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1>Social Account Connections</h1>
+    <table>
+    <% if @authentications %>
+      <table class="table">
+      <% unless @authentications.empty? %>
+        <% for authentication in @authentications %>
+          <% if authentication.provider == "facebook" %>
+            <tr>
+              <td><%= image_tag "facebook_logo_72.png", size: "32x32" %></td>
+              <td>Connected</td>
+              <td>
+                <%= link_to "Remove", authentication, 
+                          :confirm => 'Are you sure you want to remove this authentication option?',
+                          :method => :delete,
+                          :class => "remove pull-right" %>
+              </td>
+            </tr>
+          <% elsif authentication.provider == "twitter" %>
+            <tr>
+              <td><%= image_tag "twitter_logo_72.png", size: "32x32" %></td>
+              <td>Connected</td>
+              <td>
+                <%= link_to "Remove", authentication, 
+                          :confirm => 'Are you sure you want to remove this authentication option?',
+                          :method => :delete,
+                          :class => "remove pull-right" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% unless @authentications.select{ |a| a.provider == "twitter" }.any? %>
+      <tr>
+        <td><%= image_tag "twitter_logo_72.png", size: "32x32" %></td>
+        <td>Not Connected</td>
+        <td>
+          <%= link_to "Add", connect_twitter_authentications_path, class: "pull-right" %>
+        </td>
+      </tr>
+    <% end %>
+      <% unless @authentications.select{ |a| a.provider == "facebook" }.any? %>
+      <tr>
+        <td><%= image_tag "facebook_logo_72.png", size: "32x32" %></td>
+        <td>Not Connected</td>
+        <td>
+          <%= link_to "Add", connect_facebook_authentications_path, class: "pull-right" %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
 </div>
-<% end %>
-<p><strong>Add another service to sign in with:</strong></p>
-<% else %>
-    <p><strong>Sign in through one of these services:</strong></p>
-<% end %>
-
-<% unless @authentications.select{ |a| a.provider == "twitter" }.any? %>
-    <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter_64" %>
-    <%= link_to "Twitter Server-flow", connect_twitter_authentications_path %>
-<% end %>
-
-<% unless @authentications.select{ |a| a.provider == "facebook" }.any? %>
-    <%= link_to_function image_tag("facebook_64.png", :size => "64x64", :alt => "Facebook looogin"), 'fblogin()' %>
-    <%= link_to_function "Client-flow", "fblogin()" %>
-    <%= link_to "Server-flow", connect_facebook_authentications_path %>
-<% end %>
-<!--
-<a href="/auth/google_apps" class="auth_provider">
-<%= image_tag "google_64.png", :size => "64x64", :alt => "Google" %>
-Google
-</a>
--->
-
-<div class="clear"></div>

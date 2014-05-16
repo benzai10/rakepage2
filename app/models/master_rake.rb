@@ -11,13 +11,13 @@ class MasterRake < ActiveRecord::Base
   has_one :category
 
   def add_channel(channel)
-    self.channels_master_rakes.create(channel_id: channel.id)
-    Leaflet.create!(channel_id: get_notification.id,
-                    title: "New Channel available!",
-                    content: "Channel " + channel.name + " has been added to " + name,
-                    published_at: Time.new,
-                    author: "Rakepage",
-                    identifier: "channel_" + channel.id.to_s)
+    # self.channels_master_rakes.create(channel_id: channel.id)
+    # Leaflet.create!(channel_id: get_notification.id,
+    #                 title: "New Channel available!",
+    #                 content: "Channel " + channel.name + " has been added to " + name,
+    #                 published_at: Time.new,
+    #                 author: "Rakepage",
+    #                 identifier: "channel_" + channel.id.to_s)
   end
 
   def remove_channel(channel)
@@ -45,6 +45,6 @@ class MasterRake < ActiveRecord::Base
   private
 
   def create_channel
-    add_channel(Channel.create!(source: "master_rake_" + self.id.to_s, name: name + " Notification", channel_type: 5))
+    #add_channel(Channel.create!(source: "master_rake_" + self.id.to_s, name: name + " Notification", channel_type: 5))
   end
 end

@@ -1,0 +1,62 @@
+<%= render 'shared/navbar' %>
+
+<nav>
+  <ul class="nav-close-x">
+    <li class="text-right"><a href="#" id="nav-close">X</a></li>
+  </ul>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
+        </h5>
+      </div>
+    </div>
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + "  Rake Templates", master_rakes_path, class: "rake_title" %>
+        </h5>
+      </div>
+    </div>
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
+        </h5>
+      </div>
+    </div>
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading active panel-heading-menu">
+        <h5 class="panel-title">
+          <% if user_signed_in? %>
+            <i class="fa fa-user green"></i> <%= current_user.username %>
+            <span class="pull-right">
+            <% href_id = "#user" %>
+              <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+            </span>
+            <div id="user" class="panel-collapse collapse">
+              <div class="panel-body menu black">
+                <ul class="leaflet-list">
+                  <li class="rake-show-list">
+                    <%= link_to "Social Accounts", authentications_path %>
+                  </li>
+                  <li class="rake-show-list">
+                    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          <% else %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN IN", new_user_session_path %>
+          <% end %>
+        </h5>
+      </div>
+    </div>
+
+  </div>
+
+</nav>

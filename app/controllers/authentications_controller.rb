@@ -5,6 +5,10 @@ class AuthenticationsController < ApplicationController
     if current_user
       @authentications = current_user.authentications
       current_user.import_fb unless @authentications.find_by(provider: "facebook").nil?
+      respond_to do |format|
+        format.html
+        format.js   #{ render 'heaps/add_leaflet.js.erb' }
+      end
     end
   end
 

@@ -19,7 +19,7 @@
           <div id="category_<%= "#{c.id.to_s}" %>"  class="panel-collapse collapse">
             <div class="panel-body">
               <div class="row">
-              <% @master_rakes.where("category_id = ?", c.id).each do |m| %>
+              <% @master_rakes.where("category_id = ? AND (name <> 'Facebook Import' AND name <> 'Twitter Import')", c.id).each do |m| %>
                 <div class="col-md-6">
                   <div class="thumbnail">
                     <div class="caption">

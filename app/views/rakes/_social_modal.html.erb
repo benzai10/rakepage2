@@ -1,0 +1,51 @@
+<!-- Modal -->
+<div class="modal fade" id="socialModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Connect Social Accounts</h4>
+      </div>
+      <div class="modal-body">
+
+<% if @authentications %>
+    <% unless @authentications.empty? %>
+    <p><strong>You can sign in to this account using:</strong></p>
+<div class="authentications">
+    <% for authentication in @authentications %>
+        <div class="authentication">
+        <%= image_tag "#{authentication.provider}_32.png", :size => "32x32" %>
+        <div class="provider"><%= authentication.provider.titleize %></div>
+        <div class="uid"><%= authentication.uid %></div>
+        <%= link_to "X", authentication, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" %>
+    </div>
+<% end %>
+    <div class="clear"></div>
+</div>
+<% end %>
+<p><strong>Add another service to sign in with:</strong></p>
+<% else %>
+    <p><strong>Sign in through one of these services:</strong></p>
+<% end %>
+
+<% unless @authentications.select{ |a| a.provider == "twitter" }.any? %>
+    <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter_64" %>
+    <%= link_to "Twitter Server-flow", connect_twitter_authentications_path %>
+<% end %>
+
+<% unless @authentications.select{ |a| a.provider == "facebook" }.any? %>
+    <%= link_to_function image_tag("facebook_64.png", :size => "64x64", :alt => "Facebook looogin"), 'fblogin()' %>
+    <%= link_to_function "Client-flow", "fblogin()" %>
+    <%= link_to "Server-flow", connect_facebook_authentications_path %>
+<% end %>
+
+<div class="clear"></div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
