@@ -17,6 +17,20 @@ $(function() {
         $(".category-id").val(categoryId);
     });
 
+    $(".add-rss-feed").click(function() {
+        var rakeId = $(this).data('rakeid');
+        var channelType = $(this).data('channeltype');
+        $(".rake-id-rss").val(rakeId);
+        $(".channel-type-rss").val(channelType);
+    });
+
+    $(".add-subreddit-feed").click(function() {
+        var rakeId = $(this).data('rakeid');
+        var channelType = $(this).data('channeltype');
+        $(".rake-id-subreddit").val(rakeId);
+        $(".channel-type-subreddit").val(channelType);
+    });
+
     $('input.tokenize').tokenfield();
 
    //Navigation Menu Slider

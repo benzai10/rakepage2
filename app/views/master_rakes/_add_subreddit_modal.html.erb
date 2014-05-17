@@ -1,0 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="addSubredditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add Subreddit</h4>
+      </div>
+      <%= bootstrap_form_for(Channel.new) do |f| %>
+        <div class="modal-body">
+          <%= f.hidden_field :rake_id, class: "rake-id-subreddit" %>
+          <%= f.hidden_field :channel_type, class: "channel-type-subreddit" %>
+          <%= f.text_field :source, { label: "Enter Subreddit Name (without /r/)", url: autocomplete_channel_source_channels_path, as: :autocomplete} %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

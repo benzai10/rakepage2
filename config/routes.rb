@@ -8,6 +8,9 @@ Rakepage2::Application.routes.draw do
     member do
       get 'refresh_feed'
     end
+    collection do
+      get :autocomplete_channel_source
+    end
   end
   resources :heaps do
     member do

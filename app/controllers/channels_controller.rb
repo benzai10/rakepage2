@@ -1,5 +1,7 @@
 class ChannelsController < ApplicationController
 
+  autocomplete :channel, :source, :full => true
+
   def index
     @channels = Channel.all
   end
@@ -9,12 +11,16 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = Channel.new
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def create
     rake_id = params[:channel][:rake_id]
     rake_class = session[:rake_class]
-    if params[:channel][:id].empty?
+    if Channel.find_by(source: params[:channel][:source]).nil?
       @channel = Channel.new(channel_params)
       begin
         if @channel.save
@@ -34,7 +40,7 @@ class ChannelsController < ApplicationController
         redirect_to :back
       end
     else
-      @channel = Channel.find(params[:channel][:id])
+      @channel = Channel.find_by(source: params[:channel][:source])
       rake_class.find(rake_id).add_channel(@channel)
       if rake_class == Rake
         redirect_to rakes_path(rake_id: rake_id)

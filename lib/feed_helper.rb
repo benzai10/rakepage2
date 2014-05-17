@@ -19,7 +19,7 @@ module FeedHelper
       curl = Curl::Easy.new
       curl.follow_location = true
       curl.url = url
-      curl.timeout = 10 #time in seconds to wait for connection
+      curl.timeout = 20 #time in seconds to wait for connection
 
       begin
         curl.perform
@@ -29,7 +29,7 @@ module FeedHelper
         count += 1
         p DEBUG_MSG_RECONNECTING + url
 
-      retry unless count > 5
+      retry unless count > 10
         p DEBUG_MSG_ABORT + url
         @@logger.debug DEBUG_MSG_ABORT + url
 
@@ -320,7 +320,7 @@ module FeedHelper
             if content.blank?
               content = entry.content
               if content.blank?
-                content = "Could not retrieve data!"
+                content = "empty"
               end
             end
 

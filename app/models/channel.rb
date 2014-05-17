@@ -1,6 +1,7 @@
 class Channel < ActiveRecord::Base
   require 'feed_helper'
   before_validation :analyze_source, on: :create
+  attr_accessor :rake_id
 
   validates :source, presence: true, :uniqueness => {:case_sensitive => false}
   validates :name, presence: true
@@ -17,6 +18,9 @@ class Channel < ActiveRecord::Base
 
   has_many :rake_channel_maps, dependent: :destroy
   has_many :rakes, through: :rake_channel_maps, dependent: :destroy
+
+  scope :rss_feeds, -> { where(channel_type: 0) }
+  scope :subreddits, -> { where(channel_type: 4) }
 
 
   def self.create_channels(urls)

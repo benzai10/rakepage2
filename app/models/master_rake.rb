@@ -1,6 +1,8 @@
 class MasterRake < ActiveRecord::Base
   after_create :create_channel
   attr_accessor :feed_leaflets
+  attr_accessor :channel_type
+  attr_accessor :source
 
   validates :name, presence: true, :uniqueness => {:case_sensitive => false}
 
@@ -11,7 +13,7 @@ class MasterRake < ActiveRecord::Base
   has_one :category
 
   def add_channel(channel)
-    # self.channels_master_rakes.create(channel_id: channel.id)
+    self.channels_master_rakes.create(channel_id: channel.id)
     # Leaflet.create!(channel_id: get_notification.id,
     #                 title: "New Channel available!",
     #                 content: "Channel " + channel.name + " has been added to " + name,

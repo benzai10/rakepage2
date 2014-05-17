@@ -17,16 +17,40 @@
           </h5>
           <div id="master_rake" class="panel-collapse collapse">
             <div class="panel-body menu black">
-              <h5><small>CATEGORY</small></h5>
+              <h5>
+                <small>
+                  CATEGORY
+                  &nbsp;|&nbsp;
+                  <%= link_to "EDIT", edit_master_rake_path(@rake),
+                              data: { toggle: "modal",
+                                      target: "#editCategoryModal",
+                                      category: @rake.category_id } %>
+                </small>
+              </h5>
               <ul class="leaflet-list">
                 <li class="rake-show-list">
                   <%= Category.find(@rake.category_id).desc %>
-                  <span class="pull-right">
-                    <%= link_to "Edit", edit_master_rake_path(@rake), data: { toggle: "modal", target: "#editCategoryModal", category: @rake.category_id } %>
-                  </span>
                 </li>
               </ul>
-              <h5><small>CHANNELS</small></h5>
+              <h5>
+                <small>
+                  CHANNELS
+                  &nbsp;|&nbsp;
+                  <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                              data: { toggle: "modal",
+                                      target: "#addRssModal",
+                                      rakeid: @rake.id,
+                                      channeltype: 0 },
+                              class: "add-rss-feed" %>
+                  &nbsp;|&nbsp;
+                  <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                              data: { toggle: "modal",
+                                      target: "#addSubredditModal",
+                                      rakeid: @rake.id,
+                                      channeltype: 4 },
+                              class: "add-subreddit-feed" %>
+                </small>
+              </h5>
               <ul class="leaflet-list">
                 <% @rake.channels.each do |c| %>
                   <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
@@ -45,9 +69,9 @@
                                       toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
                         <%# end %>
                         <%= c.name %>
-                        <span class="pull-right">
-                          <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
-                        </span>
+                        <!-- <span class="pull-right">
+                          <%#= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+                        </span> -->
                       </h5>
                       <p>
                         <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
@@ -58,7 +82,6 @@
                   </li>
                 <% end %>
               </ul>
-              <%= link_to "Add Channel", new_channel_path(rake_id: @rake.id) %>
             </div>
           </div>
         </div>
@@ -89,3 +112,5 @@
     </div>
   </div>
 </nav>
+<%= render 'master_rakes/add_rss_modal' %>
+<%= render 'master_rakes/add_subreddit_modal' %>
