@@ -58,41 +58,7 @@
           </div>
         </div>
       </div>
-
-      <% @heaps.each do |h| %>
-        <div class="panel panel-default panel-menu">
-          <div class="panel-heading panel-heading-menu">
-            <h5 class="panel-title">
-              <% leaflet_type_desc = LeafletType.find_by_leaflet_type(h.leaflet_type_id).leaflet_type_desc %>
-              <% href_id = leaflet_type_desc.gsub(/[^A-Za-z]/, '').downcase %>
-              <% href_id_link = "#" + href_id %>
-              <i class='fa fa-leaf white'></i>&nbsp;<%= leaflet_type_desc %>
-              <span class="pull-right">
-                <%= link_to '<i class="fa fa-chevron-down white"></i>'.html_safe, href_id_link, 
-                            :data => { :toggle => "collapse" },
-                            id: "feed-chevron" %>
-              </span>
-            </h5>
-          </div>
-          <div id=<%= "#{href_id}" %> class="panel-collapse collapse">
-            <div class="panel-body">
-              <%= render 'heap', locals: { leaflet_type_id: h.leaflet_type_id } %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
     <% end %>
-
-
-
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
-        </h5>
-      </div>
-    </div>
 
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
@@ -101,25 +67,6 @@
         </h5>
       </div>
     </div>
-
-    <% if !@rake.nil? %>
-      <div class="panel panel-default panel-menu">
-        <div class="panel-heading panel-heading-menu">
-          <h5 class="panel-title">
-            <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
-          </h5>
-        </div>
-      </div>
-    <% else %>
-      <div class="panel panel-default panel-menu">
-        <div class="panel-heading active panel-heading-menu">
-          <h5 class="panel-title">
-            <%= link_to "<i class='fa fa-sitemap green'></i>".html_safe + "  My Rakes", rakes_path, class: "rake_title" %>
-          </h5>
-        </div>
-      </div>
-    <% end %>
-
 
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">

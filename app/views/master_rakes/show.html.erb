@@ -1,22 +1,29 @@
 <%= render 'master_rakes/master_rakes_menu' %>
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h1>
-      <%= @rake.name %>
+  <div class="col-md-3">
+    <h5>
       <small>
-        <% if !current_user.nil? %>
-          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: @rake.id), title: "create a new rake" %>
-        <% else %>
-          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_user_session_path %>
-        <% end %>
+      <%= link_to"MASTER RAKES", master_rakes_path %> | <%= @rake.name.upcase %>
       </small>
-    </h1>
+    </h5>
+  
+    <p>
+      <% if !current_user.nil? %>
+        <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Add to own Rakes",
+                    new_rake_path(master_rake_id: @rake.id),
+                    class: "btn btn-primary btn-block" %>
+      <% else %>
+        <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Add to own Rakes",
+                    new_user_session_path,
+                    class: "btn btn-primary btn-block" %>
+      <% end %>
+    </p>
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title">
             <% href_id = "#feed" %>
-            News
+            <%= link_to "News", master_rake_path(heap_type: "News") %>
             <span class="pull-right">
               <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
                           :data => { :toggle => "collapse" },
@@ -24,35 +31,56 @@
             </span>
           </h5>
         </div>
-        <div id="feed" class="panel-collapse collapse">
-          <div class="panel-body">
-            <%= render 'master_rakes/feed' %>
+        <% if params[:heap_type] == "News" %>
+          <div id="feed" class="panel-collapse collapse in">
+        <% else %>
+          <div id="feed" class="panel-collapse collapse">
+        <% end %>
+            <div class="panel-body">
+            </div>
           </div>
-        </div>
       </div>
       <% @heap_types.each do |ht| %>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h5 class="panel-title">
               <% href_id = "#heap_" + ht.to_s %>
-              <%= LeafletType.find(ht).leaflet_type_desc %>
+              <%= link_to LeafletType.find(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
               <span class="pull-right">
                 <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
                             :data => { :toggle => "collapse" },
                             id: "feed-chevron" %>
               </span>
             </h5>
+          </div>
+          <% if params[:heap_type].to_i == ht %>
+            <div id="heap_<%= "#{ht}" %>" class="panel-collapse collapse in">
+          <% else %>
             <div id="heap_<%= "#{ht}" %>" class="panel-collapse collapse">
-              <div class="panel-body">
-                <%= render 'rakes/heap', locals: { leaflet_type_id: ht } %>
-              </div>
+          <% end %>
+            <div class="panel-body">
             </div>
           </div>
         </div>
       <% end %>
     </div>
   </div>
+  <div class="col-md-6">
+    <h5>
+      <small>
+        <% if params[:heap_type] == "News" %>
+          NEWS
+        <% else %>
+          <%= LeafletType.find(params[:heap_type].to_i).leaflet_type_desc.upcase %>
+        <% end %>
+      </small>
+    </h5>
+    <% if params[:heap_type] == "News" %>
+      <%= render 'master_rakes/feed' %>
+    <% else %>
+      <%= render 'rakes/heap', locals: { leaflet_type_id: params[:heap_type] } %>
+    <% end %>
+  </div>
 </div>
 
-<%#= render 'rakes/leaflet_save_modal' %>
-<%#= render 'rakes/leaflet_create_modal' %>
+<%= render 'master_rakes/edit_category_modal' %>

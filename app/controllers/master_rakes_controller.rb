@@ -1,33 +1,41 @@
 class MasterRakesController < ApplicationController
 
   def index
-    session[:displayed_channels] = []
+    #session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
     #@rake = @master_rakes.first
-    if !params[:rake_id].nil?
-      @rake = @master_rakes.where("id = ?", params[:rake_id].to_i).first
-      @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
-      @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
-    end
+    #if !params[:rake_id].nil?
+    #  @rake = @master_rakes.where("id = ?", params[:rake_id].to_i).first
+    #  @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
+    #  @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
+    #end
     category_ids = MasterRake.all.pluck(:category_id).uniq
     @categories = Category.where("id IN (?)", category_ids)
+    if !params[:category_id].nil?
+      @category = Category.find(params[:category_id].to_i)
+    end
   end
 
   def show
     session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    @rake = @master_rakes.where("id = ?", params[:id].to_i).first
+    @rake = @master_rakes.find(params[:id].to_i)
     @channels = @rake.channels
     @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)
     @heap_types = @heaps.pluck(:leaflet_type_id).uniq
+    params[:heap_type] ||= "News"
   end
 
   def new
     @master_rake = MasterRake.new
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def create
@@ -42,6 +50,10 @@ class MasterRakesController < ApplicationController
 
   def edit
     @master_rake = MasterRake.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def update

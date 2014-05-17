@@ -1,0 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
+      </div>
+      <%= bootstrap_form_for(@rake) do |f| %>
+        <div class="modal-body">
+          <%= f.text_field :name, class: "form-control", placeholder: "Text here" %>
+          <% categories_array = Category.all.map { |c| [c.desc, c.id] } %>
+          <%= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Update", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -69,6 +69,19 @@ h5 {
   font-size: 0.9em;
 }
 
+.masterrake-sidebar {
+  width: 200px;
+  position: fixed;
+  top: 30%;
+  left: -80px;
+  /**transform for various browsers**/ 
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform:rotate(-90deg);
+}
+
 .feed-type-inactive {
 }
 
@@ -81,6 +94,12 @@ h5 {
 
 .thumbnail {
   border-radius: 0px;
+}
+
+.thumbnail .caption {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .select-rake-info {

@@ -1,45 +1,57 @@
 <%= render 'master_rakes/master_rakes_menu' %>
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h1>Rake Templates</h1>
+  <div class="col-md-3">
+    <h5><small>CATEGORIES</small></h5>
     <div class="panel-group" id="accordion">
       <% @categories.each do |c| %>
         <div class="panel panel-default">
           <div class="panel-heading">
             <h5 class="panel-title">
-              <%= c.desc %>
+              <%= link_to c.desc, master_rakes_path(category_id: c.id) %>
               <% href_id = "#category_" + c.id.to_s %>
-              <span class="pull-right">
-                <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
-                            :data => { :toggle => "collapse" },
-                            id: "feed-chevron" %>
-              </span>
+              <% if !@category.nil? %>
+                <% if c.id == params[:category_id].to_i %>
+                  <span class="pull-right">
+                    <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, href_id, 
+                                :data => { :toggle => "collapse" },
+                                id: "feed-chevron" %>
+                  </span>
+                <% end %>
+              <% end %>
             </h5>
           </div>
-          <div id="category_<%= "#{c.id.to_s}" %>"  class="panel-collapse collapse">
+          <% if !@category.nil? %>
+            <% if c.id == params[:category_id].to_i %>
+              <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse in">
+            <% else %>
+              <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse">
+            <% end %>
+          <% else %>
+            <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse">
+          <% end %>
             <div class="panel-body">
-              <div class="row">
-              <% @master_rakes.where("category_id = ? AND (name <> 'Facebook Import' AND name <> 'Twitter Import')", c.id).each do |m| %>
-                <div class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="caption">
-                      <%= link_to m.name, master_rake_path(m) %>
-                      <span class="pull-right">
-                        <% if !current_user.nil? %>
-                          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_rake_path(master_rake_id: m.id), title: "create a new rake" %>
-                        <% else %>
-                          <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_user_session_path %>
-                        <% end %>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-              </div>
+              <%= link_to "Add Master Rake", new_master_rake_path, data: { toggle: "modal", target: "#newMasterRakeModal", category: c.id }, class: "masterrake-create" %>
             </div>
           </div>
         </div>
       <% end %>
     </div>
   </div>
+  <div class="col-md-6">
+    <h5><small>MASTER RAKES</small></h5>
+    <% if !@category.nil? %>
+      <div class="row">
+        <% @master_rakes.where("category_id = ? AND (name <> 'Facebook Import' AND name <> 'Twitter Import')", @category.id).each do |m| %>
+          <div class="col-md-6">
+            <div class="thumbnail">
+              <div class="caption">
+                <%= link_to m.name, master_rake_path(m) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
+<%= render 'master_rakes/new_modal' %>

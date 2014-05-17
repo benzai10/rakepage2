@@ -5,80 +5,61 @@
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  HOME", root_path %>
-        </h5>
-      </div>
-    </div>
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + " All Rake Templates", master_rakes_path %>
-        </h5>
-      </div>
-    </div>
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + "  " + "Add Rake Template", new_master_rake_path %>
-        </h5>
-      </div>
-    </div>
     <% if !@rake.nil? %>
-      <div class="panel-heading active panel-heading-menu">
-        <h5 class="panel-title">
-          <% href_id = "#master_rake" %>
-          <i class="fa fa-leaf green"></i> <%= @rake.name %>
-          <span class="pull-right">
-            <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
-          </span>
-        </h5>
-        <div id="master_rake" class="panel-collapse collapse">
-          <div class="panel-body menu black">
-            <h5><small>CATEGORY</small></h5>
-            <ul class="leaflet-list">
-              <li class="rake-show-list">
-                <%= Category.find(@rake.category_id).desc %>
-                <span class="pull-right">
-                  <%= link_to "Edit", edit_master_rake_path(@rake) %>
-                </span>
-              </li>
-            </ul>
-            <h5><small>CHANNELS</small></h5>
-            <ul class="leaflet-list">
-              <% @rake.channels.each do |c| %>
-                <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
-                  <span class="pull-left">
-                    <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                    <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading active panel-heading-menu">
+          <h5 class="panel-title">
+            <% href_id = "#master_rake" %>
+            <i class="fa fa-leaf green"></i> <%= @rake.name %>
+            <span class="pull-right">
+              <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+            </span>
+          </h5>
+          <div id="master_rake" class="panel-collapse collapse">
+            <div class="panel-body menu black">
+              <h5><small>CATEGORY</small></h5>
+              <ul class="leaflet-list">
+                <li class="rake-show-list">
+                  <%= Category.find(@rake.category_id).desc %>
+                  <span class="pull-right">
+                    <%= link_to "Edit", edit_master_rake_path(@rake), data: { toggle: "modal", target: "#editCategoryModal", category: @rake.category_id } %>
                   </span>
-                  <div class="media-body">
-                    <h5 class="media-heading channel-heading">
-                      <!-- <i class="fa fa-check-square-o"></i> -->
-                      <%# if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
-                        <%#= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                                    toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
-                      <%# else %>
-                        <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                                    toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
-                      <%# end %>
-                      <%= c.name %>
-                      <span class="pull-right">
-                        <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
-                      </span>
-                    </h5>
-                    <p>
-                      <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                      <i class="fa fa-user"></i> <%= c.count_subscribers %>
-                      <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                    </p>
-                  </div>
                 </li>
-              <% end %>
-            </ul>
-            <%= link_to "Add Channel", new_channel_path(rake_id: @rake.id) %>
+              </ul>
+              <h5><small>CHANNELS</small></h5>
+              <ul class="leaflet-list">
+                <% @rake.channels.each do |c| %>
+                  <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+                    <span class="pull-left">
+                      <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+                      <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading channel-heading">
+                        <!-- <i class="fa fa-check-square-o"></i> -->
+                        <%# if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
+                          <%#= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                                      toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+                        <%# else %>
+                          <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                                      toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+                        <%# end %>
+                        <%= c.name %>
+                        <span class="pull-right">
+                          <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+                        </span>
+                      </h5>
+                      <p>
+                        <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+                        <i class="fa fa-user"></i> <%= c.count_subscribers %>
+                        <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+                      </p>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+              <%= link_to "Add Channel", new_channel_path(rake_id: @rake.id) %>
+            </div>
           </div>
         </div>
       </div>
@@ -106,6 +87,5 @@
         </h5>
       </div>
     </div>
-
   </div>
 </nav>

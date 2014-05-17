@@ -9,9 +9,12 @@ $(function() {
 
     $(".leaflet-create").click(function() {
         var leafletTypeId = $(this).data('typeid');
-        // var heapId = $(this).data('heap_id');
         $(".leaflet-type-id").val(leafletTypeId);
-        // $(".heap-id").val(heapId);
+    });
+
+    $(".masterrake-create").click(function() {
+        var categoryId = $(this).data('category');
+        $(".category-id").val(categoryId);
     });
 
     $('input.tokenize').tokenfield();

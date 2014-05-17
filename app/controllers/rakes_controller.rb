@@ -18,6 +18,9 @@ class RakesController < ApplicationController
     end
     category_ids = MasterRake.where("id IN (?)", @rakes.pluck(:master_rake_id)).pluck(:category_id).uniq
     @categories = Category.where("id IN (?)", category_ids)
+    if !params[:category_id].nil?
+      @category = Category.find(params[:category_id].to_i)
+    end
     @authentications = current_user.authentications
     current_user.import_fb unless @authentications.find_by(provider: "facebook").nil?
   end
@@ -50,6 +53,7 @@ class RakesController < ApplicationController
     @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     @notifications = current_user.get_notifications
+    params[:heap_type] ||= "News"
   end
 
   def news
@@ -80,29 +84,31 @@ class RakesController < ApplicationController
 
   def new
     @rake = Rake.new
-    @master_rake = MasterRake.find_by_id(params[:master_rake_id].to_i)
-    @channels = @master_rake.channels.where("channel_type <> 5")
-    if session[:displayed_channels].nil? || session[:displayed_channels].empty?
-      session[:displayed_channels] = @channels.pluck(:id)
-    else
-      if params[:display_channel] == "yes"
-        session[:displayed_channels] << params[:channel_id].to_i
+    if !params[:master_rake_id].nil?
+      @master_rake = MasterRake.find_by_id(params[:master_rake_id].to_i)
+      @channels = @master_rake.channels.where("channel_type <> 5")
+      if session[:displayed_channels].nil? || session[:displayed_channels].empty?
+        session[:displayed_channels] = @channels.pluck(:id)
       else
-        session[:displayed_channels].delete(params[:channel_id].to_i)
+        if params[:display_channel] == "yes"
+          session[:displayed_channels] << params[:channel_id].to_i
+        else
+          session[:displayed_channels].delete(params[:channel_id].to_i)
+        end
       end
+      @feed_leaflets = @master_rake.feed_leaflets.where("channel_id IN (?)", session[:displayed_channels]).page(params[:page]).per(10)
     end
-    @feed_leaflets = @master_rake.feed_leaflets.where("channel_id IN (?)", session[:displayed_channels]).page(params[:page]).per(10)
   end
 
   def create
     @rake = Rake.new(rake_params)
     if @rake.save
       MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 || !session[:displayed_channels].include?(channel.id) }
-      filter_array = rake_params[:rake_filters].split(", ")
-      filter_array.each do |f|
-        @rake.add_filter(f, 1)
-      end
-      redirect_to rakes_path
+      #filter_array = rake_params[:rake_filters].split(", ")
+      #filter_array.each do |f|
+      #  @rake.add_filter(f, 1)
+      #end
+      redirect_to rake_path(@rake)
     else
       flash[:error] = @rake.errors.full_messages
       redirect_to :back
