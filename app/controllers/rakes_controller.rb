@@ -185,7 +185,7 @@ class RakesController < ApplicationController
     display = params[:display] == "true"
     @rake.toggle_channel_display(@channel, display)
     respond_to do |format|
-      format.html { redirect_to rakes_path(rake_id: @rake.id) }
+      format.html { redirect_to rake_path(rake_id: @rake.id) }
     end
   end
 

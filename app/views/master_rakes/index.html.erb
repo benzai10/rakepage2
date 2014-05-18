@@ -3,6 +3,21 @@
   <div class="col-md-3">
     <h5><small>MASTER RAKES | CATEGORIES</small></h5>
     <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title">
+            <%= link_to "Front Page", master_rakes_path %>
+          </h5>
+        </div>
+        <% if @category.nil? %>
+        <div class="panel-collapse collapse in">
+        <% else %>
+          <div class="panel-collapse collapse">
+        <% end %>
+          <div class="panel-body">
+          </div>
+        </div>
+      </div>
       <% @categories.each do |c| %>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -30,6 +45,9 @@
             <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse">
           <% end %>
             <div class="panel-body">
+              <% if !@category.nil? %>
+                <h5><small><%= c.comment %></small></h5>
+              <% end %>
             </div>
           </div>
         </div>
@@ -40,6 +58,12 @@
     <% if !@category.nil? %>
       <h5><small><%= @category.desc.upcase %> | <%= link_to "ADD MASTER RAKE", new_master_rake_path, data: { toggle: "modal", target: "#newMasterRakeModal", category: params[:category_id] }, class: "masterrake-create" %>
 </small></h5>
+    <% else %>
+      <h5><small>FRONT PAGE</small></h5>
+      <h1>Welcome to Rakepage!</h1>
+      <p>
+        Choose one of the categories on the left side and discover the existing Master Rakes. See what knowledge the Rakepage community has generated so far. Join the community and create your own customized rakes to experience a new way of how to consume web content. Have fun!
+      </p>
     <% end %>
     <% if !@category.nil? %>
       <div class="row">

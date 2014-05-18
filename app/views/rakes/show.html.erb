@@ -20,11 +20,13 @@
           <h5 class="panel-title">
             <% href_id = "#feed" %>
             <%= link_to "News", rake_path(heap_type: "News") %>
-            <span class="pull-right">
-              <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
-                          :data => { :toggle => "collapse" },
-                          id: "feed-chevron" %>
-            </span>
+            <% if params[:heap_type] == "News" %>
+              <span class="pull-right">
+                <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
+                            :data => { :toggle => "collapse" },
+                            id: "feed-chevron" %>
+              </span>
+            <% end %>
           </h5>
         </div>
         <% if params[:heap_type] == "News" %>
@@ -42,12 +44,14 @@
             <h5 class="panel-title">
               <% leaflet_type_desc = LeafletType.find_by_leaflet_type(h.leaflet_type_id).leaflet_type_desc %>
               <% href_id = "#heap_" + h.leaflet_type_id.to_s %>
-              <i class='fa fa-leaf purple'></i>&nbsp;<%= link_to leaflet_type_desc, rake_path(heap_type: h.leaflet_type_id) %>
-              <span class="pull-right">
-                <%= link_to '<i class="fa fa-info purple"></i>'.html_safe, href_id, 
-                            :data => { :toggle => "collapse" },
-                            id: "feed-chevron" %>
-              </span>
+              <%= link_to leaflet_type_desc, rake_path(heap_type: h.leaflet_type_id) %>
+              <% if params[:heap_type].to_i == h.leaflet_type_id %>
+                <span class="pull-right">
+                  <%= link_to '<i class="fa fa-info purple"></i>'.html_safe, href_id, 
+                              :data => { :toggle => "collapse" },
+                              id: "feed-chevron" %>
+                </span>
+              <% end %>
             </h5>
           </div>
           <% if params[:heap_type].to_i == h.leaflet_type_id %>

@@ -10,7 +10,7 @@
     <p>
       <% if !current_user.nil? %>
         <% custom_rake = @rake.existing_custom_rakes(current_user) %>
-        <% if !custom_rake.nil? %>
+        <% if !custom_rake.empty? %>
           <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
                       rake_path(custom_rake.first),
                       class: "btn btn-primary btn-block" %>
@@ -49,6 +49,9 @@
             </div>
           </div>
       </div>
+      <p>
+        <h5><small>HEAPS</small></h5>
+      </p>
       <% @heap_types.each do |ht| %>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -74,18 +77,21 @@
           </div>
         </div>
       <% end %>
+      <p>
+        <h5><small>DASHBOARD</small></h5>
+      </p>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title">
             Stats
             <span class="pull-right">
-              <%= link_to '<i class="fa fa-info"></i>'.html_safe, "stats", 
+              <%= link_to '<i class="fa fa-chevron-down"></i>'.html_safe, "#stats", 
                           :data => { :toggle => "collapse" },
                           id: "feed-chevron" %>
             </span>
           </h5>
         </div>
-        <div id="stats" class="panel-collapse collapse in">
+        <div id="stats" class="panel-collapse collapse">
           <div class="panel-body">
             <ul class="leaflet-list">
               <li class="rake-show-list">Number of Channels: <span class="pull-right"><%= @rake.channels.count.to_s %></span></li>

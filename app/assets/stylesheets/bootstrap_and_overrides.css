@@ -198,44 +198,48 @@ h5 {
 }
 
 #feed-list p {
-  font-size: 0.8em !important;
+  font-size: 12px !important;
 }
 
 #feed-list h1 {
   font-weight: 500;
-  font-size: 1em !important;
+  font-size: 16px !important;
 }
 
 #feed-list h2 {
   font-weight: 500;
-  font-size: 1em !important;
+  font-size: 14px !important;
 }
 
 #feed-list h3 {
   font-weight: 500;
-  font-size: 1em !important;
+  font-size: 13px !important;
 }
 
 #feed-list h4 {
   font-weight: 500;
-  font-size: 0.9em !important;
+  font-size: 12px !important;
 }
 
 #feed-list h5 {
   font-weight: 500;
-  font-size: 0.9em !important;
+  font-size: 12px !important;
 }
 
 #feed-list blockquote {
-  font-size: 0.9em !important;
+  font-size: 12px !important;
 }
 
 #feed-list ul {
-  font-size: 0.9em !important;
+  font-size: 12px !important;
 }
 
 #feed-list ol {
-  font-size: 0.9em !important;
+  font-size: 12px !important;
+}
+
+#feed-list table {
+  font-size: 12px !important;
 }
 
 input[type=text] {

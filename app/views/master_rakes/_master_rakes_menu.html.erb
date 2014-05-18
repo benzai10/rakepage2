@@ -100,12 +100,12 @@
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <% if user_signed_in? %>
-            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN OUT", destroy_user_session_path, method: :delete %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign out", destroy_user_session_path, method: :delete %>
             <span class="pull-right">
               <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
             </span>
           <% else %>
-            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN IN", new_user_session_path %>
+            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign in", new_user_session_path %>
           <% end %>
         </h5>
       </div>
