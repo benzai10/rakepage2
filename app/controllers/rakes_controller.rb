@@ -173,7 +173,7 @@ class RakesController < ApplicationController
       @channel = Channel.find(params[:channel])
       @rake.remove_channel(@channel)
       respond_to do |format|
-        format.html { redirect_to rakes_path(rake_id: @rake.id) }
+        format.html { redirect_to rake_path(@rake.id) }
         format.js { render 'remove_channel' }
       end
     end

@@ -43,7 +43,7 @@ class ChannelsController < ApplicationController
       @channel = Channel.find_by(source: params[:channel][:source])
       rake_class.find(rake_id).add_channel(@channel)
       if rake_class == Rake
-        redirect_to rakes_path(rake_id: rake_id)
+        redirect_to rake_path(rake_id)
       else
         redirect_to master_rake_path(rake_id)
       end
