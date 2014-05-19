@@ -10,10 +10,11 @@ class MasterRakesController < ApplicationController
     #  @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
     #  @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
     #end
-    category_ids = MasterRake.all.pluck(:category_id).uniq
-    @categories = Category.where("id IN (?)", category_ids)
+    #category_ids = MasterRake.all.pluck(:category_id).uniq
+    #@categories = Category.where("id IN (?)", category_ids)
+    @categories = Category.all
     if !params[:category_id].nil?
-      @category = Category.find(params[:category_id].to_i)
+      @category = @categories.find(params[:category_id].to_i)
     end
   end
 
