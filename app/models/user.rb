@@ -83,11 +83,11 @@ class User < ActiveRecord::Base
   end
 
   def get_notifications
-    ids = []
-    self.rakes.each do |rake|
-      ids << Leaflet.where(channel_id: rake.master_rake.get_notification.id).pluck(:id)
-    end
-    Leaflet.find(ids.flatten!) unless ids.empty?
+    #ids = []
+    #self.rakes.each do |rake|
+    #  ids << Leaflet.where(channel_id: rake.master_rake.get_notification.id).pluck(:id)
+    #end
+    #Leaflet.find(ids.flatten!) unless ids.empty?
   end
 
   def get_created_leaflets

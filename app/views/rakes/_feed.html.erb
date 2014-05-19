@@ -6,10 +6,8 @@
         <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
       </a>
       <div class="media-body">
-        <p class="feed-timestamp">
-          <span class="leaflet-title">
-            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
-          </span>
+        <span class="feed-timestamp">
+          <%= Channel.find(l.channel_id).name %>
           <span class="pull-right">
             <% if !l.published_at.nil? %>
               <%= time_ago_in_words(l.published_at) %> ago 
@@ -25,7 +23,11 @@
               <% end %>
             </span>
           </span>
-        </p>
+        </span>
+        <br>
+        <span class="leaflet-title">
+          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+        </span>
         <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
         <p class="feed-body"><%= raw l.content %></p>
         <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>

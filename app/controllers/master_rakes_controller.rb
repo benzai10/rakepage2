@@ -42,7 +42,7 @@ class MasterRakesController < ApplicationController
   def create
     @master_rake = MasterRake.new(master_rake_params)
     if @master_rake.save
-      redirect_to master_rakes_path
+      redirect_to master_rake_path(@master_rake)
     else
       flash[:error] = @master_rake.errors.full_messages
       redirect_to :back

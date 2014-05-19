@@ -182,7 +182,7 @@ h5 {
 }
 
 .leaflet-title {
-  font-size: 16px;
+  font-size: 1.1em;
   font-weight: 200;
   color: black;
 }
@@ -193,7 +193,7 @@ h5 {
 }
 
 .feed-timestamp {
-  font-size: 0.85em;
+  font-size: 0.8em;
   color: gray;
 }
 

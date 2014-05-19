@@ -20,26 +20,28 @@
             <h5><small>FILTERS</small></h5>
             <%= bootstrap_form_for(@rake) do |f| %>
               <%= f.text_field :rake_filters, hide_label: true, class: "tokenize", value: @rake_filter %>
-              <%= f.submit "Refresh", class: "btn btn-primary" %>
+              <span class="pull-right"><%= f.submit "Refresh", class: "btn btn-xs btn-primary" %></span>
             <% end %>
+            <br>
             <br>
             <h5>
               <small>
                 CHANNELS
-                &nbsp;|&nbsp;
-                <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
-                            data: { toggle: "modal",
-                                    target: "#addRssModal",
-                                    rakeid: @rake.id,
-                                    channeltype: 0 },
-                            class: "add-rss-feed" %>
-                &nbsp;|&nbsp;
-                <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
-                            data: { toggle: "modal",
-                                    target: "#addSubredditModal",
-                                    rakeid: @rake.id,
-                                    channeltype: 4 },
-                            class: "add-subreddit-feed" %>
+                <span class="pull-right">
+                  <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                              data: { toggle: "modal",
+                                      target: "#addRssModal",
+                                      rakeid: @rake.id,
+                                      channeltype: 0 },
+                              class: "add-rss-feed" %>
+                  &nbsp;|&nbsp;
+                  <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                              data: { toggle: "modal",
+                                      target: "#addSubredditModal",
+                                      rakeid: @rake.id,
+                                      channeltype: 4 },
+                              class: "add-subreddit-feed" %>
+                </span>
               </small>
             </h5>
             <ul class="leaflet-list">
@@ -72,10 +74,10 @@
                 </li>
               <% end %>
             </ul>
-            <p><%= link_to "Delete Rake", rake_path(@rake),
+            <p><span class="pull-right"><%= link_to "Delete Rake", rake_path(@rake),
                            :data => { :confirm => "Are you sure?" }, 
                            :method => :delete,
-                           class: "btn btn-danger" %></p>
+                           class: "btn btn-xs btn-danger" %></span></p>
           </div>
         </div>
       </div>
