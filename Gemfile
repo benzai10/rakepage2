@@ -8,22 +8,33 @@ gem 'font-awesome-sass'
 gem 'chartkick', '~> 1.2.4'
 gem 'groupdate', '~> 2.1.0'
 gem 'bootstrap_tokenfield_rails'
+<<<<<<< HEAD
 gem 'rails3-jquery-autocomplete'
+=======
+gem 'gon'
+>>>>>>> 04be796254eaa634ac31ab8bf2b5ae4192fc1a12
 
 gem 'jquery-turbolinks'
+# authentication gem
 gem 'devise'
+# admin page 
 gem 'activeadmin', github: 'gregbell/active_admin'
-gem 'feedjira'
-gem 'gon'
-gem 'pry'
-gem 'pry-byebug'
 
+# use 3 parties to authenticate
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+
+# gems to handle rss/fb/twitter
+gem 'feedjira'
 gem "koala", "~> 1.8.0rc1"
 gem "twitter"
 
+# needs to load env files for precompile to function
+gem 'dotenv'
+
+# gzips assets for faster webpage
+gem 'rack-zippy'
 
 group :production do
 # pre-req for Heroku integration, RoR 4+
@@ -33,7 +44,12 @@ end
 group :development, :test do
 # Read env settings from .env file like heroku does
   gem "foreman"
+# Pry instead of IRB as repl
+  gem 'pry'
+# rails c invokes pry
   gem "pry-rails"
+# Debug with pry
+  gem 'pry-byebug'
 end
 
 #### Default
@@ -78,7 +94,7 @@ end
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
