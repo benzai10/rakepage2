@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rakepage2</title>
+    <title>Rakepage</title>
     <%# Mobile responsivenes %>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <%#= include_gon %>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,700,900,300' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true, :async => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true, :async => true %>
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick", :async => true %>
@@ -13,11 +14,11 @@
 
   <body>
     <%#= render 'shared/navbar' %>
-    <div class="container-fluid">
+    <!-- <div class="container-fluid"> -->
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
       <%= yield %>
-    </div>
+    <!-- </div> -->
   </body>
 </html>

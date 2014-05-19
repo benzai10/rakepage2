@@ -10,6 +10,10 @@ body {
   margin-top: 50px;
 }
 
+.alert {
+  padding: 0;
+}
+
 .btn-primary {
   background-color: #2ccf73 !important;
   border-color: #2ccf73 !important;

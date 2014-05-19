@@ -3,16 +3,108 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .jumbotron {
-  background: url(image-path('skyline_header.jpg'));
-  height: 581px;
-  min-width: 948px;
-  top: 0;
-  width: inherit;
-  div {
-    margin-top: 20px;
+  background: url(image-path('landing_page_leaves.jpg'));
+  min-height: 720px;
+  // min-width: 948px;
+  margin-top: -50px;
+  // width: inherit;
+  background-size: cover;
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: white;
+    text-align: center;
   }
+  p {
+    margin-bottom: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: 2px;
+    color: white;
+    text-align: center;
+  }  
+}
+
+.jumbotron-2 {
+  background: url(image-path('macbook_image.jpg'));
+  min-height: 600px;
+  // mid-width: 948px;
+  // width: inherit;
+  background-size: cover;
   p, h2 {
     color: white;
-    text-align: right;
+    text-align: center;
   }
 }
+
+.sign-in-label {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2em;
+}
+
+.sign-in-icon {
+}
+
+/* Responsive
+-------------------------------------------------- */
+
+/* Large desktop */
+@media (min-width: 1200px) {
+  
+}
+
+@media (min-width: 980px) {
+  
+}
+
+@media (max-width: 979px) {
+  
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .jumbotron {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 20px;
+    h2 {
+      margin-bottom: 2px;
+      margin-top: 5px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: 0px;
+      color: white;
+      text-align: center;
+    }
+    p {
+      margin-bottom: 5px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0px;
+      color: white;
+      text-align: center;
+    }
+  }
+
+  .landing-page-logo {
+    width: 100px;
+    margin-bottom: 20px;
+  }
+}
+
