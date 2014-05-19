@@ -4,6 +4,21 @@
   <div class="col-md-3">
     <h5><small>MY RAKES | CATEGORIES</small></h5>
     <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title">
+            <%= link_to "Front Page", master_rakes_path %>
+          </h5>
+        </div>
+        <% if @category.nil? %>
+        <div class="panel-collapse collapse in">
+        <% else %>
+          <div class="panel-collapse collapse">
+        <% end %>
+          <div class="panel-body">
+          </div>
+        </div>
+      </div>
       <% @categories.each do |c| %>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -55,6 +70,12 @@
           </div>
         <% end %>
       </div>
+    <% else %>
+      <h5><small>FRONT PAGE</small></h5>
+      <h1>Welcome to your Front Page</h1>
+      <p>
+        Choose one of the categories on the left side to access your Rakes.
+      </p>
     <% end %>
   </div>
 </div>

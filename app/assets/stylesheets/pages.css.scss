@@ -7,6 +7,7 @@
   min-height: 720px;
   // min-width: 948px;
   margin-top: -50px;
+  margin-bottom: 0;
   // width: inherit;
   background-size: cover;
   h2 {
@@ -25,12 +26,22 @@
     letter-spacing: 2px;
     color: white;
     text-align: center;
-  }  
+  }
+  label {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+  }
+  a {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+  }
 }
 
 .jumbotron-2 {
   background: url(image-path('macbook_image.jpg'));
-  min-height: 600px;
+  min-height: 720px;
   // mid-width: 948px;
   // width: inherit;
   background-size: cover;
@@ -47,6 +58,12 @@
 }
 
 .sign-in-icon {
+}
+
+.devise-text {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;  
 }
 
 /* Responsive
