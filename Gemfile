@@ -8,11 +8,7 @@ gem 'font-awesome-sass'
 gem 'chartkick', '~> 1.2.4'
 gem 'groupdate', '~> 2.1.0'
 gem 'bootstrap_tokenfield_rails'
-<<<<<<< HEAD
 gem 'rails3-jquery-autocomplete'
-=======
-gem 'gon'
->>>>>>> 04be796254eaa634ac31ab8bf2b5ae4192fc1a12
 
 gem 'jquery-turbolinks'
 # authentication gem
