@@ -181,6 +181,18 @@ h5 {
   font-size: 12px;
 }
 
+.menu-list {
+  margin-left: -25px;
+  list-style-type: none;
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.menu-right {
+  padding-top: 4px;
+  font-size: 10px;
+}
+
 .leaflet-title {
   font-size: 1.1em;
   font-weight: 200;
