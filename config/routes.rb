@@ -21,6 +21,7 @@ Rakepage2::Application.routes.draw do
   resources :leaflets do
     collection do
       post 'view_add'
+      post 'like_add'
     end
   end
   resources :master_rakes do

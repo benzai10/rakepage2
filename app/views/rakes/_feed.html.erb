@@ -8,20 +8,12 @@
       <div class="media-body">
         <span class="feed-timestamp">
           <%= Channel.find(l.channel_id).name %>
-          <span class="pull-right">
+          <span class="pull-right-menu">
             <% if !l.published_at.nil? %>
               <%= time_ago_in_words(l.published_at) %> ago 
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
-            <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
-              <% if @heap_leaflets.include? l %>
-                <i class="fa fa-star"></i>
-              <% else %>
-                <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
-                            data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
-              <% end %>
-            </span>
           </span>
         </span>
         <br>
@@ -30,7 +22,27 @@
         </span>
         <p class="feed-body"><%= raw l.content unless l.content == "No more content available." %></p>
         <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+        &nbsp;|&nbsp;
         <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+        <span class="pull-right">
+          <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
+            <% if Feed.where("leaflet_id = ? AND status = 1", l.id).count > 0 %>
+              <i class="fa fa-heart"></i>
+            <% else %>
+              <i class="fa fa-heart-o like" value=<%= l.id %>></i>
+            <% end %>
+          </span>
+          <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
+          &nbsp;|&nbsp;
+          <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
+            <% if @heap_leaflets.include? l %>
+              <i class="fa fa-star"></i>
+            <% else %>
+              <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
+                          data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+            <% end %>
+          </span>
+        </span>
       </div>
       <hr>
     </li>

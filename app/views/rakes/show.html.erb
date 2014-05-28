@@ -22,10 +22,11 @@
             <% href_id = "#feed" %>
             <%= link_to "News", rake_path(heap_type: "News") %>
             <% if params[:heap_type] == "News" %>
-              <span class="pull-right">
-                <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
+              <span class="pull-right" id="refresh-icon">
+                <%#= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
                             :data => { :toggle => "collapse" },
                             id: "feed-chevron" %>
+                <%= link_to '<i class="fa fa-refresh"></i>'.html_safe, rake_path(@rake, refresh: "yes") %>
               </span>
             <% end %>
           </h5>

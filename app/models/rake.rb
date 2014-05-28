@@ -34,41 +34,43 @@ class Rake < ActiveRecord::Base
     self.rake_channel_maps.find_by(channel_id: channel.id).update!(display: display)
   end
 
-  def feed_leaflets(feed_type)
+  def feed_leaflets(feed_type, refresh)
     filter_array = self.filters.map { |f| f.keyword }
     filter_array = filter_array.map { |val| "%#{val}%" }
-    if feed_type == "saved"
-      leaflet_ids = []
-      self.master_rake.rakes.each do |r|
-        leaflet_ids << r.heap.leaflets.pluck(:id)
+    if refresh == "yes"
+      self.channels.each do |c|
+        c.pull_source
       end
-      leaflet_ids = leaflet_ids.flatten.uniq
-      leaflet_ids = leaflet_ids - self.heap.leaflets.pluck(:id)
-      if self.saved_refreshed_at.nil?
-        feed_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
+    end
+    if self.refreshed_at.nil?
+      if !filter_array.empty?
+        feed_leaflets = Leaflet.where("channel_id IN (?) AND content ILIKE ANY ( array[?] )", 
+                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact, filter_array)
       else
-        feed_leaflets = Leaflet.where("id IN (?) AND updated_at >= '#{self.saved_refreshed_at}'", leaflet_ids)
+        feed_leaflets = Leaflet.where("channel_id IN (?)", 
+                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
       end
     else
-      if self.refreshed_at.nil?
-        if !filter_array.empty?
-          feed_leaflets = Leaflet.where("channel_id IN (?) AND content ILIKE ANY ( array[?] )", 
-                          self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact, filter_array)
-        else
-          feed_leaflets = Leaflet.where("channel_id IN (?)", 
-                          self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
-        end
+      if !filter_array.empty?
+        feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}' AND content ILIKE ANY ( array[?])", 
+                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact, filter_array)
       else
-        if !filter_array.empty?
-          feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}' AND content ILIKE ANY ( array[?])", 
-                          self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact, filter_array)
-        else
-          feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}'", 
-                          self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
-        end
+        feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}'", 
+                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
       end
-      #feed_leaflets = temp.where("id NOT IN (?)", self.heap.leaflets.pluck(:id))
-      feed_leaflets.order('published_at DESC')
+    end
+    rake_ids = User.find(self.user_id).rakes.map(&:id)
+    old_feed_leaflets = Feed.where("rake_id IN (?)", rake_ids)
+    delete_feed_leaflets_ids = old_feed_leaflets.pluck(:id) - feed_leaflets.pluck(:id)
+    delete_feed_leaflets = Feed.where("id IN (?)", delete_feed_leaflets_ids)
+    delete_feed_leaflets.each do |f|
+      f.destroy
+    end
+
+    feed_leaflets.each do |f|
+      if Feed.find_by_leaflet_id(f.id).nil?
+        Feed.create!(rake_id: self.id, leaflet_id: f.id, status: 0)
+      end
     end
   end
 

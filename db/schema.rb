@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140518143558) do
+ActiveRecord::Schema.define(version: 20140528061549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20140518143558) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "channel_type"
-    t.datetime "last_pull_at", default: '2014-05-12 06:46:52'
+    t.datetime "last_pull_at", default: '2014-04-29 08:26:48'
   end
 
   add_index "channels", ["source"], name: "index_channels_on_source", unique: true, using: :btree
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(version: 20140518143558) do
   end
 
   add_index "channels_master_rakes", ["channel_id", "master_rake_id"], name: "index_channel_master_rake_on_master_rake_id_and_channel_id", unique: true, using: :btree
+
+  create_table "feeds", force: true do |t|
+    t.integer  "rake_id"
+    t.integer  "leaflet_id"
+    t.integer  "status",       default: 0
+    t.datetime "last_pull_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "filters", force: true do |t|
     t.string   "keyword"
@@ -135,6 +144,7 @@ ActiveRecord::Schema.define(version: 20140518143558) do
     t.integer  "save_count",      default: 0
     t.integer  "view_count",      default: 0
     t.integer  "leaflet_type_id", default: 0
+    t.integer  "like_count",      default: 0
   end
 
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree

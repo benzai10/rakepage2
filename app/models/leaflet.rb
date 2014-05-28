@@ -5,4 +5,5 @@ class Leaflet < ActiveRecord::Base
   validates :content, presence: true
 
   belongs_to :channel
+  has_many :feeds, dependent: :destroy
 end

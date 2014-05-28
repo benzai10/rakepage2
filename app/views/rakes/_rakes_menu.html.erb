@@ -20,7 +20,7 @@
             <h5><small>FILTERS</small></h5>
             <%= bootstrap_form_for(@rake) do |f| %>
               <%= f.text_field :rake_filters, hide_label: true, class: "tokenize", value: @rake_filter %>
-              <span class="pull-right"><%= f.submit "Refresh", class: "btn btn-xs btn-primary" %></span>
+              <span class="pull-right"><%= f.submit "Refresh", class: "btn btn-xs btn-primary refresh-button" %></span>
             <% end %>
             <br>
             <br>

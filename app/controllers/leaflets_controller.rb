@@ -23,7 +23,19 @@ class LeafletsController < ApplicationController
 
   def view_add
     unless params['leaflet']['id'].empty?
-    Leaflet.increment_counter(:view_count, params['leaflet']['id']) 
+      Leaflet.increment_counter(:view_count, params['leaflet']['id']) 
+    end
+    render nothing: true
+  end
+
+  def like_add
+    unless params['leaflet']['id'].empty?
+      Leaflet.increment_counter(:like_count, params['leaflet']['id'])
+      rake_ids = current_user.rakes.map(&:id)
+      feed_leaflets = Feed.where("rake_id IN (?) AND leaflet_id = ?", rake_ids, params['leaflet']['id'].to_i)
+      feed_leaflets.each do |f|
+        f.update_attribute(:status, 1)
+      end
     end
     render nothing: true
   end

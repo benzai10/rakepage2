@@ -62,7 +62,7 @@ $(function() {
     //     }
     // });
 
-    //When link on mood
+    //When link on view
     $('.external').click(function() {
 
         id = $(this).attr("value")
@@ -73,6 +73,26 @@ $(function() {
 
         $.ajax({
             url: "/leaflets/view_add",
+            type: "POST",
+            data: {leaflet: {
+            id: $(this).attr("value") }},
+        success: function(resp){ }
+        });
+    });
+
+    //When link on heart
+    $('.like').bind("click", function() {
+        
+        id = $(this).attr("value")
+
+        element = $(".l_count_" + id);
+        sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
+        element.text(sum);
+
+        $('#feed-heart-icon-' + id).html("<i class='fa fa-heart'></i>");
+
+        $.ajax({
+            url: "/leaflets/like_add",
             type: "POST",
             data: {leaflet: {
             id: $(this).attr("value") }},
@@ -91,6 +111,15 @@ $(function() {
     $('.rake_title').click(function() {
         $('.leaflet-list').html("<i class='fa fa-spinner fa-spin'></i>");
     });
+
+    $('#refresh-icon').click(function() {
+        $('#refresh-icon').html("<i class='fa fa-refresh fa-spin'></i>");
+    });
+
+    $('.refresh-button').click(function() {
+        $('#refresh-icon').html("<i class='fa fa-refresh fa-spin'></i>");
+    });
+
 
     $('.excerpt-more').hide();
 });
