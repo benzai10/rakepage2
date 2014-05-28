@@ -9,7 +9,9 @@ $(function() {
 
     $(".leaflet-create").click(function() {
         var leafletTypeId = $(this).data('typeid');
+        var heapId = $(this).data('heapid');
         $(".leaflet-type-id").val(leafletTypeId);
+        $(".heap-id").val(heapId);
     });
 
     $(".masterrake-create").click(function() {
@@ -90,5 +92,5 @@ $(function() {
         $('.leaflet-list').html("<i class='fa fa-spinner fa-spin'></i>");
     });
 
-
+    $('.excerpt-more').hide();
 });

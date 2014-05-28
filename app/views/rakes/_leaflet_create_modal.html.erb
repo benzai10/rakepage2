@@ -8,6 +8,7 @@
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
+          <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
           <%= f.text_field :leaflet_title, { label: "Leaflet Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Leaflet Description (optional)" } %>

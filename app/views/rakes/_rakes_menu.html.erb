@@ -27,8 +27,7 @@
             <h5>
               <small>
                 CHANNELS
-              </small>
-                <span class="pull-right menu-right">
+                <span class="pull-right-menu">
                   <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
                               data: { toggle: "modal",
                                       target: "#addRssModal",
@@ -43,7 +42,8 @@
                                       channeltype: 4 },
                               class: "add-subreddit-feed" %>
                 </span>
-                          </h5>
+              </small>
+            </h5>
             <ul class="leaflet-list">
               <% @rake.channels.each do |c| %>
                 <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
@@ -74,10 +74,14 @@
                 </li>
               <% end %>
             </ul>
-            <p><span class="pull-right"><%= link_to "Delete Rake", rake_path(@rake),
-                           :data => { :confirm => "Are you sure?" }, 
-                           :method => :delete,
-                           class: "btn btn-xs btn-danger" %></span></p>
+            <p>
+              <span class="pull-right">
+                <%= link_to "Delete Rake", rake_path(@rake),
+                              :data => { :confirm => "Are you sure?" }, 
+                              :method => :delete,
+                              class: "btn btn-xs btn-danger" %>
+              </span>
+            </p>
           </div>
         </div>
       </div>

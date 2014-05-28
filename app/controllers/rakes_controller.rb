@@ -34,17 +34,17 @@ class RakesController < ApplicationController
     end
     @rake = Rake.find(params[:id])
     #if session[:heap] == "no"
-      @rake.channels.each do |c|
-        if Time.now - c.last_pull_at > 1200
-          if c.channel_type == 1
-            current_user.get_fb_news_feed
-          elsif c.channel_type == 2
-            current_user.get_tw_news_feed
-          else
-            c.pull_source
-          end
-        end
-      end
+      # @rake.channels.each do |c|
+      #   if Time.now - c.last_pull_at > 1200
+      #     if c.channel_type == 1
+      #       current_user.get_fb_news_feed
+      #     elsif c.channel_type == 2
+      #       current_user.get_tw_news_feed
+      #     else
+      #       c.pull_source
+      #     end
+      #   end
+      # end
     #end
     @feed_leaflets = @rake.feed_leaflets("news").page(params[:page]).per(10)
     @heaps = @rake.heaps
@@ -145,6 +145,9 @@ class RakesController < ApplicationController
                            params[:rake][:leaflet_title],
                            params[:rake][:leaflet_desc],
                            params[:rake][:leaflet_url])
+      redirect_to rake_path(@rake)
+    elsif params[:commit] == "Add Heap"
+      @rake.add_heap(params[:rake][:leaflet_type_id])
       redirect_to rake_path(@rake)
     else
       @rake.filters.each do |f|

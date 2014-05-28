@@ -19,19 +19,15 @@
             <div class="panel-body menu black">
               <h5>
                 <small>
-                  CATEGORY
-                  &nbsp;|&nbsp;
-                  <%= link_to "EDIT", edit_master_rake_path(@rake),
-                              data: { toggle: "modal",
-                                      target: "#editCategoryModal",
-                                      category: @rake.category_id } %>
+                  CATEGORY [<%= Category.find(@rake.category_id).desc %>]
+                  <span class="pull-right-menu">
+                    <%= link_to "EDIT", edit_master_rake_path(@rake),
+                                data: { toggle: "modal",
+                                        target: "#editCategoryModal",
+                                        category: @rake.category_id } %>
+                  </span>
                 </small>
               </h5>
-              <ul class="leaflet-list">
-                <li class="rake-show-list">
-                  <%= Category.find(@rake.category_id).desc %>
-                </li>
-              </ul>
               <h5>
                 <small>
                   CHANNELS
@@ -70,9 +66,12 @@
                                       toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
                         <%# end %>
                         <%= c.name %>
-                        <!-- <span class="pull-right">
-                          <%#= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
-                        </span> -->
+                        <span class="pull-right">
+                          <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe,
+                                      remove_channel_master_rake_path(@rake, channel: c.id),
+                                      :data => { :confirm => "Are you sure?" },
+                                      :method => :get %>
+                        </span>
                       </h5>
                       <p>
                         <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>

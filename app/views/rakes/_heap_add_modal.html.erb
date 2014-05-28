@@ -1,0 +1,21 @@
+<!-- Modal -->
+<div class="modal fade" id="addHeapModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add Heap</h4>
+      </div>
+      <%= bootstrap_form_for(@rake) do |f| %>
+        <div class="modal-body">
+          <% leaflet_types_array = LeafletType.where("leaflet_type NOT IN (?)", @rake.heaps.pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.leaflet_type] } %>
+          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Heap" } %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Add Heap", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

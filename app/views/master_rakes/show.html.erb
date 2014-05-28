@@ -58,7 +58,7 @@
           <div class="panel-heading">
             <h5 class="panel-title">
               <% href_id = "#heap_" + ht.to_s %>
-              <%= link_to LeafletType.find(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
+              <%= link_to LeafletType.find_by_leaflet_type(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
               <% if params[:heap_type].to_i == ht %>
                 <span class="pull-right">
                   <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
@@ -116,7 +116,7 @@
     <% if params[:heap_type] == "News" %>
       <%= render 'master_rakes/feed' %>
     <% else %>
-      <%= render 'rakes/heap', locals: { leaflet_type_id: params[:heap_type] } %>
+      <%= render 'master_rakes/heap', locals: { leaflet_type_id: params[:heap_type] } %>
     <% end %>
   </div>
 </div>

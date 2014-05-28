@@ -39,6 +39,20 @@
             </div>
           </div>
       </div>
+      <p>
+        <h5>
+          <small>
+            HEAPS
+            <span class="pull-right-menu">
+              <%= link_to "ADD HEAP", "#",
+                            data: {
+                              toggle: "modal",
+                              target: "#addHeapModal"
+                              } %>
+            </span>
+          </small>
+        </h5>
+      </p>
       <% @heaps.each do |h| %>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -57,6 +71,23 @@
           </div>
           <% if params[:heap_type].to_i == h.leaflet_type_id %>
             <div id="heap_<%= "#{h.leaflet_type_id}" %>" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <h5>
+                  <span>
+                    <i class="fa fa-leaf"></i> <%= " " + h.leaflets.count.to_s %>
+                  </span>
+                  <small><span class="pull-right-menu">
+                  <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD LEAFLET", new_leaflet_path, 
+                              data: {
+                                toggle: "modal",
+                                target: "#newLeafletModal",
+                                heapid: h.id,
+                                typeid: h.leaflet_type_id
+                              },
+                              class: "leaflet-create" %>
+                  </span></small>
+                </h5>
+              </div>
           <% else %>
             <div id="heap_<%= "#{h.leaflet_type_id}" %>" class="panel-collapse collapse">
           <% end %>
@@ -65,6 +96,9 @@
           </div>
         </div>
       <% end %>
+      <p>
+        <h5><small>DASHBOARD</small></h5>
+      </p>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title">
@@ -99,5 +133,6 @@
 
 <%= render 'rakes/leaflet_save_modal' %>
 <%= render 'rakes/leaflet_create_modal' %>
+<%= render 'rakes/heap_add_modal' %>
 <%#= render 'rakes/social_modal' %>
 </div>

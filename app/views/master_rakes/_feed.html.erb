@@ -1,4 +1,4 @@
-<ul class="leaflet-list">
+<ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>
     <li class="rake-show-list">
       <a class="pull-left" href="#">
@@ -6,24 +6,33 @@
         <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
       </a>
       <div class="media-body">
-        <p class="feed-timestamp">
-          <span class="leaflet-title"><%= l.title.html_safe %></span>
+        <span class="feed-timestamp">
+          <%= Channel.find(l.channel_id).name %>
           <span class="pull-right">
             <% if !l.published_at.nil? %>
               <%= time_ago_in_words(l.published_at) %> ago 
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
+            <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
+              <%# if @heap_leaflets.include? l %>
+                <i class="fa fa-star"></i>
+              <%# else %>
+                <%#= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
+                            data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+              <%# end %>
+            </span>
           </span>
-        </p>
-        <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-        <p class="feed-body"><%= l.content.html_safe %></p>
-        <% if !l.content.downcase.include? "read more" %>
-          <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url, class: "external", value: l.id, target: "_blank" %></p>
-        <% end %>
+        </span>
+        <br>
+        <span class="leaflet-title">
+          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+        </span>
+        <p class="feed-body"><%= l.content.html_safe unless l.content == "No more content available." %></p>
         <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
       </div>
+      <hr>
     </li>
   <% end %>
 </ul>

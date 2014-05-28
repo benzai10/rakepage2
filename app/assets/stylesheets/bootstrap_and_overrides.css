@@ -43,6 +43,11 @@ body {
   color: black !important;
 }
 
+.pull-right-menu {
+  float: right;
+  margin-top: 3px;
+}
+
 .row {
   margin-left: -15px;
   margin-right: -15px;
@@ -186,11 +191,6 @@ h5 {
   list-style-type: none;
   font-size: 12px;
   font-weight: 200;
-}
-
-.menu-right {
-  padding-top: 4px;
-  font-size: 10px;
 }
 
 .leaflet-title {

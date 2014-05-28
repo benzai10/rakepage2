@@ -28,11 +28,11 @@
         <span class="leaflet-title">
           <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
         </span>
-        <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-        <p class="feed-body"><%= raw l.content %></p>
+        <p class="feed-body"><%= raw l.content unless l.content == "No more content available." %></p>
         <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
       </div>
+      <hr>
     </li>
   <% end %>
 </ul>

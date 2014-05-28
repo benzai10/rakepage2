@@ -24,7 +24,12 @@ class MasterRakesController < ApplicationController
     session[:rake_class] = MasterRake
     @rake = @master_rakes.find(params[:id].to_i)
     @channels = @rake.channels
-    @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
+    #@channels.each do |c|
+    #  if Time.now - c.last_pull_at > 1200
+    #    c.pull_source
+    #  end
+    #end
+    @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(10)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)
     @heap_types = @heaps.pluck(:leaflet_type_id).uniq
@@ -76,6 +81,19 @@ class MasterRakesController < ApplicationController
 
     end
   end
+
+  def remove_channel
+    @master_rake = MasterRake.find(params[:id])
+    if !params[:channel].nil?
+      @channel = Channel.find(params[:channel])
+      @master_rake.remove_channel(@channel)
+      respond_to do |format|
+        format.html { redirect_to master_rake_path(@master_rake.id) }
+        format.js { render 'remove_channel' }
+      end
+    end
+  end
+
 
   def add_rake
     ids = current_user.rakes.pluck(:master_rake_id)
