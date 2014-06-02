@@ -11,11 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require autocomplete-rails
 //= require bootstrap
 //= require bootstrap-tokenfield
 //= require facebook
 //= require_tree .
-//= require turbolinks
