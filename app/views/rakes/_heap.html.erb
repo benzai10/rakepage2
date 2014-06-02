@@ -1,4 +1,4 @@
-<ul class="leaflet-list">
+<ul id="feed-list" class="leaflet-list">
   <% heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id]) %>
   <% heap.leaflets.order("published_at DESC").each do |l| %>
     <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
@@ -7,30 +7,28 @@
         <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
       </a>
       <div class="media-body">
-        <p class="feed-timestamp">
-          <% heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", heap.id, l.id).first %>
-          <span class="leaflet-title">
-            <% if !heap_leaflet.nil? %>
-              <% title = heap_leaflet.leaflet_title %>
-              <% if !title.nil? %>
-                <%= link_to title, l.url, class: "external", value: l.id, target: "_blank" %>
-              <% else %>
-                <%= link_to l.title , l.url, class: "external", value: l.id, target: "_blank" %>
-              <% end %>
-            <% end %>
-          </span>
-          <span class="pull-right">
+        <span class="feed-timestamp">
+          <%= Channel.find(l.channel_id).name %>
+          <span class="pull-right-menu">
             <% if !l.published_at.nil? %>
               <%= time_ago_in_words(l.published_at) %> ago 
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
-            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
-                  remove_leaflet_heap_path(heap, leaflet_id: l.id),
-                  :data => { :confirm => "Are you sure?" },
-                  :method => :get, remote: true %>
           </span>
-        </p>
+        </span>
+        <br>
+        <% heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", heap.id, l.id).first %>
+        <span class="leaflet-title">
+          <% if !heap_leaflet.nil? %>
+            <% title = heap_leaflet.leaflet_title %>
+            <% if !title.nil? %>
+              <%= link_to title, l.url, class: "external", value: l.id, target: "_blank" %>
+            <% else %>
+              <%= link_to l.title , l.url, class: "external", value: l.id, target: "_blank" %>
+            <% end %>
+          <% end %>
+        </span>
         <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
         <p class="feed-body">
           <% if !heap_leaflet.nil? %>
@@ -42,6 +40,12 @@
         </p>
         <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+        <span class="pull-right">
+          <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
+                remove_leaflet_heap_path(heap, leaflet_id: l.id),
+                :data => { :confirm => "Are you sure?" },
+                :method => :get, remote: true %>
+        </span>
       </div>
       <hr>
     </li>
