@@ -52,3 +52,7 @@ rerun.txt
 /public/system
 /coverage/
 /spec/tmp
+
+# RVM gemset/ruby version
+.ruby-gemset
+.ruby-version
