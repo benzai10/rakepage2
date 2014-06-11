@@ -110,17 +110,30 @@
     <% end %>
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <% if user_signed_in? %>
-            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign out", destroy_user_session_path, method: :delete %>
+        <% if user_signed_in? %>
+          <h5 class="panel-title">
+            <i class="fa fa-user white"></i> <%= current_user.username %>
             <span class="pull-right">
-              <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+            <% href_id = "#user" %>
+              <%= link_to '<i class="fa fa-cog white"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
             </span>
-          <% else %>
-            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign in", new_user_session_path %>
-          <% end %>
-        </h5>
+          </h5>
       </div>
+      <div id="user" class="panel-collapse collapse">
+        <div class="panel-body menu black">
+          <ul class="menu-list">
+            <li class="rake-show-list">
+              <%= link_to "Social Accounts", authentications_path %>
+            </li>
+            <li class="rake-show-list">
+              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+        <% else %>
+          <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign in", new_user_session_path %>
+        <% end %>
     </div>
   </div>
 </nav>
