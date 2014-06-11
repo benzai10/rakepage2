@@ -18,6 +18,7 @@ module FeedHelper
       count = 1
       curl = Curl::Easy.new
       curl.follow_location = true
+      curl.headers["User-Agent"] = "Rakepage/2.0 (http://www.rakepage.com/; dev@rakepage.com) Libcurl/7.26.0"
       curl.url = url
       curl.timeout = 20 #time in seconds to wait for connection
 
@@ -352,6 +353,22 @@ module FeedHelper
         end
       end
     end
+  end
+
+  class Wiki
+    require "nokogiri"
+    require "uri"
+
+    QUERY = "http://en.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&rvprop=content&rvparse&rvsection=0&redirects&titles="
+
+    def initialize
+    end
+
+    def query(query)
+      xml = Cget.get(QUERY+URI.escape(query.downcase))
+      @result = Nokogiri::HTML(Nokogiri::XML(xml).css("rev").text).text unless xml.nil?
+    end
+
   end
 
 end
