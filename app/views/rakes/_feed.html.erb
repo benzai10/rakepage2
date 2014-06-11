@@ -8,6 +8,14 @@
       <div class="media-body">
         <span class="feed-timestamp">
           <%= Channel.find(l.channel_id).name %>
+          <% if l.leaflet_type_id != 0 %>
+            &nbsp;|&nbsp;
+            <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+            &nbsp;|&nbsp;
+            <% if !l.created_by.nil? %>
+              added by <%= User.find(l.created_by).username %>
+            <% end %>
+          <% end %>
           <span class="pull-right-menu">
             <% if !l.published_at.nil? %>
               <%= time_ago_in_words(l.published_at) %> ago 

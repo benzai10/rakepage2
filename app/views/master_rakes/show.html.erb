@@ -10,14 +10,16 @@
   
     <p>
       <% if !current_user.nil? %>
-        <% custom_rake = @rake.existing_custom_rakes(current_user) %>
-        <% if !custom_rake.empty? %>
+        <% if !@custom_rake.empty? %>
           <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
-                      rake_path(custom_rake.first),
+                      rake_path(@custom_rake.first),
                       class: "btn btn-primary btn-block" %>
         <% else %>
           <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
                       new_rake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          },
                       class: "btn btn-primary btn-block" %>
         <% end %>
       <% else %>
@@ -59,7 +61,7 @@
             <h5 class="panel-title">
               <% href_id = "#heap_" + ht.to_s %>
               <%= link_to LeafletType.find_by_leaflet_type(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
-              <% if params[:heap_type].to_i == ht %>
+              <% if params[:heap_type].to_i == ht && !params[:heap_type] == "News" %>
                 <span class="pull-right">
                   <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
                               :data => { :toggle => "collapse" },
@@ -68,7 +70,7 @@
               <% end %>
             </h5>
           </div>
-          <% if params[:heap_type].to_i == ht %>
+          <% if params[:heap_type].to_i == ht && !params[:heap_type] == "News" %>
             <div id="heap_<%= "#{ht}" %>" class="panel-collapse collapse in">
           <% else %>
             <div id="heap_<%= "#{ht}" %>" class="panel-collapse collapse">
@@ -109,7 +111,7 @@
         <% if params[:heap_type] == "News" %>
           <%= @rake.name.upcase %> | NEWS
         <% else %>
-          <%= @rake.name.upcase %> | <%= LeafletType.find(params[:heap_type].to_i).leaflet_type_desc.upcase %>
+          <%= @rake.name.upcase %> | <%= LeafletType.find_by_leaflet_type(params[:heap_type].to_i).leaflet_type_desc.upcase %>
         <% end %>
       </small>
     </h5>
@@ -122,4 +124,8 @@
 </div>
 
 <%= render 'master_rakes/edit_category_modal' %>
-</div>
+<% if @custom_rake.count > 0 %>
+  <%= render 'master_rakes/leaflet_save_modal' %>
+<% else %>
+  <%= render 'master_rakes/new_rake_modal' %>
+<% end %>

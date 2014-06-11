@@ -1,0 +1,23 @@
+<!-- Modal -->
+<div class="modal fade" id="newCustomRakeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New Customized Rake</h4>
+      </div>
+      <%= bootstrap_form_for(Rake.new) do |f| %>
+        <div class="modal-body">
+          <%= @rake.name %>
+          <%= f.hidden_field :name, value: @rake.name %>
+          <%= f.hidden_field :master_rake_id, value: @rake.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,9 @@
       <%= bootstrap_form_for(MasterRake.new) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :category_id, class: "category-id" %>
+          <%= f.hidden_field :created_by, class: "created-by" %>
           <%= f.text_field :name, class: "txtfield", placeholder: "Enter Master Rake" %>
+          <%= f.text_field :wikipedia_url, class: "txtfield", placeholder: "Enter Wikipedia Article URL", label: "Wikipedia URL" %>
           <%# categories_array = Category.all.map { |c| [c.desc, c.id] } %>
           <%#= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
         </div>

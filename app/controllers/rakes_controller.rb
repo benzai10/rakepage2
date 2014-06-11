@@ -33,22 +33,9 @@ class RakesController < ApplicationController
       session[:heap] = "no"
     end
     @rake = Rake.find(params[:id])
-    #if session[:heap] == "no"
-      # @rake.channels.each do |c|
-      #   if Time.now - c.last_pull_at > 1200
-      #     if c.channel_type == 1
-      #       current_user.get_fb_news_feed
-      #     elsif c.channel_type == 2
-      #       current_user.get_tw_news_feed
-      #     else
-      #       c.pull_source
-      #     end
-      #   end
-      # end
-    #end
     @rake.feed_leaflets("news", params[:refresh])
     @feed_leaflets = Leaflet.where("id IN (?)", 
-                                   Feed.where(rake_id: @rake.id).pluck(:leaflet_id)).order("published_at DESC").page(params[:page]).per(10)
+                     Feed.where(rake_id: @rake.id).pluck(:leaflet_id)).order("published_at DESC").page(params[:page]).per(10)
     @heaps = @rake.heaps
     heap_ids = @heaps.pluck(:id)
     leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
@@ -89,28 +76,16 @@ class RakesController < ApplicationController
     if !params[:master_rake_id].nil?
       @master_rake = MasterRake.find_by_id(params[:master_rake_id].to_i)
       @channels = @master_rake.channels.where("channel_type <> 5")
-      if session[:displayed_channels].nil? || session[:displayed_channels].empty?
-        session[:displayed_channels] = @channels.pluck(:id)
-      else
-        if params[:display_channel] == "yes"
-          session[:displayed_channels] << params[:channel_id].to_i
-        else
-          session[:displayed_channels].delete(params[:channel_id].to_i)
-        end
-      end
-      @feed_leaflets = @master_rake.feed_leaflets.where("channel_id IN (?)", session[:displayed_channels]).page(params[:page]).per(10)
     end
   end
 
   def create
     @rake = Rake.new(rake_params)
     if @rake.save
-      MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 || !session[:displayed_channels].include?(channel.id) }
-      #filter_array = rake_params[:rake_filters].split(", ")
-      #filter_array.each do |f|
-      #  @rake.add_filter(f, 1)
-      #end
-      redirect_to rake_path(@rake)
+      #MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 || !session[:displayed_channels].include?(channel.id) }
+      MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
+      #MasterRake.find(@rake.master_rake_id).add_channel(@rake.channels.where(channel_type: 3).first)
+      redirect_to rake_path(@rake, refresh: "yes")
     else
       flash[:error] = @rake.errors.full_messages
       redirect_to :back
@@ -141,16 +116,20 @@ class RakesController < ApplicationController
                         params[:rake][:leaflet_type_id],
                         params[:rake][:leaflet_title],
                         params[:rake][:leaflet_desc])
-      redirect_to rake_path(@rake)
+      if session[:rake_class] == MasterRake
+        redirect_to master_rake_path(@rake.master_rake_id)
+      else
+        redirect_to rake_path(@rake)
+      end
     elsif params[:commit] == "Create Leaflet"
       @rake.create_leaflet(params[:rake][:leaflet_type_id],
                            params[:rake][:leaflet_title],
                            params[:rake][:leaflet_desc],
                            params[:rake][:leaflet_url])
-      redirect_to rake_path(@rake)
+      redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
     elsif params[:commit] == "Add Heap"
       @rake.add_heap(params[:rake][:leaflet_type_id])
-      redirect_to rake_path(@rake)
+      redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
     else
       @rake.filters.each do |f|
         f.destroy

@@ -31,6 +31,12 @@ class MasterRake < ActiveRecord::Base
   end
 
   def feed_leaflets
+    if self.refreshed_at.nil? || self.refreshed_at < Time.now - 1200
+      self.channels.each do |c|
+        c.pull_source
+      end
+      self.update_attribute(:refreshed_at, Time.now)
+    end
     Leaflet.where("channel_id IN (?)",
                       self.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
 

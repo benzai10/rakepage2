@@ -16,7 +16,9 @@ $(function() {
 
     $(".masterrake-create").click(function() {
         var categoryId = $(this).data('category');
+        var userId = $(this).data('user');
         $(".category-id").val(categoryId);
+        $(".created-by").val(userId);
     });
 
     $(".add-rss-feed").click(function() {
@@ -62,7 +64,7 @@ $(function() {
     //     }
     // });
 
-    //When link on view
+    //When click on view
     $('.external').click(function() {
 
         id = $(this).attr("value")
@@ -80,7 +82,7 @@ $(function() {
         });
     });
 
-    //When link on heart
+    //When click on heart
     $('.like').bind("click", function() {
         
         id = $(this).attr("value")

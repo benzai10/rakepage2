@@ -9,6 +9,7 @@ class Rake < ActiveRecord::Base
   attr_accessor :leaflet_url
   attr_accessor :heap_id
   attr_accessor :category_id
+  attr_accessor :created_by
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
@@ -22,8 +23,10 @@ class Rake < ActiveRecord::Base
   has_many :filters, dependent: :destroy
   has_many :heaps, dependent: :destroy
 
+
   def add_channel(channel)
     self.rake_channel_maps.create(channel_id: channel.id)
+    MasterRake.find(self.master_rake_id).add_channel(channel)
   end
 
   def remove_channel(channel)
@@ -42,21 +45,22 @@ class Rake < ActiveRecord::Base
         c.pull_source
       end
     end
+    rake_channel_id = self.channels.map{ |r| (r.source == self.id.to_s) ? r.id : nil }.compact.first
     if self.refreshed_at.nil?
       if !filter_array.empty?
         feed_leaflets = Leaflet.where("channel_id IN (?) AND content ILIKE ANY ( array[?] )", 
-                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact, filter_array)
+                        self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact, filter_array)
       else
         feed_leaflets = Leaflet.where("channel_id IN (?)", 
-                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
+                        self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact)
       end
     else
       if !filter_array.empty?
         feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}' AND content ILIKE ANY ( array[?])", 
-                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact, filter_array)
+                        self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact, filter_array)
       else
         feed_leaflets = Leaflet.where("channel_id IN (?) AND created_at >= '#{self.refreshed_at}'", 
-                        self.rake_channel_maps.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
+                        self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact)
       end
     end
     rake_ids = User.find(self.user_id).rakes.map(&:id)
@@ -68,7 +72,7 @@ class Rake < ActiveRecord::Base
     end
 
     feed_leaflets.each do |f|
-      if Feed.find_by_leaflet_id(f.id).nil?
+      if Feed.where(rake_id: self.id).find_by_leaflet_id(f.id).nil?
         Feed.create!(rake_id: self.id, leaflet_id: f.id, status: 0)
       end
     end
@@ -83,11 +87,12 @@ class Rake < ActiveRecord::Base
 
   def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url)
     channel_id = self.channels.where("channel_type = 3").first.id
-    leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
+    leaflet = Leaflet.create!(leaflet_type_id: leaflet_type_id,
                              title: leaflet_title,
                              url: leaflet_url,
                              channel_id: channel_id,
-                             content: leaflet_desc)
+                             content: leaflet_desc,
+                             created_by: self.user_id)
     self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
   end
 

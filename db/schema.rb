@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528061549) do
+ActiveRecord::Schema.define(version: 20140611060832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,15 +145,20 @@ ActiveRecord::Schema.define(version: 20140528061549) do
     t.integer  "view_count",      default: 0
     t.integer  "leaflet_type_id", default: 0
     t.integer  "like_count",      default: 0
+    t.integer  "created_by"
+    t.integer  "delete_count",    default: 0
   end
 
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree
 
   create_table "master_rakes", force: true do |t|
-    t.string   "name",        default: "", null: false
+    t.string   "name",          default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id", default: 1
+    t.integer  "category_id",   default: 1
+    t.datetime "refreshed_at"
+    t.string   "wikipedia_url"
+    t.integer  "created_by"
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree
@@ -183,12 +188,12 @@ ActiveRecord::Schema.define(version: 20140528061549) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -196,6 +201,7 @@ ActiveRecord::Schema.define(version: 20140528061549) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.boolean  "admin",                  default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

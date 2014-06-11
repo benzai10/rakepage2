@@ -24,11 +24,13 @@ class MasterRakesController < ApplicationController
     session[:rake_class] = MasterRake
     @rake = @master_rakes.find(params[:id].to_i)
     @channels = @rake.channels
-    #@channels.each do |c|
-    #  if Time.now - c.last_pull_at > 1200
-    #    c.pull_source
-    #  end
-    #end
+    @custom_rake = @rake.existing_custom_rakes(current_user) unless current_user.nil?
+    if @custom_rake.count > 0
+      @custom_heaps = @custom_rake.first.heaps
+    end
+    heap_ids = @custom_heaps.pluck(:id)
+    leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
+    @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(10)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)
@@ -112,6 +114,6 @@ class MasterRakesController < ApplicationController
   protected
 
   def master_rake_params
-    params.require(:master_rake).permit(:name, :rake, :category_id)
+    params.require(:master_rake).permit(:name, :rake, :category_id, :wikipedia_url, :created_by)
   end
 end

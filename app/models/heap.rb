@@ -19,10 +19,10 @@ class Heap < ActiveRecord::Base
 
   def remove_leaflet(leaflet)
     self.heap_leaflet_maps.find_by(leaflet_id: leaflet.id).destroy
-    if self.heap_leaflet_maps.empty?
-      self.destroy
-    end
-    Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count-1)
+    #if self.heap_leaflet_maps.empty?
+    #  self.destroy
+    #end
+    Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count-1, delete_count: leaflet.delete_count+1)
   end
 
 end

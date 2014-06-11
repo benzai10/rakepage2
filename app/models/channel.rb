@@ -12,6 +12,7 @@ class Channel < ActiveRecord::Base
   # 2: twitter
   # 3: rake
   # 4: reddit
+  # 5: notifications
 
   has_many :channels_master_rakes, dependent: :destroy
   has_many :master_rakes, through: :channels_master_rakes, dependent: :destroy

@@ -20,36 +20,46 @@
               <h5>
                 <small>
                   CATEGORY [<%= Category.find(@rake.category_id).desc %>]
-                  <span class="pull-right-menu">
-                    <%= link_to "EDIT", edit_master_rake_path(@rake),
-                                data: { toggle: "modal",
-                                        target: "#editCategoryModal",
-                                        category: @rake.category_id } %>
-                  </span>
+                  <% if !current_user.nil? && current_user.admin? %>
+                    <span class="pull-right-menu">
+                      <%= link_to "EDIT", edit_master_rake_path(@rake),
+                                  data: { toggle: "modal",
+                                          target: "#editCategoryModal",
+                                          category: @rake.category_id } %>
+                    </span>
+                  <% end %>
                 </small>
               </h5>
               <h5>
                 <small>
                   CHANNELS
-                  <span class="pull-right">
-                    <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
-                                data: { toggle: "modal",
-                                        target: "#addRssModal",
-                                        rakeid: @rake.id,
-                                        channeltype: 0 },
-                                class: "add-rss-feed" %>
-                    &nbsp;|&nbsp;
-                    <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
-                                data: { toggle: "modal",
-                                        target: "#addSubredditModal",
-                                        rakeid: @rake.id,
-                                        channeltype: 4 },
-                                class: "add-subreddit-feed" %>
-                  </span>
+                  <% if !current_user.nil? %>
+                    <span class="pull-right-menu">
+                      <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                                  data: { toggle: "modal",
+                                          target: "#addRssModal",
+                                          rakeid: @rake.id,
+                                          channeltype: 0 },
+                                  class: "add-rss-feed" %>
+                      &nbsp;|&nbsp;
+                      <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                                  data: { toggle: "modal",
+                                          target: "#addSubredditModal",
+                                          rakeid: @rake.id,
+                                          channeltype: 4 },
+                                  class: "add-subreddit-feed" %>
+                    </span>
+                  <% else %>
+                    <span class="pull-right-menu">
+                      <%= link_to "ADD RSS FEED", new_user_session_path %>
+                      &nbsp;|&nbsp;
+                      <%= link_to "ADD SUBREDDIT", new_user_session_path %>
+                    </span>
+                  <% end %>
                 </small>
               </h5>
               <ul class="leaflet-list">
-                <% @rake.channels.each do |c| %>
+                <% @rake.channels.where("channel_type <> 3").each do |c| %>
                   <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
                     <span class="pull-left">
                       <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
@@ -66,12 +76,14 @@
                                       toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
                         <%# end %>
                         <%= c.name %>
-                        <span class="pull-right">
-                          <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe,
-                                      remove_channel_master_rake_path(@rake, channel: c.id),
-                                      :data => { :confirm => "Are you sure?" },
-                                      :method => :get %>
-                        </span>
+                        <% if !current_user.nil? && current_user.admin? %>
+                          <span class="pull-right">
+                            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe,
+                                        remove_channel_master_rake_path(@rake, channel: c.id),
+                                        :data => { :confirm => "Are you sure?" },
+                                        :method => :get %>
+                          </span>
+                        <% end %>
                       </h5>
                       <p>
                         <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>

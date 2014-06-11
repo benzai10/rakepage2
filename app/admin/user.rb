@@ -19,6 +19,7 @@ ActiveAdmin.register User do
     id_column
     column :username
     column :email
+    column :admin
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -29,6 +30,7 @@ ActiveAdmin.register User do
     f.inputs "User Details" do
       f.input :username
       f.input :email
+      f.input :admin
       f.input :password
       f.input :password_confirmation
     end
