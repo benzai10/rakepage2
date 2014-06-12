@@ -1,5 +1,5 @@
 ActiveAdmin.register HeapLeafletMap do
-  permit_params :heap_ip, :leaflet_id
+  permit_params :heap_id, :leaflet_id
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

@@ -58,7 +58,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h5 class="panel-title">
-              <% leaflet_type_desc = LeafletType.find_by_leaflet_type(h.leaflet_type_id).leaflet_type_desc %>
+              <% leaflet_type_desc = LeafletType.find(h.leaflet_type_id).leaflet_type_desc %>
               <% href_id = "#heap_" + h.leaflet_type_id.to_s %>
               <%= link_to leaflet_type_desc, rake_path(heap_type: h.leaflet_type_id) %>
               <% if params[:heap_type].to_i == h.leaflet_type_id && !params[:heap_type] == "News" %>

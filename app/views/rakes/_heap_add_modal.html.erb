@@ -8,9 +8,11 @@
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
-          <% leaflet_types_array = LeafletType.all.map { |lt| [lt.leaflet_type_desc, lt.leaflet_type]} - 
-                                   LeafletType.where("leaflet_type IN (?)", @rake.heaps.pluck(:leaflet_type_id)).map { 
-                                      |lt| [lt.leaflet_type_desc, lt.leaflet_type]
+          <% leaflet_type_ids = CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id) %>
+          <% leaflet_types_array = LeafletType.where("id IN (?)", 
+              leaflet_type_ids).map { |lt| [lt.leaflet_type_desc, lt.id]} - 
+              LeafletType.where("id IN (?)", @rake.heaps.pluck(:leaflet_type_id)).map { 
+                                      |lt| [lt.leaflet_type_desc, lt.id]
                                       } %>
           <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Heap" } %>
         </div>
