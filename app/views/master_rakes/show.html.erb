@@ -10,7 +10,7 @@
   
     <p>
       <% if !current_user.nil? %>
-        <% if !@custom_rake.empty? %>
+        <% if !@custome_rake.nil? && !@custom_rake.empty? %>
           <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
                       rake_path(@custom_rake.first),
                       class: "btn btn-primary btn-block" %>
