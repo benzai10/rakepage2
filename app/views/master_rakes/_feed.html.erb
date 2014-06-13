@@ -45,12 +45,24 @@
           <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
           &nbsp;|&nbsp;
           <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
-            <% if @heap_leaflets.include? l %>
-              <i class="fa fa-star"></i>
+            <% if !@heap_leaflets.nil? %>
+              <% if @heap_leaflets.include? l %>
+                <i class="fa fa-star"></i>
+              <% else %>
+                <% if user_signed_in? %>
+                  <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@custom_rake), 
+                              data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                <% else %>
+                  <%= link_to '<i class="fa fa-save"></i>'.html_safe, new_user_session_path %>
+                <% end %>
+              <% end %>
             <% else %>
               <% if user_signed_in? %>
-                <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@custom_rake), 
-                            data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                <%= link_to '<i class="fa fa-save"></i>'.html_safe,
+                      new_rake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          } %>
               <% else %>
                 <%= link_to '<i class="fa fa-save"></i>'.html_safe, new_user_session_path %>
               <% end %>

@@ -24,21 +24,21 @@ class MasterRakesController < ApplicationController
     session[:rake_class] = MasterRake
     @rake = @master_rakes.find(params[:id].to_i)
     @channels = @rake.channels
-    # if user_signed_in?
-    #   @custom_rake = @rake.existing_custom_rakes(current_user)
-    #   if @custom_rake.count > 0
-    #     @custom_heaps = @custom_rake.first.heaps
-    #   heap_ids = @custom_heaps.pluck(:id)
-    #   leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
-    #   end
-    # end
+    if user_signed_in?
+      @custom_rake = @rake.existing_custom_rakes(current_user)
+      if @custom_rake.count > 0
+        @custom_heaps = @custom_rake.first.heaps
+        heap_ids = @custom_heaps.pluck(:id)
+        leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
+        @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
+      end
+    end
     # all_rakes = @rake.rakes
     # if all_rakes.count > 0
     #   all_rakes.each do |r|
 
     #   end
     # end
-    #@heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(10)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)
