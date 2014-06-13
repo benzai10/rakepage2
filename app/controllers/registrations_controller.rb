@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    master_rakes_path
+    new_user_session_path
   end
 end
 
