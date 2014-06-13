@@ -2,6 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.landing-page {
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  p {
+    margin-bottom: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+  }
+  a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+  }
+}
+
 .jumbotron {
   background: url(image-path('landing_page_leaves.jpg'));
   min-height: 720px;
@@ -35,7 +59,7 @@
   a {
     color: white;
     font-family: 'Roboto', sans-serif;
-    font-weight: 200;
+    font-weight: 300;
   }
 }
 
@@ -45,9 +69,26 @@
   // mid-width: 948px;
   // width: inherit;
   background-size: cover;
-  p, h2 {
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 4px;
     color: white;
     text-align: center;
+  }
+  h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: white;
+    text-align: center;
+  }
+  a {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
   }
 }
 

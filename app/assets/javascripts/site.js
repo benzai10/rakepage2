@@ -1,5 +1,11 @@
 $(function() {
 
+   // scroll to learn more
+    $('.scrolllearn').click(function(){
+        $("html, body").animate({ scrollTop: $(this).offset().top }, 700);
+        return false;
+    });
+
     $(".leaflet-save").click(function() {
         var leafletid = $(this).data('id');
         var leaflettitle = $(this).data('title');

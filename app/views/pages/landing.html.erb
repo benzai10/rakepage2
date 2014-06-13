@@ -1,20 +1,113 @@
 <div class="jumbotron">
-    <%= image_tag "logo_white_239x50.png", class: "landing-page-logo" %>
-    <span class="pull-right">
-      <%= link_to "<i class='fa fa-rocket fa-2x white'></i>".html_safe,
-                  new_user_session_path,
-                  class: "sign-in-label" %> 
-    </span>
-    <h2>Uncluttered Web</h2>
-    <h2>Content Consumption</h2>
+  <%= image_tag "logo_white_239x50.png", class: "landing-page-logo" %>
+  <span class="pull-right">
+    <%= link_to "<i class='fa fa-rocket fa-2x white'></i>".html_safe,
+                new_user_session_path,
+                class: "sign-in-label" %> 
+  </span>
+  <h2>Uncluttered Web</h2>
+  <h2>Content Consumption</h2>
+  <br>
+  <br>
+  <p>Get the most relevant content,</p>
+  <p>choose and save the best in one place</p>
+  <p>and make it available for everyone else.</p>
+  <br>
+  <br>
+  <div class="col-md-4 col-md-offset-4">
+    <%= link_to "Join the new community", new_user_registration_path, class: "btn btn-primary btn-lg center-block" %>
     <br>
     <br>
-    <p>Get the most relevant content,</p>
-    <p>choose and save the best in one place</p>
-    <p>and make it available for everyone else.</p>
     <br>
     <br>
-    <p>Join the new community</p>
+    <br>
+    <br>
+    <p class="scrolllearn" style="color:white; font-weight:300">
+      Learn more  <%= image_tag("arrow-down.png", size: "32x32") %>
+    </p>
+  </div>
 </div>
+<div class="container landing-page" id="learnmore">
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <br>
+      <br>
+      <br>
+      <br>
+      <%= image_tag("rake_dictionary_360x130.png")%>
+    </div>
+    <div class="col-md-5">
+      <br>
+      <br>
+      <h2>
+        Your automated filtered content
+      </h2>
+      <p>
+        On Rakepage you create a personal rake to get and collect content for a specific interest. You set your favourite sources and you can reduce information overload by adding filters.
+      </p>
+      <p>
+        Your rake is set and ready to deliver automated filtered content without wasting time manually browsing the Internet.
+      </p>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <br><br><br><br>
+      <h2>
+        Choose and save the best
+      </h2>
+      <p>
+        Keep the good stuff and save it for easy access. Benefit from having the best resources in one place - for you or for the community.
+      </p>
+      <p>
+        Discover what new resources become popular and make your own choice whether you want them or not. Your opinion helps to collect the most relevant content.
+      </p>
+    </div>
+    <div class="col-md-5">
+      <br>
+      <%= image_tag("landing_page_icons_image.jpg", class: "img-responsive") %>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <br>
+      <br>
+      <br>
+      <%= image_tag("rakepage2_screenshot.jpg", class: "img-responsive") %>
+    </div>
+    <div class="col-md-5">
+      <br><br><br>
+      <h2>
+        From „Search“ to „Find“
+      </h2>
+      <p>
+        Rakepage is the place where people focus on the good stuff only. Join the community and help to create this place where all of us can stop browsing endless search results and instead start to just find the best!
+      </p>
+      <p>
+        It’s the best based on the opinion, experience and knowledge of people, not a calculated algorithm.
+      </p>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br>
+
 <div class="jumbotron-2">
+  <h2><br><br><br><br></h2>
+  <h2>Let's unleash the knowledge together</h2>
+  <br>
+  <br>
+  <p>
+    <div class="col-md-4 col-md-offset-4">
+      <%= link_to "Start now", new_user_registration_path, class: "btn btn-primary btn-lg center-block" %>
+    </div>
+  </p>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="text-center">
+    <h4>
+      &copy;2014 - Rakepage. All rights reserved - <a href="http://blog.rakepage.com" target="_blank">Blog</a>
+    </h4>
+  </div>
 </div>
