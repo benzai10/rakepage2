@@ -8,5 +8,9 @@ class RegistrationsController < Devise::RegistrationsController
       super
     end
   end
+
+  def after_inactive_sign_up_path_for(resource)
+    master_rakes_path
+  end
 end
 
