@@ -57,8 +57,16 @@
   </div>
   <div class="col-md-6">
     <% if !@category.nil? %>
-      <h5><small><%= @category.desc.upcase %> | <%= link_to "ADD MASTER RAKE", new_master_rake_path, data: { toggle: "modal", target: "#newMasterRakeModal", category: params[:category_id], user: current_user.id }, class: "masterrake-create" %>
-</small></h5>
+      <h5><small>
+        <%= @category.desc.upcase %>
+        <% if user_signed_in? %>
+          &nbsp;|&nbsp;
+          <%= link_to "ADD MASTER RAKE", new_master_rake_path, data: { toggle: "modal", target: "#newMasterRakeModal", category: params[:category_id], user: current_user.id }, class: "masterrake-create" %>
+        <% else %>
+          &nbsp;|&nbsp;
+          <%= link_to "ADD MASTER RAKE", new_user_session_path %>
+        <% end %>
+      </small></h5>
     <% else %>
       <h5><small>FRONT PAGE</small></h5>
       <h1>Welcome to Rakepage!</h1>

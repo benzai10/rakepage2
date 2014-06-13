@@ -2,7 +2,11 @@
 <%= render 'rakes/rakes_menu' %>
 <div class="row">
   <div class="col-md-3">
-    <h5><small>MY RAKES | CATEGORIES</small></h5>
+    <% if user_signed_in? && @rakes.first.user_id == current_user.id %>
+      <h5><small>MY RAKES | CATEGORIES</small></h5>
+    <% else %>
+      <h5><small><%= User.find(@rakes.first.user_id).username.upcase %>'S RAKES | CATEGORIES</small></h5>
+    <% end %>
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">

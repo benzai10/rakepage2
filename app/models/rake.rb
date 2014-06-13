@@ -87,7 +87,7 @@ class Rake < ActiveRecord::Base
 
   def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url)
     channel_id = self.channels.where("channel_type = 3").first.id
-    leaflet = Leaflet.create!(leaflet_type_id: leaflet_type_id,
+    leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
                              title: leaflet_title,
                              url: leaflet_url,
                              channel_id: channel_id,

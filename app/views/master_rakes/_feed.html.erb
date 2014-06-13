@@ -11,8 +11,8 @@
           <% if l.leaflet_type_id != 0 %>
             &nbsp;|&nbsp;
             <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-            &nbsp;|&nbsp;
             <% if !l.created_by.nil? %>
+              &nbsp;|&nbsp;
               added by <%= User.find(l.created_by).username %>
             <% end %>
           <% end %>
@@ -48,8 +48,12 @@
             <% if @heap_leaflets.include? l %>
               <i class="fa fa-star"></i>
             <% else %>
-              <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@custom_rake), 
-                          data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+              <% if user_signed_in? %>
+                <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@custom_rake), 
+                            data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+              <% else %>
+                <%= link_to '<i class="fa fa-save"></i>'.html_safe, new_user_session_path %>
+              <% end %>
             <% end %>
           </span>
         </span>
