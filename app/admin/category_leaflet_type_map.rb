@@ -18,13 +18,10 @@ ActiveAdmin.register CategoryLeafletTypeMap do
     selectable_column
     id_column
     column :category do |c|
-      desc = Category.find(c.id).desc
-    end
-    column :leaflet_type do |l|
-      type = LeafletType.find(l.id).leaflet_type
+      desc = Category.find(c.category_id).desc
     end
     column :leaflet_type_desc do |l|
-      desc = LeafletType.find(l.id).leaflet_type_desc
+      desc = LeafletType.find(l.leaflet_type_id).leaflet_type_desc
     end
     column :created_at
     column :updated_at
