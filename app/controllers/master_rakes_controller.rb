@@ -1,21 +1,15 @@
 class MasterRakesController < ApplicationController
 
   def index
-    #session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    #@rake = @master_rakes.first
-    #if !params[:rake_id].nil?
-    #  @rake = @master_rakes.where("id = ?", params[:rake_id].to_i).first
-    #  @channels = @master_rakes.find_by_id(params[:rake_id].to_i).channels
-    #  @feed_leaflets = @rake.feed_leaflets.page(params[:page]).per(10)
-    #end
-    #category_ids = MasterRake.all.pluck(:category_id).uniq
-    #@categories = Category.where("id IN (?)", category_ids)
     @categories = Category.all
     if !params[:category_id].nil?
       @category = @categories.find(params[:category_id].to_i)
     end
+    @new_master_rakes = @master_rakes.order(created_at: :desc).limit(6)
+    @new_leaflets = Leaflet.where("id IN (?)",
+                            HeapLeafletMap.order(created_at: :desc).limit(5).pluck(:leaflet_id))
   end
 
   def show
@@ -33,12 +27,6 @@ class MasterRakesController < ApplicationController
         @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
       end
     end
-    # all_rakes = @rake.rakes
-    # if all_rakes.count > 0
-    #   all_rakes.each do |r|
-
-    #   end
-    # end
     @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(10)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)

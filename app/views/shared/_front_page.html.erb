@@ -1,0 +1,23 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#new-rakes" data-toggle="tab">New Rakes</a></li>
+  <li><a href="#new-leaflets" data-toggle="tab">New Leaflets</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="new-rakes">
+    <br>
+    <% @new_master_rakes.each do |m| %>
+      <div class="col-md-6">
+        <div class="thumbnail">
+          <div class="caption">
+            <%= link_to m.name, master_rake_path(m.id) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="new-leaflets">
+    <%= render 'shared/display_leaflets' %>
+  </div>
+</div>

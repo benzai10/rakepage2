@@ -23,6 +23,9 @@ class RakesController < ApplicationController
     end
     @authentications = current_user.authentications
     current_user.import_fb unless @authentications.find_by(provider: "facebook").nil?
+    @new_master_rakes = MasterRake.order(created_at: :desc).limit(6)
+    @new_leaflets = Leaflet.where("id IN (?)",
+                            HeapLeafletMap.order(created_at: :desc).limit(5).pluck(:leaflet_id))
   end
 
   def show

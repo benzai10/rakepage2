@@ -69,10 +69,7 @@
       </small></h5>
     <% else %>
       <h5><small>FRONT PAGE</small></h5>
-      <h1>Welcome to Rakepage!</h1>
-      <p>
-        Choose one of the categories on the left side and discover the existing Master Rakes. See what knowledge the Rakepage community has generated so far. Join the community and create your own customized rakes to experience a new way of how to consume web content. Have fun!
-      </p>
+      <%= render 'shared/front_page' %>
     <% end %>
     <% if !@category.nil? %>
       <div class="row">
