@@ -15,6 +15,14 @@ module FeedHelper
     DEBUG_MSG_RECONNECTING = "Reconnecting..."
 
     def self.get(url)
+      http_get(url,{})
+    end
+
+    def self.get_header(url)
+      http_get(url,get_header: true)
+    end
+
+    def self.http_get(url, options)
       count = 1
       curl = Curl::Easy.new
       curl.follow_location = true
@@ -24,6 +32,7 @@ module FeedHelper
 
       begin
         curl.perform
+        return curl.head if options[:get_header]
         return curl.body
 
       rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
@@ -178,7 +187,6 @@ module FeedHelper
   end
 
   class Scrapper
-    require 'addressable/uri'
     require 'nokogiri'
 
     LINK_TYPE = ['application/rss+xml', 'application/atom+xml']
@@ -187,7 +195,7 @@ module FeedHelper
     MSG_NO_TITLE = "Title not available."
 
     def initialize(url)
-      @url = parse_link(url)
+      @url = FeedHelper::Link.create_link(url)
       unless @html = Cget.get(url)
         raise FeedNotFoundError
       end
@@ -226,14 +234,6 @@ module FeedHelper
 
     private
 
-    def parse_link(url)
-      uri = Addressable::URI.parse(url)
-      if (!uri.scheme)
-        url = "http://" + url
-      end
-      return url if url =~ /^#{URI::regexp}$/
-      raise URI::InvalidURIError
-    end
   end
 
   class RTwitter
@@ -356,19 +356,56 @@ module FeedHelper
   end
 
   class Wiki
+    require 'addressable/uri'
     require "nokogiri"
     require "uri"
 
+    VALID_STATUS_CODES = [200,301]
+
     QUERY = "http://en.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&rvprop=content&rvparse&rvsection=0&redirects&titles="
 
-    def initialize
+    def initialize(url)
+      @url = FeedHelper::Link.create_link(url)
     end
 
     def query(query)
       xml = Cget.get(QUERY+URI.escape(query.downcase))
-      @result = Nokogiri::HTML(Nokogiri::XML(xml).css("rev").text).text unless xml.nil?
+      doc = Nokogiri::HTML(Nokogiri::XML(xml).css("rev").text) unless xml.nil?
+
+      @result = doc.at_css("table").next_sibling.text if doc.at_css("table")
+
+      return @result.gsub(/\[\d{1,2}\]/,"")
     end
 
+    def parse(url)
+      initialize(url)
+    end
+
+    def valid_url?
+      return false unless Addressable::URI.parse(@url).host =~ /.wikipedia./
+      header = Cget.get_header(@url)
+      return false if header.nil?
+      http_status = header.slice!(/\d{3}/).to_f
+      if VALID_STATUS_CODES.include?(http_status)
+        return "true #{http_status}"
+      else
+        return "false #{http_status}"
+      end
+    end
+
+  end
+
+  class Link
+    require 'addressable/uri'
+
+    def self.create_link(url)
+      uri = Addressable::URI.parse(url)
+      if (!uri.scheme)
+        url = "http://" + url
+      end
+      return url if url =~ /^#{URI::regexp}$/
+      raise URI::InvalidURIError
+    end
   end
 
 end
