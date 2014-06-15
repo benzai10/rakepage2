@@ -42,7 +42,10 @@ class Rake < ActiveRecord::Base
     filter_array = filter_array.map { |val| "%#{val}%" }
     if refresh == "yes"
       self.channels.each do |c|
-        c.pull_source
+        begin
+          c.pull_source
+        rescue
+        end
       end
     end
     rake_channel_id = self.channels.map{ |r| (r.source == self.id.to_s) ? r.id : nil }.compact.first

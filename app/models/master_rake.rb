@@ -33,7 +33,10 @@ class MasterRake < ActiveRecord::Base
   def feed_leaflets
     if self.refreshed_at.nil? || self.refreshed_at < Time.now - 1200
       self.channels.each do |c|
-        c.pull_source
+        begin
+          c.pull_source
+        rescue
+        end
       end
       self.update_attribute(:refreshed_at, Time.now)
     end
