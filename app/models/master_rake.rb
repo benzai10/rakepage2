@@ -14,12 +14,6 @@ class MasterRake < ActiveRecord::Base
 
   def add_channel(channel)
     self.channels_master_rakes.create(channel_id: channel.id)
-    # Leaflet.create!(channel_id: get_notification.id,
-    #                 title: "New Channel available!",
-    #                 content: "Channel " + channel.name + " has been added to " + name,
-    #                 published_at: Time.new,
-    #                 author: "Rakepage",
-    #                 identifier: "channel_" + channel.id.to_s)
   end
 
   def remove_channel(channel)

@@ -43,6 +43,34 @@
           <div id="feed" class="panel-collapse collapse">
         <% end %>
             <div class="panel-body">
+              Recently added Channels:
+              <ul class="leaflet-list">
+                <% MasterRake.find(@rake.master_rake_id).channels.where("channel_type <> 3 AND channel_type <> 5").order("created_at DESC").limit(5).each do |c| %>
+                  <% if !@rake.channels.include? c %>
+                    <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+                      <span class="pull-left">
+                        <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+                        <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading channel-heading">
+                          <%= c.name %>
+                          <span class="pull-right">
+                          <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
+                                add_channel_rake_path(@rake, channel: c.id),
+                                title: "Add Channel to own Rake" %>
+                          </span>
+                        </h5>
+                        <p>
+                          <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+                          <i class="fa fa-user"></i> <%= c.count_subscribers %>
+                          <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+                        </p>
+                      </div>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
             </div>
           </div>
       </div>
