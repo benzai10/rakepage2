@@ -9,7 +9,7 @@ class MasterRakesController < ApplicationController
     end
     @new_master_rakes = @master_rakes.order(created_at: :desc).limit(6)
     @new_leaflets = Leaflet.where("id IN (?)",
-                            HeapLeafletMap.order(created_at: :desc).limit(20).pluck(:leaflet_id))
+                            HeapLeafletMap.limit(20).pluck(:leaflet_id)).order(created_at: :desc)
   end
 
   def show

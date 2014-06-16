@@ -97,7 +97,8 @@ class Rake < ActiveRecord::Base
                              url: leaflet_url,
                              channel_id: channel_id,
                              content: leaflet_desc,
-                             created_by: self.user_id)
+                             created_by: self.user_id,
+                             published_at: Time.now)
     self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
   end
 
