@@ -66,19 +66,19 @@ class Rake < ActiveRecord::Base
                         self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact)
       end
     end
-    rake_ids = User.find(self.user_id).rakes.map(&:id)
-    old_feed_leaflets = Feed.where("rake_id IN (?)", rake_ids)
-    delete_feed_leaflets_ids = old_feed_leaflets.pluck(:id) - feed_leaflets.pluck(:id)
-    delete_feed_leaflets = Feed.where("id IN (?)", delete_feed_leaflets_ids)
-    delete_feed_leaflets.each do |f|
-      f.destroy
-    end
+    # rake_ids = User.find(self.user_id).rakes.map(&:id)
+    # old_feed_leaflets = Feed.where("rake_id IN (?)", rake_ids)
+    # delete_feed_leaflets_ids = old_feed_leaflets.pluck(:id) - feed_leaflets.pluck(:id)
+    # delete_feed_leaflets = Feed.where("id IN (?)", delete_feed_leaflets_ids)
+    # delete_feed_leaflets.each do |f|
+    #   f.destroy
+    # end
 
-    feed_leaflets.each do |f|
-      if Feed.where(rake_id: self.id).find_by_leaflet_id(f.id).nil?
-        Feed.create!(rake_id: self.id, leaflet_id: f.id, status: 0)
-      end
-    end
+    # feed_leaflets.each do |f|
+    #   if Feed.where(rake_id: self.id).find_by_leaflet_id(f.id).nil?
+    #     Feed.create!(rake_id: self.id, leaflet_id: f.id, status: 0)
+    #   end
+    # end
   end
 
   def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
