@@ -42,9 +42,11 @@ class Rake < ActiveRecord::Base
     filter_array = filter_array.map { |val| "%#{val}%" }
     if refresh == "yes"
       self.channels.each do |c|
-        begin
-          c.pull_source
-        rescue
+        if c.last_pull_at < Time.now - 1200
+          begin
+            c.pull_source
+          rescue
+          end
         end
       end
     end
