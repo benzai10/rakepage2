@@ -39,7 +39,7 @@ class RakesController < ApplicationController
     #@rake.feed_leaflets("news", params[:refresh])
     #@feed_leaflets = Leaflet.where("id IN (?)", 
     #                 Feed.where(rake_id: @rake.id).pluck(:leaflet_id)).order("published_at DESC").page(params[:page]).per(10)
-    @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).page(params[:page]).per(10)
+    @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(10)
     @heaps = @rake.heaps
     heap_ids = @heaps.pluck(:id)
     leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
