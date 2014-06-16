@@ -48,7 +48,7 @@
         <i class="fa fa-eraser"></i> <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
         <span class="pull-right">
           <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-            <% if Feed.where("leaflet_id = ? AND status = 1", l.id).count > 0 %>
+            <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
               <i class="fa fa-heart"></i>
             <% else %>
               <i class="fa fa-heart-o like" value=<%= l.id %>></i>
