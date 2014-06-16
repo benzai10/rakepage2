@@ -31,11 +31,7 @@ class LeafletsController < ApplicationController
   def like_add
     unless params['leaflet']['id'].empty?
       Leaflet.increment_counter(:like_count, params['leaflet']['id'])
-      rake_ids = current_user.rakes.map(&:id)
-      feed_leaflets = Feed.where("rake_id IN (?) AND leaflet_id = ?", rake_ids, params['leaflet']['id'].to_i)
-      feed_leaflets.each do |f|
-        f.update_attribute(:status, 1)
-      end
+      History.create(user_id: current_user.id, leaflet_id: params['leaflet']['id'].to_i, history_code: "liked")
     end
     render nothing: true
   end

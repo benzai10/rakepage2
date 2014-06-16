@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613021231) do
+ActiveRecord::Schema.define(version: 20140616065925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,19 @@ ActiveRecord::Schema.define(version: 20140613021231) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "leaflet_type_id", default: 0
+  end
+
+  create_table "histories", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "master_rake_id"
+    t.integer  "rake_id"
+    t.integer  "heap_id"
+    t.integer  "channel_id"
+    t.integer  "leaflet_id"
+    t.integer  "user_relation_id"
+    t.string   "history_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "leaflet_types", force: true do |t|
