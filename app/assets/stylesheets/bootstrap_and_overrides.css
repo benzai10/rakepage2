@@ -178,6 +178,12 @@ h5 {
   padding-right: 0;
 }
 
+.channel-title {
+  display: block;
+  font-size: 0.8em;
+  color: gray;
+}
+
 .channel-list {
   font-family: 'Roboto', sans-serif;
   font-size: 0.8em;
