@@ -7,9 +7,9 @@ class MasterRakesController < ApplicationController
     if !params[:category_id].nil?
       @category = @categories.find(params[:category_id].to_i)
     end
-    @new_master_rakes = @master_rakes.order(created_at: :desc).limit(6)
+    @new_master_rakes = @master_rakes.order(created_at: :desc).limit(12)
     @new_leaflets = Leaflet.where("id IN (?)",
-                            HeapLeafletMap.limit(20).pluck(:leaflet_id)).order(created_at: :desc)
+                            HeapLeafletMap.limit(50).pluck(:leaflet_id)).order(created_at: :desc)
   end
 
   def show
@@ -27,7 +27,7 @@ class MasterRakesController < ApplicationController
         @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
       end
     end
-    @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(10)
+    @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(50)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)
     @heap_types = @heaps.pluck(:leaflet_type_id).uniq

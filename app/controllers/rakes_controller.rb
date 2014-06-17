@@ -23,9 +23,9 @@ class RakesController < ApplicationController
     end
     @authentications = current_user.authentications
     current_user.import_fb unless @authentications.find_by(provider: "facebook").nil?
-    @new_master_rakes = MasterRake.order(created_at: :desc).limit(6)
+    @new_master_rakes = MasterRake.order(created_at: :desc).limit(12)
     @new_leaflets = Leaflet.where("id IN (?)",
-                            HeapLeafletMap.limit(20).pluck(:leaflet_id)).order(created_at: :desc)
+                            HeapLeafletMap.limit(50).pluck(:leaflet_id)).order(created_at: :desc)
   end
 
   def show
@@ -39,7 +39,7 @@ class RakesController < ApplicationController
     #@rake.feed_leaflets("news", params[:refresh])
     #@feed_leaflets = Leaflet.where("id IN (?)", 
     #                 Feed.where(rake_id: @rake.id).pluck(:leaflet_id)).order("published_at DESC").page(params[:page]).per(10)
-    @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(10)
+    @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @heaps = @rake.heaps
     heap_ids = @heaps.pluck(:id)
     leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
