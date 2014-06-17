@@ -88,7 +88,7 @@ Rakepage2::Application.configure do
     password: ENV["MANDRILL_APIKEY"]
   }
 
-  config.action_mailer.default_url_options = { :host => 'rakepage.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'www.rakepage.com' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
