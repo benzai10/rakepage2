@@ -40,7 +40,7 @@ class Rake < ActiveRecord::Base
   def feed_leaflets(feed_type, refresh)
     filter_array = self.filters.map { |f| f.keyword }
     filter_array = filter_array.map { |val| "%#{val}%" }
-    if refresh == "yes"
+    #if refresh == "yes"
       self.channels.each do |c|
         if c.last_pull_at < Time.now - 1200
           begin
@@ -49,7 +49,7 @@ class Rake < ActiveRecord::Base
           end
         end
       end
-    end
+    #end
     rake_channel_id = self.channels.map{ |r| (r.source == self.id.to_s) ? r.id : nil }.compact.first
     if self.refreshed_at.nil?
       if !filter_array.empty?
