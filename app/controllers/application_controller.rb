@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_up_path_for(resource)
+    if resource.is_a?(User)
+      master_rakes_path
+    else
+      super
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
