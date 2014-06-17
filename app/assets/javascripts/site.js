@@ -133,5 +133,18 @@ $(function() {
         $('#load-rake-' + id).html("<i class='fa fa-spinner fa-spin'></i>");
     });
 
+    $('.add-subreddit-feed').click(function() {
+        if (screen.width < 1024) {
+          $('body').removeClass('nav-expanded');
+        };
+    });
+
+    $('.add-rss-feed').click(function() {
+        if (screen.width < 1024) {
+          $('body').removeClass('nav-expanded');
+        };
+    });
+
+
     $('.excerpt-more').hide();
 });

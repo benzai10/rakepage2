@@ -11,7 +11,7 @@
           <h5 class="panel-title">
             <% href_id = "#master_rake" %>
             <i class="fa fa-leaf green"></i>
-              <span class="rsake-title">
+              <span class="rake-title">
                 <%= @rake.name %>
               </span>
             <span class="pull-right">
@@ -63,7 +63,7 @@
               </h5>
               <ul class="leaflet-list">
                 <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").each do |c| %>
-                  <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+                  <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
                     <span class="pull-left">
                       <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
                       <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
@@ -134,7 +134,7 @@
         <div class="panel-body menu black">
           <ul class="menu-list">
             <li class="rake-show-list">
-              <%= link_to "Social Accounts", authentications_path %>
+              <%#= link_to "Social Accounts", authentications_path %>
             </li>
             <li class="rake-show-list">
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>

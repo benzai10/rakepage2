@@ -47,7 +47,7 @@
             <ul class="leaflet-list">
               <% @rake.channels.each do |c| %>
                 <% if c.channel_type != 3 %>
-                  <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+                  <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
                     <span class="pull-left" >
                       <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
                       <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">

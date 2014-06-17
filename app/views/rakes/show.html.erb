@@ -43,11 +43,11 @@
           <div id="feed" class="panel-collapse collapse">
         <% end %>
             <div class="panel-body">
-              Recently added Channels:
+              <span class="feed-timestamp">Recently added Channels:</span>
               <ul class="leaflet-list">
                 <% MasterRake.find(@rake.master_rake_id).channels.where("channel_type <> 3 AND channel_type <> 5").order("created_at DESC").limit(5).each do |c| %>
                   <% if !@rake.channels.include? c %>
-                    <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
+                    <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
                       <span class="pull-left">
                         <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
                         <img class="media-object img-rake-show" src=<%= "#{favicon_path}" %> alt="media image">
