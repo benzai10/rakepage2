@@ -52,7 +52,7 @@
               Recently added Channels:
               <ul class="leaflet-list">
                 <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").order("created_at DESC").limit(5).each do |c| %>
-                  <% if !@custom_rake.first.nil? %>
+                  <% if user_signed_in? && !@custom_rake.first.nil? %>
                     <% if !@custom_rake.first.channels.include? c %>
                       <li class="rake-show-list" id="<%= 'channel_' + c.id.to_s %>">
                         <span class="pull-left">

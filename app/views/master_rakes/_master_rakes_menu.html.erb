@@ -77,7 +77,7 @@
                         <%# end %>
                         <%= c.name %>
                         <span class="pull-right">
-                          <% if !@custom_rake.first.nil? %>
+                          <% if user_signed_in? && !@custom_rake.first.nil? %>
                             <% if !@custom_rake.first.channels.include? c %>
                               <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
                                     add_channel_rake_path(@custom_rake.first.id, channel: c.id),
