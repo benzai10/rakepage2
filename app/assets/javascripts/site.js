@@ -128,6 +128,10 @@ $(function() {
         $('#refresh-icon').html("<i class='fa fa-refresh fa-spin'></i>");
     });
 
+    $('.load-rake').click(function() {
+        var id = $(this).attr("value");
+        $('#load-rake-' + id).html("<i class='fa fa-spinner fa-spin'></i>");
+    });
 
     $('.excerpt-more').hide();
 });

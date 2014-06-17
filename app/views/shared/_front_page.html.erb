@@ -11,7 +11,8 @@
       <div class="col-md-6">
         <div class="thumbnail">
           <div class="caption">
-            <%= link_to m.name, master_rake_path(m.id) %>
+            <%= link_to m.name, master_rake_path(m.id), class: "load-rake", value: m.id %>
+            <span id="load-rake-<%= "#{m.id.to_s}" %>"></span>
           </div>
         </div>
       </div>
