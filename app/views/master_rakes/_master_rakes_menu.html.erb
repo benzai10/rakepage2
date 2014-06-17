@@ -10,7 +10,10 @@
         <div class="panel-heading active panel-heading-menu">
           <h5 class="panel-title">
             <% href_id = "#master_rake" %>
-            <i class="fa fa-leaf green"></i> <%= @rake.name %>
+            <i class="fa fa-leaf green"></i>
+              <span class="rsake-title">
+                <%= @rake.name %>
+              </span>
             <span class="pull-right">
               <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
             </span>
@@ -82,8 +85,8 @@
                               <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
                                     add_channel_rake_path(@custom_rake.first.id, channel: c.id),
                                     title: "Add Channel to own Rake" %>
+                              &nbsp;|&nbsp;
                             <% end %>
-                            &nbsp;|&nbsp;
                           <% end %>
                           <% if !current_user.nil? && current_user.admin? %>
                             <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe,

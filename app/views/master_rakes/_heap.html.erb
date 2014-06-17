@@ -80,8 +80,11 @@
                               data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
               <% end %>
             <% else %>
-              <%#= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(own_rake), 
-                          data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+              <%= link_to '<i class="fa fa-save"></i>'.html_safe,
+                    new_rake_path(master_rake_id: @rake.id),
+                                  data: { toggle: "modal",
+                                          target: "#newCustomRakeModal",
+                                        } %>
             <% end %>
           <% end %>
         </span>

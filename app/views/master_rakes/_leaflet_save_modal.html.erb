@@ -9,7 +9,7 @@
       <%= bootstrap_form_for(@custom_rake.first) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
-          <% leaflet_types_array = LeafletType.all.map { |lt| [lt.leaflet_type_desc, lt.leaflet_type] } %>
+          <% leaflet_types_array = LeafletType.where("id IN (?)", CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
           <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Heap" } %>
           <%= f.text_field :leaflet_title, { label: "Leaflet Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Leaflet Description (optional)" } %>
