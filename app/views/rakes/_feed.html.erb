@@ -39,20 +39,38 @@
         <i class="fa fa-eraser"></i> <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
         <span class="pull-right">
           <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-            <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
-              <i class="fa fa-heart"></i>
+            <% if user_signed_in? %>
+              <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
+                <i class="fa fa-heart"></i>
+              <% else %>
+                <i class="fa fa-heart-o like" value=<%= l.id %>></i>
+              <% end %>
             <% else %>
-              <i class="fa fa-heart-o like" value=<%= l.id %>></i>
+              <i class="fa fa-heart-o"></i>
             <% end %>
           </span>
           <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
-          &nbsp;|&nbsp;
           <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
             <% if @heap_leaflets.include? l %>
+              &nbsp;|&nbsp;
               <i class="fa fa-star"></i>
             <% else %>
-              <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
-                          data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+              <% if user_signed_in? %>
+                &nbsp;|&nbsp;
+                <% if @rake.user_id == current_user.id %>
+                  <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@rake), 
+                              data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                <% else %>
+                  <% if !@other_user_rake.nil? %>
+                    <%= link_to '<i class="fa fa-save"></i>'.html_safe, add_leaflet_rake_path(@other_user_rake), 
+                                data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                  <% else %>
+                    <%= link_to '<i class="fa fa-save"></i>'.html_safe, new_rake_path, 
+                                data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+
+                  <% end %>
+                <% end %>
+              <% end %>
             <% end %>
           </span>
         </span>

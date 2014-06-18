@@ -56,11 +56,13 @@
                       <div class="media-body">
                         <h5 class="media-heading channel-heading">
                           <%= c.name %>
-                          <span class="pull-right">
-                          <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
-                                add_channel_rake_path(@rake, channel: c.id),
-                                title: "Add Channel to own Rake" %>
-                          </span>
+                          <% if user_signed_in? && @rake.user_id == current_user.id %>
+                            <span class="pull-right">
+                            <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
+                                  add_channel_rake_path(@rake, channel: c.id),
+                                  title: "Add Channel to own Rake" %>
+                            </span>
+                          <% end %>
                         </h5>
                         <p>
                           <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
@@ -79,13 +81,15 @@
         <h5>
           <small>
             HEAPS
-            <span class="pull-right-menu">
-              <%= link_to "ADD HEAP", "#",
-                            data: {
-                              toggle: "modal",
-                              target: "#addHeapModal"
-                              } %>
-            </span>
+            <% if user_signed_in? && @rake.user_id == current_user.id %>
+              <span class="pull-right-menu">
+                <%= link_to "ADD HEAP", "#",
+                              data: {
+                                toggle: "modal",
+                                target: "#addHeapModal"
+                                } %>
+              </span>
+            <% end %>
           </small>
         </h5>
       </p>
@@ -112,16 +116,18 @@
                   <span>
                     <i class="fa fa-leaf"></i> <%= " " + h.leaflets.count.to_s %>
                   </span>
-                  <small><span class="pull-right-menu">
-                  <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD LEAFLET", new_leaflet_path, 
-                              data: {
-                                toggle: "modal",
-                                target: "#newLeafletModal",
-                                heapid: h.id,
-                                typeid: h.leaflet_type_id
-                              },
-                              class: "leaflet-create" %>
-                  </span></small>
+                  <% if user_signed_in? && @rake.user_id == current_user.id %>
+                    <small><span class="pull-right-menu">
+                    <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD LEAFLET", new_leaflet_path, 
+                                data: {
+                                  toggle: "modal",
+                                  target: "#newLeafletModal",
+                                  heapid: h.id,
+                                  typeid: h.leaflet_type_id
+                                },
+                                class: "leaflet-create" %>
+                    </span></small>
+                  <% end %>
                 </h5>
               </div>
             </div>
@@ -150,4 +156,8 @@
 <%= render 'rakes/leaflet_create_modal' %>
 <%= render 'rakes/heap_add_modal' %>
 <%#= render 'rakes/social_modal' %>
+<% if @rake.user_id != current_user.id %>
+  <%= render 'new_rake_modal' %>
+<% end %>
 </div>
+

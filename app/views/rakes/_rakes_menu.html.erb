@@ -11,9 +11,11 @@
         <h5 class="panel-title">
           <% href_id = "#rake" %>
           <i class='fa fa-code-fork green'></i>&nbsp;<%= @rake.name %>
-          <span class="pull-right">
-            <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
-          </span>
+          <% if user_signed_in? && @rake.user_id == current_user.id %>
+            <span class="pull-right">
+              <%= link_to '<i class="fa fa-cog green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+            </span>
+          <% end %>
         </h5>
         <div id="rake" class="panel-collapse collapse">
           <div class="panel-body menu black">
