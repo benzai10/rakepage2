@@ -156,8 +156,6 @@
 <%= render 'rakes/leaflet_create_modal' %>
 <%= render 'rakes/heap_add_modal' %>
 <%#= render 'rakes/social_modal' %>
-<% if @rake.user_id != current_user.id %>
-  <%= render 'new_rake_modal' %>
-<% end %>
+<%= render 'new_rake_modal' %>
 </div>
 
