@@ -50,6 +50,7 @@
         <% end %>
             <div class="panel-body">
               <span class="channel-title">Recently added Channels:</span>
+              <br>
               <ul class="leaflet-list">
                 <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").order("created_at DESC").limit(5).each do |c| %>
                   <% if user_signed_in? && !@custom_rake.first.nil? %>

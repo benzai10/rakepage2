@@ -12,18 +12,21 @@ Rakepage2::Application.routes.draw do
       get :autocomplete_channel_source
     end
   end
+
   resources :heaps do
     member do
       get 'add_leaflet'
       get 'remove_leaflet'
     end
   end
+
   resources :leaflets do
     collection do
       post 'view_add'
       post 'like_add'
     end
   end
+
   resources :master_rakes do
     member do
       get 'add_channel'
@@ -35,6 +38,7 @@ Rakepage2::Application.routes.draw do
       post 'add_rake'
     end
   end
+
   resources :rakes do
     member do
       get 'add_channel'

@@ -77,7 +77,21 @@
       </div>
     <% else %>
       <h5><small>FRONT PAGE</small></h5>
-      <%= render 'shared/front_page' %>
+      <%#= render 'shared/front_page' %>
+      <% if @rakes.empty? %>
+        Tutorial here...
+      <% else %>
+        <% @rakes.each do |r| %>
+          <div class="col-md-6">
+            <div class="thumbnail">
+              <div class="caption">
+                <%= link_to r.name, rake_path(r.id), class: "load-rake", value: r.id %>
+                <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
