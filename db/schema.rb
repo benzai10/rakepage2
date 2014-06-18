@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616065925) do
+ActiveRecord::Schema.define(version: 20140618122032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,13 +172,14 @@ ActiveRecord::Schema.define(version: 20140616065925) do
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree
 
   create_table "master_rakes", force: true do |t|
-    t.string   "name",          default: "", null: false
+    t.string   "name",                      default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id",   default: 1
+    t.integer  "category_id",               default: 1
     t.datetime "refreshed_at"
     t.string   "wikipedia_url"
     t.integer  "created_by"
+    t.text     "wikipedia_first_paragraph"
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree

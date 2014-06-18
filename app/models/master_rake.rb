@@ -5,6 +5,7 @@ class MasterRake < ActiveRecord::Base
   attr_accessor :source
 
   validates :name, presence: true, :uniqueness => {:case_sensitive => false}
+  validates :wikipedia_url, presence: true, :uniqueness =>  {:case_sensitive => false}
 
   has_many :channels_master_rakes, dependent: :destroy
   has_many :channels, through: :channels_master_rakes, dependent: :destroy
