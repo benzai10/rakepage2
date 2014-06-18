@@ -360,7 +360,7 @@ module FeedHelper
     require "nokogiri"
     require "uri"
 
-    VALID_STATUS_CODES = [200,301]
+    VALID_STATUS_CODE = 200
 
     QUERY = "http://en.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&rvprop=content&rvparse&rvsection=0&redirects&titles="
 
@@ -368,13 +368,24 @@ module FeedHelper
       @url = FeedHelper::Link.create_link(url)
     end
 
-    def query(query)
-      xml = Cget.get(QUERY+URI.escape(query.downcase))
+    def get_first_paragraph
+      return nil unless valid_url?
+
+      xml = Cget.get(QUERY+URI.escape(get_query))
       doc = Nokogiri::HTML(Nokogiri::XML(xml).css("rev").text) unless xml.nil?
 
-      @result = doc.at_css("table").next_sibling.text if doc.at_css("table")
+      if doc.at_css("table + p")
+        @result = doc.at_css("table + p").text
+      else
+        @result = doc.at_css("p").text
+      end
 
       return @result.gsub(/\[\d{1,2}\]/,"")
+    end
+
+    def get_query
+      path = Addressable::URI.parse(@url).path
+      return path.gsub(/^\/wiki\//, "").downcase
     end
 
     def parse(url)
@@ -385,11 +396,12 @@ module FeedHelper
       return false unless Addressable::URI.parse(@url).host =~ /.wikipedia./
       header = Cget.get_header(@url)
       return false if header.nil?
-      http_status = header.slice!(/\d{3}/).to_f
-      if VALID_STATUS_CODES.include?(http_status)
-        return "true #{http_status}"
+      http_status = []
+      http_status << header.slice!(/HTTP\/1.1 \d{3}/).slice!(/\d{3}/).to_f while header.slice(/HTTP\/1.1 \d{3}/)
+      if http_status.include? VALID_STATUS_CODE
+        return http_status
       else
-        return "false #{http_status}"
+        return false
       end
     end
 
