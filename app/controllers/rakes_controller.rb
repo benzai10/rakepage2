@@ -37,28 +37,10 @@ class RakesController < ApplicationController
     #@feed_leaflets = Leaflet.where("id IN (?)", 
     #                 Feed.where(rake_id: @rake.id).pluck(:leaflet_id)).order("published_at DESC").page(params[:page]).per(10)
     @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
-    if user_signed_in?
-      if @rake.user_id == current_user.id
-        @heaps = @rake.heaps
-        heap_ids = @heaps.pluck(:id)
-        leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
-        @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
-      else
-        @other_user_rake = Rake.where("user_id = ? AND master_rake_id = ?", current_user.id, @rake.master_rake_id).first
-        if !@other_user_rake.nil?
-          @heaps = @other_user_rake.heaps
-          heap_ids = @heaps.pluck(:id)
-          leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
-          @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
-        else
-          @heaps = []
-          @heap_leaflets = []
-        end
-      end
-    else
-      @heaps = []
-      @heap_leaflets = []
-    end
+    @heaps = @rake.heaps
+    heap_ids = @heaps.pluck(:id)
+    leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
+    @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     #@notifications = current_user.get_notifications
     params[:heap_type] ||= "News"

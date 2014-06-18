@@ -60,12 +60,16 @@
           </span>
           <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
           <% if user_signed_in? %>
+            &nbsp;|&nbsp;
             <% if @rake.user_id == current_user.id %>
-              &nbsp;|&nbsp;
               <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
                     remove_leaflet_heap_path(heap, leaflet_id: l.id),
                     :data => { :confirm => "Are you sure?" },
                     :method => :get, remote: true %>
+            <% else %>
+              <%= link_to '<i class="fa fa-save"></i>'.html_safe, new_rake_path, 
+                          data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+
             <% end %>
           <% end %>
         </span>
