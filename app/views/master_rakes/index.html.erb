@@ -73,6 +73,9 @@
     <% end %>
     <% if !@category.nil? %>
       <div class="row">
+        <% if !flash.empty? %>
+          <%= render 'shared/flash_message' %>
+        <% end %>
         <% @master_rakes.where("category_id = ? AND (name <> 'Facebook Import' AND name <> 'Twitter Import')", @category.id).each do |m| %>
           <div class="col-md-6">
             <div class="thumbnail">

@@ -44,10 +44,15 @@ class MasterRakesController < ApplicationController
 
   def create
     @master_rake = MasterRake.new(master_rake_params)
-    if @master_rake.save
-      redirect_to master_rake_path(@master_rake)
+    if @master_rake.check_wikipedia_url(params[:master_rake][:wikipedia_url]) != false
+      if @master_rake.save
+        redirect_to master_rake_path(@master_rake)
+      else
+        flash[:error] = @master_rake.errors.full_messages
+        redirect_to master_rakes_path(category_id: params[:master_rake][:category_id])
+      end
     else
-      flash[:error] = @master_rake.errors.full_messages
+      flash[:error] = "Invalid Wikipedia URL"
       redirect_to :back
     end
   end
