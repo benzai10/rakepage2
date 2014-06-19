@@ -5,6 +5,13 @@
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
   <div class="panel-group" id="accordion">
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  Home", root_path %>
+        </h5>
+      </div>
+    </div>
     <% if !@rake.nil? %>
       <div class="panel panel-default panel-menu">
         <div class="panel-heading active panel-heading-menu">
@@ -137,7 +144,10 @@
               <%#= link_to "Social Accounts", authentications_path %>
             </li>
             <li class="rake-show-list">
-              <%= link_to "Terms of Service", "pages/help", class: "purple" %>
+              <%= link_to "Terms of Service", pages_path(section: "terms_of_service"), class: "purple" %>
+            </li>
+            <li class="rake-show-list">
+              <%= link_to "Privacy Policy", pages_path(section: "privacy_policy"), class: "purple" %>
             </li>
             <li class="rake-show-list">
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
