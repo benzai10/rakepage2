@@ -106,7 +106,7 @@
             <i class="fa fa-user white"></i> <%= current_user.username %>
             <span class="pull-right">
             <% href_id = "#user" %>
-              <%= link_to '<i class="fa fa-cog white"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
+              <%= link_to '<i class="fa fa-ellipsis-v white"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
             </span>
           </h5>
       </div>
@@ -115,6 +115,9 @@
           <ul class="menu-list">
             <li class="rake-show-list">
               <%#= link_to "Social Accounts", authentications_path %>
+            </li>
+            <li class="rake-show-list">
+              <%= link_to "Terms of Service", "pages/help", class: "purple" %>
             </li>
             <li class="rake-show-list">
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>

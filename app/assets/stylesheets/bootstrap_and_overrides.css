@@ -14,6 +14,10 @@ body {
   padding: 5px;
 }
 
+.like:hover {
+  cursor: pointer;
+}
+
 .flash {
   margin-bottom: 0px;
 }

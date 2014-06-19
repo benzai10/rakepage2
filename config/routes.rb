@@ -4,6 +4,8 @@ Rakepage2::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   ActiveAdmin.routes(self)
 
+  match 'pages/help', to: 'pages#help', via: [:get]
+
   resources :channels do
     member do
       get 'refresh_feed'
