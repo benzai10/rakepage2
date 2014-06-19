@@ -157,7 +157,7 @@ class RakesController < ApplicationController
   def add_channel
     @rake = Rake.find(params[:id])
     @rake.add_channel(Channel.find(params[:channel]))
-    redirect_to master_rake_path(@rake.master_rake_id)
+    redirect_to rake_path(@rake)
   end
 
   def remove_channel
