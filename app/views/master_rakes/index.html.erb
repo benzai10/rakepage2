@@ -80,7 +80,14 @@
           <div class="col-md-6">
             <div class="thumbnail">
               <div class="caption">
-                <%= link_to m.name, master_rake_path(m), class: "load-rake", value: m.id %>
+                <% if m.image_url.nil? || m.image_url.empty? %>
+                  <%= link_to image_tag("no_image.png"), master_rake_path(m.id), class: "load-rake", value: m.id %>
+                <% else %>
+                  <%= link_to image_tag(m.image_url), master_rake_path(m.id), class: "load-rake", value: m.id %>
+                <% end %>
+                <span class="rake-caption">
+                  <%= link_to m.name, master_rake_path(m), class: "load-rake", value: m.id %>
+                </span>
                 <span id="load-rake-<%= "#{m.id.to_s}" %>"></span>
               </div>
             </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618122032) do
+ActiveRecord::Schema.define(version: 20140620061639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 20140618122032) do
     t.string   "wikipedia_url"
     t.integer  "created_by"
     t.text     "wikipedia_first_paragraph"
+    t.text     "image_url"
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree

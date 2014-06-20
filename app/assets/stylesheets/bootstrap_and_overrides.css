@@ -82,6 +82,44 @@ h5 {
   font-weight: 200;
 }
 
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail .caption {
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.load-rake img {
+  padding: 0;
+  width: 100%;
+  min-height: 140px;
+  max-height: 140px;
+}
+
+.rake-caption {
+  padding-left: 14px;
+  line-height: 50px;
+}
+
+.caption a:link {
+  color: black !important;
+}
+
+.caption a:visited {
+  color: black !important;
+}
+
+.caption a:hover {
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .desc-text {
   font-size: 0.9em;
 }
