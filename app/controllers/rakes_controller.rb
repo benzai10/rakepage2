@@ -121,9 +121,9 @@ class RakesController < ApplicationController
                         params[:rake][:leaflet_title],
                         params[:rake][:leaflet_desc])
       if session[:rake_class] == MasterRake
-        redirect_to master_rake_path(@rake.master_rake_id)
+        redirect_to master_rake_path(@rake.master_rake_id, anchor: "leaflet-" + params[:rake][:leaflet_id])
       else
-        redirect_to rake_path(@rake)
+        redirect_to rake_path(@rake, anchor: "leaflet-" + params[:rake][:leaflet_id])
       end
     elsif params[:commit] == "Create Leaflet"
       begin
