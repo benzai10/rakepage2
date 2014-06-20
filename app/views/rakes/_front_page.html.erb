@@ -1,0 +1,42 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#my-rakes" data-toggle="tab">My Rakes</a></li>
+  <li><a href="#new-master-rakes" data-toggle="tab">New Master Rakes</a></li>
+  <li><a href="#new-leaflets" data-toggle="tab">New Leaflets</a></li>
+</ul>
+<br>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="my-rakes">
+    <% if @rakes.empty? %>
+      Tutorial here...
+    <% else %>
+      <% @rakes.each do |r| %>
+        <div class="col-md-6">
+          <div class="thumbnail">
+            <div class="caption">
+              <%= link_to r.name, rake_path(r.id), class: "load-rake", value: r.id %>
+              <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="new-master_rakes">
+    <br>
+    <% @new_master_rakes.each do |m| %>
+      <div class="col-md-6">
+        <div class="thumbnail">
+          <div class="caption">
+            <%= link_to m.name, master_rake_path(m.id), class: "load-rake", value: m.id %>
+            <span id="load-rake-<%= "#{m.id.to_s}" %>"></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="new-leaflets">
+    <%= render 'master_rakes/display_leaflets' %>
+  </div>
+</div>
