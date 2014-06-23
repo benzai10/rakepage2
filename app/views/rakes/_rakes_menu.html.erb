@@ -74,7 +74,7 @@
                           <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
                         </span>
                       </h5>
-                      <p>
+                      <p class="channel-info">
                         <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
                         <i class="fa fa-user"></i> <%= c.count_subscribers %>
                         <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>

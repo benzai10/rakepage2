@@ -231,6 +231,11 @@ h5 {
   font-size: 0.8em;
 }
 
+.channel-info {
+  font-size: 1em;
+  font-weight: 500;
+}
+
 .leaflet-list {
   margin-left: -40px;
   list-style-type: none;
