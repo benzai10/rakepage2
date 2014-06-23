@@ -1,0 +1,54 @@
+<!-- Modal -->
+<div class="modal fade in" id="showTutorialModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Tutorial</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tut-1" data-toggle="tab">General</a></li>
+          <li><a href="#tut-2" data-toggle="tab">Feedback</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="tut-1">
+            <br>
+            <h4>Welcome to Rakepage</h4>
+            <p>
+              Master rakes are templates for specific topics. You can create a new one if you navigate to a category. For each master rake you create, please enter a corresponding Wikipedia article URL. This ensures that we don't have duplicates of same topics on Rakepage.
+            </p>
+            <br>
+            <p>
+              To each master rake you can add any RSS feed or a Subreddit from Reddit.com as a channel. For this, please use the menu you can access from the top right corner.
+            </p>
+            <br>
+            <p>
+              If you want to customize the channels you can create a customized rake. Press the button on the top left of a master rake. You can also start saving content by clicking on the save icon.
+            </p>
+            <br>
+            <p>
+              If you want to add a link manually, enter the heap (a subcategory of each rake) or first add one heap to the rake by clicking on the link 'Add new Heap'.
+            </p>
+          </div>
+          <div class="tab-pane" id="tut-2">
+            <br>
+            <p>
+              Rakepage is in Beta mode and we are thankful for any kind of feedback. Please use the feedback widget by clicking on the question mark at the bottom left side. Thank you!
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <%= bootstrap_form_for(History.new) do |f| %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "OK, I got it.", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

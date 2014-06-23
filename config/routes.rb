@@ -5,6 +5,9 @@ Rakepage2::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   #match 'pages/help', to: 'pages#help', via: [:get]
+
+  resources :histories
+
   resources :pages
 
   resources :channels do

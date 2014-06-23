@@ -4,6 +4,7 @@ class MasterRake < ActiveRecord::Base
   attr_accessor :feed_leaflets
   attr_accessor :channel_type
   attr_accessor :source
+  attr_accessor :history_code
 
   validates :name, presence: true, :uniqueness => {:case_sensitive => false}
   validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}

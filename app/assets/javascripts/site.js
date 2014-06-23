@@ -145,6 +145,6 @@ $(function() {
         };
     });
 
-
     $('.excerpt-more').hide();
+
 });

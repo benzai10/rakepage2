@@ -10,6 +10,11 @@ body {
   margin-top: 50px;
 }
 
+#showTutorialModal .modal-body {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
 .alert {
   padding: 5px;
 }
@@ -529,4 +534,12 @@ body.nav-expanded {
   float: right;
   margin: 0.1em 0.8em -0.1em 0;
   opacity: 1;
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  #showTutorialModal .modal-body {
+    max-height: 200px;
+    overflow-y: auto;
+  }
 }
