@@ -12,6 +12,9 @@
         <div class="panel-heading">
           <h5 class="panel-title">
             <%= link_to "Front Page", rakes_path %>
+            <span class="pull-right channel-title"><small>
+              <%= link_to '<i class="fa fa-arrow-right"></i> MASTER RAKES'.html_safe, master_rakes_path %>
+            </small></span>
           </h5>
         </div>
         <% if @category.nil? %>
