@@ -11,7 +11,10 @@
           <%= f.hidden_field :category_id, class: "category-id" %>
           <%= f.hidden_field :created_by, class: "created-by" %>
           <%= f.text_field :name, class: "txtfield", placeholder: "Enter Master Rake" %>
-          <%= f.text_field :wikipedia_url, class: "txtfield", placeholder: "Enter Wikipedia Article URL", label: "Wikipedia URL" %>
+          <%= f.text_field :wikipedia_url, class: "txtfield", placeholder: "Enter Wikipedia Article URL", label: "Wikipedia URL*" %>
+          <p class="channel-title">
+            * The Wikipedia URL is used to prevent the creation of too many similar master rakes.
+          </p>
           <%# categories_array = Category.all.map { |c| [c.desc, c.id] } %>
           <%#= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
         </div>
