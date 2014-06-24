@@ -4,40 +4,51 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Tutorial</h4>
+        <h4 class="modal-title" id="myModalLabel">Welcome to Rakepage</h4>
       </div>
       <div class="modal-body">
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#tut-1" data-toggle="tab">General</a></li>
+          <li class="active"><a href="#tut-1" data-toggle="tab">First Steps</a></li>
           <li><a href="#tut-2" data-toggle="tab">Feedback</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="tut-1">
             <br>
-            <h4>Welcome to Rakepage</h4>
+            <h4>Rakes</h4>
             <p>
-              Master rakes are templates for specific topics. You can create a new one if you navigate to a category. For each master rake you create, please enter a corresponding Wikipedia article URL. This ensures that we don't have duplicates of same topics on Rakepage.
+              A rake on Rakepage is your access point to the best web resources for a specific topic. Channels provide you with the latest news from blogs (any RSS feed) and/or subreddits from <%= link_to "Reddit", "http://reddit.com", target: "_blank" %>. Please let us know what other channels you would like to have, we might implement it as next!
+            </p>
+            <p>
+              Whenever you find something you want to keep for later access or easy sharing, you can save the link to your personal rake. Each rake can have various subcategories called 'heaps' to keep everything organized. 
+            </p>
+            <p>
+              You want to add your own content? No problem! Choose or add a heap to your rake and create your own content by clicking on "Add a Leaflet".
+            </p>
+            <br>
+            <h4>Master Rakes vs. Customized Rakes</h4>
+            <p>
+              A master rake is a template with aggregated channels and heaps from all users who created a customized rake from it. A customized rake allows you to add or delete channels according to your preferences. You also need a customized rake to save content in heaps.
+            </p>
+            <p>
+              If a master rake is not available yet, you can create one by yourself. Choose a category first and then click on "Add Master Rake" at the top of the page. From there, you can create your customized rake by clicking on the green button at the top left. Choose "Uncategorized" if the desired category is not available yet.
+            </p>
+            <br>
+            <h4>Channels</h4>
+            <p>
+              Open the menu at the top right corner to add or delete channels. In your customized rake you can also choose if the content of a channel is visible or not by clicking on the checkbox in front of the channel name.
             </p>
             <br>
             <p>
-              To each master rake you can add any RSS feed or a Subreddit from Reddit.com as a channel. For this, please use the menu you can access from the top right corner.
-            </p>
-            <br>
-            <p>
-              If you want to customize the channels you can create a customized rake. Press the button on the top left of a master rake. You can also start saving content by clicking on the save icon.
-            </p>
-            <br>
-            <p>
-              If you want to add a link manually, enter the heap (a subcategory of each rake) or first add one heap to the rake by clicking on the link 'Add new Heap'.
+              Happy Raking!
             </p>
           </div>
           <div class="tab-pane" id="tut-2">
             <br>
             <p>
-              Rakepage is in Beta mode and we are thankful for any kind of feedback. Please use the feedback widget by clicking on the question mark at the bottom left side. Thank you!
+              Rakepage is in Beta mode and we are thankful for any kind of feedback or questions. Please use the feedback widget by clicking on the question mark at the bottom left side. Thank you!
             </p>
           </div>
         </div>
