@@ -25,6 +25,9 @@ $(function() {
         var userId = $(this).data('user');
         $(".category-id").val(categoryId);
         $(".created-by").val(userId);
+        if (categoryId != "none") {
+            $(".category-select").hide();
+        }
     });
 
     $(".add-rss-feed").click(function() {

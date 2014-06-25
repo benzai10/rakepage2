@@ -10,6 +10,10 @@
         <div class="modal-body">
           <%= f.hidden_field :category_id, class: "category-id" %>
           <%= f.hidden_field :created_by, class: "created-by" %>
+          <% categories_array = Category.all.map { |category| [category.desc, category.id] } %>
+          <div class="category-select">
+            <%= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
+          </div>
           <%= f.text_field :name, class: "txtfield", placeholder: "Enter Master Rake" %>
           <%= f.text_field :wikipedia_url, class: "txtfield", placeholder: "Enter Wikipedia Article URL", label: "Wikipedia URL*" %>
           <p class="channel-title">

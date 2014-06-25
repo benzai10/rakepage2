@@ -49,7 +49,8 @@ class MasterRakesController < ApplicationController
         redirect_to master_rake_path(@master_rake)
       else
         flash[:error] = @master_rake.errors.full_messages
-        redirect_to master_rakes_path(category_id: params[:master_rake][:category_id])
+        #redirect_to master_rakes_path(category_id: params[:master_rake][:category_id])
+        redirect_to master_rakes_path
       end
     else
       flash[:error] = "Invalid Wikipedia URL"

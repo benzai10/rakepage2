@@ -16,11 +16,27 @@
             </h5>
           </div>
           <% if @category.nil? %>
-          <div class="panel-collapse collapse in">
+            <div class="panel-collapse collapse in">
           <% else %>
             <div class="panel-collapse collapse">
           <% end %>
             <div class="panel-body">
+              <p>
+                <% if user_signed_in? %>
+                  <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
+                        new_master_rake_path, 
+                        data: { 
+                              toggle: "modal",
+                              target: "#newMasterRakeModal",
+                              category: "none",
+                              user: current_user.id },
+                              class: "btn btn-primary btn-block masterrake-create" %>
+                <% else %>
+                  <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
+                              new_user_session_path,
+                              class: "btn btn-primary btn-block" %>
+                <% end %>
+              </p>
             </div>
           </div>
         </div>
@@ -54,6 +70,22 @@
                 <% if !@category.nil? %>
                   <h5><small><%= c.comment %></small></h5>
                 <% end %>
+                <p>
+                  <% if user_signed_in? %>
+                    <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
+                          new_master_rake_path, 
+                          data: { 
+                                toggle: "modal",
+                                target: "#newMasterRakeModal",
+                                category: params[:category_id],
+                                user: current_user.id },
+                                class: "btn btn-primary btn-block masterrake-create" %>
+                  <% else %>
+                    <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
+                                new_user_session_path,
+                                class: "btn btn-primary btn-block" %>
+                  <% end %>
+                </p>
               </div>
             </div>
           </div>
@@ -64,13 +96,6 @@
       <% if !@category.nil? %>
         <h5><small>
           <%= @category.desc.upcase %>
-          <% if user_signed_in? %>
-            &nbsp;|&nbsp;
-            <%= link_to "ADD MASTER RAKE", new_master_rake_path, data: { toggle: "modal", target: "#newMasterRakeModal", category: params[:category_id], user: current_user.id }, class: "masterrake-create" %>
-          <% else %>
-            &nbsp;|&nbsp;
-            <%= link_to "ADD MASTER RAKE", new_user_session_path %>
-          <% end %>
         </small></h5>
       <% else %>
         <h5><small>FRONT PAGE</small></h5>

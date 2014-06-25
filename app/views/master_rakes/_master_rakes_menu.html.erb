@@ -4,16 +4,17 @@
   <ul class="nav-close-x">
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
+
   <div class="panel-group" id="accordion">
-    <% if user_signed_in? %>
-      <div class="panel panel-default panel-menu">
-        <div class="panel-heading panel-heading-menu">
-          <h5 class="panel-title">
-            <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", rakes_path %>
-          </h5>
-        </div>
+
+    <div class="panel panel-default panel-menu">
+      <div class="panel-heading panel-heading-menu">
+        <h5 class="panel-title">
+          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  Home", root_path %>
+        </h5>
       </div>
-    <% end %>
+    </div>
+
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <% if user_signed_in? %>
@@ -48,13 +49,16 @@
         <% end %>
     </div>
 
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  Home", root_path %>
-        </h5>
+    <% if user_signed_in? %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", rakes_path %>
+          </h5>
+        </div>
       </div>
-    </div>
+    <% end %>
+
     <% if !@rake.nil? %>
       <div class="panel panel-default panel-menu">
         <div class="panel-heading active panel-heading-menu">
@@ -155,6 +159,18 @@
                   </li>
                 <% end %>
               </ul>
+              <% if user_signed_in? %>
+                <% if @rake.created_by == current_user.id && @rake.rakes.count == 0 %>
+                  <p>
+                    <span class="pull-right">
+                      <%= link_to "Delete Master Rake", master_rake_path(@rake),
+                                    :data => { :confirm => "Are you sure?" }, 
+                                    :method => :delete,
+                                    class: "btn btn-default btn-xs" %>
+                    </span>
+                  </p>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
