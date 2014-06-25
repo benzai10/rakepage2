@@ -260,9 +260,12 @@ h5 {
 }
 
 .leaflet-title {
-  font-size: 1.1em;
-  font-weight: 200;
-  color: black;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.leaflet-title a {
+  color: #4a2b88;
 }
 
 .leaflet-read-more {
@@ -284,47 +287,63 @@ h5 {
 }
 
 #feed-list p {
+  font-family: 'Roboto', sans-serif;
   font-size: 12px !important;
 }
 
 #feed-list h1 {
-  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   font-size: 16px !important;
 }
 
 #feed-list h2 {
-  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   font-size: 14px !important;
 }
 
 #feed-list h3 {
-  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   font-size: 13px !important;
 }
 
 #feed-list h4 {
-  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   font-size: 12px !important;
 }
 
 #feed-list h5 {
-  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   font-size: 12px !important;
 }
 
 #feed-list blockquote {
+  font-family: 'Roboto', sans-serif;
   font-size: 12px !important;
 }
 
 #feed-list ul {
+  font-family: 'Roboto', sans-serif;
   font-size: 12px !important;
 }
 
 #feed-list ol {
+  font-family: 'Roboto', sans-serif;
   font-size: 12px !important;
 }
 
+#feed-list li {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px !important;
+  list-style-type: square;
+}
+
 #feed-list table {
+  font-family: 'Roboto', sans-serif;
   font-size: 12px !important;
 }
 
