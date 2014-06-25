@@ -1,3 +1,7 @@
+<% if @feed_leaflets.count == 0 %>
+  <%= render 'tutorial_new_master_rake' %>
+  <%= javascript_tag "$('#showTutorialNewMasterRakeModal').modal('show');", type: "text/javascript" %>
+<% end %>
 <ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>
     <li class="rake-show-list">

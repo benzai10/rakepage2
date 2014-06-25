@@ -15,6 +15,11 @@ body {
   overflow-y: auto;
 }
 
+#showTutorialNewMasterRakeModal .modal-body {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
 .alert {
   padding: 5px;
 }
@@ -539,6 +544,11 @@ body.nav-expanded {
 /* Landscape phones and down */
 @media (max-width: 480px) {
   #showTutorialModal .modal-body {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  #showTutorialNewMasterRakeModal .modal-body {
     max-height: 200px;
     overflow-y: auto;
   }
