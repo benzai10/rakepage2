@@ -111,6 +111,12 @@ li {
   font-weight: 200;  
 }
 
+.has-error {
+  label {
+    color: white !important;
+  }
+}
+
 .jumbotron-2 {
   background: url(image-path('macbook_image.jpg'));
   min-height: 720px;
