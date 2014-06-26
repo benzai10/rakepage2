@@ -66,7 +66,10 @@ class Channel < ActiveRecord::Base
         self.source = feeds.shift
 
         feeds.each do |feed|
-          Channel.create!(source: feed, channel_type: 0)
+          begin
+            Channel.create!(source: feed, channel_type: 0)
+          rescue
+          end
         end
       elsif channel_type == 4
         self.name = FeedHelper::Reddit.new(source).get_title
