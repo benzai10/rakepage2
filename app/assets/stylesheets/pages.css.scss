@@ -84,6 +84,33 @@ li {
   }
 }
 
+#error_explanation {
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.help-block {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: white !important;
+}
+
+.error-message {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 200;  
+}
+
 .jumbotron-2 {
   background: url(image-path('macbook_image.jpg'));
   min-height: 720px;
