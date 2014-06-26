@@ -27,6 +27,8 @@ class Channel < ActiveRecord::Base
   def self.create_channels(urls)
     urls.each do |url|
       begin
+        # this line will run analyze_source before validation
+        # it will populate the channel fields by pulling names from source
         Channel.create!(source: url)
       rescue FeedHelper::FeedNotFoundError => e
         p e.message
@@ -54,23 +56,35 @@ class Channel < ActiveRecord::Base
     self.update_attribute(:last_pull_at, Time.now)
   end
 
+  # throws FeedNotFoundError
+  def self.search_by_source(source)
+    channel = Channel.find_by(source: source)
+    return channel unless channel.nil?
+
+    feed = FeedHelper::Scrapper.new(source).get_feed.shift
+    return Channel.find_by(source: feed)
+  end
+
   private
 
   def analyze_source
     begin
       if channel_type == 0 && parse_link(source) =~ URI::regexp
         feed_helper = FeedHelper::Scrapper.new(source)
-        feeds = feed_helper.get_feed
+        feed = feed_helper.get_feed
 
         self.name = feed_helper.get_title
-        self.source = feeds.shift
+        self.source = feed.shift
 
-        feeds.each do |feed|
-          begin
-            Channel.create!(source: feed, channel_type: 0)
-          rescue
-          end
-        end
+        # this will iterate over all feeds that are found in the source
+
+        #feeds = feed_helper.get_feed
+        #feeds.each do |feed|
+          #begin
+            #Channel.create!(source: feed, channel_type: 0)
+          #rescue
+          #end
+        #end
       elsif channel_type == 4
         self.name = FeedHelper::Reddit.new(source).get_title
       end

@@ -1,6 +1,9 @@
 module FeedHelper
 
   class FeedNotFoundError < StandardError
+    def message
+      "Can't add feed to Rake!"
+    end
   end
 
   class Cget
