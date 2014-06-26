@@ -1,6 +1,3 @@
-<% if !flash.empty? %>
-  <%= render 'shared/flash_message' %>
-<% end %>
 <ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>
     <li id="<%= 'leaflet-' + l.id.to_s %>" class="rake-show-list">

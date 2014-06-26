@@ -14,7 +14,10 @@
         <% end %>
       </small>
     </h5>
-    <p>
+    <% if !flash.empty? %>
+      <%= render 'shared/flash_message' %>
+    <% end %>    
+     <p>
       <% if !current_user.nil? %>
         <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + " Show Master Rake",
                       master_rake_path(@rake.master_rake_id),

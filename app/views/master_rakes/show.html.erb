@@ -7,7 +7,9 @@
       <%= link_to "MASTER RAKES", master_rakes_path %> | <%= link_to Category.find(@rake.category_id).desc.upcase, master_rakes_path(category_id: @rake.category_id) %>
       </small>
     </h5>
-  
+    <% if !flash.empty? %>
+      <%= render 'shared/flash_message' %>
+    <% end %>
     <p>
       <% if user_signed_in? %>
         <% if !@custom_rake.nil? && !@custom_rake.empty? %>
