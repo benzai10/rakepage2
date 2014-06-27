@@ -38,9 +38,13 @@ module FeedHelper
         return curl.head if options[:get_header]
         return curl.body
 
-      rescue Curl::Err::HostResolutionError, Curl::Err::ConnectionFailedError
+      rescue Curl::Err::HostResolutionError
         count += 1
         p DEBUG_MSG_RECONNECTING + url
+
+      rescue Curl::Err::ConnectionFailedError
+        count += 1
+        p "***Connection failed***" + url
 
       retry unless count > 40
         p DEBUG_MSG_ABORT + url
