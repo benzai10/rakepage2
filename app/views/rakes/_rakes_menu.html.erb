@@ -71,7 +71,7 @@
               <small>
                 CHANNELS
                 <span class="pull-right-menu">
-                  <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                  <%= link_to "ADD BLOG", new_channel_path(rake_id: @rake.id, channel_type: 0),
                               data: { toggle: "modal",
                                       target: "#addRssModal",
                                       rakeid: @rake.id,
@@ -104,7 +104,11 @@
                           <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
                                       toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
                         <% end %>
-                        <%= c.name %>
+                        <% channel_name = c.name %>
+                        <% if channel_name == "Title not available." %>
+                          <% channel_name = c.source %>
+                        <% end %>
+                        <%= channel_name %>
                         <span class="pull-right">
                           <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
                         </span>

@@ -7,7 +7,11 @@
       </a>
       <div class="media-body">
         <span class="feed-timestamp">
-          Channel: <%= Channel.find(l.channel_id).name %>
+          <% channel_name = Channel.find(l.channel_id).name %>
+          <% if channel_name == "Title not available." %>
+            channel_name = Channel.find(l.channel_id).source
+          <% end %>
+          Channel: <%= channel_name %>
           <% if l.leaflet_type_id != 0 %>
             &nbsp;|&nbsp;
             <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>

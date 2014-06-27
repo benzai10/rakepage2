@@ -92,7 +92,7 @@
                   CHANNELS
                   <% if !current_user.nil? %>
                     <span class="pull-right-menu">
-                      <%= link_to "ADD RSS FEED", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                      <%= link_to "ADD BLOG", new_channel_path(rake_id: @rake.id, channel_type: 0),
                                   data: { toggle: "modal",
                                           target: "#addRssModal",
                                           rakeid: @rake.id,
@@ -107,7 +107,7 @@
                     </span>
                   <% else %>
                     <span class="pull-right-menu">
-                      <%= link_to "ADD RSS FEED", new_user_session_path %>
+                      <%= link_to "ADD BLOG", new_user_session_path %>
                       &nbsp;|&nbsp;
                       <%= link_to "ADD SUBREDDIT", new_user_session_path %>
                     </span>
@@ -131,7 +131,11 @@
                           <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
                                       toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
                         <%# end %>
-                        <%= c.name %>
+                        <% channel_name = c.name %>
+                        <% if channel_name == "Title not available." %>
+                          <% channel_name = c.source %>
+                        <% end %>
+                        <%= channel_name %>
                         <span class="pull-right">
                           <% if user_signed_in? && !@custom_rake.first.nil? %>
                             <% if !@custom_rake.first.channels.include? c %>

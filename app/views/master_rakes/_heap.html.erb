@@ -15,7 +15,11 @@
       </a>
       <div class="media-body">
         <span class="feed-timestamp">
-          Channel: <%= Channel.find(l.channel_id).name %>
+          <% channel_name = Channel.find(l.channel_id).name %>
+          <% if channel_name == "Title not available." %>
+            channel_name = Channel.find(l.channel_id).source
+          <% end %>
+          Channel: <%= channel_name %>
           <% heap_leaflet = HeapLeafletMap.where("leaflet_id = ?", l.id).first %>
           <span class="pull-right">
             <% if !l.published_at.nil? %>
