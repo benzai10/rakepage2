@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
   def new
     @channel = Channel.new
     respond_to do |format|
-      format.html
+      # format.html
       format.json
     end
   end
