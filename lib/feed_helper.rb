@@ -31,7 +31,7 @@ module FeedHelper
       curl.follow_location = true
       curl.headers["User-Agent"] = "Rakepage/2.0 (http://www.rakepage.com/; dev@rakepage.com) Libcurl/7.26.0"
       curl.url = url
-      curl.timeout = 30 #time in seconds to wait for connection
+      curl.timeout = 50 #time in seconds to wait for connection
 
       begin
         curl.perform
@@ -42,7 +42,7 @@ module FeedHelper
         count += 1
         p DEBUG_MSG_RECONNECTING + url
 
-      retry unless count > 20
+      retry unless count > 40
         p DEBUG_MSG_ABORT + url
         @@logger.debug DEBUG_MSG_ABORT + url
 
