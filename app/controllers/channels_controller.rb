@@ -11,10 +11,10 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = Channel.new
-    # respond_to do |format|
-    #   format.html
-    #   format.json
-    # end
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def create
