@@ -1,8 +1,8 @@
 Rakepage2::Application.routes.draw do
+  ActiveAdmin.routes(self)
   root to: "pages#landing"
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :registrations => "registrations" }
-  ActiveAdmin.routes(self)
 
   #match 'pages/help', to: 'pages#help', via: [:get]
 
