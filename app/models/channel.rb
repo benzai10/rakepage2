@@ -56,13 +56,16 @@ class Channel < ActiveRecord::Base
     self.update_attribute(:last_pull_at, Time.now)
   end
 
-  # throws FeedNotFoundError
   def self.search_by_source(source)
     channel = Channel.find_by(source: source)
     return channel unless channel.nil?
 
-    feed = FeedHelper::Scrapper.new(source).get_feed.shift
-    return Channel.find_by(source: feed)
+    begin
+      feed = FeedHelper::Scrapper.new(source).get_feed.shift
+      return Channel.find_by(source: feed)
+    rescue FeedHelper::FeedNotFoundError
+      return nil
+    end
   end
 
   private
@@ -80,10 +83,10 @@ class Channel < ActiveRecord::Base
 
         #feeds = feed_helper.get_feed
         #feeds.each do |feed|
-          #begin
-            #Channel.create!(source: feed, channel_type: 0)
-          #rescue
-          #end
+        #begin
+        #Channel.create!(source: feed, channel_type: 0)
+        #rescue
+        #end
         #end
       elsif channel_type == 4
         self.name = FeedHelper::Reddit.new(source).get_title
@@ -96,7 +99,7 @@ class Channel < ActiveRecord::Base
   def parse_link(url)
     uri = Addressable::URI.parse(url)
     if (!uri.scheme)
-        url = "http://" + url
+      url = "http://" + url
     end
     url
   end
