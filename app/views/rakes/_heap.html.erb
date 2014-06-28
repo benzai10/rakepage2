@@ -51,31 +51,36 @@
         &nbsp;|&nbsp;
         <i class="fa fa-eraser" data-toggle="tooltip" data-placement="top" title="Deleted count"></i> <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
         <span class="pull-right">
-          <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-            <% if user_signed_in? %>
-              <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
-                <i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Likes count"></i>
+          <span class="feed-button">
+            <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
+              <% if user_signed_in? %>
+                <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
+                  &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Likes count"></i>
+                <% else %>
+                  &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
+                <% end %>
               <% else %>
-                <i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
+                &nbsp;<i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Likes count"></i>
               <% end %>
-            <% else %>
-              <i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Likes count"></i>
-            <% end %>
+            </span>
+            <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
           </span>
-          <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
+          &nbsp;
           <% if user_signed_in? %>
-            &nbsp;|&nbsp;
-            <% if @rake.user_id == current_user.id %>
-              <%= link_to '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete from Heap"></i>'.html_safe, 
-                    remove_leaflet_heap_path(heap, leaflet_id: l.id),
-                    :data => { :confirm => "Are you sure?" },
-                    :method => :get, remote: true %>
-            <% else %>
-              <%= link_to '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to a Heap"></i>'.html_safe, new_rake_path, 
-                          data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+            <span class="feed-button">
+              <% if @rake.user_id == current_user.id %>
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete from Heap"></i>'.html_safe, 
+                      remove_leaflet_heap_path(heap, leaflet_id: l.id),
+                      :data => { :confirm => "Are you sure?" },
+                      :method => :get, remote: true %>
+              <% else %>
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to a Heap"></i>'.html_safe, new_rake_path, 
+                            data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
 
-            <% end %>
+              <% end %>
+            </span>
           <% end %>
+          &nbsp;
         </span>
       </div>
       <hr>

@@ -20,6 +20,12 @@ body {
   overflow-y: auto;
 }
 
+.feed-button {
+  border: 1px solid;
+  border-radius: 3px;
+  border-color: #4a2b88;
+}
+
 .alert {
   padding: 5px;
 }
