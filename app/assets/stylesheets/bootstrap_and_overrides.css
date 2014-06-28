@@ -103,31 +103,32 @@ h5 {
   font-weight: 300;
 }
 
-.load-rake img {
+.thumbnail:hover .caption {
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.caption img {
   padding: 0;
   width: 100%;
   min-height: 140px;
   max-height: 140px;
 }
 
+.thumbnail a:link {
+  text-decoration: none;
+  color: black !important;
+}
+
+.thumbnail a:visited {
+  color: black !important;
+}
+
 .rake-caption {
   padding-left: 14px;
   line-height: 50px;
-}
-
-.caption a:link {
-  color: black !important;
-}
-
-.caption a:visited {
-  color: black !important;
-}
-
-.caption a:hover {
-  text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
 }
 
 .desc-text {
