@@ -14,18 +14,20 @@
       <% @rakes.each do |r| %>
         <div class="col-md-6">
           <div class="thumbnail">
-            <div class="caption">
+            <%= link_to rake_path(r.id) do %>
               <% master_rake = MasterRake.find(r.master_rake_id) %>
-              <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
-                <%= link_to image_tag("no_image.png"), rake_path(r.id), class: "load-rake", value: r.id %>
-              <% else %>
-                <%= link_to image_tag(master_rake.image_url), rake_path(r.id), class: "load-rake", value: r.id %>
-              <% end %>
-              <span class="rake-caption">
-                <%= link_to r.name, rake_path(r.id), class: "load-rake", value: r.id %>
-              </span>
-              <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
-            </div>
+              <div class="caption load-rake" value="<%= r.id %>">
+                <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
+                  <%= image_tag("no_image.png") %>
+                <% else %>
+                  <%= image_tag(master_rake.image_url) %>
+                <% end %>
+                <div class="rake-caption">
+                  <%= r.name %>
+                  <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
