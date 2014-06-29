@@ -61,11 +61,15 @@
         <span class="pull-right">
           <span class="feed-button">
             <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
+            <% if user_signed_in? %>
               <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
                 &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Liked"></i>
               <% else %>
                 &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
               <% end %>
+            <% else %>
+              &nbsp;<i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Like"></i>
+            <% end %>
             </span>
             <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
           </span>
