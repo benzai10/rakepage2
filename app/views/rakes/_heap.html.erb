@@ -1,6 +1,3 @@
-<% if !flash.empty? %>
-  <%= render 'shared/flash_message' %>
-<% end %>
 <ul id="feed-list" class="leaflet-list">
   <% heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id]) %>
   <% heap.leaflets.order("published_at DESC").each do |l| %>

@@ -12,7 +12,7 @@
           <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
           <%= f.text_field :leaflet_title, { label: "Leaflet Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Leaflet Description (optional)" } %>
-          <%= f.text_area :leaflet_url, { label: "URL" } %>
+          <%= f.text_area :leaflet_url, { label: "URL (including leading http://)" } %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

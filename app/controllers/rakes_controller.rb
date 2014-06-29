@@ -126,14 +126,13 @@ class RakesController < ApplicationController
         redirect_to rake_path(@rake, anchor: "leaflet-" + params[:rake][:leaflet_id])
       end
     elsif params[:commit] == "Create Leaflet"
-      begin
-        @rake.create_leaflet(params[:rake][:leaflet_type_id],
+      if @rake.create_leaflet(params[:rake][:leaflet_type_id],
                            params[:rake][:leaflet_title],
                            params[:rake][:leaflet_desc],
-                           params[:rake][:leaflet_url])
+                           params[:rake][:leaflet_url]) != false
         redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
-      rescue
-        flash[:error] = "Error occured. Try again and make sure you fill in all fields."
+      else
+        flash[:error] = @rake.leaflet_errors.full_messages
         redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
       end
     elsif params[:commit] == "Add Heap"

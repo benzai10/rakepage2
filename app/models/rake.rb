@@ -10,6 +10,7 @@ class Rake < ActiveRecord::Base
   attr_accessor :heap_id
   attr_accessor :category_id
   attr_accessor :created_by
+  attr_accessor :leaflet_errors
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
@@ -99,7 +100,12 @@ class Rake < ActiveRecord::Base
                              content: leaflet_desc,
                              created_by: self.user_id,
                              published_at: Time.now)
-    self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+    if leaflet.valid?
+      self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+    else
+      self.leaflet_errors = leaflet.errors
+      false
+    end
   end
 
   def add_heap(leaflet_type_id)
