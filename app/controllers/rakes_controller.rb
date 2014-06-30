@@ -132,7 +132,7 @@ class RakesController < ApplicationController
                            params[:rake][:leaflet_url]) != false
         redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
       else
-        flash[:error] = @rake.leaflet_errors.full_messages
+        flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
       end
     elsif params[:commit] == "Add Heap"

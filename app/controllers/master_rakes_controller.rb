@@ -48,7 +48,7 @@ class MasterRakesController < ApplicationController
       if @master_rake.save
         redirect_to master_rake_path(@master_rake)
       else
-        flash[:error] = @master_rake.errors.full_messages
+        flash[:error] = @master_rake.errors.full_messages.to_sentence
         #redirect_to master_rakes_path(category_id: params[:master_rake][:category_id])
         redirect_to master_rakes_path
       end
