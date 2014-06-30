@@ -354,6 +354,11 @@ h5 {
   font-size: 12px !important;
 }
 
+.feed-body iframe {
+  width: 100%;
+  min-height: auto;
+}
+
 input[type=text] {
   height: 2.2em;
 }
@@ -578,4 +583,10 @@ body.nav-expanded {
     max-height: 200px;
     overflow-y: auto;
   }
+
+  .feed-body iframe {
+    width: 100%;
+    max-height: 160px;
+  }
+
 }

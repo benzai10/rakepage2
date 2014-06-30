@@ -36,7 +36,9 @@
         <span class="leaflet-title">
           <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
         </span>
+
         <p class="feed-body"><%= l.content.html_safe unless l.content == "No more content available." %></p>
+        
         <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Viewed count"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         &nbsp;|&nbsp;
         <i class="fa fa-star" data-toggle="tooltip" data-placement="top" title="Saved count"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
