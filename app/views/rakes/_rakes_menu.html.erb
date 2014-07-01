@@ -61,30 +61,38 @@
         <div id="rake" class="panel-collapse collapse in">
           <div class="panel-body menu black">
             <h5><small>FILTERS</small></h5>
-            <%= bootstrap_form_for(@rake) do |f| %>
-              <%= f.text_field :rake_filters, hide_label: true, class: "tokenize", value: @rake_filter %>
-              <span class="pull-right"><%= f.submit "Refresh", class: "btn btn-xs btn-primary refresh-button" %></span>
+            <% if user_signed_in? && @rake.user_id == current_user.id %>
+              <%= bootstrap_form_for(@rake) do |f| %>
+                <%= f.text_field :rake_filters, hide_label: true, class: "tokenize", value: @rake_filter %>
+                <span class="pull-right"><%= f.submit "Refresh", class: "btn btn-xs btn-primary refresh-button" %></span>
+              <% end %>
+            <% else %>
+              <%= bootstrap_form_for(@rake) do |f| %>
+                <%= f.text_field :rake_filters, hide_label: true, disabled: true, class: "tokenize", value: @rake_filter %>
+              <% end %>
             <% end %>
             <br>
             <br>
             <h5>
               <small>
                 CHANNELS
-                <span class="pull-right-menu">
-                  <%= link_to "ADD BLOG", new_channel_path(rake_id: @rake.id, channel_type: 0),
-                              data: { toggle: "modal",
-                                      target: "#addRssModal",
-                                      rakeid: @rake.id,
-                                      channeltype: 0 },
-                              class: "add-rss-feed" %>
-                  &nbsp;|&nbsp;
-                  <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
-                              data: { toggle: "modal",
-                                      target: "#addSubredditModal",
-                                      rakeid: @rake.id,
-                                      channeltype: 4 },
-                              class: "add-subreddit-feed" %>
-                </span>
+                <% if user_signed_in? && @rake.user_id == current_user.id %>
+                  <span class="pull-right-menu">
+                    <%= link_to "ADD BLOG", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                                data: { toggle: "modal",
+                                        target: "#addRssModal",
+                                        rakeid: @rake.id,
+                                        channeltype: 0 },
+                                class: "add-rss-feed" %>
+                    &nbsp;|&nbsp;
+                    <%= link_to "ADD SUBREDDIT", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                                data: { toggle: "modal",
+                                        target: "#addSubredditModal",
+                                        rakeid: @rake.id,
+                                        channeltype: 4 },
+                                class: "add-subreddit-feed" %>
+                  </span>
+                <% end %>
               </small>
             </h5>
             <ul class="leaflet-list">
@@ -109,9 +117,11 @@
                           <% channel_name = c.source %>
                         <% end %>
                         <%= channel_name %>
-                        <span class="pull-right">
-                          <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
-                        </span>
+                        <% if user_signed_in? && @rake.user_id == current_user.id %>
+                          <span class="pull-right">
+                            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+                          </span>
+                        <% end %>
                       </h5>
                       <p class="channel-info">
                         <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
@@ -123,14 +133,16 @@
                 <% end %>
               <% end %>
             </ul>
-            <p>
-              <span class="pull-right">
-                <%= link_to "Delete Rake", rake_path(@rake),
-                              :data => { :confirm => "Are you sure?" }, 
-                              :method => :delete,
-                              class: "btn btn-default btn-xs" %>
-              </span>
-            </p>
+            <% if user_signed_in? && @rake.user_id == current_user.id %>
+              <p>
+                <span class="pull-right">
+                  <%= link_to "Delete Rake", rake_path(@rake),
+                                :data => { :confirm => "Are you sure?" }, 
+                                :method => :delete,
+                                class: "btn btn-default btn-xs" %>
+                </span>
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
