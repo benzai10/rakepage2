@@ -76,10 +76,10 @@ $(function() {
     //When click on view
     $('.external').click(function() {
 
-        id = $(this).attr("value")
+        var id = $(this).attr("value")
 
-        element = $(".v_count_" + id);
-        sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
+        var element = $(".v_count_" + id);
+        var sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
         element.text(sum);
 
         $.ajax({
@@ -94,10 +94,10 @@ $(function() {
     //When click on heart
     $('.like').bind("click", function() {
         
-        id = $(this).attr("value")
+        var id = $(this).attr("value")
 
-        element = $(".l_count_" + id);
-        sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
+        var element = $(".l_count_" + id);
+        var sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
         element.text(sum);
 
         $('#feed-heart-icon-' + id).html("<i class='fa fa-heart'></i>");
