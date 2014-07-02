@@ -7,6 +7,9 @@
     <% else %>
       <h5><small><%= User.find(@rakes.first.user_id).username.upcase %>'S RAKES | CATEGORIES</small></h5>
     <% end %>
+    <% if !flash.empty? %>
+      <%= render 'shared/flash_message' %>
+    <% end %>
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
