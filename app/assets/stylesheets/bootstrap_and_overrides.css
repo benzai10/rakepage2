@@ -390,6 +390,7 @@ ul.leaflet-list li.rake-show-list {
   /*background-color: lightgray;*/
   /*border-bottom: solid 1px lightgray;*/
   padding-top: 5px;
+  list-style-type: none !important;
 }
 
 .img-rake-show {
