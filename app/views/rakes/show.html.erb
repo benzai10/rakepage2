@@ -31,11 +31,10 @@
             <% href_id = "#feed" %>
             <%= link_to "News", rake_path(heap_type: "News") %>
             <% if params[:heap_type] == "News" %>
-              <span class="pull-right" id="refresh-icon">
-                <%#= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
-                            :data => { :toggle => "collapse" },
-                            id: "feed-chevron" %>
-                <%= link_to '<i class="fa fa-refresh"></i>'.html_safe, rake_path(@rake, refresh: "yes") %>
+              <span class="pull-right channel-title" id="refresh-icon">
+                <small>
+                  <%= link_to '<i class="fa fa-arrow-right"></i> MASTER RAKES'.html_safe, master_rakes_path %>
+                </small>
               </span>
             <% end %>
           </h5>
@@ -146,7 +145,12 @@
   </div>
   <div class="col-md-6">
     <% if params[:heap_type] == "News" %>
-      <h5><small><%= @rake.name.upcase %> | NEWS</small></h5>
+      <h5><small>
+        <%= @rake.name.upcase %> | NEWS <%= link_to '<i class="fa fa-refresh"></i>'.html_safe,
+                                              rake_path(@rake, refresh: "yes"),
+                                              title: "Refresh News Feed" %>
+
+      </small></h5>
       <%= render 'feed' %>
     <% else %>
       <h5><small><%= @rake.name.upcase %> | <%= LeafletType.find(params[:heap_type].to_i).leaflet_type_desc.upcase %></small></h5>
