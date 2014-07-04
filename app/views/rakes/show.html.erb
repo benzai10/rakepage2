@@ -106,7 +106,9 @@
               <li>
                 <%= link_to leaflet_type_desc, rake_path(heap_type: lt) %>
                 <small>
-                  <%= @rake.heaps.find_by_leaflet_type_id(lt).leaflets.count.to_s %>
+                  <% if lt != 0 %>
+                    <%= @rake.heaps.find_by_leaflet_type_id(lt).leaflets.count.to_s %>
+                  <% end %>
                 </small>
               </li>
             <% end %>
