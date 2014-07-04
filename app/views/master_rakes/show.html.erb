@@ -127,8 +127,8 @@
         <div class="panel-body">
           <ul class="category-list">
             <%# @heaps.each do |h| %>
-            <% @heap_types.each do |ht| %>
-              <li><%= link_to LeafletType.find_by_leaflet_type(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
+            <% @leaflet_types.each do |lt| %>
+              <li><%= link_to LeafletType.find_by_leaflet_type(lt).leaflet_type_desc, master_rake_path(heap_type: lt) %>
             <% end %>
           </ul>
         </div>
