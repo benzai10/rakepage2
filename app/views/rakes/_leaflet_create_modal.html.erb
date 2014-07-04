@@ -8,8 +8,15 @@
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
-          <%= f.hidden_field :heap_id, class: "heap-id" %>
-          <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
+          <% if params[:heap_type].nil? || params[:heap_type].to_i == 0 %>
+            <% leaflet_type_array = LeafletType.where("id IN (?)", @rake.heaps.pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
+            <div class="category-select">
+              <%= f.select :leaflet_type_id, options_for_select(leaflet_type_array), { label: "Choose a Heap" } %>
+            </div>
+          <% else %>
+            <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
+          <% end %>
+          <%#= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.text_field :leaflet_title, { label: "Leaflet Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Leaflet Description (optional)" } %>
           <%= f.text_area :leaflet_url, { label: "URL (including leading http://)" } %>

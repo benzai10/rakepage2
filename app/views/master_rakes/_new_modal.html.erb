@@ -9,8 +9,8 @@
       <%= bootstrap_form_for(MasterRake.new) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :created_by, class: "created-by" %>
-          <% categories_array = Category.all.map { |category| [category.desc, category.id] } %>
           <% if params[:category_id].nil? %>
+            <% categories_array = Category.all.map { |category| [category.desc, category.id] } %>
             <div class="category-select">
               <%= f.select :category_id, options_for_select(categories_array), { label: "Choose a Category" } %>
             </div>
