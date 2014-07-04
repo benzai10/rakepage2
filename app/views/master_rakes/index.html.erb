@@ -2,7 +2,13 @@
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
     <div class="col-md-3">
-      <h5><small>MASTER RAKES | CATEGORIES</small></h5>
+      <h5><small>
+        <% if user_signed_in? %>
+          MASTER RAKES | <%= link_to '<i class="fa fa-arrow-right"></i> MY RAKES'.html_safe, rakes_path %>
+        <% else %>
+          MASTER RAKES
+        <% end %>
+      </small></h5>
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
@@ -11,11 +17,6 @@
           <div class="panel-heading">
             <h5 class="panel-title">
               <%= link_to "Front Page", master_rakes_path %>
-              <% if user_signed_in? %>
-                <span class="pull-right channel-title"><small>
-                  <%= link_to '<i class="fa fa-arrow-right"></i> MY RAKES'.html_safe, rakes_path %>
-                </small></span>
-              <% end %>
             </h5>
           </div>
           <% if @category.nil? %>
