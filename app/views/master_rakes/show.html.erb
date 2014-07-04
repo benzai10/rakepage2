@@ -118,34 +118,21 @@
             </div>
           </div>
       </div>
-      <p>
-        <h5><small>HEAPS</small></h5>
-      </p>
-      <% @heap_types.each do |ht| %>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h5 class="panel-title">
-              <% href_id = "#heap_" + ht.to_s %>
-              <%= link_to LeafletType.find_by_leaflet_type(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
-              <% if params[:heap_type].to_i == ht && !params[:heap_type] == "News" %>
-                <span class="pull-right">
-                  <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
-                              :data => { :toggle => "collapse" },
-                              id: "feed-chevron" %>
-                </span>
-              <% end %>
-            </h5>
-          </div>
-          <% if params[:heap_type].to_i == ht && !params[:heap_type] == "News" %>
-            <div id="heap_<%= "#{ht}" %>" class="panel-collapse collapse in">
-          <% else %>
-            <div id="heap_<%= "#{ht}" %>" class="panel-collapse collapse">
-          <% end %>
-            <div class="panel-body">
-            </div>
-          </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title">
+            Heaps
+          </h5>
         </div>
-      <% end %>
+        <div class="panel-body">
+          <ul class="category-list">
+            <%# @heaps.each do |h| %>
+            <% @heap_types.each do |ht| %>
+              <li><%= link_to LeafletType.find_by_leaflet_type(ht).leaflet_type_desc, master_rake_path(heap_type: ht) %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-6">

@@ -35,18 +35,22 @@ class RakesController < ApplicationController
     else
       session[:heap] = "no"
     end
+    params[:heap_type] ||= "News"
     @rake = Rake.find(params[:id])
     #@rake.feed_leaflets("news", params[:refresh])
     #@feed_leaflets = Leaflet.where("id IN (?)", 
     #                 Feed.where(rake_id: @rake.id).pluck(:leaflet_id)).order("published_at DESC").page(params[:page]).per(10)
     @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
+    @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
+    if !@rake.heaps.pluck(:leaflet_type_id).include?(params[:heap_type].to_i)
+      @rake.add_heap(params[:heap_type].to_i)
+    end
     @heaps = @rake.heaps
     heap_ids = @heaps.pluck(:id)
     leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
     @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     #@notifications = current_user.get_notifications
-    params[:heap_type] ||= "News"
   end
 
   def news
