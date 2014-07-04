@@ -291,7 +291,7 @@ h5 {
 }
 
 .media-object {
-  cursor: default;
+  /*cursor: default;*/
 }
 
 .media-body {

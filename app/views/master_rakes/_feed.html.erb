@@ -6,7 +6,12 @@
   <% @feed_leaflets.each do |l| %>
     <% channel = Channel.find(l.channel_id) %>
     <li class="rake-show-list">
-      <a class="pull-left" href="#">
+      <% if channel.channel_type == 4 %>
+        <% reddit_link = "http://reddit.com/" + l.identifier %>
+      <% else %>
+        <% reddit_link = "#" %>
+      <% end %>
+      <a class="pull-left" href=<%= reddit_link %>>
         <% if channel.channel_type == 4 %>
           <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
         <% elsif channel.channel_type == 3 %>
