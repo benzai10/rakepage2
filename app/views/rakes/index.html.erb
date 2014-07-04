@@ -41,7 +41,12 @@
         <div class="panel-body">
           <ul class="category-list">
             <% @categories.each do |c| %>
-              <li><%= link_to c.desc, rakes_path(category_id: c.id) %></li>
+              <li>
+                <%= link_to c.desc, rakes_path(category_id: c.id) %>
+                <small>
+                  &nbsp;<%= @rakes.where("master_rake_id IN (?)", MasterRake.where(category_id: c.id).pluck(:id)).count.to_s %>
+                </small>
+              </li>
             <% end %>
           </ul>
         </div>

@@ -128,7 +128,12 @@
           <ul class="category-list">
             <%# @heaps.each do |h| %>
             <% @leaflet_types.each do |lt| %>
-              <li><%= link_to LeafletType.find_by_leaflet_type(lt).leaflet_type_desc, master_rake_path(heap_type: lt) %>
+              <li>
+                <%= link_to LeafletType.find_by_leaflet_type(lt).leaflet_type_desc, master_rake_path(heap_type: lt) %>
+                <small>
+                  <%= @heaps.find_by_leaflet_type_id(lt).leaflets.count.to_s %>
+                </small>
+              </li>
             <% end %>
           </ul>
         </div>
