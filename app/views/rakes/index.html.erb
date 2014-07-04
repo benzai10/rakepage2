@@ -29,40 +29,23 @@
           </div>
         </div>
       </div>
-      <% @categories.each do |c| %>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h5 class="panel-title">
-              <%= link_to c.desc, rakes_path(category_id: c.id) %>
-              <% href_id = "#category_" + c.id.to_s %>
-              <% if !@category.nil? %>
-                <% if c.id == params[:category_id].to_i %>
-                  <span class="pull-right">
-                    <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id,
-                                 :data => { :toggle => "collapse" },
-                                 id: "feed-chevron" %>
-                  </span>
-                <% end %>
-              <% end %>
-            </h5>
-          </div>
-          <% if !@category.nil? %>
-            <% if c.id == params[:category_id].to_i %>
-              <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse in">
-            <% else %>
-              <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse">
-            <% end %>
-          <% else %>
-            <div id="category_<%= "#{c.id.to_s}" %>" class="panel-collapse collapse">
-          <% end %>
-            <div class="panel-body">
-              <% if !@category.nil? %>
-                <h5><small><%= c.comment %></small></h5>
-              <% end %> 
-            </div>
-          </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title">
+            Categories
+            <span class="pull-right">
+              <i class="fa fa-chevron-down"></i>
+            </span>
+          </h5>
         </div>
-      <% end %>
+        <div class="panel-body">
+          <ul class="category-list">
+            <% @categories.each do |c| %>
+              <li><%= link_to c.desc, rakes_path(category_id: c.id) %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-6">

@@ -205,6 +205,11 @@ h5 {
   border-bottom: dotted 1px;
 }
 
+.category-list {
+  padding-left: 0px;
+  list-style-type: none;
+}
+
 .panel {
   border-radius: 0 !important;
 }
