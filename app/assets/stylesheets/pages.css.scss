@@ -28,13 +28,15 @@ li {
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 2px;
+    text-align: center;
+    margin-top: 50px;
   }
   p {
     margin-bottom: 8px;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
   label {
     font-family: 'Roboto', sans-serif;
@@ -44,6 +46,10 @@ li {
     font-family: 'Roboto', sans-serif;
     font-weight: 200;
   }
+}
+
+.feature-center {
+  text-align: center;
 }
 
 .jumbotron {
