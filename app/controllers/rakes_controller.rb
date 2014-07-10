@@ -88,15 +88,20 @@ class RakesController < ApplicationController
   end
 
   def create
-    @rake = Rake.new(rake_params)
-    if @rake.save
-      #MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 || !session[:displayed_channels].include?(channel.id) }
-      MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
-      #MasterRake.find(@rake.master_rake_id).add_channel(@rake.channels.where(channel_type: 3).first)
-      redirect_to rake_path(@rake, refresh: "yes")
+    existing_rake = Rake.where(user_id: current_user.id).find_by_master_rake_id(params[:rake][:master_rake_id].to_i)
+    if existing_rake.nil?
+      @rake = Rake.new(rake_params)
+      if @rake.save
+        #MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 || !session[:displayed_channels].include?(channel.id) }
+        MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
+        #MasterRake.find(@rake.master_rake_id).add_channel(@rake.channels.where(channel_type: 3).first)
+        redirect_to rake_path(@rake, refresh: "yes")
+      else
+        flash[:error] = @rake.errors.full_messages
+        redirect_to :back
+      end
     else
-      flash[:error] = @rake.errors.full_messages
-      redirect_to :back
+      redirect_to rake_path(existing_rake)
     end
   end
 

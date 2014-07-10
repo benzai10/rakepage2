@@ -11,9 +11,11 @@ class Rake < ActiveRecord::Base
   attr_accessor :category_id
   attr_accessor :created_by
   attr_accessor :leaflet_errors
+  attr_accessor :current_user
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
+  #validates :master_rake_id, uniqueness: true, :if => :is_current_user?
   validates :user_id, presence: true
 
   belongs_to :master_rake
@@ -24,6 +26,9 @@ class Rake < ActiveRecord::Base
   has_many :filters, dependent: :destroy
   has_many :heaps, dependent: :destroy
 
+  def is_current_user?
+    current_user
+  end
 
   def add_channel(channel)
     self.rake_channel_maps.create(channel_id: channel.id)
