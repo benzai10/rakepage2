@@ -4,7 +4,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">New Master Rake</h4>
+        <% if params[:category_id].nil? %>
+          <h4 class="modal-title" id="myModalLabel">New Master Rake</h4>
+        <% else %>
+          <h4 class="modal-title" id="myModalLabel">New Master Rake for category '<%= Category.find(params[:category_id].to_i).desc %>'</h4>
+        <% end %>
       </div>
       <%= bootstrap_form_for(MasterRake.new) do |f| %>
         <div class="modal-body">

@@ -19,20 +19,21 @@
               <%= link_to "Front Page", master_rakes_path %>
             </h5>
           </div>
-          <% if @category.nil? %>
-            <div class="panel-collapse collapse in">
-          <% else %>
-            <div class="panel-collapse collapse">
-          <% end %>
+          <div class="panel-collapse collapse in">
             <div class="panel-body">
               <p>
                 <% if user_signed_in? %>
+                  <% if params[:category_id].nil? %>
+                    <% category = "none" %>
+                  <% else %>
+                    <% category = params[:category_id] %>
+                  <% end %>
                   <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
                         new_master_rake_path, 
                         data: { 
                               toggle: "modal",
                               target: "#newMasterRakeModal",
-                              category: "none",
+                              category: category,
                               user: current_user.id },
                               class: "btn btn-primary btn-block masterrake-create" %>
                 <% else %>
