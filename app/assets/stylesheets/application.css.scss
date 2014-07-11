@@ -15,6 +15,29 @@
  */
 @import "bootstrap";
 
+.scrolltop {
+  background-color: #F1F1F1;
+  border: 1px solid darkGray;
+  border-radius: 100px 100px 100px 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  display: none;
+  height: 36px;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  position: fixed;
+  right: 2%;
+  /*text-indent: -9999px;*/
+  top: 50%;
+  width: 36px;
+  z-index: 33;
+}
+.scrolltop span {
+  position: relative;
+  top: 7px;
+  left: 10px;
+}
+
 .sidebar {
   position: fixed;
   float: left;

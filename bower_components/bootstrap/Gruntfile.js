@@ -268,7 +268,7 @@ module.exports = function (grunt) {
     connect: {
       server: {
         options: {
-          port: 3000,
+          port: 5000,
           base: '.'
         }
       }
@@ -343,7 +343,7 @@ module.exports = function (grunt) {
         options: {
           build: process.env.TRAVIS_JOB_ID,
           concurrency: 10,
-          urls: ['http://127.0.0.1:3000/js/tests/index.html'],
+          urls: ['http://127.0.0.1:5000/js/tests/index.html'],
           browsers: grunt.file.readYAML('test-infra/sauce_browsers.yml')
         }
       }

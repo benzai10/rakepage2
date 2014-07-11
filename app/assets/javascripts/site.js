@@ -1,5 +1,31 @@
 $(function() {
 
+    $(window).scroll(function(){
+        // add navbar opacity on scroll
+        // if ($(this).scrollTop() > 100) {
+        //     $(".navbar.navbar-fixed-top").addClass("scroll");
+        // } else {
+        //     $(".navbar.navbar-fixed-top").removeClass("scroll");
+        // }
+
+        // global scroll to top button
+        if ($(this).scrollTop() > 300) {
+            $('.scrolltop').fadeIn();
+        } else {
+            $('.scrolltop').fadeOut();
+        }
+    });
+
+    // scroll navigation functionality
+    $('.scrolltop').click(function(){
+        var section = $($(this).data("section"));
+        //(alert(section);
+        //var top = section.offset().top;
+        $("html, body").animate({ scrollTop: 0 }, 700);
+        return false;
+    });
+
+
    // scroll to learn more
     $('.scrolllearn').click(function(){
         $("html, body").animate({ scrollTop: $(this).offset().top }, 700);
@@ -151,3 +177,4 @@ $(function() {
     $('.excerpt-more').hide();
 
 });
+
