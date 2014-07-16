@@ -76,18 +76,23 @@
           </span>
           &nbsp;
           <% if user_signed_in? %>
-            <span class="feed-button">
-              <% if @rake.user_id == current_user.id %>
+            <% if @rake.user_id == current_user.id %>
+              <span class="feed-button">
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-long-arrow-right" data-toggle="tooltip" data-placement="top" title="Move to another Heap"></i>'.html_safe, "#", data: { toggle: "modal", target: "#moveLeafletModal", id: l.id, heapid: heap.id, title: l.title }, :method => :put, :action => :update, remote: true, class: "leaflet-move" %>
+              </span>
+              &nbsp;
+              <span class="feed-button">
                 <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete from Heap"></i>'.html_safe, 
                       remove_leaflet_heap_path(heap, leaflet_id: l.id),
                       :data => { :confirm => "Are you sure?" },
                       :method => :get, remote: true %>
-              <% else %>
+              </span>
+            <% else %>
+              <span class="feed-button">
                 <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to a Heap"></i>'.html_safe, new_rake_path, 
                             data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
-
-              <% end %>
-            </span>
+              </span>
+            <% end %>
           <% end %>
           &nbsp;
         </span>

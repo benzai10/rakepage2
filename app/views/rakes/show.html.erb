@@ -142,6 +142,9 @@
 
 <%= render 'rakes/leaflet_save_modal' %>
 <%= render 'rakes/leaflet_create_modal' %>
+<% if user_signed_in? %>
+  <%= render 'rakes/leaflet_move_modal' %>
+<% end %>
 <%= render 'rakes/heap_add_modal' %>
 <%#= render 'rakes/social_modal' %>
 <%= render 'new_rake_modal' %>

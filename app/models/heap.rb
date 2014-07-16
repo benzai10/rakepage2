@@ -26,4 +26,6 @@ class Heap < ActiveRecord::Base
     Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count-1, delete_count: leaflet.delete_count+1)
   end
 
+  def move_leaflet(leaflet, rake, heap)
+  end
 end

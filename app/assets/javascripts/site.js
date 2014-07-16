@@ -46,6 +46,13 @@ $(function() {
         $(".heap-id").val(heapId);
     });
 
+    $(".leaflet-move").click(function() {
+        var leafletid = $(this).data('id');
+        var heapId = $(this).data('heapid');
+        $(".leaflet-id").val(leafletid);
+        $(".heap-id").val(heapId);
+    });
+
     $(".masterrake-create").click(function() {
         var categoryId = $(this).data('category');
         var userId = $(this).data('user');

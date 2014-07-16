@@ -147,6 +147,20 @@ class RakesController < ApplicationController
     elsif params[:commit] == "Add Heap"
       @rake.add_heap(params[:rake][:leaflet_type_id])
       redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
+    elsif params[:commit] == "Move Leaflet"
+      heapleaflet = HeapLeafletMap.where(heap_id: params[:rake][:heap_id].to_i).find_by_leaflet_id(params[:rake][:leaflet_id].to_i)
+      # Check if there is an existing target heap
+      target_rake = Rake.where(user_id: current_user.id).find_by_name(params[:rake][:name])
+      target_rake_heaps = target_rake.heaps
+      if target_rake_heaps.pluck(:leaflet_type_id).include? params[:rake][:leaflet_type_id].to_i
+        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:rake][:leaflet_type_id].to_i)
+        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:rake][:leaflet_type_id].to_i)
+      else
+        target_rake.add_heap(params[:rake][:leaflet_type_id])
+        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:rake][:leaflet_type_id].to_i)
+        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:rake][:leaflet_type_id].to_i)
+      end
+      redirect_to rake_path(@rake, heap_type: Heap.find(params[:rake][:heap_id].to_i).leaflet_type_id), :notice => "Leaflet moved."
     else
       @rake.filters.each do |f|
         f.destroy
@@ -162,7 +176,7 @@ class RakesController < ApplicationController
   def destroy
     rake = Rake.find_by_id(params[:id])
     rake.destroy
-    redirect_to rakes_path, :notice => "Rake Deleted."
+    redirect_to rakes_path, :notice => "Rake deleted."
   end
 
   def add_channel
