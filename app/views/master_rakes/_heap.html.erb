@@ -65,11 +65,11 @@
             <% end %>
           <% end %>
         </p>
-        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Viewed count"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+        Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         &nbsp;|&nbsp;
-        <i class="fa fa-star" data-toggle="tooltip" data-placement="top" title="Saved count"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+        Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
         &nbsp;|&nbsp;
-        <i class="fa fa-eraser" data-toggle="tooltip" data-placement="top" title="Deleted count"></i> <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+        Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
         <span class="pull-right">
           <span class="feed-button">
             <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
