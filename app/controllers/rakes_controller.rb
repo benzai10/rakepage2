@@ -144,7 +144,7 @@ class RakesController < ApplicationController
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
       end
-    elsif params[:commit] == "Add Heap"
+    elsif params[:commit] == "Add Recommendation Category"
       @rake.add_heap(params[:rake][:leaflet_type_id])
       redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
     elsif params[:commit] == "Move Leaflet"

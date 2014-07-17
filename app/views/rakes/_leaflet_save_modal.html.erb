@@ -10,7 +10,7 @@
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <% leaflet_types_array = LeafletType.where("id IN (?)", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
-          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Heap" } %>
+          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Recommendation Category" } %>
           <%= f.text_field :leaflet_title, { label: "Leaflet Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Leaflet Description (optional)" } %>
         </div>
