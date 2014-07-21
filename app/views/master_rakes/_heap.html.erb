@@ -7,7 +7,7 @@
   <% end %>
   <% heap_leaflets.flatten! %>
   <% heap_leaflets.uniq! %>
-  <% heap_leaflets.each do |l| %>
+  <% heap_leaflets.sort_by! { |h| h.published_at }.reverse!.each do |l| %>
     <% channel = Channel.find(l.channel_id) %>
     <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
       <% if channel.channel_type == 4 %>
