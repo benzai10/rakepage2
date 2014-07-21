@@ -1,3 +1,6 @@
+<% if !@category.nil? %>
+  <% title @category.desc + " Recommendations" %>
+<% end %>
 <div class="container-fluid">
 <%= render 'rakes/rakes_menu' %>
 <div class="row">
