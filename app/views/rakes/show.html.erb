@@ -86,7 +86,7 @@
             <span class="pull-right">
               <% if user_signed_in? && @rake.user_id == current_user.id %>
                 <small><span class="pull-right-menu">
-                <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD LEAFLET", new_leaflet_path, 
+                <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD", new_leaflet_path, 
                             data: {
                               toggle: "modal",
                               target: "#newLeafletModal",
