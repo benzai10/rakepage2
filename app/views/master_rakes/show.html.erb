@@ -132,10 +132,11 @@
               <li>
                 <%= link_to LeafletType.find_by_leaflet_type(lt).leaflet_type_desc, master_rake_path(heap_type: lt) %>
                 <small>
-                  <% heap = @heaps.find_by_leaflet_type_id(lt) %>
-                  <% if !heap.nil? %>
-                    <%= @heaps.find_by_leaflet_type_id(lt).leaflets.count.to_s %>
+                  <% leaflet_count = 0 %>
+                  <% @heaps.where(leaflet_type_id: lt).each do |h| %>
+                    <% leaflet_count += h.leaflets.count %>
                   <% end %>
+                  <%= leaflet_count.to_s %>
                 </small>
               </li>
             <% end %>
