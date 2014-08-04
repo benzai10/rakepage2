@@ -85,16 +85,31 @@
             Recommendations
             <span class="pull-right">
               <% if user_signed_in? && @rake.user_id == current_user.id %>
-                <small><span class="pull-right-menu">
-                <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD", new_leaflet_path, 
-                            data: {
-                              toggle: "modal",
-                              target: "#newLeafletModal",
-                              heapid: @rake.heaps.find_by_leaflet_type_id(params[:heap_type].to_i),
-                              typeid: params[:heap_type].to_i
-                            },
-                            class: "leaflet-create" %>
-                </span></small>
+                <% if params[:heap_type] != "15" %>
+                  <small><span class="pull-right-menu">
+                  <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD", new_leaflet_path, 
+                              data: {
+                                toggle: "modal",
+                                target: "#newLeafletModal",
+                                heapid: @rake.heaps.find_by_leaflet_type_id(params[:heap_type].to_i),
+                                typeid: params[:heap_type].to_i
+                              },
+                              class: "leaflet-create" %>
+                  </span></small>
+                <% else %>
+                  <% if current_user.admin? %>
+                    <small><span class="pull-right-menu">
+                    <%= link_to '<i class="fa fa-plus"></i>'.html_safe + " ADD", new_leaflet_path, 
+                                data: {
+                                  toggle: "modal",
+                                  target: "#newLeafletModal",
+                                  heapid: @rake.heaps.find_by_leaflet_type_id(params[:heap_type].to_i),
+                                  typeid: params[:heap_type].to_i
+                                },
+                                class: "leaflet-create" %>
+                    </span></small>
+                  <% end %>
+                <% end %>
               <% end %>
             </span>
           </h5>
