@@ -67,7 +67,7 @@
           </span>
           &nbsp;
           <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
-            <% if @heap_leaflets.include? l && @rake.user_id == current_user.id %>
+            <% if (@heap_leaflets.include? l) && (@rake.user_id == current_user.id) %>
               &nbsp;<i class="fa fa-star"></i>
             <% else %>
               <span class="feed-button">
