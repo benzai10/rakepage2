@@ -33,6 +33,21 @@ class MasterRakesController < ApplicationController
     @heaps = Heap.where("rake_id IN (?)", rake_ids)
     @heap_types = @heaps.pluck(:leaflet_type_id).uniq
     params[:heap_type] ||= "News"
+
+    heap_ids = []
+    @rake.rakes.each do |r|
+      heap_ids << r.heaps.pluck(:id)
+    end
+    @heap_leaflets_maps = HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten)
+
+    #heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id])
+    # rake_heaps = @heaps.where(leaflet_type_id: params[:heap_type].to_i)
+    # @heap_heap_leaflets = []
+    # rake_heaps.each do |rh|
+    #   @heap_heap_leaflets << rh.leaflets
+    # end
+    # @heap_heap_leaflets.flatten!
+    # @heap_heap_leaflets.uniq!
   end
 
   def new

@@ -48,6 +48,8 @@ class MasterRake < ActiveRecord::Base
     Rake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
   end
 
+  
+
   def get_notification
     Channel.find_by(source: "master_rake_" + self.id.to_s)
   end

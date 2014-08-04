@@ -1,13 +1,5 @@
 <ul id="feed-list" class="leaflet-list">
-  <% heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id]) %>
-  <% rake_heaps = @heaps.where(leaflet_type_id: params[:heap_type].to_i) %>
-  <% heap_leaflets = [] %>
-  <% rake_heaps.each do |rh| %>
-    <% heap_leaflets << rh.leaflets %>
-  <% end %>
-  <% heap_leaflets.flatten! %>
-  <% heap_leaflets.uniq! %>
-  <% heap_leaflets.sort_by! { |h| h.published_at }.reverse!.each do |l| %>
+  <% Leaflet.where("id IN (?)", @heap_leaflets_maps.where(leaflet_type_id: params[:heap_type].to_i).pluck(:leaflet_id).uniq).sort_by! { |h| h.published_at }.reverse!.each do |l| %>
     <% channel = Channel.find(l.channel_id) %>
     <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
       <% if channel.channel_type == 4 %>
