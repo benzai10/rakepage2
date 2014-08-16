@@ -1,0 +1,58 @@
+<div class="panel-group" id="accordion-new-master-rakes">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion-new-master-rakes" 
+           href="#collapse-new-master-rakes">
+           New Master Rakes
+        </a>
+      </h5>
+    </div>
+    <div class="panel-collapse collapse" id="collapse-new-master-rakes">
+      <div class="panel-body">
+        <div class="col-md-6">
+          <p>
+            <% if user_signed_in? %>
+              <% if params[:category_id].nil? %>
+                <% category = "none" %>
+              <% else %>
+                <% category = params[:category_id] %>
+              <% end %>
+              <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
+                    new_master_rake_path, 
+                    data: { 
+                          toggle: "modal",
+                          target: "#newMasterRakeModal",
+                          category: category,
+                          user: current_user.id },
+                          class: "btn btn-primary btn-block masterrake-create" %>
+            <% else %>
+              <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
+                          new_user_session_path,
+                          class: "btn btn-primary btn-block" %>
+            <% end %>
+          </p>
+        </div>
+        <% @new_master_rakes.each do |m| %>
+          <div class="col-md-6">
+            <div class="thumbnail">
+              <%= link_to master_rake_path(m.id) do %>
+                <div class="caption load-rake" value="<%= m.id %>">
+                  <% if m.image_url.nil? || m.image_url.empty? %>
+                    <%= image_tag("no_image.png") %>
+                  <% else %>
+                    <%= image_tag(m.image_url) %>
+                  <% end %>
+                  <div class="rake-caption">
+                    <%= m.name %>
+                    <span id="load-rake-<%= "#{m.id.to_s}" %>"></span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

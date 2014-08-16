@@ -1,0 +1,22 @@
+<div class="panel-group" id="accordion-overview">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion-overview" 
+           href="#collapse-overview">
+           Overview
+        </a>
+      </h5>
+    </div>
+    <div class="panel-collapse collapse in" id="collapse-overview">
+      <div class="panel-body">
+        Total Master Rakes: <%= @master_rakes.count.to_s %>
+        <% if user_signed_in? %>
+          <p>
+            <%= link_to "Go to My Rakes", rakes_path %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

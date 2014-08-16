@@ -2,163 +2,35 @@
 <div class="container-fluid">
 <%= render 'master_rakes/master_rakes_menu' %>
 <div class="row">
-  <div class="col-md-3">
-    <h5>
-      <small>
-      <%= link_to "MASTER RAKES", master_rakes_path %> | <%= link_to Category.find(@rake.category_id).desc.upcase, master_rakes_path(category_id: @rake.category_id) %>
-      </small>
-    </h5>
-    <% if !flash.empty? %>
-      <%= render 'shared/flash_message' %>
-    <% end %>
-    <p>
-      <% if user_signed_in? %>
-        <% if !@custom_rake.nil? && !@custom_rake.empty? %>
-          <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
-                      rake_path(@custom_rake.first),
-                      class: "btn btn-primary btn-block" %>
+  <div class="col-md-6 col-md-offset-3">
+    <h1>
+      <%= @rake.name %> Recommendations
+      <span class="pull-right">
+        <% if user_signed_in? %>
+          <% if !@custom_rake.nil? && !@custom_rake.empty? %>
+            <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
+                        rake_path(@custom_rake.first),
+                        class: "btn btn-xs btn-primary" %>
+          <% else %>
+            <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
+                        new_rake_path(master_rake_id: @rake.id),
+                                      data: { toggle: "modal",
+                                              target: "#newCustomRakeModal",
+                                            },
+                        class: "btn btn-xs btn-primary" %>
+          <% end %>
         <% else %>
           <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
-                      new_rake_path(master_rake_id: @rake.id),
-                                    data: { toggle: "modal",
-                                            target: "#newCustomRakeModal",
-                                          },
+                      new_user_session_path,
                       class: "btn btn-primary btn-block" %>
         <% end %>
-      <% else %>
-        <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
-                    new_user_session_path,
-                    class: "btn btn-primary btn-block" %>
-      <% end %>
-    </p>
-    <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="panel-title">
-            <% href_id = "#feed" %>
-            <%= link_to "News", master_rake_path(heap_type: "News") %>
-            <% if params[:heap_type] == "News" %>
-              <span class="pull-right">
-                <%= link_to '<i class="fa fa-info"></i>'.html_safe, href_id, 
-                            :data => { :toggle => "collapse" },
-                            id: "feed-chevron" %>
-              </span>
-            <% end %>
-          </h5>
-        </div>
-        <% if params[:heap_type] == "News" %>
-          <div id="feed" class="panel-collapse collapse in">
-        <% else %>
-          <div id="feed" class="panel-collapse collapse">
-        <% end %>
-            <div class="panel-body">
-              <span class="channel-title">Recently added Channels:</span>
-              <br>
-              <ul class="leaflet-list">
-                <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").order("created_at DESC").limit(5).each do |c| %>
-                  <% if user_signed_in? && !@custom_rake.first.nil? %>
-                    <% if !@custom_rake.first.channels.include? c %>
-                      <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-                        <span class="pull-left">
-                          <% if c.channel_type == 4 %>
-                            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                          <% elsif c.channel_type == 3 %>
-                            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                          <% else %>
-                            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                          <% end %>
-                        </span>
-                        <div class="media-body">
-                          <h5 class="media-heading channel-heading">
-                            <% channel_name = c.name %>
-                            <% if channel_name == "Title not available." %>
-                              <% channel_name = c.source %>
-                            <% end %>
-                            <%= channel_name %>
-                            <span class="pull-right">
-                            <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
-                                  add_channel_rake_path(@custom_rake.first.id, channel: c.id),
-                                  title: "Add Channel to own Rake" %>
-                            </span>
-                          </h5>
-                          <p class="channel-info">
-                            <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                            <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-                            <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                          </p>
-                        </div>
-                      </li>
-                    <% end %>
-                  <% else %>
-                    <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-                      <span class="pull-left">
-                        <% if c.channel_type == 4 %>
-                          <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                        <% elsif c.channel_type == 3 %>
-                          <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                        <% else %>
-                          <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                          <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                        <% end %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading channel-heading">
-                          <%= c.name %>
-                        </h5>
-                        <p class="channel-info">
-                            <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                            <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-                            <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                        </p>
-                      </div>
-                    </li>
-                  <% end %>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="panel-title">
-            Recommendations
-          </h5>
-        </div>
-        <div class="panel-body">
-          <ul class="category-list">
-            <%# @heaps.each do |h| %>
-            <% @leaflet_types.each do |lt| %>
-              <li>
-                <%= link_to LeafletType.find_by_leaflet_type(lt).leaflet_type_desc, master_rake_path(heap_type: lt) %>
-                <small>
-                  <%= @heap_leaflets_maps.where(leaflet_type_id: lt).pluck(:leaflet_id).uniq.count.to_s %>
-                </small>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <h5>
-      <small>
-        <% if params[:heap_type] == "News" %>
-          <%= @rake.name.upcase %> | NEWS
-        <% else %>
-          <%= @rake.name.upcase %> | <%= LeafletType.find_by_leaflet_type(params[:heap_type].to_i).leaflet_type_desc.upcase %>
-        <% end %>
-      </small>
-    </h5>
-    <% if params[:heap_type] == "News" %>
-      <%= render 'master_rakes/feed' %>
-    <% else %>
-      <%= render 'master_rakes/heap', locals: { leaflet_type_id: params[:heap_type] } %>
-    <% end %>
+      </span>
+    </h1>
+    <%= render 'news' %>
+    <%= render 'feed' %>
+    <%= render 'recommendations' %>
   </div>
 </div>
-
 <% if !@custom_rake.nil? %>
   <%= render 'master_rakes/edit_category_modal' %>
   <% if @custom_rake.count > 0 %>

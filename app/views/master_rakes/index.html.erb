@@ -6,116 +6,12 @@
 <div class="container-fluid">
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
-    <div class="col-md-3">
-      <h5><small>
-        <% if user_signed_in? %>
-          MASTER RAKES | <%= link_to '<i class="fa fa-arrow-right"></i> MY RAKES'.html_safe, rakes_path %>
-        <% else %>
-          MASTER RAKES
-        <% end %>
-      </small></h5>
-      <% if !flash.empty? %>
-        <%= render 'shared/flash_message' %>
-      <% end %>
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h5 class="panel-title">
-              <%= link_to "Front Page", master_rakes_path %>
-            </h5>
-          </div>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <p>
-                <% if user_signed_in? %>
-                  <% if params[:category_id].nil? %>
-                    <% category = "none" %>
-                  <% else %>
-                    <% category = params[:category_id] %>
-                  <% end %>
-                  <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
-                        new_master_rake_path, 
-                        data: { 
-                              toggle: "modal",
-                              target: "#newMasterRakeModal",
-                              category: category,
-                              user: current_user.id },
-                              class: "btn btn-primary btn-block masterrake-create" %>
-                <% else %>
-                  <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
-                              new_user_session_path,
-                              class: "btn btn-primary btn-block" %>
-                <% end %>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h5 class="panel-title">
-              Categories
-              <span class="pull-right">
-                <i class="fa fa-chevron-down"></i>
-              </span>
-            </h5>
-          </div>
-          <div class="panel-body">
-            <ul class="category-list">
-              <% @categories.each do |c| %>
-                <li>
-                  <%= link_to c.desc, master_rakes_path(category_id: c.id) %>
-                  <small>
-                    &nbsp;<%= MasterRake.where(category_id: c.id).count.to_s %>
-                  </small>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <% if !@category.nil? %>
-        <h5><small>
-          <%= @category.desc.upcase %>
-        </small></h5>
-      <% else %>
-        <h5><small>FRONT PAGE</small></h5>
-        <%= render 'front_page' %>
-      <% end %>
-      <% if !@category.nil? %>
-        <div class="row">
-          <% if !flash.empty? %>
-            <%= render 'shared/flash_message' %>
-          <% end %>
-          <% @master_rakes.where("category_id = ? AND (name <> 'Facebook Import' AND name <> 'Twitter Import')", @category.id).each do |m| %>
-            <div class="col-md-6">
-              <div class="thumbnail">
-                <%= link_to master_rake_path(m.id) do %>
-                  <div class="caption load-rake" value="<%= m.id %>">
-                    <% if m.image_url.nil? || m.image_url.empty? %>
-                      <%= image_tag("no_image.png") %>
-                    <% else %>
-                      <%= image_tag(m.image_url) %>
-                    <% end %>
-                    <div class="rake-caption">
-                      <%= m.name %>
-                      <span id="load-rake-<%= "#{m.id.to_s}" %>"></span>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="col-md-6 col-md-offset-3">
+      <h1>Collective Recommendation Sharing</h1>
+      <%= render 'overview' %>
+      <%= render 'new_master_rakes' %>
+      <%= render 'new_recommendations' %>
     </div>
   </div>
-  <%= render 'master_rakes/new_modal' %>
-  <% if user_signed_in? %>
-    <% if History.where("user_id = ? AND history_code = ?", current_user.id, "no_tutorial").count == 0 %>
-      <%= render 'tutorial_modal' %>
-      <%= javascript_tag "$('#showTutorialModal').modal('show');", type: "text/javascript" %>
-    <% end %>
-  <% end %>
 </div>
+<%= render 'new_modal' %>

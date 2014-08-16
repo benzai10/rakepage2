@@ -46,9 +46,9 @@ class RakesController < ApplicationController
       @rake.add_heap(params[:heap_type].to_i)
     end
     @heaps = @rake.heaps
-    heap_ids = @heaps.pluck(:id)
-    leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
-    @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids)
+    @heap_ids = @heaps.pluck(:id)
+    @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
+    @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     #@notifications = current_user.get_notifications
   end
