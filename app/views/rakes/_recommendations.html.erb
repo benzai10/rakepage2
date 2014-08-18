@@ -4,7 +4,6 @@
   <% end %>
 
   <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lt).leaflet_type_desc %>
-  <div class="panel-group" id="accordion-<%= leaflet_type_desc.gsub(/\W/, "") %>">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h5 class="panel-title">
@@ -123,5 +122,4 @@
         </div>
       </div>
     </div>
-  </div>
 <% end %>

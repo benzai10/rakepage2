@@ -6,10 +6,12 @@
     <h1>
       <%= @rake.name %> Recommendations
     </h1>
-    <%= render 'news' %>
-    <%= render 'feed' %>
-    <%= render 'channels' %>
-    <%= render 'recommendations' %>
+    <div class="panel-group" id="accordion-show">
+      <%= render 'news' %>
+      <%= render 'feed' %>
+      <%= render 'channels' %>
+      <%= render 'recommendations' %>
+    </div>
   </div>
 </div>
 <% if !@custom_rake.nil? %>
