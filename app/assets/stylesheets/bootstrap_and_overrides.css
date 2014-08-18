@@ -20,6 +20,46 @@ body {
   overflow-y: auto;
 }
 
+.panel-overview {
+  color: white !important;
+  background-color: #6e2384 !important;
+}
+
+.panel-my-rakes {
+  color: black !important;
+  background-color: #b7c42f !important;
+}
+
+.panel-new-master-rakes {
+  color: black !important;
+  background-color: #c7b330 !important;
+}
+
+.panel-new-recommendations {
+  color: black !important;
+  background-color: #e3d262 !important;
+}
+
+.panel-all-master-rakes {
+  color: black !important;
+  background-color: #d6e161 !important;
+}
+
+.panel-feed {
+  color: black !important;
+  background-color: #FFA236 !important;
+}
+
+.panel-channels {
+  color: black !important;
+  background-color: #FFB968 !important;
+}
+
+.panel-recommendations {
+  color: black !important;
+  background-color: #5FE79A !important;
+}
+
 .feed-button {
   border: 1px solid;
   border-radius: 3px;

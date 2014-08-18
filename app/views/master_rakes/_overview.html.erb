@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
+  <div class="panel-heading panel-overview">
     <h5 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion-overview" 
          href="#collapse-overview">
@@ -17,7 +17,7 @@
 </div>
 <% if user_signed_in? %>
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading panel-my-rakes">
       <h5 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion-overview">
            <%= link_to "My Rakes", rakes_path %>
