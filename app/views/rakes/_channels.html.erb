@@ -18,13 +18,13 @@
                               target: "#addRssModal",
                               rakeid: @rake.id,
                               channeltype: 0 },
-                      class: "btn btn-xs btn-primary" %>
+                      class: "btn btn-xs btn-primary add-rss-feed" %>
           <%= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
                       data: { toggle: "modal",
                               target: "#addSubredditModal",
                               rakeid: @rake.id,
                               channeltype: 4 },
-                      class: "btn btn-xs btn-primary" %>
+                      class: "btn btn-xs btn-primary add-subreddit-feed" %>
         <% end %>
       </p>
       <ul class="leaflet-list">
