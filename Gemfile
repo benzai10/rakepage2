@@ -46,6 +46,8 @@ group :development, :test do
   gem "pry-rails"
 # Debug with pry
   gem 'pry-byebug'
+# Rescue server with pry
+  gem 'pry-rescue'
 end
 
 #### Default

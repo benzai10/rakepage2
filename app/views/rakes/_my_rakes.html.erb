@@ -1,40 +1,38 @@
-<div class="panel-group" id="accordion-my-rakes">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h5 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion-my-rakes" 
-           href="#collapse-my-rakes">
-           My Rakes
-        </a>
-      </h5>
-    </div>
-    <div class="panel-collapse collapse in" id="collapse-my-rakes">
-      <div class="panel-body">
-        <% if @rakes.empty? %>
-          Tutorial here...
-        <% else %>
-          <% @rakes.each do |r| %>
-            <div class="col-md-6">
-              <div class="thumbnail">
-                <%= link_to rake_path(r.id) do %>
-                  <% master_rake = MasterRake.find(r.master_rake_id) %>
-                  <div class="caption load-rake" value="<%= r.id %>">
-                    <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
-                      <%= image_tag("no_image.png") %>
-                    <% else %>
-                      <%= image_tag(master_rake.image_url) %>
-                    <% end %>
-                    <div class="rake-caption">
-                      <%= r.name %>
-                      <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
-                    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion-my-rakes" 
+         href="#collapse-my-rakes">
+         My Rakes
+      </a>
+    </h5>
+  </div>
+  <div class="panel-collapse collapse in" id="collapse-my-rakes">
+    <div class="panel-body">
+      <% if @rakes.empty? %>
+        Tutorial here...
+      <% else %>
+        <% @rakes.each do |r| %>
+          <div class="col-md-6">
+            <div class="thumbnail">
+              <%= link_to rake_path(r.id) do %>
+                <% master_rake = MasterRake.find(r.master_rake_id) %>
+                <div class="caption load-rake" value="<%= r.id %>">
+                  <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
+                    <%= image_tag("no_image.png") %>
+                  <% else %>
+                    <%= image_tag(master_rake.image_url) %>
+                  <% end %>
+                  <div class="rake-caption">
+                    <%= r.name %>
+                    <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
                   </div>
-                <% end %>
-              </div>
+                </div>
+              <% end %>
             </div>
-          <% end %>
+          </div>
         <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

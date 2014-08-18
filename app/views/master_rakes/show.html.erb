@@ -5,29 +5,10 @@
   <div class="col-md-6 col-md-offset-3">
     <h1>
       <%= @rake.name %> Recommendations
-      <span class="pull-right">
-        <% if user_signed_in? %>
-          <% if !@custom_rake.nil? && !@custom_rake.empty? %>
-            <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
-                        rake_path(@custom_rake.first),
-                        class: "btn btn-xs btn-primary" %>
-          <% else %>
-            <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
-                        new_rake_path(master_rake_id: @rake.id),
-                                      data: { toggle: "modal",
-                                              target: "#newCustomRakeModal",
-                                            },
-                        class: "btn btn-xs btn-primary" %>
-          <% end %>
-        <% else %>
-          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
-                      new_user_session_path,
-                      class: "btn btn-primary btn-block" %>
-        <% end %>
-      </span>
     </h1>
     <%= render 'news' %>
     <%= render 'feed' %>
+    <%= render 'channels' %>
     <%= render 'recommendations' %>
   </div>
 </div>
@@ -39,3 +20,5 @@
     <%= render 'master_rakes/new_rake_modal' %>
   <% end %>
 <% end %>
+<%= render 'master_rakes/add_rss_modal' %>
+<%= render 'master_rakes/add_subreddit_modal' %>

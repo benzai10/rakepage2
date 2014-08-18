@@ -4,15 +4,26 @@
       <h5 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion-news" 
            href="#collapse-news">
-           News
+           Dashboard
         </a>
-        <span class="pull-right">
-          <small><%= link_to "Show my rakes", rakes_path %></small>
-        </span>
       </h5>
     </div>
     <div class="panel-collapse collapse in" id="collapse-news">
       <div class="panel-body">
+        <%= link_to "Show my rakes", rakes_path, class: "btn btn-xs btn-primary" %>
+        <% if !current_user.nil? %>
+          <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + " Show Master Rake",
+                        master_rake_path(@rake.master_rake_id),
+                        class: "btn btn-xs btn-primary" %>
+        <% end %>
+        <% if user_signed_in? && @rake.user_id == current_user.id %>
+          <%= link_to "Delete Rake", rake_path(@rake),
+                        :data => { :confirm => "Are you sure?" }, 
+                        :method => :delete,
+                          class: "btn btn-default btn-xs" %>
+        <% end %>
+        <br>
+        <br>
         <span class="channel-title">Recently added Channels:</span>
         <br>
         <ul class="leaflet-list">

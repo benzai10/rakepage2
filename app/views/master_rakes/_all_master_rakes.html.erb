@@ -2,12 +2,12 @@
   <div class="panel-heading">
     <h5 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion-overview" 
-         href="#collapse-new-master-rakes">
-         New Master Rakes
+         href="#collapse-all-master-rakes">
+         All Master Rakes
       </a>
     </h5>
   </div>
-  <div class="panel-collapse collapse" id="collapse-new-master-rakes">
+  <div class="panel-collapse collapse" id="collapse-all-master-rakes">
     <div class="panel-body">
       <div class="col-md-6">
         <p>
@@ -32,7 +32,7 @@
           <% end %>
         </p>
       </div>
-      <% @new_master_rakes.each do |m| %>
+      <% @master_rakes.each do |m| %>
         <div class="col-md-6">
           <div class="thumbnail">
             <%= link_to master_rake_path(m.id) do %>

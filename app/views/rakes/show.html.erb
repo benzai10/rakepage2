@@ -5,16 +5,10 @@
     <div class="col-md-6 col-md-offset-3">
       <h1>
         <%= @rake.name %> Recommendations
-        <span class="pull-right">
-          <% if !current_user.nil? %>
-            <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + " Show Master Rake",
-                          master_rake_path(@rake.master_rake_id),
-                          class: "btn btn-xs btn-primary" %>
-          <% end %>
-        </span>
       </h1>
       <%= render 'news' %>
       <%= render 'feed' %>
+      <%= render 'channels' %>
       <%= render 'recommendations' %>
     </div>
   </div>

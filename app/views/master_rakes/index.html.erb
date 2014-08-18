@@ -8,9 +8,12 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h1>Collective Recommendation Sharing</h1>
-      <%= render 'overview' %>
-      <%= render 'new_master_rakes' %>
-      <%= render 'new_recommendations' %>
+      <div class="panel-group" id="accordion-overview">
+        <%= render 'overview' %>
+        <%= render 'new_master_rakes' %>
+        <%= render 'new_recommendations' %>
+        <%= render 'all_master_rakes' %>
+      </div>
     </div>
   </div>
 </div>

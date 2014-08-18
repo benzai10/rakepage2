@@ -121,6 +121,7 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
+    interception (0.5)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -194,6 +195,9 @@ GEM
       pry (~> 0.9.12)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    pry-rescue (1.4.1)
+      interception (>= 0.5)
+      pry
     rabl (0.9.3)
       activesupport (>= 2.3.14)
     rack (1.5.2)
@@ -309,6 +313,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rails
+  pry-rescue
   rabl
   rack-zippy
   rails (= 4.0.4)

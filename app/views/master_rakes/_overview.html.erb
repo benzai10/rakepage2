@@ -1,22 +1,28 @@
-<div class="panel-group" id="accordion-overview">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h5 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion-overview" 
-           href="#collapse-overview">
-           Overview
-        </a>
-      </h5>
-    </div>
-    <div class="panel-collapse collapse in" id="collapse-overview">
-      <div class="panel-body">
-        Total Master Rakes: <%= @master_rakes.count.to_s %>
-        <% if user_signed_in? %>
-          <p>
-            <%= link_to "Go to My Rakes", rakes_path %>
-          </p>
-        <% end %>
-      </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion-overview" 
+         href="#collapse-overview">
+         Overview
+      </a>
+    </h5>
+  </div>
+  <div class="panel-collapse collapse in" id="collapse-overview">
+    <div class="panel-body">
+      Total Master Rakes: <%= @master_rakes.count.to_s %>
+      <% sum = 0 %>
+      <%= line_chart @master_rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "220px", library: { chartArea: { left: 10, right: 10, top: 10, bottom: 10 }, vAxis: { format: "#" }}} %>
     </div>
   </div>
 </div>
+<% if user_signed_in? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion-overview">
+           <%= link_to "My Rakes", rakes_path %>
+        </a>
+      </h5>
+    </div>
+  </div>
+<% end %>
