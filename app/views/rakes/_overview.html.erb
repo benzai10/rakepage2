@@ -9,9 +9,11 @@
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
-      Total Rakes: <%= @rakes.count.to_s %>
       <% sum = 0 %>
-      <%= line_chart @rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
+      <%= line_chart @rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { colors: ['#6e2384'], title: "Total Rakes: " + @rakes.count.to_s, chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
+      <%= bar_chart [["Created", Leaflet.where(created_by: current_user.id).count], 
+                     ["Saved", HeapLeafletMap.where("heap_id IN (?)", Heap.where("rake_id IN (?)", @rakes.pluck(:id)).pluck(:id)).count]],
+                     { height: "120px", library: { colors: ['#6e2384'], title: "Recommendations", chartArea: { top: 20, bottom: 10 }, vAxis: { format: "#" }}} %>
     </div>
   </div>
 </div>
