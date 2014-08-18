@@ -21,6 +21,33 @@
       <div class="panel-collapse collapse" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
         <div class="panel-body">
 
+          <% if user_signed_in? && @rake.user_id == current_user.id %>
+            <% if lt != 15 %>
+              <%= link_to "Add recommendation", new_leaflet_path, 
+                          data: {
+                            toggle: "modal",
+                            target: "#newLeafletModal",
+                            heapid: @rake.heaps.find_by_leaflet_type_id(lt),
+                            typeid: lt
+                          },
+                          class: "btn btn-xs btn-primary leaflet-create" %>
+            <% else %>
+              <% if current_user.admin? %>
+                <%= link_to "Add recommendation", new_leaflet_path, 
+                            data: {
+                              toggle: "modal",
+                              target: "#newLeafletModal",
+                              heapid: @rake.heaps.find_by_leaflet_type_id(lt),
+                              typeid: lt
+                            },
+                            class: "btn btn-xs btn-primary leaflet-create" %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <hr>
+
+
 <% if @heaps.pluck(:leaflet_type_id).include? lt %>
   <ul id="feed-list" class="leaflet-list">
     <% heap.leaflets.each do |l| %>
