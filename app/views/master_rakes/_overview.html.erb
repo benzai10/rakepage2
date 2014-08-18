@@ -11,7 +11,7 @@
     <div class="panel-body">
       Total Master Rakes: <%= @master_rakes.count.to_s %>
       <% sum = 0 %>
-      <%= line_chart @master_rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "220px", library: { chartArea: { left: 10, right: 10, top: 10, bottom: 10 }, vAxis: { format: "#" }}} %>
+      <%= line_chart @master_rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
     </div>
   </div>
 </div>

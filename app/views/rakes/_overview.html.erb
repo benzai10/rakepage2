@@ -10,6 +10,8 @@
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
       Total Rakes: <%= @rakes.count.to_s %>
+      <% sum = 0 %>
+      <%= line_chart @rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
     </div>
   </div>
 </div>
