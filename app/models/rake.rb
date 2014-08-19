@@ -46,16 +46,16 @@ class Rake < ActiveRecord::Base
   def feed_leaflets(feed_type, refresh)
     filter_array = self.filters.map { |f| f.keyword }
     filter_array = filter_array.map { |val| "%#{val}%" }
-    #if refresh == "yes"
+    if refresh == "yes"
       self.channels.each do |c|
-        if c.last_pull_at < Time.now - 00 || c.channel_type == 3 
+        #if c.last_pull_at < Time.now - 00 || c.channel_type == 3 
           begin
             c.pull_source
           rescue
           end
-        end
+        #end
       end
-    #end
+    end
     rake_channel_id = self.channels.map{ |r| (r.source == self.id.to_s) ? r.id : nil }.compact.first
     if self.refreshed_at.nil?
       if !filter_array.empty?
@@ -74,19 +74,6 @@ class Rake < ActiveRecord::Base
                         self.master_rake.channels.where(channel_type: 3).pluck(:id) + self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact)
       end
     end
-    # rake_ids = User.find(self.user_id).rakes.map(&:id)
-    # old_feed_leaflets = Feed.where("rake_id IN (?)", rake_ids)
-    # delete_feed_leaflets_ids = old_feed_leaflets.pluck(:id) - feed_leaflets.pluck(:id)
-    # delete_feed_leaflets = Feed.where("id IN (?)", delete_feed_leaflets_ids)
-    # delete_feed_leaflets.each do |f|
-    #   f.destroy
-    # end
-
-    # feed_leaflets.each do |f|
-    #   if Feed.where(rake_id: self.id).find_by_leaflet_id(f.id).nil?
-    #     Feed.create!(rake_id: self.id, leaflet_id: f.id, status: 0)
-    #   end
-    # end
   end
 
   def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)

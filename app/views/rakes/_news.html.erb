@@ -7,7 +7,7 @@
       </a>
     </h5>
   </div>
-  <div class="panel-collapse collapse in" id="collapse-news">
+  <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-news">
     <div class="panel-body">
       <span class="channel-title">Recently added Channels:</span>
       <br>
