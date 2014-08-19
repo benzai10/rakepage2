@@ -10,27 +10,37 @@
   <div class="panel-collapse collapse" id="collapse-new-master-rakes">
     <div class="panel-body">
       <div class="col-md-6">
-        <p>
-          <% if user_signed_in? %>
-            <% if params[:category_id].nil? %>
-              <% category = "none" %>
-            <% else %>
-              <% category = params[:category_id] %>
-            <% end %>
-            <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
-                  new_master_rake_path, 
-                  data: { 
+        <% if user_signed_in? %>
+          <% if params[:category_id].nil? %>
+            <% category = "none" %>
+          <% else %>
+            <% category = params[:category_id] %>
+          <% end %>
+          <div class="thumbnail">
+            <%= link_to new_master_rake_path, data: { 
                         toggle: "modal",
                         target: "#newMasterRakeModal",
                         category: category,
                         user: current_user.id },
-                        class: "btn btn-primary btn-block masterrake-create" %>
-          <% else %>
-            <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create New Master Rake",
-                        new_user_session_path,
-                        class: "btn btn-primary btn-block" %>
+                        class: "masterrake-create" do %>
+              <div class="caption">
+                <%= image_tag("add_master_rake.png") %>
+                <div class="rake-caption">
+                  Add new Master Rake
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <%= link_to new_user_session_path do %>
+            <div class="caption">
+              <%= image_tag("add_master_rake.png") %>
+              <div class="rake-caption">
+                Add new Master Rake
+              </div>
+            </div>
           <% end %>
-        </p>
+        <% end %>
       </div>
       <% @new_master_rakes.each do |m| %>
         <div class="col-md-6">
