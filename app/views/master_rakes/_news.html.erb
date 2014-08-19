@@ -92,7 +92,6 @@
                     new_user_session_path,
                     class: "btn btn-xs btn-primary" %>
       <% end %>
-      <%= link_to "Show Master Rakes", master_rakes_path, class: "btn btn-xs btn-primary" %>
       <% if user_signed_in? %>
         <% if @rake.created_by == current_user.id && @rake.rakes.count == 0 %>
           <%= link_to "Delete Master Rake", master_rake_path(@rake),

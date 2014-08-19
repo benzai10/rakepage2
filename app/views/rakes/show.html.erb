@@ -6,6 +6,16 @@
       <h1>
         <%= @rake.name %> Recommendations
       </h1>
+      <h5>
+        <small>
+          <%= link_to "MY RECOMMENDATIONS RAKES", rakes_path %>
+          &nbsp;|&nbsp;
+          <% if !current_user.nil? %>
+            <%= link_to "ALL RECOMMENDATIONS RAKES",
+                          master_rakes_path %>
+          <% end %>
+        </small>
+      </h5>
       <div class="panel-group" id="accordion-show">
         <%= render 'news' %>
         <%= render 'feed' %>

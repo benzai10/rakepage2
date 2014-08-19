@@ -8,6 +8,13 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h1>Collective Recommendation Sharing</h1>
+      <h5>
+        <small>
+          <% if user_signed_in? %>
+           <%= link_to "MY RECOMMENDATION RAKES", rakes_path %>
+          <% end %>
+        </small>
+      </h5>
       <div class="panel-group" id="accordion-overview">
         <%= render 'overview' %>
         <%= render 'new_master_rakes' %>
