@@ -40,6 +40,12 @@ class MasterRakesController < ApplicationController
     end
     @heap_leaflets_maps = HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten)
 
+    if params[:refresh] == "yes" || params[:saved] == "yes"
+      @feed_collapse = "in"
+    else
+      @feed_collapse = ""
+    end
+
     #heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id])
     # rake_heaps = @heaps.where(leaflet_type_id: params[:heap_type].to_i)
     # @heap_heap_leaflets = []

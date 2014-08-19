@@ -10,7 +10,7 @@
       </span>
     </h5>
   </div>
-  <div class="panel-collapse collapse <%= 'in' if params[:refresh] == 'yes' %>" id="collapse-feed">
+  <div class="panel-collapse collapse <%= @feed_collapse %>" id="collapse-feed">
     <div class="panel-body">
       <ul id="feed-list" class="leaflet-list">
         <% @feed_leaflets.each do |l| %>

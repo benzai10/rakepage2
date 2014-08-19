@@ -47,6 +47,11 @@ class RakesController < ApplicationController
     @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
     @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
     @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
+    if params[:refresh] == "yes" || params[:saved] == "yes"
+      @feed_collapse = "in"
+    else
+      @feed_collapse = ""
+    end
   end
 
   def news
@@ -125,9 +130,9 @@ class RakesController < ApplicationController
                         params[:rake][:leaflet_title],
                         params[:rake][:leaflet_desc])
       if session[:rake_class] == MasterRake
-        redirect_to master_rake_path(@rake.master_rake_id, anchor: "leaflet-" + params[:rake][:leaflet_id])
+        redirect_to master_rake_path(@rake.master_rake_id, saved: "yes", anchor: "leaflet-" + params[:rake][:leaflet_id])
       else
-        redirect_to rake_path(@rake, anchor: "leaflet-" + params[:rake][:leaflet_id])
+        redirect_to rake_path(@rake, saved: "yes", anchor: "leaflet-" + params[:rake][:leaflet_id])
       end
     elsif params[:commit] == "Create Leaflet"
       if @rake.create_leaflet(params[:rake][:leaflet_type_id],
