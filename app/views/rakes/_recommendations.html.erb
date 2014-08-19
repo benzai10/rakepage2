@@ -43,6 +43,10 @@
                             class: "btn btn-xs btn-primary leaflet-create" %>
               <% end %>
             <% end %>
+          <% else %>
+            <% if lt != 15 %>
+              <%= link_to "Add recommendation", new_user_session_path, class: "btn btn-xs btn-primary" %>
+            <% end %>
           <% end %>
 
           <hr>
