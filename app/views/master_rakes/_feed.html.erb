@@ -20,7 +20,8 @@
       <ul id="feed-list" class="leaflet-list">
         <% @feed_leaflets.each do |l| %>
           <% channel = Channel.find(l.channel_id) %>
-          <li id="<%= 'leaflet-' + l.id.to_s %>" class="rake-show-list">
+          <a class="anchor" id="<%= 'leaflet-' + l.id.to_s %>"></a>
+          <li class="rake-show-list">
             <% if channel.channel_type == 4 %>
               <% reddit_link = "http://reddit.com/" + l.identifier %>
             <% else %>

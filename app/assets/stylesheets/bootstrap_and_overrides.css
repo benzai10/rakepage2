@@ -10,6 +10,13 @@ body {
   margin-top: 50px;
 }
 
+a.anchor {
+  display: block;
+  position: relative;
+  top: -100px;
+  visibility: hidden;
+}
+
 #showTutorialModal .modal-body {
   max-height: 420px;
   overflow-y: auto;
