@@ -90,7 +90,7 @@
       <% else %>
         <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Customized Rake",
                     new_user_session_path,
-                    class: "btn btn-primary btn-block" %>
+                    class: "btn btn-xs btn-primary" %>
       <% end %>
       <%= link_to "Show Master Rakes", master_rakes_path, class: "btn btn-xs btn-primary" %>
       <% if user_signed_in? %>
