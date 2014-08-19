@@ -26,10 +26,8 @@
                               channeltype: 4 },
                       class: "btn btn-xs btn-primary" %>
         <% else %>
-          <span class="pull-right-menu">
-            <%= link_to "Add Blog", new_user_session_path %>
-            &nbsp;|&nbsp;
-            <%= link_to "Add Subreddit", new_user_session_path %>
+          <%= link_to "Add Blog", new_user_session_path, class: "btn btn-xs btn-primary" %>
+          <%= link_to "Add Subreddit", new_user_session_path, class: "btn btn-xs btn-primary" %>
           </span>
         <% end %>
       </p>

@@ -13,8 +13,9 @@
   <div class="panel-collapse collapse <%= 'in' if params[:refresh] == 'yes' %>" id="collapse-feed">
     <div class="panel-body">
       <% if @feed_leaflets.count == 0 %>
-        <%= render 'tutorial_new_master_rake' %>
-        <%= javascript_tag "$('#showTutorialNewMasterRakeModal').modal('show');", type: "text/javascript" %>
+        Add a blog or subreddit to populate the feed. You can do that in the 'Channels' section below.
+        <%#= render 'tutorial_new_master_rake' %>
+        <%#= javascript_tag "$('#showTutorialNewMasterRakeModal').modal('show');", type: "text/javascript" %>
       <% end %>
       <ul id="feed-list" class="leaflet-list">
         <% @feed_leaflets.each do |l| %>
