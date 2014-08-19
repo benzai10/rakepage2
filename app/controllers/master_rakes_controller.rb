@@ -27,7 +27,7 @@ class MasterRakesController < ApplicationController
         @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids).order("published_at DESC")
       end
     end
-    @feed_leaflets = @rake.feed_leaflets.order("published_at DESC").page(params[:page]).per(50)
+    @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)
     rake_ids = @rake.rakes.pluck(:id)
     @heaps = Heap.where("rake_id IN (?)", rake_ids)

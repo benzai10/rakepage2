@@ -35,7 +35,7 @@
       <% @master_rakes.each do |m| %>
         <div class="col-md-6">
           <div class="thumbnail">
-            <%= link_to master_rake_path(m.id) do %>
+            <%= link_to master_rake_path(m.id, refresh: "no") do %>
               <div class="caption load-rake" value="<%= m.id %>">
                 <% if m.image_url.nil? || m.image_url.empty? %>
                   <%= image_tag("no_image.png") %>
