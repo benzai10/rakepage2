@@ -32,14 +32,16 @@
             <% end %>
           </div>
         <% else %>
-          <%= link_to new_user_session_path do %>
-            <div class="caption">
-              <%= image_tag("add_master_rake.png") %>
-              <div class="rake-caption">
-                Add new Master Rake
+          <div class="thumbnail">
+            <%= link_to new_user_session_path do %>
+              <div class="caption">
+                <%= image_tag("add_master_rake.png") %>
+                <div class="rake-caption">
+                  Add new Master Rake
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         <% end %>
       </div>
       <% @master_rakes.each do |m| %>

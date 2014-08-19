@@ -8,12 +8,11 @@
       </h1>
       <h5>
         <small>
-          <%= link_to "MY RECOMMENDATIONS RAKES", rakes_path %>
-          &nbsp;|&nbsp;
           <% if !current_user.nil? %>
-            <%= link_to "ALL RECOMMENDATIONS RAKES",
-                          master_rakes_path %>
+            <%= link_to "MY RECOMMENDATIONS RAKES", rakes_path %>
+            &nbsp;|&nbsp;
           <% end %>
+          <%= link_to "ALL RECOMMENDATIONS RAKES", master_rakes_path %>
         </small>
       </h5>
       <div class="panel-group" id="accordion-show">
