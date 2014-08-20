@@ -11,26 +11,24 @@
   </div>
   <div class="panel-collapse collapse" id="collapse-channels">
     <div class="panel-body">
-      <p>
-        <% if !current_user.nil? %>
-          <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
-                      data: { toggle: "modal",
-                              target: "#addRssModal",
-                              rakeid: @rake.id,
-                              channeltype: 0 },
-                      class: "btn btn-xs btn-primary" %>
-          <%= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
-                      data: { toggle: "modal",
-                              target: "#addSubredditModal",
-                              rakeid: @rake.id,
-                              channeltype: 4 },
-                      class: "btn btn-xs btn-primary" %>
-        <% else %>
-          <%= link_to "Add Blog", new_user_session_path, class: "btn btn-xs btn-primary" %>
-          <%= link_to "Add Subreddit", new_user_session_path, class: "btn btn-xs btn-primary" %>
-          </span>
-        <% end %>
-      </p>
+      <h5><small>To add a channel, you first have to create your own customized rake (open the 'Overview' panel above). You can then add a new channel (blog or subreddit) from there.</small></h5>
+      <% if !current_user.nil? %>
+        <%#= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                    data: { toggle: "modal",
+                            target: "#addRssModal",
+                            rakeid: @rake.id,
+                            channeltype: 0 },
+                    class: "btn btn-xs btn-primary" %>
+        <%#= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                    data: { toggle: "modal",
+                            target: "#addSubredditModal",
+                            rakeid: @rake.id,
+                            channeltype: 4 },
+                    class: "btn btn-xs btn-primary" %>
+      <% else %>
+        <%#= link_to "Add Blog", new_user_session_path, class: "btn btn-xs btn-primary" %>
+        <%#= link_to "Add Subreddit", new_user_session_path, class: "btn btn-xs btn-primary" %>
+      <% end %>
       <ul class="leaflet-list">
         <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").each do |c| %>
           <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
