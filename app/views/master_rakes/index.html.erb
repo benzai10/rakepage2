@@ -12,6 +12,8 @@
         <small>
           <% if user_signed_in? %>
            <%= link_to "MY RECOMMENDATION RAKES", rakes_path %>
+          <% else %>
+            <%= link_to "SIGN IN", new_user_session_path %>
           <% end %>
         </small>
       </h5>

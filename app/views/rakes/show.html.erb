@@ -13,6 +13,10 @@
             &nbsp;|&nbsp;
           <% end %>
           <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path %>
+          <% if !user_signed_in? %>
+            &nbsp;|&nbsp;
+            <%= link_to "SIGN IN", new_user_session_path %>
+          <% end %>
         </small>
       </h5>
       <div class="panel-group" id="accordion-show">
