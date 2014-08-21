@@ -9,6 +9,9 @@
   </div>
   <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-news">
     <div class="panel-body">
+      <span class="pull-right">
+        <%= social_share_button_tag(@rake.name + " Recommendations") %>
+      </span>
       <span class="channel-title">Recently added Channels:</span>
       <br>
       <ul class="leaflet-list">

@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require bootstrap-tokenfield
 //= require facebook
+//= require social-share-button
 //= require_tree .
