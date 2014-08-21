@@ -7,7 +7,7 @@
               href="#collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
             <%= leaflet_type_desc %>
             <small>
-              <span class="badge">
+              <span class="badge pull-right">
                 <%= @heap_leaflets_maps.where(leaflet_type_id: lt).pluck(:leaflet_id).uniq.count.to_s %>
               </span>
             </small>

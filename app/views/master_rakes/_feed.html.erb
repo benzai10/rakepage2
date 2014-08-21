@@ -5,9 +5,8 @@
          href="#collapse-feed">
          Feed
       </a>
-      <span class="pull-right">
-        <small><%= link_to "Refresh", master_rake_path(refresh: "yes"), class: "white" %></small>
-      </span>
+      <small><%= link_to "Refresh", master_rake_path(refresh: "yes"), class: "white" %></small>
+      <span class="badge pull-right"><%= @feed_leaflets.count.to_s %></span>
     </h5>
   </div>
   <div class="panel-collapse collapse <%= @feed_collapse %>" id="collapse-feed">
