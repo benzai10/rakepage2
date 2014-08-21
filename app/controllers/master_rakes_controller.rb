@@ -68,7 +68,17 @@ class MasterRakesController < ApplicationController
     @master_rake = MasterRake.new(master_rake_params)
     if @master_rake.check_wikipedia_url(params[:master_rake][:wikipedia_url]) != false
       if @master_rake.save
-        redirect_to master_rake_path(@master_rake)
+        #redirect_to master_rake_path(@master_rake)
+        @rake = Rake.new
+        @rake.master_rake_id = @master_rake.id
+        @rake.user_id = current_user.id
+        @rake.name = @master_rake.name
+        if @rake.save
+          redirect_to rake_path(@rake, refresh: "no")
+        else
+          flash[:error] = @rake.errors.full_messages
+          redirect_to :back
+        end
       else
         flash[:error] = @master_rake.errors.full_messages.to_sentence
         #redirect_to master_rakes_path(category_id: params[:master_rake][:category_id])

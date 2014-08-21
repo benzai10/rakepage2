@@ -12,7 +12,7 @@
             <%= leaflet_type_desc %>
             <small>
               <% if !heap.nil? %>
-                <%= heap.leaflets.count.to_s %>
+                <span class="badge"><%= heap.leaflets.count.to_s %></span>
               <% end %>
             </small>
           </a>

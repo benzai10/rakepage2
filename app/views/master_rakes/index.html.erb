@@ -17,6 +17,9 @@
           <% end %>
         </small>
       </h5>
+      <% if !flash.empty? %>
+        <%= render 'shared/flash_message' %>
+      <% end %>
       <div class="panel-group" id="accordion-overview">
         <%= render 'overview' %>
         <%= render 'new_master_rakes' %>

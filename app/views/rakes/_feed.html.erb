@@ -5,8 +5,9 @@
          href="#collapse-feed">
          Feed
       </a>
+      <span class="badge"><%= @feed_leaflets.count.to_s %></span>
       <span class="pull-right">
-        <small><%= link_to "Refresh", rake_path(refresh: "yes") %></small>
+        <small><%= link_to "Refresh", rake_path(refresh: "yes"), class: "white" %></small>
       </span>
     </h5>
   </div>

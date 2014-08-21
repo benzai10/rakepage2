@@ -12,6 +12,22 @@
       <% if @rakes.empty? %>
         Tutorial here...
       <% else %>
+        <div class="col-md-6">
+          <div class="thumbnail">
+            <%= link_to new_master_rake_path, data: { 
+                        toggle: "modal",
+                        target: "#newMasterRakeModal",
+                        user: current_user.id },
+                        class: "masterrake-create" do %>
+              <div class="caption">
+                <%= image_tag("add_master_rake.png") %>
+                <div class="rake-caption">
+                  Add New Rake
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
         <% @rakes.each do |r| %>
           <div class="col-md-6">
             <div class="thumbnail">
@@ -36,3 +52,6 @@
     </div>
   </div>
 </div>
+<% if user_signed_in? %>
+  <%= render 'master_rakes/new_modal' %>
+<% end %>
