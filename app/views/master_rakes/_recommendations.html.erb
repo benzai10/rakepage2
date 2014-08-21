@@ -76,7 +76,7 @@
             <% end %>
           <% end %>
           <br>
-          <%= l.content.html_safe %>
+          <%= l.content.html_safe unless l.content == description %>
         </p>
         Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         &nbsp;|&nbsp;
