@@ -11,7 +11,7 @@
     <div class="panel-body">
       <span class="pull-right">
         <%= social_share_button_tag(@rake.name + " Recommendations", 
-                                    image: MasterRake.find(@rake.master_rake_id).image_url) %>
+                                    image: @rake.image_url) %>
       </span>
       <span class="channel-title">Recently added Channels:</span>
       <br>
