@@ -11,8 +11,8 @@
     <div class="panel-body">
       <%#= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
       <h5><small>Most active Co-Rakers</small></h5>
-      <% data = MasterRake.find(@rake.master_rake_id).get_corakers %>
-      <%= bar_chart data, { height: "120px", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
+      <%# data = MasterRake.find(@rake.master_rake_id).get_corakers %>
+      <%#= bar_chart data, { height: "120px", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
 
       <br>
       <% if !current_user.nil? %>
