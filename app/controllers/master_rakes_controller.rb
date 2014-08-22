@@ -45,15 +45,6 @@ class MasterRakesController < ApplicationController
     else
       @feed_collapse = ""
     end
-
-    #heap = @heaps.find_by_leaflet_type_id(locals[:leaflet_type_id])
-    # rake_heaps = @heaps.where(leaflet_type_id: params[:heap_type].to_i)
-    # @heap_heap_leaflets = []
-    # rake_heaps.each do |rh|
-    #   @heap_heap_leaflets << rh.leaflets
-    # end
-    # @heap_heap_leaflets.flatten!
-    # @heap_heap_leaflets.uniq!
   end
 
   def new

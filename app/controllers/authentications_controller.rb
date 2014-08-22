@@ -34,7 +34,4 @@ class AuthenticationsController < ApplicationController
     redirect_to '/auth/twitter'
   end
 
-  def show
-  end
-
 end
