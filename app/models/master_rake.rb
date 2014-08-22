@@ -55,7 +55,7 @@ class MasterRake < ActiveRecord::Base
     self.rakes.each do |r|
       leaflets = Rake.get_leaflets(r.id)
       user = User.find(r.user_id)
-      if !user.nil? && !leaflets.nil?
+      if !user.nil? || !leaflets.nil?
         data << [user.username, leaflets.count]
       end
     end
