@@ -9,6 +9,7 @@
   </div>
   <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-news">
     <div class="panel-body">
+      <%= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
       <span class="pull-right">
         <%= social_share_button_tag(@rake.name + " Recommendations",
                                     image: MasterRake.find(@rake.master_rake_id).image_url) %>
