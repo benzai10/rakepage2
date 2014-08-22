@@ -54,8 +54,9 @@ class MasterRake < ActiveRecord::Base
     data = []
     self.rakes.each do |r|
       leaflets = Rake.get_leaflets(r.id)
-      if !User.find(r.user_id).nil? && !leaflets.nil?
-        data << [User.find(r.user_id).username, leaflets.count]
+      user = User.find(r.user_id)
+      if !user.nil? && !leaflets.nil?
+        data << [user.username, leaflets.count]
       end
     end
     data.sort_by{ |x| x[1] }.reverse!
