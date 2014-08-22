@@ -50,7 +50,13 @@ class MasterRake < ActiveRecord::Base
     Rake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
   end
 
-  
+  def get_corakers
+    data = []
+    self.rakes.each do |r|
+      data << [User.find(r.user_id).username, Rake.get_leaflets(r.id).count]
+    end
+    data.sort_by{ |x| x[1] }.reverse!
+  end
 
   def get_notification
     Channel.find_by(source: "master_rake_" + self.id.to_s)

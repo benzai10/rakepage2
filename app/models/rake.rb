@@ -108,6 +108,14 @@ class Rake < ActiveRecord::Base
     self.heap.leaflets
   end
 
+  def self.get_leaflets(rake_id)
+    leaflets = []
+    self.find(rake_id).heaps.each do |h|
+      leaflets << h.leaflets
+    end
+    leaflets.flatten!
+  end
+
   def add_filter(keyword, filter_type)
     self.filters.create(keyword: keyword, filter_type: filter_type)
   end

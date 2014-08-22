@@ -10,10 +10,11 @@
   <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-news">
     <div class="panel-body">
       <%#= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
-      <span class="pull-right">
-        <%= social_share_button_tag(@rake.name + " Recommendations",
-                                    image: MasterRake.find(@rake.master_rake_id).image_url) %>
-      </span>
+      <h5><small>Most active Co-Rakers</small></h5>
+      <% data = MasterRake.find(@rake.master_rake_id).get_corakers %>
+      <%= bar_chart data, { height: "120px", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
+
+      <br>
       <% if !current_user.nil? %>
         <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + " Show Master Rake",
                       master_rake_path(@rake.master_rake_id),
@@ -25,6 +26,10 @@
                       :method => :delete,
                         class: "btn btn-default btn-xs" %>
       <% end %>
+      <span class="pull-right">
+        <%= social_share_button_tag(@rake.name + " Recommendations",
+                                    image: MasterRake.find(@rake.master_rake_id).image_url) %>
+      </span>
     </div>
   </div>
 </div>

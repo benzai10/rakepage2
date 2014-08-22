@@ -9,75 +9,11 @@
   </div>
   <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-overview">
     <div class="panel-body">
-      <span class="pull-right">
-        <%= social_share_button_tag(@rake.name + " Recommendations", 
-                                    image: @rake.image_url) %>
-      </span>
-      <span class="channel-title">Recently added Channels:</span>
-      <br>
-      <ul class="leaflet-list">
-        <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").order("created_at DESC").limit(5).each do |c| %>
-          <% if user_signed_in? && !@custom_rake.first.nil? %>
-            <% if !@custom_rake.first.channels.include? c %>
-              <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-                <span class="pull-left">
-                  <% if c.channel_type == 4 %>
-                    <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                  <% elsif c.channel_type == 3 %>
-                    <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                  <% else %>
-                    <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                    <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                  <% end %>
-                </span>
-                <div class="media-body">
-                  <h5 class="media-heading channel-heading">
-                    <% channel_name = c.name %>
-                    <% if channel_name == "Title not available." %>
-                      <% channel_name = c.source %>
-                    <% end %>
-                    <%= channel_name %>
-                    <span class="pull-right">
-                    <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
-                          add_channel_rake_path(@custom_rake.first.id, channel: c.id),
-                          title: "Add Channel to own Rake" %>
-                    </span>
-                  </h5>
-                  <p class="channel-info">
-                    <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                    <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-                    <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                  </p>
-                </div>
-              </li>
-            <% end %>
-          <% else %>
-            <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-              <span class="pull-left">
-                <% if c.channel_type == 4 %>
-                  <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                <% elsif c.channel_type == 3 %>
-                  <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                <% else %>
-                  <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                  <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                <% end %>
-              </span>
-              <div class="media-body">
-                <h5 class="media-heading channel-heading">
-                  <%= c.name %>
-                </h5>
-                <p class="channel-info">
-                    <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                    <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-                    <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                </p>
-              </div>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
+      <h5><small>Most active Co-Rakers</small></h5>
+      <% data = @rake.get_corakers %>
+      <%= bar_chart data, { height: "120px", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
 
+      <br>
       <% if user_signed_in? %>
         <% if !@custom_rake.nil? && !@custom_rake.empty? %>
           <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
@@ -104,7 +40,10 @@
                         class: "btn btn-default btn-xs" %>
         <% end %>
       <% end %>
-
+      <span class="pull-right">
+        <%= social_share_button_tag(@rake.name + " Recommendations", 
+                                    image: @rake.image_url) %>
+      </span>
     </div>
   </div>
 </div>

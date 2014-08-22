@@ -22,6 +22,9 @@ a.anchor {
   color: #4a2b88;
 }
 
+.social-share-buttons {
+}
+
 #showTutorialModal .modal-body {
   max-height: 420px;
   overflow-y: auto;
