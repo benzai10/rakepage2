@@ -53,7 +53,9 @@ class MasterRake < ActiveRecord::Base
   def get_corakers
     data = []
     self.rakes.each do |r|
-      data << [User.find(r.user_id).username, Rake.get_leaflets(r.id).count]
+      if !User.find(r.user_id).nil?
+        data << [User.find(r.user_id).username, Rake.get_leaflets(r.id).count]
+      end
     end
     data.sort_by{ |x| x[1] }.reverse!
   end
