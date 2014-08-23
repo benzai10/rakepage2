@@ -128,7 +128,15 @@ class RakesController < ApplicationController
 
   def update
     @rake = Rake.find(params[:id])
-    if params[:commit] == "Save Leaflet"
+    if params[:commit] == "Update Leaflet"
+      leaflet = Leaflet.find(params[:rake][:id])
+      heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
+                                          params[:rake][:heap_id].to_i, 
+                                          params[:rake][:id].to_i).first
+      heap_leaflet.update_attributes(leaflet_title: params[:rake][:leaflet_title], leaflet_desc: params[:rake][:leaflet_desc])
+      leaflet.update_attributes(title: params[:rake][:leaflet_title], content: params[:rake][:leaflet_desc], url: params[:rake][:leaflet_url])
+      redirect_to rake_path(@rake, saved: "yes", anchor: "leaflet-" + params[:rake][:id])
+    elsif params[:commit] == "Save Leaflet"
       leaflet = Leaflet.find(params[:rake][:leaflet_id])
       @rake.add_leaflet(leaflet, 
                         params[:rake][:leaflet_type_id],

@@ -39,6 +39,19 @@ $(function() {
         $(".leaflet-custom-title").val(leaflettitle);
     });
 
+    $(".leaflet-edit").click(function() {
+        var leafletid = $(this).data('id');
+        var leaflettitle = $(this).data('title');
+        var heapId = $(this).data('heapid');
+        var leafletdescription = $(this).data('description');
+        var leafleturl = $(this).data('url');
+        $(".leaflet-id").val(leafletid);
+        $(".leaflet-custom-title").val(leaflettitle);
+        $(".heap-id").val(heapId);
+        $(".leaflet-description").val(leafletdescription)
+        $(".leaflet-url").val(leafleturl);
+    });
+
     $(".leaflet-create").click(function() {
         var leafletTypeId = $(this).data('typeid');
         var heapId = $(this).data('heapid');
