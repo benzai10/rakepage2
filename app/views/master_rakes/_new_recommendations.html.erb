@@ -2,8 +2,12 @@
   <div class="panel-heading panel-new-recommendations">
     <h5 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion-overview" 
-         href="#collapse-new-recommendations">
-         Latest Recommendations
+        href="#collapse-new-recommendations">
+        <% if session[:rake_class] == MasterRake %>
+          Latest Recommendations
+        <% else %>
+          My Latest Recommendations
+        <% end %>
       </a>
     </h5>
   </div>
