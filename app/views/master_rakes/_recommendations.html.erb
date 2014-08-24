@@ -63,9 +63,17 @@
           <% if !heap_leaflet.nil? %>
             <% title = heap_leaflet.leaflet_title %>
             <% if !title.nil? %>
-              <%= link_to title, l.url, class: "external", value: l.id, target: "_blank" unless lt == 15 %>
+              <% if lt == 15 %>
+                <%= link_to title, l.url, class: "external", value: l.id %>
+              <% else %>
+                <%= link_to title, l.url, class: "external", value: l.id, target: "_blank" %>
+              <% end %>
             <% else %>
-              <%= link_to l.title , l.url, class: "external", value: l.id, target: "_blank" unless lt == 15 %>
+              <% if lt == 15 %>
+                <%= link_to l.title , l.url, class: "external", value: l.id %>
+              <% else %>
+                <%= link_to l.title , l.url, class: "external", value: l.id, target: "_blank" %>
+              <% end %>
             <% end %>
           <% end %>
         </span>
