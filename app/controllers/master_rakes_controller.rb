@@ -8,7 +8,7 @@ class MasterRakesController < ApplicationController
       @category = @categories.find(params[:category_id].to_i)
     end
     @new_master_rakes = @master_rakes.order(created_at: :desc).limit(13)
-    @new_leaflets = Leaflet.where("id IN (?)",
+    @new_leaflets = Leaflet.where("id IN (?) AND leaflet_type_id <> 15",
                             HeapLeafletMap.pluck(:leaflet_id)).order(created_at: :desc).limit(50)
   end
 
