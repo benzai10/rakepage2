@@ -86,7 +86,10 @@
             <% end %>
           <% end %>
           <br>
-          <%= raw l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') unless l.content == description %>
+          <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
+          <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
+          <% content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/') %>
+          <%= raw content unless l.content == description %>
         </p>
         Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         &nbsp;|&nbsp;
