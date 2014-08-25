@@ -8,7 +8,7 @@
             <%= leaflet_type_desc %>
             <small>
               <span class="badge pull-right">
-                <%= @heap_leaflets_maps.where(leaflet_type_id: lt).pluck(:leaflet_id).uniq.count.to_s %>
+                <%= @heap_leaflets_maps.where(leaflet_type_id: lt).count.to_s %>
               </span>
             </small>
           </a>
@@ -16,7 +16,7 @@
       </div>
       <div class="panel-collapse collapse" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
         <div class="panel-body">
-          <% @heap_leaflets_maps.where(leaflet_type_id: lt).order("updated_at DESC").each do |hl| %>
+          <% @heap_leaflets_maps.where(leaflet_type_id: lt).each do |hl| %>
 
     <% l = Leaflet.find(hl.leaflet_id) %>
 

@@ -98,8 +98,24 @@ class RakesController < ApplicationController
     if existing_rake.nil?
       @rake = Rake.new(rake_params)
       if @rake.save
-        MasterRake.find(@rake.master_rake_id).channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
-        MasterRake.find(@rake.master_rake_id).add_channel(@rake.channels.where(channel_type: 3).first)
+        master_rake = MasterRake.find(@rake.master_rake_id)
+        master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
+        master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
+        if params[:rake][:copy_recommendations] == "1"
+          rake_ids = master_rake.rakes.pluck(:id)
+          @heaps = Heap.where("rake_id IN (?)", rake_ids)
+          @heap_types = @heaps.pluck(:leaflet_type_id).uniq
+          heap_ids = []
+          master_rake.rakes.each do |r|
+            heap_ids << r.heaps.pluck(:id)
+          end
+          @heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
+          @heap_leaflets_maps = HeapLeafletMap.where("leaflet_id IN (?)", @heap_leaflets.map(&:id))
+          @heap_leaflets_maps.each do |hl|
+            leaflet = Leaflet.find(hl.leaflet_id)
+            @rake.add_leaflet(leaflet, leaflet.leaflet_type_id, leaflet.title, "")
+          end
+        end
         redirect_to rake_path(@rake, refresh: "yes")
       else
         flash[:error] = @rake.errors.full_messages

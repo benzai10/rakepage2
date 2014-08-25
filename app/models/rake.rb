@@ -12,6 +12,7 @@ class Rake < ActiveRecord::Base
   attr_accessor :created_by
   attr_accessor :leaflet_errors
   attr_accessor :current_user
+  attr_accessor :copy_recommendations
 
   validates :name, presence: true
   validates :master_rake_id, presence: true

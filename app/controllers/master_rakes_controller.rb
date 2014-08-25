@@ -38,8 +38,8 @@ class MasterRakesController < ApplicationController
     @rake.rakes.each do |r|
       heap_ids << r.heaps.pluck(:id)
     end
-    @heap_leaflets_maps = HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten)
-
+    @heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
+    @heap_leaflets_maps = HeapLeafletMap.where("leaflet_id IN (?)", @heap_leaflets.map(&:id))
     if params[:refresh] == "yes" || params[:saved] == "yes"
       @feed_collapse = "in"
     else
