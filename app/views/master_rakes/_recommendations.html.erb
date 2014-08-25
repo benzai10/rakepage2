@@ -86,7 +86,7 @@
             <% end %>
           <% end %>
           <br>
-          <%= l.content.html_safe unless l.content == description %>
+          <%= raw l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') unless l.content == description %>
         </p>
         Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         &nbsp;|&nbsp;
