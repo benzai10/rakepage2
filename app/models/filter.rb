@@ -1,9 +1,9 @@
 class Filter < ActiveRecord::Base
-  belongs_to :rake
+  belongs_to :myrake
 
   validates :keyword, presence: true
   validates :filter_type, presence: true
-  validates :rake_id, presence: true
+  validates :myrake_id, presence: true
 
   # Enum values
   # 0: not defined yet

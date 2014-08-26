@@ -17,11 +17,11 @@
       <% if user_signed_in? %>
         <% if !@custom_rake.nil? && !@custom_rake.empty? %>
           <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
-                      rake_path(@custom_rake.first),
+                      myrake_path(@custom_rake.first),
                       class: "btn btn-xs btn-primary" %>
         <% else %>
           <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personalized Rake",
-                      new_rake_path(master_rake_id: @rake.id),
+                      new_myrake_path(master_rake_id: @rake.id),
                                     data: { toggle: "modal",
                                             target: "#newCustomRakeModal",
                                           },
@@ -33,7 +33,7 @@
                     class: "btn btn-xs btn-primary" %>
       <% end %>
       <% if user_signed_in? %>
-        <% if @rake.created_by == current_user.id && @rake.rakes.count == 0 %>
+        <% if @rake.created_by == current_user.id && @rake.myrakes.count == 0 %>
           <%= link_to "Delete Master Rake", master_rake_path(@rake),
                         :data => { :confirm => "Are you sure?" }, 
                         :method => :delete,

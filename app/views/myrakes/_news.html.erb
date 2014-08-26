@@ -21,7 +21,7 @@
                       class: "btn btn-xs btn-primary" %>
       <% end %>
       <% if user_signed_in? && @rake.user_id == current_user.id %>
-        <%= link_to "Delete Rake", rake_path(@rake),
+        <%= link_to "Delete Rake", myrake_path(@rake),
                       :data => { :confirm => "Are you sure?" }, 
                       :method => :delete,
                         class: "btn btn-default btn-xs" %>

@@ -10,8 +10,8 @@
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
-          <% rake_ids = current_user.rakes.pluck(:id) %>
-          <% rake_array = Rake.where("id IN (?)", rake_ids).map { |rake| [rake.name, rake.master_rake.category_id] } %>
+          <% rake_ids = current_user.myrakes.pluck(:id) %>
+          <% rake_array = Myrake.where("id IN (?)", rake_ids).map { |rake| [rake.name, rake.master_rake.category_id] } %>
           <%= f.select :id, options_for_select(rake_array),
                 { label: "Choose a Rake", include_blank: "Select a Rake" } %>
           <%= f.hidden_field :name, class: "rake-name" %>

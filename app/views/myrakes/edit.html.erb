@@ -16,9 +16,9 @@
             <h5 class="media-heading channel-heading">
 
               <% if session[:displayed_channels].include?(c.id) %>
-                <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe, new_rake_path(master_rake_id: @master_rake.id, display_channel: "no", channel_id: c.id) %>
+                <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe, new_myrake_path(master_rake_id: @master_rake.id, display_channel: "no", channel_id: c.id) %>
               <% else %>
-                <%= link_to '<i class="fa fa-square-o"></i>'.html_safe, new_rake_path(master_rake_id: @master_rake.id, display_channel: "yes", channel_id: c.id) %>
+                <%= link_to '<i class="fa fa-square-o"></i>'.html_safe, new_myrake_path(master_rake_id: @master_rake.id, display_channel: "yes", channel_id: c.id) %>
               <% end %>
 
               <%= c.name %>

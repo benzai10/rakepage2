@@ -1,4 +1,4 @@
-ActiveAdmin.register Rake do
+ActiveAdmin.register Myrake do
   permit_params :name, :master_rake_id, :user_id
 
   # See permitted parameters documentation:

@@ -1,6 +1,6 @@
 class Feed < ActiveRecord::Base
 
-  belongs_to :rake
+  belongs_to :myrake
   belongs_to :leaflet
 
   # Status Values:

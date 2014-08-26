@@ -47,10 +47,10 @@
                 <!-- <i class="fa fa-check-square-o"></i> -->
                 <%# if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
                   <%#= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                              toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+                              toggle_channel_display_myrake_path(@rake, channel: c.id, display: false) %>
                 <%# else %>
                   <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                              toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+                              toggle_channel_display_myrake_path(@rake, channel: c.id, display: true) %>
                 <%# end %>
                 <% channel_name = c.name %>
                 <% if channel_name == "Title not available." %>
@@ -61,7 +61,7 @@
                   <% if user_signed_in? && !@custom_rake.first.nil? %>
                     <% if !@custom_rake.first.channels.include? c %>
                       <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
-                            add_channel_rake_path(@custom_rake.first.id, channel: c.id),
+                            add_channel_myrake_path(@custom_rake.first.id, channel: c.id),
                             title: "Add Channel to own Rake" %>
                       &nbsp;|&nbsp;
                     <% end %>

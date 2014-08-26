@@ -29,13 +29,13 @@ class MasterRakesController < ApplicationController
     end
     @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)
-    rake_ids = @rake.rakes.pluck(:id)
-    @heaps = Heap.where("rake_id IN (?)", rake_ids)
+    rake_ids = @rake.myrakes.pluck(:id)
+    @heaps = Heap.where("myrake_id IN (?)", rake_ids)
     @heap_types = @heaps.pluck(:leaflet_type_id).uniq
     params[:heap_type] ||= "News"
 
     heap_ids = []
-    @rake.rakes.each do |r|
+    @rake.myrakes.each do |r|
       heap_ids << r.heaps.pluck(:id)
     end
     @heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
@@ -60,12 +60,12 @@ class MasterRakesController < ApplicationController
     if @master_rake.check_wikipedia_url(params[:master_rake][:wikipedia_url]) != false
       if @master_rake.save
         #redirect_to master_rake_path(@master_rake)
-        @rake = Rake.new
+        @rake = Myrake.new
         @rake.master_rake_id = @master_rake.id
         @rake.user_id = current_user.id
         @rake.name = @master_rake.name
         if @rake.save
-          redirect_to rake_path(@rake, refresh: "no")
+          redirect_to myrake_path(@rake, refresh: "no")
         else
           flash[:error] = @rake.errors.full_messages
           redirect_to :back
@@ -129,7 +129,7 @@ class MasterRakesController < ApplicationController
 
 
   def add_rake
-    ids = current_user.rakes.pluck(:master_rake_id)
+    ids = current_user.myrakes.pluck(:master_rake_id)
     @master_rakes = MasterRake.where.not(id: ids)
 
     unless params[:master_rake].nil?
@@ -137,7 +137,7 @@ class MasterRakesController < ApplicationController
         m_rake = MasterRake.find(master_rake_id)
         Rake.create!(name: m_rake.name, master_rake_id: master_rake_id, user_id: current_user.id)
       end
-      redirect_to rakes_path
+      redirect_to myrakes_path
     end
   end
 

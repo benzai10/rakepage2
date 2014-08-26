@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :username, presence: true, :uniqueness => {:case_sensitive => false},
             length: { maximum: 20 }, format: { with: VALID_USERNAME_REGEX }
 
-  has_many :rakes
+  has_many :myrakes
   has_many :authentications
 
   def import_fb
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
     if webdev == true
       master_rake = MasterRake.find_by(name: "Web Development")
-      Rake.find_or_create_by!(name: master_rake.name, master_rake_id: master_rake.id, user_id: id)
+      Myrake.find_or_create_by!(name: master_rake.name, master_rake_id: master_rake.id, user_id: id)
     end
   end
 
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 
   def get_snapshot_count
     get_snapshot_count = 0
-    self.rakes.each do |r|
+    self.myrakes.each do |r|
       get_snapshot_count += r.snapshot_count
     end
     return get_snapshot_count
@@ -84,14 +84,14 @@ class User < ActiveRecord::Base
 
   def get_notifications
     #ids = []
-    #self.rakes.each do |rake|
+    #self.myrakes.each do |rake|
     #  ids << Leaflet.where(channel_id: rake.master_rake.get_notification.id).pluck(:id)
     #end
     #Leaflet.find(ids.flatten!) unless ids.empty?
   end
 
   def get_created_leaflets
-    rake_ids = self.rakes.pluck(:id)
+    rake_ids = self.myrakes.pluck(:id)
     channel_ids = Channel.where("channels.source IN (?)", rake_ids.map(&:to_s)).pluck(:id)
     Leaflet.where("leaflets.channel_id IN (?)", channel_ids.map(&:to_s)).uniq
   end
@@ -101,11 +101,11 @@ class User < ActiveRecord::Base
   end
 
   def get_save_count
-    self.rakes.map{ |rake| rake.heap.leaflets.count }.sum
+    self.myrakes.map{ |rake| rake.heap.leaflets.count }.sum
   end
 
   def get_saves
-    leaflets = self.rakes.map{ |rake| rake.heap.leaflets }.flatten
+    leaflets = self.myrakes.map{ |rake| rake.heap.leaflets }.flatten
     leaflets.inject(Hash.new(0)) { |total, e| total[e.channel.name] += 1 ;total }
   end
 

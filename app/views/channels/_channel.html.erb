@@ -20,13 +20,13 @@
         </span>
         <div class="media-body">
           <h5 class="media-heading channel-heading">
-          <% if session[:rake_class] == Rake %>
+          <% if session[:rake_class] == Myrake %>
             <% if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
               <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                          toggle_channel_display_rake_path(@rake, channel: c.id, display: false) %>
+                          toggle_channel_display_myrake_path(@rake, channel: c.id, display: false) %>
             <% else %>
               <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                          toggle_channel_display_rake_path(@rake, channel: c.id, display: true) %>
+                          toggle_channel_display_myrake_path(@rake, channel: c.id, display: true) %>
             <% end %>
           <% else %>
             <% if c.channels_master_rakes.find_by_master_rake_id(@rake.id).display %>
@@ -45,7 +45,7 @@
           <i class="fa fa-rss-square"> <%= c.source %></i>
           <% if @master_rake.nil? %>
             <span class="pull-right">
-              <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+              <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_myrake_path(@rake, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
             </span>
           <% end %>
           <p>

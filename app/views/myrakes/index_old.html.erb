@@ -4,7 +4,7 @@
   <% title "Collective Recommendation Sharing" %>
 <% end %>
 <div class="container-fluid">
-<%= render 'rakes/rakes_menu' %>
+<%= render 'myrakes/rakes_menu' %>
 <div class="row">
   <div class="col-md-3">
     <% if user_signed_in? && @rakes.first.user_id == current_user.id %>
@@ -21,7 +21,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5 class="panel-title">
-            <%= link_to "Front Page", rakes_path %>
+            <%= link_to "Front Page", myrakes_path %>
           </h5>
         </div>
         <% if @category.nil? %>
@@ -47,7 +47,7 @@
           <ul class="category-list">
             <% @categories.each do |c| %>
               <li>
-                <%= link_to c.desc, rakes_path(category_id: c.id) %>
+                <%= link_to c.desc, myrakes_path(category_id: c.id) %>
                 <small>
                   &nbsp;<%= @rakes.where("master_rake_id IN (?)", MasterRake.where(category_id: c.id).pluck(:id)).count.to_s %>
                 </small>
@@ -66,7 +66,7 @@
         <% @rakes.where("master_rake_id IN (?)", master_rake_ids).each do |r| %>
           <div class="col-md-6">
             <div class="thumbnail">
-              <%= link_to rake_path(r.id) do %>
+              <%= link_to myrake_path(r.id) do %>
                 <% master_rake = MasterRake.find(r.master_rake_id) %>
                 <div class="caption load-rake" value="<%= r.id %>">
                   <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
@@ -90,5 +90,5 @@
     <% end %>
   </div>
 </div>
-<%#= render 'rakes/social_modal' %>
+<%#= render 'myrakes/social_modal' %>
 </div>

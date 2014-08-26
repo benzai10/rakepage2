@@ -18,7 +18,7 @@ class Channel < ActiveRecord::Base
   has_many :master_rakes, through: :channels_master_rakes, dependent: :destroy
 
   has_many :rake_channel_maps, dependent: :destroy
-  has_many :rakes, through: :rake_channel_maps, dependent: :destroy
+  has_many :myrakes, through: :rake_channel_maps, dependent: :destroy
 
   scope :rss_feeds, -> { where(channel_type: 0) }
   scope :subreddits, -> { where(channel_type: 4) }

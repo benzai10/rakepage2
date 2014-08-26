@@ -1,17 +1,17 @@
-class RakesController < ApplicationController
+class MyrakesController < ApplicationController
 
   def index
     if current_user.nil?
       redirect_to master_rakes_path
       return
     end
-    session[:rake_class] = Rake
+    session[:rake_class] = Myrake
     if params[:heap] == "yes"
       session[:heap] = "yes"
     else
       session[:heap] = "no"
     end
-    @rakes = Rake.where("user_id = ?", current_user.id)
+    @rakes = Myrake.where("user_id = ?", current_user.id)
     if @rakes.empty?
       redirect_to master_rakes_path
       return
@@ -34,14 +34,14 @@ class RakesController < ApplicationController
   end
 
   def show
-    session[:rake_class] = Rake
+    session[:rake_class] = Myrake
     if params[:heap] == "yes"
       session[:heap] = "yes"
     else
       session[:heap] = "no"
     end
     params[:heap_type] ||= "News"
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
     if !@rake.heaps.pluck(:leaflet_type_id).include?(params[:heap_type].to_i)
@@ -60,7 +60,7 @@ class RakesController < ApplicationController
   end
 
   def news
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     @heap_leaflets = @rake.heap.leaflets
     @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
     session[:feed_type] = "news"
@@ -73,7 +73,7 @@ class RakesController < ApplicationController
   end
 
   def saved
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     @heap_leaflets = @rake.heap.leaflets
     @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
     session[:feed_type] = "saved"
@@ -86,7 +86,7 @@ class RakesController < ApplicationController
   end
 
   def new
-    @rake = Rake.new
+    @rake = Myrake.new
     if !params[:master_rake_id].nil?
       @master_rake = MasterRake.find_by_id(params[:master_rake_id].to_i)
       @channels = @master_rake.channels.where("channel_type <> 5")
@@ -94,19 +94,19 @@ class RakesController < ApplicationController
   end
 
   def create
-    existing_rake = Rake.where(user_id: current_user.id).find_by_master_rake_id(params[:rake][:master_rake_id].to_i)
+    existing_rake = Myrake.where(user_id: current_user.id).find_by_master_rake_id(params[:myrake][:master_rake_id].to_i)
     if existing_rake.nil?
-      @rake = Rake.new(rake_params)
+      @rake = Myrake.new(rake_params)
       if @rake.save
         master_rake = MasterRake.find(@rake.master_rake_id)
         master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
         master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
-        if params[:rake][:copy_recommendations] == "1"
-          rake_ids = master_rake.rakes.pluck(:id)
-          @heaps = Heap.where("rake_id IN (?)", rake_ids)
+        if params[:myrake][:copy_recommendations] == "1"
+          rake_ids = master_rake.myrakes.pluck(:id)
+          @heaps = Heap.where("myrake_id IN (?)", rake_ids)
           @heap_types = @heaps.pluck(:leaflet_type_id).uniq
           heap_ids = []
-          master_rake.rakes.each do |r|
+          master_rake.myrakes.each do |r|
             heap_ids << r.heaps.pluck(:id)
           end
           @heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
@@ -116,18 +116,18 @@ class RakesController < ApplicationController
             @rake.add_leaflet(leaflet, leaflet.leaflet_type_id, leaflet.title, "")
           end
         end
-        redirect_to rake_path(@rake, refresh: "yes")
+        redirect_to myrake_path(@rake, refresh: "yes")
       else
         flash[:error] = @rake.errors.full_messages
         redirect_to :back
       end
     else
-      redirect_to rake_path(existing_rake)
+      redirect_to myrake_path(existing_rake)
     end
   end
 
   def edit
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     @master_rake = MasterRake.find_by_id(@rake.master_rake_id)
     @channels = @master_rake.channels.where("channel_type <> 5")
     if session[:displayed_channels].nil? || session[:displayed_channels].empty?
@@ -143,53 +143,53 @@ class RakesController < ApplicationController
   end
 
   def update
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     if params[:commit] == "Update Leaflet"
-      leaflet = Leaflet.find(params[:rake][:id])
+      leaflet = Leaflet.find(params[:myrake][:id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
-                                          params[:rake][:heap_id].to_i, 
-                                          params[:rake][:id].to_i).first
-      heap_leaflet.update_attributes(leaflet_title: params[:rake][:leaflet_title], leaflet_desc: params[:rake][:leaflet_desc])
-      leaflet.update_attributes(title: params[:rake][:leaflet_title], content: params[:rake][:leaflet_desc], url: params[:rake][:leaflet_url])
-      redirect_to rake_path(@rake, saved: "yes", anchor: "leaflet-" + params[:rake][:id])
+                                          params[:myrake][:heap_id].to_i, 
+                                          params[:myrake][:id].to_i).first
+      heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc])
+      leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
+      redirect_to myrake_path(@rake, saved: "yes", anchor: "leaflet-" + params[:myrake][:id])
     elsif params[:commit] == "Save Leaflet"
-      leaflet = Leaflet.find(params[:rake][:leaflet_id])
+      leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       @rake.add_leaflet(leaflet, 
-                        params[:rake][:leaflet_type_id],
-                        params[:rake][:leaflet_title],
-                        params[:rake][:leaflet_desc])
+                        params[:myrake][:leaflet_type_id],
+                        params[:myrake][:leaflet_title],
+                        params[:myrake][:leaflet_desc])
       if session[:rake_class] == MasterRake
-        redirect_to master_rake_path(@rake.master_rake_id, saved: "yes", anchor: "leaflet-" + params[:rake][:leaflet_id])
+        redirect_to master_rake_path(@rake.master_rake_id, saved: "yes", anchor: "leaflet-" + params[:myrake][:leaflet_id])
       else
-        redirect_to rake_path(@rake, saved: "yes", anchor: "leaflet-" + params[:rake][:leaflet_id])
+        redirect_to myrake_path(@rake, saved: "yes", anchor: "leaflet-" + params[:myrake][:leaflet_id])
       end
     elsif params[:commit] == "Create Leaflet"
-      if @rake.create_leaflet(params[:rake][:leaflet_type_id],
-                           params[:rake][:leaflet_title],
-                           params[:rake][:leaflet_desc],
-                           params[:rake][:leaflet_url]) != false
-        redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
+      if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
+                           params[:myrake][:leaflet_title],
+                           params[:myrake][:leaflet_desc],
+                           params[:myrake][:leaflet_url]) != false
+        redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
-        redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
+        redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
       end
     elsif params[:commit] == "Add Recommendation Category"
-      @rake.add_heap(params[:rake][:leaflet_type_id])
-      redirect_to rake_path(@rake, heap_type: params[:rake][:leaflet_type_id])
+      @rake.add_heap(params[:myrake][:leaflet_type_id])
+      redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
     elsif params[:commit] == "Move Leaflet"
-      heapleaflet = HeapLeafletMap.where(heap_id: params[:rake][:heap_id].to_i).find_by_leaflet_id(params[:rake][:leaflet_id].to_i)
+      heapleaflet = HeapLeafletMap.where(heap_id: params[:myrake][:heap_id].to_i).find_by_leaflet_id(params[:myrake][:leaflet_id].to_i)
       # Check if there is an existing target heap
-      target_rake = Rake.where(user_id: current_user.id).find_by_name(params[:rake][:name])
+      target_rake = Myrake.where(user_id: current_user.id).find_by_name(params[:myrake][:name])
       target_rake_heaps = target_rake.heaps
-      if target_rake_heaps.pluck(:leaflet_type_id).include? params[:rake][:leaflet_type_id].to_i
-        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:rake][:leaflet_type_id].to_i)
-        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:rake][:leaflet_type_id].to_i)
+      if target_rake_heaps.pluck(:leaflet_type_id).include? params[:myrake][:leaflet_type_id].to_i
+        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:myrake][:leaflet_type_id].to_i)
+        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i)
       else
-        target_rake.add_heap(params[:rake][:leaflet_type_id])
-        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:rake][:leaflet_type_id].to_i)
-        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:rake][:leaflet_type_id].to_i)
+        target_rake.add_heap(params[:myrake][:leaflet_type_id])
+        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:myrake][:leaflet_type_id].to_i)
+        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i)
       end
-      redirect_to rake_path(@rake, heap_type: Heap.find(params[:rake][:heap_id].to_i).leaflet_type_id), :notice => "Leaflet moved."
+      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => "Leaflet moved."
     else
       @rake.filters.each do |f|
         f.destroy
@@ -198,47 +198,47 @@ class RakesController < ApplicationController
       filter_array.each do |f|
         @rake.add_filter(f, 1)
       end
-      redirect_to rake_path(@rake)
+      redirect_to myrake_path(@rake)
     end
   end
 
   def destroy
-    rake = Rake.find_by_id(params[:id])
+    rake = Myrake.find_by_id(params[:id])
     rake.destroy
-    redirect_to rakes_path, :notice => "Rake deleted."
+    redirect_to myrakes_path, :notice => "Rake deleted."
   end
 
   def add_channel
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     @rake.add_channel(Channel.find(params[:channel]))
-    redirect_to rake_path(@rake)
+    redirect_to myrake_path(@rake)
   end
 
   def remove_channel
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     if !params[:channel].nil?
       @channel = Channel.find(params[:channel])
       @rake.remove_channel(@channel)
       respond_to do |format|
-        format.html { redirect_to rake_path(@rake.id) }
+        format.html { redirect_to myrake_path(@rake.id) }
         format.js { render 'remove_channel' }
       end
     end
   end
 
   def toggle_channel_display
-    @rake = Rake.find(params[:id])
+    @rake = Myrake.find(params[:id])
     @channel = Channel.find(params[:channel])
     display = params[:display] == "true"
     @rake.toggle_channel_display(@channel, display)
     respond_to do |format|
-      format.html { redirect_to rake_path(rake_id: @rake.id) }
+      format.html { redirect_to myrake_path(rake_id: @rake.id) }
     end
   end
 
   protected
 
   def rake_params
-    params.require(:rake).permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters)
+    params.require(:myrake).permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters)
   end
 end

@@ -29,9 +29,9 @@
           <h5 class="panel-title">
             <% href_id = "#rake_" + r.id.to_s %>
               <% if @rake.id == r.id %>
-                <%= link_to "<i class='fa fa-leaf green'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
+                <%= link_to "<i class='fa fa-leaf green'></i>".html_safe + "  " + r.name, myrakes_path(rake_id: r.id), class: "rake_title" %>
               <% else %>
-                <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + "  " + r.name, rakes_path(rake_id: r.id), class: "rake_title" %>
+                <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + "  " + r.name, myrakes_path(rake_id: r.id), class: "rake_title" %>
               <% end %>
               <% if r.id == params[:rake_id].to_i %>
                 <span class="pull-right">
@@ -49,7 +49,7 @@
             <!-- <div class="input-group"> -->
               <!-- <input type="text" class="tokenize" value="<%#= @rake_filter %>" /> -->
               <!-- <span class="input-group-btn"> -->
-                <%#= link_to "Refresh", update_filter_rake_path(r), class: "btn btn-default" %>
+                <%#= link_to "Refresh", update_filter_myrake_path(r), class: "btn btn-default" %>
               <!-- </span> -->
             <!-- </div> -->
             <%= bootstrap_form_for(r) do |f| %>
@@ -69,14 +69,14 @@
                     <h5 class="media-heading channel-heading">
                       <% if c.rake_channel_maps.find_by_rake_id(r.id).display %>
                         <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                                    toggle_channel_display_rake_path(r, channel: c.id, display: false) %>
+                                    toggle_channel_display_myrake_path(r, channel: c.id, display: false) %>
                       <% else %>
                         <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                                    toggle_channel_display_rake_path(r, channel: c.id, display: true) %>
+                                    toggle_channel_display_myrake_path(r, channel: c.id, display: true) %>
                       <% end %>
                       <%= c.name %>
                       <span class="pull-right">
-                        <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_rake_path(r, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
+                        <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, remove_channel_myrake_path(r, channel: c.id), :data => { :confirm => "Are you sure?" }, :method => :get %>
                       </span>
                     </h5>
                     <p>

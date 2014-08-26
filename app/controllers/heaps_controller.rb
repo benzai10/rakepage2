@@ -16,7 +16,7 @@ class HeapsController < ApplicationController
     begin
       @heap.add_leaflet(leaflet, params[:leaflet_type_id])
       respond_to do |format|
-        format.html { redirect_to rake_path(@heap.rake_id) }
+        format.html { redirect_to myrake_path(@heap.myrake_id) }
         format.js
       end
     rescue ActiveRecord::RecordNotUnique
@@ -31,7 +31,7 @@ class HeapsController < ApplicationController
     begin
       @heap.remove_leaflet(@leaflet)
       respond_to do |format|
-        format.html { redirect_to rake_path(Rake.find(@heap.rake_id)), heap: "yes" }
+        format.html { redirect_to myrake_path(Myrake.find(@heap.myrake_id)), heap: "yes" }
         format.js { render 'remove_leaflet'}
       end 
     rescue ActiveRecord::RecordNotUnique
@@ -41,6 +41,6 @@ class HeapsController < ApplicationController
   end
 
   def heap_params
-    params.require(:heap).permit(:rake_id)
+    params.require(:heap).permit(:myrake_id)
   end
 end

@@ -1,5 +1,5 @@
 ActiveAdmin.register Heap do
-  permit_params :rake_id, :leaflet_ids
+  permit_params :myrake_id, :leaflet_ids
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

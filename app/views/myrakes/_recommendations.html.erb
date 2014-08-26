@@ -79,7 +79,12 @@
               <% channel_name = channel.source %>
             <% end %>
             Channel: <%= channel_name %>
-            <% heap_leaflet = HeapLeafletMap.where("leaflet_id = ?", l.id).first %>
+            <% heap_leaflet = "" %>
+            <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
+              <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
+                <% heap_leaflet = hl %>
+              <% end %>
+            <% end %>
             <span class="pull-right">
               <% if !l.published_at.nil? %>
                 <%= time_ago_in_words(l.published_at) %> ago 
@@ -94,7 +99,7 @@
           </span>
           <br>
           <span class="leaflet-title">
-            <% if !heap_leaflet.nil? %>
+            <% if heap_leaflet != "" %>
               <% title = heap_leaflet.leaflet_title %>
               <% if !title.nil? %>
                 <% if lt == 15 %>
@@ -113,13 +118,12 @@
           </span>
           <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
           <p class="feed-body">
-            <% if !heap_leaflet.nil? %>
+            <% if heap_leaflet != "" %>
               <% description = heap_leaflet.leaflet_desc %>
-              <% if !description.nil? %>
-                <%= description %>
+              <% if !description.empty? %>
+                <%= description %><br><br>
               <% end %>
             <% end %>
-            <br>
             <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
             <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
             <% content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/') %>
@@ -155,7 +159,7 @@
               </span>
             <% else %>
               <span class="feed-button">
-                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save"></i>'.html_safe, new_rake_path, 
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save"></i>'.html_safe, new_myrake_path, 
                             data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
               </span>
             <% end %>

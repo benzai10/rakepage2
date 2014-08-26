@@ -1,13 +1,13 @@
 <% title @rake.name + " Recommendations" %>
 <div class="container-fluid">
-<%= render 'rakes/rakes_menu' %>
+<%= render 'myrakes/rakes_menu' %>
 <div class="row">
   <div class="col-md-3">
     <h5>
       <small>
         <% category_id = @rake.master_rake.category_id %>
         <% if user_signed_in? && @rake.user_id == current_user.id %>
-          <%= link_to "MY RAKES", rakes_path %>
+          <%= link_to "MY RAKES", myrakes_path %>
           &nbsp;|&nbsp;<%= link_to '<i class="fa fa-arrow-right"></i> MASTER RAKES'.html_safe, master_rakes_path %>
         <% else %>
           <%= User.find(@rake.user_id).username.upcase %>'S RAKES
@@ -30,7 +30,7 @@
         <div class="panel-heading">
           <h5 class="panel-title">
             <% href_id = "#feed" %>
-            <%= link_to "News", rake_path(heap_type: "News") %>
+            <%= link_to "News", myrake_path(heap_type: "News") %>
           </h5>
         </div>
         <% if params[:heap_type] == "News" %>
@@ -61,7 +61,7 @@
                           <% if user_signed_in? && @rake.user_id == current_user.id %>
                             <span class="pull-right">
                             <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
-                                  add_channel_rake_path(@rake, channel: c.id),
+                                  add_channel_myrake_path(@rake, channel: c.id),
                                   title: "Add Channel to own Rake" %>
                             </span>
                           <% end %>
@@ -120,7 +120,7 @@
             <% @leaflet_types.each do |lt| %>
               <% leaflet_type_desc = LeafletType.find(lt).leaflet_type_desc %>
               <li>
-                <%= link_to leaflet_type_desc, rake_path(heap_type: lt) %>
+                <%= link_to leaflet_type_desc, myrake_path(heap_type: lt) %>
                 <small>
                   <% heap = @rake.heaps.find_by_leaflet_type_id(lt) %>
                   <% if !heap.nil? %>
@@ -137,17 +137,17 @@
   <div class="col-md-6">
     <% if params[:heap_type] == "News" %>
       <h5><small>
-        <%= link_to Category.find(category_id).desc.upcase, rakes_path(category_id: category_id) %>
+        <%= link_to Category.find(category_id).desc.upcase, myrakes_path(category_id: category_id) %>
         &nbsp;|&nbsp;
         <%= @rake.name.upcase %> | NEWS <%= link_to '<i class="fa fa-refresh"></i>'.html_safe,
-                                              rake_path(@rake, refresh: "yes"),
+                                              myrake_path(@rake, refresh: "yes"),
                                               title: "Refresh News Feed" %>
 
       </small></h5>
       <%= render 'feed' %>
     <% else %>
       <h5><small>
-        <%= link_to Category.find(category_id).desc.upcase, rakes_path(category_id: category_id) %>
+        <%= link_to Category.find(category_id).desc.upcase, myrakes_path(category_id: category_id) %>
         &nbsp;|&nbsp;
         <%= @rake.name.upcase %> | <%= LeafletType.find(params[:heap_type].to_i).leaflet_type_desc.upcase %>
       </small></h5>
@@ -156,12 +156,12 @@
   </div>
 </div>
 
-<%= render 'rakes/leaflet_save_modal' %>
-<%= render 'rakes/leaflet_create_modal' %>
+<%= render 'myrakes/leaflet_save_modal' %>
+<%= render 'myrakes/leaflet_create_modal' %>
 <% if user_signed_in? %>
-  <%= render 'rakes/leaflet_move_modal' %>
+  <%= render 'myrakes/leaflet_move_modal' %>
 <% end %>
-<%= render 'rakes/heap_add_modal' %>
+<%= render 'myrakes/heap_add_modal' %>
 <%#= render 'rakes/social_modal' %>
 <%= render 'new_rake_modal' %>
 </div>

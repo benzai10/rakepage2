@@ -45,7 +45,7 @@ Rakepage2::Application.routes.draw do
     end
   end
 
-  resources :rakes do
+  resources :myrakes do
     member do
       get 'add_channel'
       get 'remove_channel'

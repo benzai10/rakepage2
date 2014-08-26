@@ -1,7 +1,7 @@
 <div class="col-md-4">
   <h3>
     Heap
-    <% if user_signed_in? && session[:rake_class] == Rake %>
+    <% if user_signed_in? && session[:rake_class] == Myrake %>
       <small>
         <%= link_to '<i class="fa fa-plus"></i>'.html_safe, new_leaflet_path(rake_id: params[:id]) %>
       </small>

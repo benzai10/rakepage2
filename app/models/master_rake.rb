@@ -12,7 +12,7 @@ class MasterRake < ActiveRecord::Base
   has_many :channels_master_rakes, dependent: :destroy
   has_many :channels, through: :channels_master_rakes, dependent: :destroy
 
-  has_many :rakes
+  has_many :myrakes
   #has_one :category
 
   def add_channel(channel)
@@ -47,13 +47,13 @@ class MasterRake < ActiveRecord::Base
   end
 
   def existing_custom_rakes(user)
-    Rake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
+    Myrake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
   end
 
   def get_corakers
     data = []
-    self.rakes.each do |r|
-      leaflets = Rake.get_leaflets(r.id)
+    self.myrakes.each do |r|
+      leaflets = Myrake.get_leaflets(r.id)
       user = User.where(id: r.user_id)
       if user.count > 0 && !leaflets.nil?
         data << [user.first.username, leaflets.count]

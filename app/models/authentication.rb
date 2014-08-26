@@ -34,12 +34,12 @@ class Authentication < ActiveRecord::Base
   end
 
   def create_rake
-    rake = Rake.create!(name: provider, user_id: user.id, master_rake_id: MasterRake.find_by(name: provider.humanize + " Import").id)
+    rake = Myrake.create!(name: provider, user_id: user.id, master_rake_id: MasterRake.find_by(name: provider.humanize + " Import").id)
     rake.add_channel(Channel.find_by(source: uid.to_s))
   end
 
   def delete_rake
-    RakeChannelMap.find_by(channel_id: Channel.find_by!(source: uid.to_s)).rake.destroy
+    RakeChannelMap.find_by(channel_id: Channel.find_by!(source: uid.to_s)).myrake.destroy
     delete_channel
   end
 

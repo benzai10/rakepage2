@@ -3,14 +3,14 @@
     <% if session[:feed_type] == "news" || session[:feed_type].nil? %>
       <span class="feed-type-active">Feed</span>
     <% else %>
-      <span class="feed-type-inactive"><%= link_to "Feed", news_rake_path(@rake) %></span>
+      <span class="feed-type-inactive"><%= link_to "Feed", news_myrake_path(@rake) %></span>
     <% end %>
     <small>
       <%= link_to "<i class='fa fa-refresh'></i>".html_safe, refresh_feed_channel_path(@rake, feed_type: "news"), id: "refresh-link" %>
     </small>
     |
     <% if session[:feed_type] == "news" || session[:feed_type].nil? %>
-      <span class="feed-type-inactive"><%= link_to "Saved", saved_rake_path(@rake) %></span>
+      <span class="feed-type-inactive"><%= link_to "Saved", saved_myrake_path(@rake) %></span>
     <% else %>
       <span class="feed-type-active">Saved</span>
     <% end %>
@@ -37,7 +37,7 @@
               <% else %>
                 <%= time_ago_in_words(l.created_at) %> ago 
               <% end %>
-              <% if session[:rake_class] == Rake %>
+              <% if session[:rake_class] == Myrake %>
                 <% if @rake.user_id == current_user.id %>
                   <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
                     <% if @rake.heap.leaflets.include? l %>

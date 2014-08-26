@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620061639) do
+ActiveRecord::Schema.define(version: 20140826110047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20140620061639) do
   create_table "filters", force: true do |t|
     t.string   "keyword"
     t.integer  "filter_type"
-    t.integer  "rake_id"
+    t.integer  "myrake_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20140620061639) do
   add_index "heap_leaflet_maps", ["heap_id", "leaflet_id"], name: "index_heap_leaflet_maps_on_heap_id_and_leaflet_id", unique: true, using: :btree
 
   create_table "heaps", force: true do |t|
-    t.integer  "rake_id"
+    t.integer  "myrake_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "leaflet_type_id", default: 0
@@ -171,6 +171,21 @@ ActiveRecord::Schema.define(version: 20140620061639) do
 
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree
 
+  create_table "master_heap_leaflet_maps", force: true do |t|
+    t.integer  "master_heap_id"
+    t.integer  "leaflet_id"
+    t.text     "leaflet_desc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "master_heaps", force: true do |t|
+    t.integer  "master_rake_id"
+    t.integer  "leaflet_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "master_rakes", force: true do |t|
     t.string   "name",                      default: "", null: false
     t.datetime "created_at"
@@ -185,20 +200,7 @@ ActiveRecord::Schema.define(version: 20140620061639) do
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree
 
-  create_table "rake_channel_maps", force: true do |t|
-    t.integer  "channel_id"
-    t.integer  "rake_id"
-    t.string   "options",    default: "",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "display",    default: true
-  end
-
-  add_index "rake_channel_maps", ["channel_id"], name: "index_rake_channel_maps_on_channel_id", using: :btree
-  add_index "rake_channel_maps", ["rake_id", "channel_id"], name: "index_rake_channel_maps_on_rake_id_and_channel_id", unique: true, using: :btree
-  add_index "rake_channel_maps", ["rake_id"], name: "index_rake_channel_maps_on_rake_id", using: :btree
-
-  create_table "rakes", force: true do |t|
+  create_table "myrakes", force: true do |t|
     t.string   "name",               default: "", null: false
     t.integer  "master_rake_id"
     t.datetime "created_at"
@@ -208,6 +210,19 @@ ActiveRecord::Schema.define(version: 20140620061639) do
     t.integer  "snapshot_count",     default: 0
     t.datetime "saved_refreshed_at"
   end
+
+  create_table "rake_channel_maps", force: true do |t|
+    t.integer  "channel_id"
+    t.integer  "myrake_id"
+    t.string   "options",    default: "",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "display",    default: true
+  end
+
+  add_index "rake_channel_maps", ["channel_id"], name: "index_rake_channel_maps_on_channel_id", using: :btree
+  add_index "rake_channel_maps", ["myrake_id", "channel_id"], name: "index_rake_channel_maps_on_myrake_id_and_channel_id", unique: true, using: :btree
+  add_index "rake_channel_maps", ["myrake_id"], name: "index_rake_channel_maps_on_myrake_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

@@ -1,4 +1,4 @@
-class Rake < ActiveRecord::Base
+class Myrake < ActiveRecord::Base
   after_create :create_channel #, :inherit_channels
   attr_accessor :feed_leaflets
   attr_accessor :rake_filters
@@ -102,7 +102,7 @@ class Rake < ActiveRecord::Base
   end
 
   def add_heap(leaflet_type_id)
-    self.heaps.create(rake_id: self.id, leaflet_type_id: leaflet_type_id)
+    self.heaps.create(myrake_id: self.id, leaflet_type_id: leaflet_type_id)
   end
 
   def get_heap

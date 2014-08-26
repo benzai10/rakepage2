@@ -1,9 +1,9 @@
 class Heap < ActiveRecord::Base
   attr_accessor :leaflet_id
 
-  validates :rake_id, presence: true
+  validates :myrake_id, presence: true
 
-  belongs_to :rake
+  belongs_to :myrake
 
   has_many :heap_leaflet_maps, dependent: :destroy
   has_many :leaflets, through: :heap_leaflet_maps, dependent: :destroy

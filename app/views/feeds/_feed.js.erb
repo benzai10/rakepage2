@@ -14,7 +14,7 @@
             <% else %>
               <%= time_ago_in_words(l.created_at) %> ago 
             <% end %>
-            <% if session[:rake_class] == Rake %>
+            <% if session[:rake_class] == Myrake %>
               <% if @rake.user_id == current_user.id %>
                 <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
                   <% if @rake.heap.leaflets.include? l %>

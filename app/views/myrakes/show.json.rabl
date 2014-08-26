@@ -13,4 +13,4 @@ child :feed_leaflets do
   attributes :id, :title, :content, :published_at
 end
 
-#extends "rakes/show"
+#extends "myrakes/show"

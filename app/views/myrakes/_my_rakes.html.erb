@@ -31,7 +31,7 @@
         <% @rakes.each do |r| %>
           <div class="col-md-6">
             <div class="thumbnail">
-              <%= link_to rake_path(r.id, refresh: "no") do %>
+              <%= link_to myrake_path(r.id, refresh: "no") do %>
                 <% master_rake = MasterRake.find(r.master_rake_id) %>
                 <div class="caption load-rake" value="<%= r.id %>">
                   <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>

@@ -6,15 +6,15 @@ class LeafletsController < ApplicationController
 
   def new
     @leaflet = Leaflet.new
-    @channel_id = Rake.find(params[:rake_id]).channels.where("channel_type = 3").first.id
+    @channel_id = Myrake.find(params[:rake_id]).channels.where("channel_type = 3").first.id
   end
 
   def create
     @leaflet = Leaflet.new(leaflet_params)
     if @leaflet.save
-      rake = Rake.find(params[:leaflet][:rake_id])
+      rake = Myrake.find(params[:leaflet][:rake_id])
       rake.heap.add_leaflet(@leaflet)
-      redirect_to rake_path(rake)
+      redirect_to myrake_path(rake)
     else
       flash[:error] = @leaflet.errors.full_messages
       redirect_to :back
