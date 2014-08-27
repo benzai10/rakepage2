@@ -35,8 +35,10 @@ $(function() {
     $(".leaflet-save").click(function() {
         var leafletid = $(this).data('id');
         var leaflettitle = $(this).data('title');
+        var collapse = $(this).data('collapse');
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
+        $(".collapse-section").val(collapse);
     });
 
     $(".leaflet-edit").click(function() {

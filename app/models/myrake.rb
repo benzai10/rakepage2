@@ -13,6 +13,7 @@ class Myrake < ActiveRecord::Base
   attr_accessor :leaflet_errors
   attr_accessor :current_user
   attr_accessor :copy_recommendations
+  attr_accessor :collapse
 
   validates :name, presence: true
   validates :master_rake_id, presence: true

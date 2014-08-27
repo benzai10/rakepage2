@@ -14,7 +14,7 @@
           </a>
         </h5>
       </div>
-      <div class="panel-collapse collapse" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
+      <div class="panel-collapse collapse <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
         <div class="panel-body">
           <% h.leaflets.order("created_at DESC").each do |l| %>
             <ul id="feed-list" class="leaflet-list">
@@ -101,8 +101,14 @@
                             <% if user_heap_leaflet_ids.include? l.id %>
                               <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-star"></i>'.html_safe, '#' %>
                             <% else %>
-                              <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, add_leaflet_myrake_path(user_rake), 
-                                          data: { toggle: "modal", target: "#saveLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                              <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, 
+                                    add_leaflet_myrake_path(user_rake), 
+                                    data: { toggle: "modal",
+                                            target: "#saveLeafletModal",
+                                            id: l.id,
+                                            title: l.title,
+                                            collapse: "heap_" + "#{h.leaflet_type_id}" },
+                                    class: "leaflet-save" %>
                             <% end %>
                           <% else %>
                             <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe,
