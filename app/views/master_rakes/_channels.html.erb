@@ -4,9 +4,8 @@
       <a data-toggle="collapse" data-parent="#accordion-show"
           href="#collapse-channels">
         Channels
-        <small>
-        </small>
       </a>
+      <span class="badge pull-right"><%= @rake.channels.where("channel_type <> 3 AND channel_type <> 5").count.to_s %></span>
     </h5>
   </div>
   <div class="panel-collapse collapse" id="collapse-channels">
@@ -60,17 +59,17 @@
                 <span class="pull-right">
                   <% if user_signed_in? && !@custom_rake.first.nil? %>
                     <% if !@custom_rake.first.channels.include? c %>
-                      <%= link_to '<i class="fa fa-plus"></i>'.html_safe,
+                      <%= link_to "Add",
                             add_channel_myrake_path(@custom_rake.first.id, channel: c.id),
-                            title: "Add Channel to own Rake" %>
-                      &nbsp;|&nbsp;
+                            class: "btn btn-xs btn-default", title: "Add Channel to own Rake" %>
                     <% end %>
                   <% end %>
                   <% if !current_user.nil? && current_user.admin? %>
-                    <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe,
+                    &nbsp;|&nbsp;
+                    <%= link_to "Delete",
                                 remove_channel_master_rake_path(@rake, channel: c.id),
                                 :data => { :confirm => "Are you sure?" },
-                                :method => :get %>
+                                :method => :get, class: "btn btn-xs btn-default" %>
                   <% end %>
                 </span>
               </h5>
