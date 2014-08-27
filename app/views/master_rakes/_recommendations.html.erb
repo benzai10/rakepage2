@@ -16,7 +16,7 @@
       </div>
       <div class="panel-collapse collapse" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
         <div class="panel-body">
-          <% h.leaflets.each do |l| %>
+          <% h.leaflets.order("created_at DESC").each do |l| %>
             <ul id="feed-list" class="leaflet-list">
                 <% channel = Channel.find(l.channel_id) %>
                 <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
