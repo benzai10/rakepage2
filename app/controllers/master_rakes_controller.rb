@@ -9,7 +9,7 @@ class MasterRakesController < ApplicationController
     end
     @new_master_rakes = @master_rakes.order(created_at: :desc).limit(13)
     @new_leaflets = Leaflet.where("id IN (?) AND leaflet_type_id <> 15",
-                            HeapLeafletMap.pluck(:leaflet_id)).order(created_at: :desc).limit(50)
+                            MasterHeapLeafletMap.pluck(:leaflet_id)).order(created_at: :desc).limit(50)
   end
 
   def show
@@ -28,18 +28,19 @@ class MasterRakesController < ApplicationController
       end
     end
     @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
-    @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)
-    rake_ids = @rake.myrakes.pluck(:id)
-    @heaps = Heap.where("myrake_id IN (?)", rake_ids)
-    @heap_types = @heaps.pluck(:leaflet_type_id).uniq
-    params[:heap_type] ||= "News"
+    #@leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)
+    #rake_ids = @rake.myrakes.pluck(:id)
+    #@heaps = Heap.where("myrake_id IN (?)", rake_ids)
+    #@heap_types = @heaps.pluck(:leaflet_type_id).uniq
+    #params[:heap_type] ||= "News"
 
-    heap_ids = []
-    @rake.myrakes.each do |r|
-      heap_ids << r.heaps.pluck(:id)
-    end
-    @heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
-    @heap_leaflets_maps = HeapLeafletMap.where("leaflet_id IN (?)", @heap_leaflets.map(&:id))
+    #heap_ids = []
+    #@rake.myrakes.each do |r|
+    #  heap_ids << r.heaps.pluck(:id)
+    #end
+    #@heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
+    #@heap_leaflets_maps = HeapLeafletMap.where("leaflet_id IN (?)", @heap_leaflets.map(&:id))
+    @heaps = @rake.master_heaps
     if params[:refresh] == "yes" || params[:saved] == "yes"
       @feed_collapse = "in"
     else

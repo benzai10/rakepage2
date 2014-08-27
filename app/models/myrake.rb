@@ -82,6 +82,10 @@ class Myrake < ActiveRecord::Base
       self.add_heap(leaflet_type_id)
     end
     self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+    master_heap = MasterHeap.where(master_rake_id: self.master_rake_id, leaflet_type_id: leaflet_type_id)
+    if !master_heap.nil?
+      MasterHeapLeafletMap.create(master_heap_id: self.master_rake_id, leaflet_id: leaflet.id, leaflet_desc: leaflet_desc)
+    end
   end
 
   def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url)

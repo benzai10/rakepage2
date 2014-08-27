@@ -20,10 +20,17 @@ class Heap < ActiveRecord::Base
 
   def remove_leaflet(leaflet)
     self.heap_leaflet_maps.find_by(leaflet_id: leaflet.id).destroy
-    #if self.heap_leaflet_maps.empty?
-    #  self.destroy
-    #end
-    Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count-1, delete_count: leaflet.delete_count+1)
+    leaflet = Leaflet.find(leaflet.id)
+    leaflet.update!(save_count: leaflet.save_count-1, delete_count: leaflet.delete_count+1)
+    if leaflet.save_count == 0
+      master_heap = self.myrake.master_rake.master_heaps.where(leaflet_type_id: self.leaflet_type_id).first
+      if !master_heap.nil?
+        leaflet_map = MasterHeapLeafletMap.where(master_heap_id: master_heap.id, leaflet_id: leaflet.id).first
+        if !leaflet_map.nil?
+          leaflet_map.destroy
+        end
+      end
+    end
   end
 
   def move_leaflet(leaflet, rake, heap)

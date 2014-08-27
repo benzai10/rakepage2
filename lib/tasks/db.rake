@@ -22,8 +22,8 @@ namespace :rakepage_migration do
     duplicates = 0
     HeapLeafletMap.all.each do |hlm|
       master_heap = MasterHeap.where(master_rake_id: hlm.heap.myrake.master_rake_id, 
-                                     leaflet_type_id: hlm.leaflet_type_id)
-      if !master_heap.empty?
+                                     leaflet_type_id: hlm.leaflet_type_id).first
+      if !master_heap.nil?
         begin
           MasterHeapLeafletMap.create!(master_heap_id: master_heap.id, 
                                       leaflet_id: hlm.leaflet_id, 
@@ -33,7 +33,7 @@ namespace :rakepage_migration do
           duplicates += 1
         end
       else
-        print "Master rake " + hlm.heap.myrake.master_rake_id.to_s + " with leaflet_type_id " + hlm.leaflet_type_id.to_s + " couldn't be found.\n"
+        print "HeapLeafletMap id: " + hlm.id.to_s + " with leaflet_type_id " + hlm.leaflet_type_id.to_s + " couldn't be found or processed.\n"
       end
     end
     print "Successfully processed HeapLeafletMap records: " + processed.to_s + "\n"
