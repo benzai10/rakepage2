@@ -90,12 +90,24 @@
                     <span class="feed-button">
                       <% if user_signed_in? %>
                         <% if @rake.user_id == current_user.id %>
-                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, add_leaflet_myrake_path(@rake), 
-                                      data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe,
+                                      add_leaflet_myrake_path(@rake),
+                                      data: { toggle: "modal",
+                                              target: "#myModal",
+                                              id: l.id,
+                                              title: l.title,
+                                              collapse: "feed" },
+                                      class: "leaflet-save" %>
                         <% else %>
                           <% if !@other_user_rake.nil? %>
-                            <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, add_leaflet_myrake_path(@other_user_rake), 
-                                        data: { toggle: "modal", target: "#myModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                            <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe,
+                                      add_leaflet_myrake_path(@other_user_rake),
+                                      data: { toggle: "modal",
+                                              target: "#myModal",
+                                              id: l.id,
+                                              title: l.title,
+                                              collapse: "feed" },
+                                      class: "leaflet-save" %>
                           <% else %>
                             <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, new_myrake_path, 
                                         data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
