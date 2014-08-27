@@ -21,8 +21,10 @@
     <% if !flash.empty? %>
       <%= render 'shared/flash_message' %>
     <% end %>
-    <div class="panel-group" id="accordion-show">
+    <div class="panel-group" id="accordion-main">
       <%= render 'news' %>
+    </div>
+    <div class="panel-group" id="accordion-show">
       <%= render 'feed' %>
       <%= render 'channels' %>
       <%= render 'recommendations' %>

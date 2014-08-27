@@ -1,18 +1,14 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-show" 
-         href="#collapse-overview">
-         Overview
-      </a>
+      Overview
     </h5>
   </div>
-  <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-overview">
+  <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
       <h5><small>Most active Co-Rakers</small></h5>
       <% data = @rake.get_corakers.first(5) %>
       <%= bar_chart data, { height: "#{data.count*40}px", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
-
       <br>
       <% if user_signed_in? %>
         <% if !@custom_rake.nil? && !@custom_rake.empty? %>

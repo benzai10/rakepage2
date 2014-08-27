@@ -65,7 +65,6 @@
                     <% end %>
                   <% end %>
                   <% if !current_user.nil? && current_user.admin? %>
-                    &nbsp;|&nbsp;
                     <%= link_to "Delete",
                                 remove_channel_master_rake_path(@rake, channel: c.id),
                                 :data => { :confirm => "Are you sure?" },

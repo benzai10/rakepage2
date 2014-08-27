@@ -1,13 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-show" 
-         href="#collapse-news">
-         Dashboard
-      </a>
+      Dashboard
     </h5>
   </div>
-  <div class="panel-collapse collapse <%= 'in' if params[:refresh] != 'yes' %>" id="collapse-news">
+  <div class="panel-collapse collapse in" id="collapse-news">
     <div class="panel-body">
       <%#= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
       <h5><small>Most active Co-Rakers</small></h5>

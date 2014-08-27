@@ -17,6 +17,10 @@ a.anchor {
   visibility: hidden;
 }
 
+.chartkick-barchart {
+  height: 100px;
+}
+
 .badge {
   background-color: white;
   color: #4a2b88;
