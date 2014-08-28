@@ -1,0 +1,27 @@
+<!-- Modal -->
+<div class="modal fade in" id="infoCreateRakeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">No Rakes yet!</h4>
+      </div>
+      <div class="modal-body">
+
+        <h4>Save recommendations</h4>
+        <p>
+          In order to save recommendations, you first need to create a recommendation rake. You can create a completely new one or you can personalize one from the existing recommendation rakes. Please come back to save the recommendation!
+        </p>
+        <p>
+          <%= link_to "Go to existing recommendation rakes", master_rakes_path %>
+        </p>
+        <p>
+         Happy Raking!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

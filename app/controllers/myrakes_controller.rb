@@ -29,8 +29,9 @@ class MyrakesController < ApplicationController
       heap_ids << r.heaps.pluck(:id)
     end
     heap_ids = heap_ids.flatten
-    @new_leaflets = Leaflet.where("id IN (?) AND leaflet_type_id <> 15",
-                            HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)).order(created_at: :desc).limit(50)
+    @new_leaflets = HeapLeafletMap.where("heap_id IN (?)", heap_ids).order(created_at: :desc).limit(50)
+    #@new_leaflets = Leaflet.where("id IN (?) AND leaflet_type_id <> 15",
+    #                        HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)).order(created_at: :desc).limit(50)
   end
 
   def show
@@ -51,7 +52,7 @@ class MyrakesController < ApplicationController
     @heap_ids = @heaps.pluck(:id)
     @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
     @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
-    @rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
+    #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     @feed_collapse = params[:collapse] == "feed" ? "in" : ""
   end
 

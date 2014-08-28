@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  attr_accessor :rake
+  attr_accessor :rake_name
+  attr_accessor :rake_id
+  attr_accessor :leaflet_id
+  attr_accessor :leaflet_type_id
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

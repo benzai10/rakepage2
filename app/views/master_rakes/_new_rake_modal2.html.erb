@@ -1,0 +1,27 @@
+<!-- Modal -->
+<div class="modal fade" id="newCustomRakeModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New Personalized Rake</h4>
+      </div>
+      <%= bootstrap_form_for(current_user) do |f| %>
+        <div class="modal-body">
+          <h3>My <%= @master_rakes.first.name %> recommendations</h3>
+          <%= f.hidden_field :name, value: @rake.name %>
+          <p>
+            Existing recommendations will be copied to your personalized rake. If you want to start your recommendation rake from scratch, please uncheck the box below.
+          </p>
+          <%= f.check_box :copy_recommendations, checked: true %>
+          <%= f.hidden_field :master_rake_id, label: "Copy existing recommendations", value: @rake.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

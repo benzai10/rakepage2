@@ -1,0 +1,186 @@
+<% @leaflet_types.each do |lt| %>
+  <% if @heaps.pluck(:leaflet_type_id).include? lt %>
+    <% heap = @heaps.find_by_leaflet_type_id(lt) %>
+  <% end %>
+
+  <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lt).leaflet_type_desc %>
+    <div class="panel panel-default">
+      <div class="panel-heading panel-recommendations">
+        <h5 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion-<%= leaflet_type_desc.gsub(/\W/, "") %>"
+              href="#collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
+            <%= leaflet_type_desc %>
+            <small>
+              <% if !heap.nil? %>
+                <span class="pull-right badge"><%= heap.leaflets.count.to_s %></span>
+              <% end %>
+            </small>
+          </a>
+        </h5>
+      </div>
+      <div class="panel-collapse collapse" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
+        <div class="panel-body">
+
+          <% if user_signed_in? && @rake.user_id == current_user.id %>
+            <% if lt != 15 %>
+              <%= link_to "Add recommendation", new_leaflet_path, 
+                          data: {
+                            toggle: "modal",
+                            target: "#newLeafletModal",
+                            heapid: @rake.heaps.find_by_leaflet_type_id(lt),
+                            typeid: lt
+                          },
+                          class: "btn btn-xs btn-primary leaflet-create" %>
+            <% else %>
+              <% if current_user.admin? %>
+                <%= link_to "Add recommendation", new_leaflet_path, 
+                            data: {
+                              toggle: "modal",
+                              target: "#newLeafletModal",
+                              heapid: @rake.heaps.find_by_leaflet_type_id(lt),
+                              typeid: lt
+                            },
+                            class: "btn btn-xs btn-primary leaflet-create" %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% if lt != 15 %>
+              <%= link_to "Add recommendation", new_user_session_path, class: "btn btn-xs btn-primary" %>
+            <% end %>
+          <% end %>
+
+          <hr>
+
+
+<% if @heaps.pluck(:leaflet_type_id).include? lt %>
+  <ul id="feed-list" class="leaflet-list">
+    <% heap.leaflets.order("published_at DESC").each do |l| %>
+      <% channel = Channel.find(l.channel_id) %>
+      <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
+        <% if channel.channel_type == 4 %>
+          <% reddit_link = "http://reddit.com/" + l.identifier %>
+        <% else %>
+          <% reddit_link = "#" %>
+        <% end %>
+        <a class="pull-left" href=<%= reddit_link %> target="_blank">
+          <% if channel.channel_type == 4 %>
+            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
+          <% elsif channel.channel_type == 3 %>
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
+          <% else %>
+            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+          <% end %>
+        </a>
+        <div class="media-body">
+          <span class="feed-timestamp">
+            <% channel_name = channel.name %>
+            <% if channel_name == "Title not available." %>
+              <% channel_name = channel.source %>
+            <% end %>
+            Channel: <%= channel_name %>
+            <% heap_leaflet = "" %>
+            <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
+              <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
+                <% heap_leaflet = hl %>
+              <% end %>
+            <% end %>
+            <% if !l.created_by.nil? %>
+              &nbsp;|&nbsp;
+              added by <%= User.find(l.created_by).username %>
+            <% end %>
+            <span class="pull-right">
+              <% if !l.published_at.nil? %>
+                <%= time_ago_in_words(l.published_at) %> ago 
+              <% else %>
+                <%= time_ago_in_words(l.created_at) %> ago 
+              <% end %>
+              <%#= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
+                    remove_leaflet_heap_path(heap, leaflet_id: l.id),
+                    :data => { :confirm => "Are you sure?" },
+                    :method => :get, remote: true %>
+            </span>
+          </span>
+          <br>
+          <span class="leaflet-title">
+            <% if heap_leaflet != "" %>
+              <% title = heap_leaflet.leaflet_title %>
+              <% if !title.nil? %>
+                <% if lt == 15 %>
+                  <%= link_to title, l.url, class: "external", value: l.id %>
+                <% else %>
+                  <%= link_to title, l.url, class: "external", value: l.id, target: "_blank" %>
+                <% end %>
+              <% else %>
+                <% if lt == 15 %>
+                  <%= link_to title, l.url, class: "external", value: l.id %>
+                <% else %>
+                  <%= link_to title, l.url, class: "external", value: l.id, target: "_blank" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </span>
+          <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
+          <p class="feed-body">
+            <% if heap_leaflet != "" %>
+              <% description = heap_leaflet.leaflet_desc %>
+              <% if !description.empty? %>
+                <%= description %><br><br>
+              <% end %>
+            <% end %>
+            <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
+            <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
+            <% content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/') %>
+            <%= raw content unless l.content == description %>
+          </p>
+          Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+          &nbsp;|&nbsp;
+          Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+          &nbsp;|&nbsp;
+          Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+          <span class="pull-right">
+
+          <% if user_signed_in? %>
+            <% if @rake.user_id == current_user.id %>
+              <% if l.identifier.nil? %>
+                <% modalType = "#editLeafletModal" %>
+              <% else %>
+                <% modalType = "#editRestrictedLeafletModal" %>
+              <% end %>
+              <span class="feed-button">
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i>'.html_safe, "#", data: { toggle: "modal", target: "#{modalType}", id: l.id, heapid: heap.id, title: l.title, content: l.content, description: description, url: l.url, access: "full" }, :method => :put, :action => :update, remote: true, class: "leaflet-edit" %>
+              </span>
+              &nbsp;
+              <span class="feed-button">
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-long-arrow-right" data-toggle="tooltip" data-placement="top" title="Move"></i>'.html_safe, "#", data: { toggle: "modal", target: "#moveLeafletModal", id: l.id, heapid: heap.id, title: l.title }, :method => :put, :action => :update, remote: true, class: "leaflet-move" %>
+              </span>
+              &nbsp;
+              <span class="feed-button">
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete"></i>'.html_safe, 
+                      remove_leaflet_heap_path(heap, leaflet_id: l.id),
+                      :data => { :confirm => "Are you sure?" },
+                      :method => :get, remote: true %>
+              </span>
+            <% else %>
+              <span class="feed-button">
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save"></i>'.html_safe, new_myrake_path, 
+                            data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+              </span>
+            <% end %>
+          <% end %>
+          &nbsp;
+          </span>
+        </div>
+        <hr>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+
+
+        </div>
+      </div>
+    </div>
+<% end %>

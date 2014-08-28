@@ -68,7 +68,23 @@ $(function() {
         $(".heap-id").val(heapId);
     });
 
+    $(".leaflet-master-save").click(function() {
+        var leafletid = $(this).data('id');
+        $(".leaflet-id").val(leafletid);
+    });
+
+
     $(".masterrake-create").click(function() {
+        var categoryId = $(this).data('category');
+        var userId = $(this).data('user');
+        $(".category-id").val(categoryId);
+        $(".created-by").val(userId);
+        if (categoryId != "none") {
+            $(".category-select").hide();
+        }
+    });
+
+    $(".rake-create").click(function() {
         var categoryId = $(this).data('category');
         var userId = $(this).data('user');
         $(".category-id").val(categoryId);

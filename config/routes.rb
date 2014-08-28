@@ -10,6 +10,12 @@ Rakepage2::Application.routes.draw do
 
   resources :pages
 
+  resources :users do
+    member do
+      get 'save_leaflet'
+    end
+  end
+
   resources :channels do
     member do
       get 'refresh_feed'

@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="saveLeafletModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Save Leaflet</h4>
+      </div>
+      <%= bootstrap_form_for(current_user) do |f| %>
+        <div class="modal-body">
+          <% rake_ids = current_user.myrakes.pluck(:id) %>
+          <% rake_array = Myrake.where("id IN (?)", rake_ids).map { |rake| [rake.name, rake.master_rake.category_id,] } %>
+          <%= f.select :rake_name, options_for_select(rake_array),
+                { label: "Choose a Rake", include_blank: "Select a Rake" }, id: "myrake_id" %>
+          <%= f.hidden_field :rake_name, class: "rake-name" %>
+          <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
+          <% category_array = Category.pluck(:id, :desc) %>
+          <% category_array.map! { |category| [category[0], CategoryLeafletTypeMap.where(category_id: category[0]).pluck(:leaflet_type_id).map { |leaflet_type| [LeafletType.find(leaflet_type).leaflet_type_desc, leaflet_type] }] } %>
+          <%= f.select :leaflet_type_id, grouped_options_for_select(category_array), {}, id: "leaflet-type-id" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Save Leaflet", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
