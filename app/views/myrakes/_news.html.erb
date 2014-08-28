@@ -6,6 +6,9 @@
   </div>
   <div class="panel-collapse collapse in" id="collapse-news">
     <div class="panel-body">
+      <% if !flash.empty? %>
+        <%= render 'shared/flash_message' %>
+      <% end %>
       <%#= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
       <h5><small>Most active Co-Rakers</small></h5>
       <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>

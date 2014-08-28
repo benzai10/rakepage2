@@ -1,5 +1,9 @@
-<div class="alert alert-warning alert-dismissable">
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
   <% flash.each do |key, value| %>
-    <%= content_tag :div, value, class: "flash #{key}" %>
+    <strong><%= content_tag :div, value, class: "flash #{key}" %></strong>
   <% end %>
 </div>
