@@ -46,7 +46,7 @@ module FeedHelper
         count += 1
         p "***Connection failed***" + url
 
-      retry unless count > 30
+      retry unless count > 80
         p DEBUG_MSG_ABORT + url
         @@logger.debug DEBUG_MSG_ABORT + url
 
