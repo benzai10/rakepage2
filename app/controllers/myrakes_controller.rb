@@ -180,10 +180,18 @@ class MyrakesController < ApplicationController
       if target_rake_heaps.pluck(:leaflet_type_id).include? params[:myrake][:leaflet_type_id].to_i
         target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:myrake][:leaflet_type_id].to_i)
         heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i)
+        master_heap = MasterHeap.where(master_rake_id: target_rake.master_rake.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i).first
+        if !master_heap.nil?
+          MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: params[:myrake][:leaflet_id].to_i)
+        end
       else
         target_rake.add_heap(params[:myrake][:leaflet_type_id])
         target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:myrake][:leaflet_type_id].to_i)
         heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i)
+        master_heap = MasterHeap.where(master_rake_id: target_rake.master_rake.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i).first
+        if !master_heap.nil?
+          MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: params[:myrake][:leaflet_id].to_i)
+        end
       end
       redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => "Leaflet moved."
     else
