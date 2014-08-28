@@ -28,18 +28,6 @@ class MasterRakesController < ApplicationController
       end
     end
     @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
-    #@leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)
-    #rake_ids = @rake.myrakes.pluck(:id)
-    #@heaps = Heap.where("myrake_id IN (?)", rake_ids)
-    #@heap_types = @heaps.pluck(:leaflet_type_id).uniq
-    #params[:heap_type] ||= "News"
-
-    #heap_ids = []
-    #@rake.myrakes.each do |r|
-    #  heap_ids << r.heaps.pluck(:id)
-    #end
-    #@heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
-    #@heap_leaflets_maps = HeapLeafletMap.where("leaflet_id IN (?)", @heap_leaflets.map(&:id))
     @heaps = @rake.master_heaps
     @feed_collapse = params[:collapse] == "feed" ? "in" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "in" : ""
@@ -56,7 +44,7 @@ class MasterRakesController < ApplicationController
 
   def create
     @master_rake = MasterRake.new(master_rake_params)
-    if @master_rake.check_wikipedia_url(params[:master_rake][:wikipedia_url]) != false
+    if @master_rake.check_wikipedia_url(params[:master_rake][:wikipedia_url], params[:master_ra]) != false
       if @master_rake.save
         #redirect_to master_rake_path(@master_rake)
         @rake = Myrake.new

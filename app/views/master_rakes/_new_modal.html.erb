@@ -13,6 +13,9 @@
       <%= bootstrap_form_for(MasterRake.new) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :created_by, class: "created-by" %>
+          <% if current_user.admin? %>
+            <%= f.hidden_field :admin, value: "true" %>
+          <% end %>
           <% if params[:category_id].nil? %>
             <% categories_array = Category.all.map { |category| [category.desc, category.id] } %>
             <div class="category-select">

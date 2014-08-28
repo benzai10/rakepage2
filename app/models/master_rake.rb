@@ -5,9 +5,10 @@ class MasterRake < ActiveRecord::Base
   attr_accessor :channel_type
   attr_accessor :source
   attr_accessor :history_code
+  attr_accessor :admin
 
   validates :name, presence: true, :uniqueness => {:case_sensitive => false}
-  validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}
+  validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}, :if => "admin == 'true'"
 
   has_many :channels_master_rakes, dependent: :destroy
   has_many :channels, through: :channels_master_rakes, dependent: :destroy
@@ -67,12 +68,16 @@ class MasterRake < ActiveRecord::Base
     Channel.find_by(source: "master_rake_" + self.id.to_s)
   end
 
-  def check_wikipedia_url(url)
-    begin
-      feed_helper = FeedHelper::Wiki.new(url)
-      feed_helper.valid_url?
-    rescue
-      false
+  def check_wikipedia_url(url, admin)
+    if admin != "true"
+      begin
+        feed_helper = FeedHelper::Wiki.new(url)
+        feed_helper.valid_url?
+      rescue
+        false
+      end
+    else
+      true
     end
   end
 
