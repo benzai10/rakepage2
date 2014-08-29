@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Save Leaflet</h4>
+        <h4 class="modal-title" id="myModalLabel">Save Recommendation</h4>
       </div>
       <%= bootstrap_form_for(current_user) do |f| %>
         <div class="modal-body">
@@ -20,7 +20,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Save Leaflet", class: "btn btn-primary" %>
+          <%= f.submit "Save Recommendation", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

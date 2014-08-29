@@ -141,7 +141,7 @@ class MyrakesController < ApplicationController
 
   def update
     @rake = Myrake.find(params[:id])
-    if params[:commit] == "Update Leaflet"
+    if params[:commit] == "Update Recommendation"
       leaflet = Leaflet.find(params[:myrake][:id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:myrake][:heap_id].to_i, 
@@ -149,7 +149,7 @@ class MyrakesController < ApplicationController
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc])
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
       redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet-" + params[:myrake][:id])
-    elsif params[:commit] == "Save Leaflet"
+    elsif params[:commit] == "Save Recommendation"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       @rake.add_leaflet(leaflet, 
                         params[:myrake][:leaflet_type_id],
@@ -160,7 +160,7 @@ class MyrakesController < ApplicationController
       else
         redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet-" + params[:myrake][:leaflet_id])
       end
-    elsif params[:commit] == "Create Leaflet"
+    elsif params[:commit] == "Create Recommendation"
       if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
                            params[:myrake][:leaflet_title],
                            params[:myrake][:leaflet_desc],

@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Save Leaflet</h4>
+        <h4 class="modal-title" id="myModalLabel">Save Recommendation</h4>
       </div>
       <%= bootstrap_form_for(@custom_rake.first) do |f| %>
         <div class="modal-body">
@@ -12,12 +12,12 @@
           <%= f.hidden_field :collapse, class: "collapse-section" %>
           <% leaflet_types_array = LeafletType.where("id IN (?)", CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
           <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Recommendation Category" } %>
-          <%= f.text_field :leaflet_title, { label: "Leaflet Title", class: "leaflet-custom-title" } %>
-          <%= f.text_area :leaflet_desc, { label: "Leaflet Description (optional)" } %>
+          <%= f.text_field :leaflet_title, { label: "Recommendation Title", class: "leaflet-custom-title" } %>
+          <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)" } %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Save Leaflet", class: "btn btn-primary" %>
+          <%= f.submit "Save Recommendation", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
