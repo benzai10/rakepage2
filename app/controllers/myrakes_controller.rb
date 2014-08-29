@@ -99,18 +99,10 @@ class MyrakesController < ApplicationController
         master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
         master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
         if params[:myrake][:copy_recommendations] == "1"
-          rake_ids = master_rake.myrakes.pluck(:id)
-          @heaps = Heap.where("myrake_id IN (?)", rake_ids)
-          @heap_types = @heaps.pluck(:leaflet_type_id).uniq
-          heap_ids = []
-          master_rake.myrakes.each do |r|
-            heap_ids << r.heaps.pluck(:id)
-          end
-          @heap_leaflets = Leaflet.where("id IN (?)", HeapLeafletMap.where("heap_id IN (?)", heap_ids.flatten).pluck(:leaflet_id).flatten).order("updated_at DESC").uniq
-          @heap_leaflets_maps = HeapLeafletMap.where("leaflet_id IN (?)", @heap_leaflets.map(&:id))
+          @heap_leaflets_maps = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_rake.master_heaps.pluck(:id))
           @heap_leaflets_maps.each do |hl|
             leaflet = Leaflet.find(hl.leaflet_id)
-            @rake.add_leaflet(leaflet, leaflet.leaflet_type_id, leaflet.title, "")
+            @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc)
           end
         end
         redirect_to myrake_path(@rake, refresh: "yes")
