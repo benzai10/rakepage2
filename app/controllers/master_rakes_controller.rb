@@ -46,7 +46,9 @@ class MasterRakesController < ApplicationController
     @master_rake = MasterRake.new(master_rake_params)
     if @master_rake.check_wikipedia_url(params[:master_rake][:wikipedia_url], params[:master_ra]) != false
       if @master_rake.save
-        #redirect_to master_rake_path(@master_rake)
+        CategoryLeafletTypeMap.where(category_id: @master_rake.category_id).each do |c|
+          MasterHeap.create(master_rake_id: @master_rake.id, leaflet_type_id: c.leaflet_type_id)
+        end
         @rake = Myrake.new
         @rake.master_rake_id = @master_rake.id
         @rake.user_id = current_user.id
