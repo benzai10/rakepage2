@@ -11,8 +11,13 @@
       <% end %>
       <%#= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
       <h5><small>Most active Co-Rakers</small></h5>
+      <% if data.count == 0 %>
+        <% chart_height = "30px" %>
+      <% else %>
+        <% chart_height = (data.count * 40).to_s + "px" %>
+      <% end %>
       <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>
-      <%= bar_chart data, { height: "#{data.count*40}px", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
+      <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
 
       <br>
       <% if !current_user.nil? %>

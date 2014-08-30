@@ -117,9 +117,13 @@ class Myrake < ActiveRecord::Base
   def self.get_leaflets(rake_id)
     leaflets = []
     self.find(rake_id).heaps.each do |h|
-      leaflets << h.leaflets
+      h.leaflets.each do |l|
+        if l.created_by == self.find(rake_id).user_id
+          leaflets << l
+        end
+      end
     end
-    leaflets.flatten!
+    return leaflets
   end
 
   def add_filter(keyword, filter_type)
