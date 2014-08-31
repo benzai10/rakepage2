@@ -676,4 +676,8 @@ body.nav-expanded {
     max-height: 160px;
   }
 
+  .nav > li > a {
+  padding: 10px; 
+  }
+
 }

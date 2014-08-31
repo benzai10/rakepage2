@@ -83,8 +83,8 @@
                       <% if user_leaflet_ids.include? l.id %>
                         &nbsp;<i class="fa fa-star"></i>
                       <% else %>
-                        <% user_rake = lm.master_heap.master_rake.myrakes.where(user_id: current_user.id).first %>
-                        <% if !user_rake.nil? %>
+                        <%# user_rake = lm.master_heap.master_rake.myrakes.where(user_id: current_user.id).first %>
+                        <%# if !user_rake.nil? %>
                           <span class="feed-button">
                             <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, 
                                   "#", 
@@ -93,13 +93,13 @@
                                           id: l.id },
                                   class: "leaflet-master-save" %>
                           </span>
-                        <% else %>
-                          <span class="feed-button">
-                            <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, "#",
+                        <%# else %>
+                          <!-- <span class="feed-button"> -->
+                            <%#= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, "#",
                                         data: { toggle: "modal",
                                                 target: "#infoCreateRakeModal" } %>
-                          </span>
-                        <% end %>
+                          <!-- </span> -->
+                        <%# end %>
                       <% end %>
                     <% else %>
                       <span class="feed-button">
