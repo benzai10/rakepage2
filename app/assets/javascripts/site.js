@@ -47,11 +47,13 @@ $(function() {
         var heapId = $(this).data('heapid');
         var leafletdescription = $(this).data('description');
         var leafleturl = $(this).data('url');
+        var collapse = $(this).data('collapse');
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".heap-id").val(heapId);
         $(".leaflet-description").val(leafletdescription)
         $(".leaflet-url").val(leafleturl);
+        $(".collapse-section").val(collapse);
     });
 
     $(".leaflet-create").click(function() {

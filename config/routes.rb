@@ -6,6 +6,12 @@ Rakepage2::Application.routes.draw do
 
   #match 'pages/help', to: 'pages#help', via: [:get]
 
+  resources :charts do
+    member do
+      get 'recommendation_activity'
+    end
+  end
+
   resources :histories
 
   resources :pages

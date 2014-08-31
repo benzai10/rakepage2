@@ -140,7 +140,7 @@ class MyrakesController < ApplicationController
                                           params[:myrake][:id].to_i).first
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc])
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
-      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet-" + params[:myrake][:id])
+      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:id])
     elsif params[:commit] == "Save Recommendation"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       @rake.add_leaflet(leaflet, 
@@ -150,7 +150,7 @@ class MyrakesController < ApplicationController
       if session[:rake_class] == MasterRake
         redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:leaflet_id])
       else
-        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet-" + params[:myrake][:leaflet_id])
+        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:leaflet_id])
       end
     elsif params[:commit] == "Create Recommendation"
       if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
