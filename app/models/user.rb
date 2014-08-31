@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:username]
 
   #Only Digits, Numbers, dash and underscore allowed, dash/underscore only
   #allowed within a name cannot start or end whith those chars, also only 1 can
