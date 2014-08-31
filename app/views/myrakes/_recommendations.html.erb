@@ -18,7 +18,7 @@
           </a>
         </h5>
       </div>
-      <div class="panel-collapse collapse" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
+      <div class="panel-collapse collapse <%= @heap_collapse if @heap_id == lt.to_s %>" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
         <div class="panel-body">
 
           <% if user_signed_in? && @rake.user_id == current_user.id %>
@@ -148,7 +148,22 @@
                 <% modalType = "#editRestrictedLeafletModal" %>
               <% end %>
               <span class="feed-button">
-                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i>'.html_safe, "#", data: { toggle: "modal", target: "#{modalType}", id: l.id, heapid: heap.id, title: l.title, content: l.content, description: description, url: l.url, access: "full" }, :method => :put, :action => :update, remote: true, class: "leaflet-edit" %>
+                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i>'.html_safe,
+                            "#",
+                            data: { toggle: "modal",
+                                    target: "#{modalType}",
+                                    id: l.id,
+                                    heapid: heap.id,
+                                    collapse: "heap_" + "#{heap.leaflet_type_id}",
+                                    title: l.title,
+                                    content: l.content,
+                                    description: description,
+                                    url: l.url,
+                                    access: "full" },
+                            :method => :put, 
+                            :action => :update, 
+                            remote: true,
+                            class: "leaflet-edit" %>
               </span>
               &nbsp;
               <span class="feed-button">

@@ -54,6 +54,8 @@ class MyrakesController < ApplicationController
     @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
     #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
     @feed_collapse = params[:collapse] == "feed" ? "in" : ""
+    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "in" : ""
+    @heap_id = params[:collapse].to_s.slice(5..-1)
   end
 
   def news
@@ -165,7 +167,7 @@ class MyrakesController < ApplicationController
     elsif params[:commit] == "Add Recommendation Category"
       @rake.add_heap(params[:myrake][:leaflet_type_id])
       redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
-    elsif params[:commit] == "Move Leaflet"
+    elsif params[:commit] == "Move Recommendation"
       heapleaflet = HeapLeafletMap.where(heap_id: params[:myrake][:heap_id].to_i).find_by_leaflet_id(params[:myrake][:leaflet_id].to_i)
       # Check if there is an existing target heap
       target_rake = Myrake.where(user_id: current_user.id).find_by_name(params[:myrake][:name])
