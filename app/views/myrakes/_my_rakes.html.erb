@@ -34,6 +34,9 @@
             <div class="media-body">
               <h5 class="media-heading"><%= r.name %></h5>
               <p>
+                <%= pluralize(master_rake.myrakes.count, "Raker") %>
+              </p>
+              <p>
                 <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Recommendation") %>
               </p>
             </div>

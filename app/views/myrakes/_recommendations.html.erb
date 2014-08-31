@@ -124,7 +124,7 @@
           <p class="feed-body">
             <% if heap_leaflet != "" %>
               <% description = heap_leaflet.leaflet_desc %>
-              <% if !description.empty? %>
+              <% if !description.nil? %>
                 <%= description %><br><br>
               <% end %>
             <% end %>
