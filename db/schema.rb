@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826110047) do
+ActiveRecord::Schema.define(version: 20140831045520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 20140826110047) do
   end
 
   create_table "master_rakes", force: true do |t|
-    t.string   "name",                      default: "", null: false
+    t.string   "name",                      default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id",               default: 1
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20140826110047) do
     t.integer  "created_by"
     t.text     "wikipedia_first_paragraph"
     t.text     "image_url"
+    t.boolean  "featured",                  default: false
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree

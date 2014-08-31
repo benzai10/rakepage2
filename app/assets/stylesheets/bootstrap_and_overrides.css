@@ -358,6 +358,23 @@ h5 {
   margin-left: 10px;
 }
 
+.media-heading {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 4px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 12px !important;
+}
+
+.media-body p {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+}
+
 #feed-list {
   font-size: 1em !important;
 }

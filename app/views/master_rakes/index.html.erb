@@ -17,11 +17,13 @@
           <% end %>
         </small>
       </h5>
-      <div class="panel-group" id="accordion-overview">
+      <div class="panel-group" id="accordion-main">
         <%= render 'overview' %>
-        <%= render 'new_master_rakes' %>
+      </div>
+      <div class="panel-group" id="accordion-index">
+        <%#= render 'new_master_rakes' %>
         <%= render 'new_recommendations' %>
-        <%= render 'all_master_rakes' %>
+        <%#= render 'all_master_rakes' %>
       </div>
     </div>
   </div>

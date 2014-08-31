@@ -1,58 +1,49 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-my-rakes">
-    <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-overview" 
-         href="#collapse-my-rakes">
-         My Recommendation Rakes
-      </a>
-    </h5>
-  </div>
-  <div class="panel-collapse collapse in" id="collapse-my-rakes">
-    <div class="panel-body">
-      <% if @rakes.empty? %>
-        Tutorial here...
-      <% else %>
-        <div class="col-md-6">
-          <div class="thumbnail">
-            <%= link_to new_master_rake_path, data: { 
-                        toggle: "modal",
-                        target: "#newMasterRakeModal",
-                        category: "none",
-                        user: current_user.id },
-                        class: "masterrake-create" do %>
-              <div class="caption">
-                <%= image_tag("add_master_rake.png") %>
-                <div class="rake-caption">
-                  Add New Rake
-                </div>
-              </div>
-            <% end %>
+<div class="row">
+  <br>
+  <div class="col-lg-6">
+    <div class="thumbnail">
+      <%= link_to new_master_rake_path, data: { 
+                  toggle: "modal",
+                  target: "#newMasterRakeModal",
+                  user: current_user.id },
+                  class: "masterrake-create" do %>
+        <div class="media">
+          <span class="pull-left">
+            <%= image_tag("add_master_rake.png", size: "96x54") %>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading">Add new Master Rake</h5>
           </div>
         </div>
-        <% @rakes.each do |r| %>
-          <div class="col-md-6">
-            <div class="thumbnail">
-              <%= link_to myrake_path(r.id, refresh: "no") do %>
-                <% master_rake = MasterRake.find(r.master_rake_id) %>
-                <div class="caption load-rake" value="<%= r.id %>">
-                  <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
-                    <%= image_tag("no_image.png") %>
-                  <% else %>
-                    <%= image_tag(master_rake.image_url) %>
-                  <% end %>
-                  <div class="rake-caption">
-                    <%= r.name %>
-                    <span id="load-rake-<%= "#{r.id.to_s}" %>"></span>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
       <% end %>
     </div>
   </div>
+  <% @rakes.each do |r| %>
+    <div class="col-lg-6">
+      <div class="thumbnail">
+        <%= link_to myrake_path(r.id, refresh: "no") do %>
+          <% master_rake = MasterRake.find(r.master_rake_id) %>
+          <div class="media load-rake" value="<%= r.id %>">
+            <span class="pull-left">
+              <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
+                <%= image_tag("no_image.png", size: "96x54") %>
+              <% else %>
+                <%= image_tag(master_rake.image_url, size: "96x54") %>
+              <% end %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading"><%= r.name %></h5>
+              <p>
+                <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Recommendation") %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
+
 <% if user_signed_in? %>
   <%= render 'master_rakes/new_modal' %>
 <% end %>

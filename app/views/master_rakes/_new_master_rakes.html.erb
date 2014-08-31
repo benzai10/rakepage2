@@ -1,66 +1,70 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-new-master-rakes">
-    <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-overview" 
-         href="#collapse-new-master-rakes">
-         Latest Recommendation Rakes
-      </a>
-    </h5>
-  </div>
-  <div class="panel-collapse collapse" id="collapse-new-master-rakes">
-    <div class="panel-body">
-      <div class="col-md-6">
-        <% if user_signed_in? %>
-          <% if params[:category_id].nil? %>
-            <% category = "none" %>
-          <% else %>
-            <% category = params[:category_id] %>
-          <% end %>
-          <div class="thumbnail">
-            <%= link_to new_master_rake_path, data: { 
-                        toggle: "modal",
-                        target: "#newMasterRakeModal",
-                        category: category,
-                        user: current_user.id },
-                        class: "masterrake-create" do %>
-              <div class="caption">
-                <%= image_tag("add_master_rake.png") %>
-                <div class="rake-caption">
-                  Add new Master Rake
-                </div>
-              </div>
-            <% end %>
-          </div>
-        <% else %>
-          <%= link_to new_user_session_path do %>
-            <div class="caption">
-              <%= image_tag("add_master_rake.png") %>
-              <div class="rake-caption">
-                Add new Master Rake
-              </div>
+<div class="row">
+  <br>
+  <div class="col-lg-6">
+    <% if user_signed_in? %>
+      <% if params[:category_id].nil? %>
+        <% category = "none" %>
+      <% else %>
+        <% category = params[:category_id] %>
+      <% end %>
+      <div class="thumbnail">
+        <%= link_to new_master_rake_path, data: { 
+                    toggle: "modal",
+                    target: "#newMasterRakeModal",
+                    category: category,
+                    user: current_user.id },
+                    class: "masterrake-create" do %>
+          <div class="media">
+            <span class="pull-left">
+              <%= image_tag("add_master_rake.png", size: "96x54") %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Add new Master Rake</h5>
             </div>
-          <% end %>
+          </div>
         <% end %>
       </div>
-      <% @new_master_rakes.each do |m| %>
-        <div class="col-md-6">
-          <div class="thumbnail">
-            <%= link_to master_rake_path(m.id, refresh: "no") do %>
-              <div class="caption load-rake" value="<%= m.id %>">
-                <% if m.image_url.nil? || m.image_url.empty? %>
-                  <%= image_tag("no_image.png") %>
-                <% else %>
-                  <%= image_tag(m.image_url) %>
-                <% end %>
-                <div class="rake-caption">
-                  <%= m.name %>
-                  <span id="load-rake-<%= "#{m.id.to_s}" %>"></span>
-                </div>
-              </div>
-            <% end %>
+    <% else %>
+      <div class="thumbnail">
+        <%= link_to new_user_session_path do %>
+          <div class="media">
+            <span class="pull-left">
+              <%= image_tag("add_master_rake.png", size: "96x54") %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Add new Master Rake</h5>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+
+  <% @new_master_rakes.each do |m| %>
+    <div class="col-lg-6">
+      <div class="thumbnail">
+        <%= link_to master_rake_path(m.id, refresh: "no") do %>
+          <div class="media load-rake" value="<%= m.id %>">
+            <span class="pull-left">
+              <% if m.image_url.nil? || m.image_url.empty? %>
+                <%= image_tag("no_image.png", size: "96x54") %>
+              <% else %>
+                <%= image_tag(m.image_url, size: "96x54") %>
+              <% end %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading"><%= m.name %></h5>
+              <p>
+                <%= pluralize(m.myrakes.count, "Raker") %>
+              </p>
+              <p>
+                <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)).count,
+                              "Recommendation") %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

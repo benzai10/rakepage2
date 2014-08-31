@@ -1,10 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-overview" 
-         href="#collapse-overview">
-         Overview
-      </a>
+      Overview
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
@@ -12,25 +9,48 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <% sum = 0 %>
-      <%= area_chart @master_rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { colors: ['#6e2384'], title: "Total Master Rakes: " + @master_rakes.count.to_s,chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
-      <% hash_created_leaflets = {"name" => "Created", "data" => ""} %>
-      <% hash_saved_leaflets = {"name" => "Saved", "data" => ""} %>
-      <% created_leaflets_count = Leaflet.where(created_by: !nil).group_by_week(:created_at).count %>
-      <% saved_leaflets_count = HeapLeafletMap.group_by_week(:created_at).count %>
-      <% hash_created_leaflets["data"] = created_leaflets_count %>
-      <% hash_saved_leaflets["data"] = saved_leaflets_count %>
-      <%= line_chart [hash_created_leaflets, hash_saved_leaflets],
-                   { height: "180px",
-                     library: { 
-                                title: "Recommendation Activity",
-                                chartArea: { top: 20, bottom: 10 },
-                                hAxis: { format: "MM/dd" },
-                                vAxis: { format: "#" },
-                                legend: { textStyle: { fontSize: 10 } },
-                                isStacked: true
-                              },
-                   } %>
+      <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#featured-rakes" role="tab" data-toggle="tab">Featured</a></li>
+          <li><a href="#new-rakes" data-toggle="tab">New</a></li>
+          <li><a href="#all-rakes" data-toggle="tab">All</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="featured-rakes">
+            <%= render 'featured_master_rakes' %>
+          </div>
+          <div class="tab-pane" id="new-rakes">
+            <%= render 'new_master_rakes' %>
+          </div>
+          <div class="tab-pane" id="all-rakes">
+            <%= render 'all_master_rakes' %>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <% sum = 0 %>
+        <%#= area_chart @master_rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { colors: ['#6e2384'], title: "Total Master Rakes: " + @master_rakes.count.to_s,chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
+        <% hash_created_leaflets = {"name" => "Created", "data" => ""} %>
+        <% hash_saved_leaflets = {"name" => "Saved", "data" => ""} %>
+        <% created_leaflets_count = Leaflet.where(created_by: !nil).group_by_week(:created_at).count %>
+        <% saved_leaflets_count = HeapLeafletMap.group_by_week(:created_at).count %>
+        <% hash_created_leaflets["data"] = created_leaflets_count %>
+        <% hash_saved_leaflets["data"] = saved_leaflets_count %>
+        <%#= line_chart [hash_created_leaflets, hash_saved_leaflets],
+                     { height: "180px",
+                       library: { 
+                                  title: "Recommendation Activity",
+                                  chartArea: { top: 20, bottom: 10 },
+                                  hAxis: { format: "MM/dd" },
+                                  vAxis: { format: "#" },
+                                  legend: { textStyle: { fontSize: 10 } },
+                                  isStacked: true
+                                },
+                     } %>
+      </div>
     </div>
   </div>
 </div>

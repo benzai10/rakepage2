@@ -12,15 +12,16 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
+      <%= render 'my_rakes' %>
       <% sum = 0 %>
-      <%= area_chart @rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { colors: ['#6e2384'], title: "Total Rakes: " + @rakes.count.to_s,chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
+      <%#= area_chart @rakes.group_by_week(:created_at).count.to_a.sort{|x,y| x[0] <=> y[0]}.map { |x,y| { x => (sum += y)} }.reduce({}, :merge), { height: "180px", library: { colors: ['#6e2384'], title: "Total Rakes: " + @rakes.count.to_s,chartArea: { top: 20, bottom: 10 }, hAxis: { format: "MM/dd"}, vAxis: { format: "#" }}} %>
       <% hash_created_leaflets = {"name" => "Created", "data" => ""} %>
       <% hash_saved_leaflets = {"name" => "Saved", "data" => ""} %>
       <% created_leaflets_count = Leaflet.where(created_by: current_user.id).group_by_week(:created_at).count %>
       <% saved_leaflets_count = HeapLeafletMap.where("heap_id IN (?)", Heap.where("myrake_id IN (?)", @rakes.pluck(:id)).pluck(:id)).group_by_week(:created_at).count %>
       <% hash_created_leaflets["data"] = created_leaflets_count %>
       <% hash_saved_leaflets["data"] = saved_leaflets_count %>
-      <%= line_chart [hash_created_leaflets, hash_saved_leaflets],
+      <%#= line_chart [hash_created_leaflets, hash_saved_leaflets],
                    { height: "180px",
                      library: { 
                                 title: "Recommendations Activity",
