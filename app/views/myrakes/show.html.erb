@@ -21,7 +21,7 @@
       <% end %>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
-          <div class="panel-heading panel-feed">
+          <div class="panel-heading panel-new-recommendations">
             <h1 class="panel-title">
               <%= @rake.name %> Recommendations
               <span class="pull-right">
@@ -33,6 +33,8 @@
                   <% end %>
                 </small>
               </span>
+                <%= social_share_button_tag(@rake.name + " Recommendations", 
+                                            image: @rake.master_rake.image_url) %>
             </h1>
           </div>
           <div class="panel-collapse collapse in" id="collapse-feed">

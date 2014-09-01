@@ -20,9 +20,11 @@
       <% end %>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
-          <div class="panel-heading panel-feed">
+          <div class="panel-heading panel-new-master-rakes">
             <h1 class="panel-title">
               <%= @rake.name %> Recommendations
+              <%= social_share_button_tag(@rake.name + " Recommendations", 
+                                          image: @rake.image_url) %>
             </h1>
           </div>
           <div class="panel-collapse collapse in" id="collapse-feed">

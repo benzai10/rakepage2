@@ -17,6 +17,10 @@ a.anchor {
   visibility: hidden;
 }
 
+.social-share-button {
+  margin-top: 3px;
+}
+
 .chartkick-barchart {
   height: 100px;
 }

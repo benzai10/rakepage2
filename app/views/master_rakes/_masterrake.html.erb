@@ -57,6 +57,14 @@
             </span>
             <div class="media-body">
               <h5 class="media-heading">Stats</h5>
+              <p>
+                <%= pluralize(@rake.myrakes.count, "Co-Raker") %>
+              </p>
+              <p>
+                <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", 
+                              @rake.master_heaps.pluck(:id)).count, 
+                              "Recommendation") + " in total"%>
+              </p>
             </div>
           </div>
         </div>
@@ -71,6 +79,9 @@
             </span>
             <div class="media-body">
               <h5 class="media-heading">News</h5>
+              <p>
+                <%= pluralize(@feed_leaflets.count, "Post") %>
+              </p>
             </div>
           </div>
         </div>
