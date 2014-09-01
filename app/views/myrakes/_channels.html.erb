@@ -1,123 +1,108 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-channels">
-    <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-show"
-          href="#collapse-channels">
-        Channels
-      </a>
-      <span class="badge pull-right"><%= @rake.channels.where("channel_type <> 3 AND channel_type <> 5").count.to_s %></span>
-    </h5>
-  </div>
-  <div class="panel-collapse collapse" id="collapse-channels">
-    <div class="panel-body">
-      <% if user_signed_in? && @rake.user_id == current_user.id %>
-        <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
-                    data: { toggle: "modal",
-                            target: "#addRssModal",
-                            rakeid: @rake.id,
-                            channeltype: 0 },
-                    class: "btn btn-xs btn-primary add-rss-feed" %>
-        <%= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
-                    data: { toggle: "modal",
-                            target: "#addSubredditModal",
-                            rakeid: @rake.id,
-                            channeltype: 4 },
-                    class: "btn btn-xs btn-primary add-subreddit-feed" %>
-      <% end %>
-      <hr>
-      <span class="channel-title">Recently added Channels:</span>
-      <br>
-      <ul class="leaflet-list">
-        <% new_channels = MasterRake.find(@rake.master_rake_id).channels
-                                    .where("channel_type <> 3 AND channel_type <> 5")
-                                    .order("created_at DESC")
-                                    .limit(5) %>
-        <% if (new_channels - @rake.channels).count > 0 %>
-          <% new_channels.each do |c| %>
-            <% if !@rake.channels.include? c %>
-              <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-                <span class="pull-left">
-                  <% if c.channel_type == 4 %>
-                    <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                  <% elsif c.channel_type == 3 %>
-                    <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                  <% else %>
-                    <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                    <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                  <% end %>
-                </span>
-                <div class="media-body">
-                  <h5 class="media-heading channel-heading">
-                    <%= c.name %>
-                    <% if user_signed_in? && @rake.user_id == current_user.id %>
-                      <span class="pull-right">
-                      <%= link_to "Add",
-                            add_channel_myrake_path(@rake, channel: c.id),
-                            title: "Add Channel to own Rake", class: "btn btn-xs btn-default" %>
-                      </span>
-                    <% end %>
-                  </h5>
-                  <p class="channel-info">
-                    <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                    <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-                    <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                  </p>
-                </div>
-              </li>
+<% if user_signed_in? && @rake.user_id == current_user.id %>
+  <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
+              data: { toggle: "modal",
+                      target: "#addRssModal",
+                      rakeid: @rake.id,
+                      channeltype: 0 },
+              class: "btn btn-xs btn-primary add-rss-feed" %>
+  <%= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
+              data: { toggle: "modal",
+                      target: "#addSubredditModal",
+                      rakeid: @rake.id,
+                      channeltype: 4 },
+              class: "btn btn-xs btn-primary add-subreddit-feed" %>
+<% end %>
+<hr>
+<span class="channel-title">Recently added Channels:</span>
+<br>
+<ul class="leaflet-list">
+  <% new_channels = MasterRake.find(@rake.master_rake_id).channels
+                              .where("channel_type <> 3 AND channel_type <> 5")
+                              .order("created_at DESC")
+                              .limit(5) %>
+  <% if (new_channels - @rake.channels).count > 0 %>
+    <% new_channels.each do |c| %>
+      <% if !@rake.channels.include? c %>
+        <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
+          <span class="pull-left">
+            <% if c.channel_type == 4 %>
+              <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
+            <% elsif c.channel_type == 3 %>
+              <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
+            <% else %>
+              <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+              <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
             <% end %>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading channel-heading">
+              <%= c.name %>
+              <% if user_signed_in? && @rake.user_id == current_user.id %>
+                <span class="pull-right">
+                <%= link_to "Add",
+                      add_channel_myrake_path(@rake, channel: c.id),
+                      title: "Add Channel to own Rake", class: "btn btn-xs btn-default" %>
+                </span>
+              <% end %>
+            </h5>
+            <p class="channel-info">
+              <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+              <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
+              <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  <% else %>
+    None
+  <% end %>
+</ul>
+<hr>
+<ul class="leaflet-list">
+  <% @rake.channels.each do |c| %>
+    <% if c.channel_type != 3 %>
+      <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
+        <span class="pull-left" >
+          <% if c.channel_type == 4 %>
+            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
+          <% elsif c.channel_type == 3 %>
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
+          <% else %>
+            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
           <% end %>
-        <% else %>
-          None
-        <% end %>
-      </ul>
-      <hr>
-      <ul class="leaflet-list">
-        <% @rake.channels.each do |c| %>
-          <% if c.channel_type != 3 %>
-            <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-              <span class="pull-left" >
-                <% if c.channel_type == 4 %>
-                  <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                <% elsif c.channel_type == 3 %>
-                  <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                <% else %>
-                  <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                  <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                <% end %>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading channel-heading">
+            <% if c.rake_channel_maps.find_by_myrake_id(@rake.id).display %>
+              <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
+                          toggle_channel_display_myrake_path(@rake, channel: c.id, display: false) %>
+            <% else %>
+              <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
+                          toggle_channel_display_myrake_path(@rake, channel: c.id, display: true) %>
+            <% end %>
+            <% channel_name = c.name %>
+            <% if channel_name == "Title not available." %>
+              <% channel_name = c.source %>
+            <% end %>
+            <%= channel_name %>
+            <% if user_signed_in? && @rake.user_id == current_user.id %>
+              <span class="pull-right">
+                <%= link_to "Remove", remove_channel_myrake_path(@rake, channel: c.id),
+                            :data => { :confirm => "Are you sure?" },
+                            :method => :get,
+                            class: "btn btn-xs btn-default" %>
               </span>
-              <div class="media-body">
-                <h5 class="media-heading channel-heading">
-                  <% if c.rake_channel_maps.find_by_myrake_id(@rake.id).display %>
-                    <%= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                                toggle_channel_display_myrake_path(@rake, channel: c.id, display: false) %>
-                  <% else %>
-                    <%= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                                toggle_channel_display_myrake_path(@rake, channel: c.id, display: true) %>
-                  <% end %>
-                  <% channel_name = c.name %>
-                  <% if channel_name == "Title not available." %>
-                    <% channel_name = c.source %>
-                  <% end %>
-                  <%= channel_name %>
-                  <% if user_signed_in? && @rake.user_id == current_user.id %>
-                    <span class="pull-right">
-                      <%= link_to "Remove", remove_channel_myrake_path(@rake, channel: c.id),
-                                  :data => { :confirm => "Are you sure?" },
-                                  :method => :get,
-                                  class: "btn btn-xs btn-default" %>
-                    </span>
-                  <% end %>
-                </h5>
-                <p class="channel-info">
-                  <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-                  <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-                  <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
-                </p>
-              </div>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
+            <% end %>
+          </h5>
+          <p class="channel-info">
+            <i class="fa fa-star" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+            <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
+            <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+          </p>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

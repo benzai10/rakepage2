@@ -1,33 +1,50 @@
 <% title @rake.name + " Recommendations" %>
 <div class="container-fluid">
-<%= render 'master_rakes/master_rakes_menu' %>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h1>
-      <%= @rake.name %> Recommendations
-    </h1>
-    <h5>
-      <small>
-        <% if user_signed_in? %>
-          <%= link_to "MY RECOMMENDATION RAKES", myrakes_path %>
-          &nbsp;|&nbsp;
-        <% else %>
-          <%= link_to "SIGN IN", new_user_session_path %>
-          &nbsp;|&nbsp;
-        <% end %>
-        <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path %>
-      </small>
-    </h5>
-    <% if !flash.empty? %>
-      <%= render 'shared/flash_message' %>
-    <% end %>
-    <div class="panel-group" id="accordion-main">
-      <%= render 'news' %>
-    </div>
-    <div class="panel-group" id="accordion-show">
-      <%= render 'feed' %>
-      <%= render 'channels' %>
-      <%= render 'recommendations' %>
+  <%= render 'master_rakes/master_rakes_menu' %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>
+        <%= @rake.name %> Recommendations
+      </h1>
+      <h5>
+        <small>
+          <% if user_signed_in? %>
+            <%= link_to "MY RECOMMENDATION RAKES", myrakes_path %>
+            &nbsp;|&nbsp;
+          <% else %>
+            <%= link_to "SIGN IN", new_user_session_path %>
+            &nbsp;|&nbsp;
+          <% end %>
+          <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path %>
+        </small>
+      </h5>
+      <% if !flash.empty? %>
+        <%= render 'shared/flash_message' %>
+      <% end %>
+      <div class="panel-group" id="accordion-main">
+        <div class="panel panel-default">
+          <div class="panel-heading panel-feed">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion-show" 
+                 href="#collapse-feed">
+                 Master Rake
+              </a>
+            </h5>
+          </div>
+          <div class="panel-collapse collapse in" id="collapse-feed">
+            <div class="panel-body">
+              <%= render 'masterrake' %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="panel-group" id="accordion-show">
+        <%#= render 'feed' %>
+        <%#= render 'channels' %>
+        <%#= render 'recommendations' %>
+      </div>
     </div>
   </div>
 </div>

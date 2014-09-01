@@ -1,5 +1,5 @@
 ActiveAdmin.register LeafletType do
-  permit_params :leaflet_type, :leaflet_type_desc
+  permit_params :leaflet_type, :leaflet_type_desc, :image_url
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -19,6 +19,7 @@ ActiveAdmin.register LeafletType do
     id_column
     column :leaflet_type
     column :leaflet_type_desc
+    column :image_url
     actions
   end
 end

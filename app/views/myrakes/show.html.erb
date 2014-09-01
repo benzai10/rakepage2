@@ -20,12 +20,21 @@
         </small>
       </h5>
       <div class="panel-group" id="accordion-main">
-        <%= render 'news' %>
-      </div>
-      <div class="panel-group" id="accordion-show">
-        <%= render 'feed' %>
-        <%= render 'channels' %>
-        <%= render 'recommendations' %>
+        <div class="panel panel-default">
+          <div class="panel-heading panel-feed">
+            <h5 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion-show" 
+                 href="#collapse-feed">
+                 My Rake
+              </a>
+            </h5>
+          </div>
+          <div class="panel-collapse collapse in" id="collapse-feed">
+            <div class="panel-body">
+              <%= render 'myrake' %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

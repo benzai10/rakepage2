@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831045520) do
+ActiveRecord::Schema.define(version: 20140901044557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20140831045520) do
     t.string   "leaflet_type_desc", default: "Uncategorized"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "image_url"
   end
 
   create_table "leaflets", force: true do |t|

@@ -375,6 +375,11 @@ h5 {
   font-size: 11px;
 }
 
+.nav-thumbnails > li > a {
+  border: none !important;
+  padding: 0 !important;
+}
+
 #feed-list {
   font-size: 1em !important;
 }
