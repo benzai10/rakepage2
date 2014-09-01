@@ -18,6 +18,7 @@ $(function() {
 
     // scroll navigation functionality
     $('.scrolltop').click(function(){
+        alert("test");
         var section = $($(this).data("section"));
         //(alert(section);
         //var top = section.offset().top;

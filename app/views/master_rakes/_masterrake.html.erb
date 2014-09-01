@@ -123,6 +123,7 @@
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
     <a class="anchor" name="stats"></a>
+    <h5>Stats</h5>
     <h5><small>Most active Co-Rakers</small></h5>
     <% data = @rake.get_corakers.first(5) %>
     <% if data.count == 0 %>
@@ -147,6 +148,7 @@
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
+      <h5><%= leaflet_type_desc %></h5>
       <% h.leaflets.order("created_at DESC").each do |l| %>
         <ul id="feed-list" class="leaflet-list">
             <% channel = Channel.find(l.channel_id) %>
