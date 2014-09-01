@@ -29,8 +29,11 @@ class MasterRakesController < ApplicationController
     end
     @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @heaps = @rake.master_heaps
-    @feed_collapse = params[:collapse] == "feed" ? "in" : ""
-    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "in" : ""
+    @feed_collapse = params[:collapse] == "feed" ? "active" : ""
+    if @feed_collapse == ""
+      @stats_collapse = "active"
+    end
+    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
     @heap_id = params[:collapse].to_s.slice(5..-1)
   end
 

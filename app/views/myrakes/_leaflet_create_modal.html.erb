@@ -19,7 +19,8 @@
           <%# else %>
             <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
           <%# end %>
-          <%#= f.hidden_field :heap_id, class: "heap-id" %>
+          <%= f.hidden_field :heap_id, class: "heap-id" %>
+          <%= f.hidden_field :collapse, class: "collapse-section" %>
           <%= f.text_field :leaflet_title, { label: "Recommendation Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)" } %>
           <%= f.text_area :leaflet_url, { label: "URL (including leading http://)" } %>

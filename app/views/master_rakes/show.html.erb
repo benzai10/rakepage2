@@ -3,9 +3,6 @@
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1>
-        <%= @rake.name %> Recommendations
-      </h1>
       <h5>
         <small>
           <% if user_signed_in? %>
@@ -24,12 +21,9 @@
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-feed">
-            <h5 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion-show" 
-                 href="#collapse-feed">
-                 Master Rake
-              </a>
-            </h5>
+            <h1 class="panel-title">
+              <%= @rake.name %> Recommendations
+            </h1>
           </div>
           <div class="panel-collapse collapse in" id="collapse-feed">
             <div class="panel-body">

@@ -1,7 +1,7 @@
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-    <li class="active col-lg-6">
+    <li class="col-lg-6">
       <%= link_to master_rake_path(@rake.master_rake_id) do %>
         <div class="thumbnail">
           <div class="media">
@@ -15,15 +15,29 @@
         </div>
       <% end %>
     </li>
-    <li class="col-lg-6">
-      <a href="#tab-feed" role="tab" data-toggle="tab">
+    <li class="<%= @stats_collapse %> col-lg-6">
+      <a href="#stats" role="tab" data-toggle="tab">
+        <div class="thumbnail">
+          <div class="media">
+            <span class="pull-left">
+              <%= image_tag("charts.png", size: "96x54") %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Stats</h5>
+            </div>
+          </div>
+        </div>
+      </a>
+    </li>
+    <li class="<%= @feed_collapse %> col-lg-6">
+      <a href="#feed" role="tab" data-toggle="tab">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
               <%= image_tag("newsfeed.jpg", size: "96x54") %>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">Feed</h5>
+              <h5 class="media-heading">News</h5>
             </div>
           </div>
         </div>
@@ -37,7 +51,10 @@
               <%= image_tag("channels.jpg", size: "96x54") %>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">Channels</h5>
+              <h5 class="media-heading">Blogs & Subreddits</h5>
+              <p>
+                <%= pluralize(@rake.channels.where("channel_type <> 3 AND channel_type <> 5").count, "Channel") %>
+              </p>
             </div>
           </div>
         </div>
@@ -50,8 +67,8 @@
       <% end %>
       <% leaflet_type = LeafletType.find_by_leaflet_type(lt) %>
       <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
-      <li class="col-lg-6">
-        <a href="#heap-<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
+      <li class="<%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %> col-lg-6">
+        <a href="#heap_<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
           <div class="thumbnail">
             <div class="media">
             <span class="pull-left">
@@ -59,6 +76,7 @@
             </span>
             <div class="media-body">
               <h5 class="media-heading"><%= leaflet_type_desc %></h5>
+              <p><%= pluralize(heap.leaflets.count, "Recommendation") if !heap.nil? %></p>
             </div>
             </div>
           </div>
@@ -71,7 +89,18 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane" id="tab-feed">
+  <div class="tab-pane <%= @stats_collapse %>" id="stats">
+    <br>
+    <h5><small>Most active Co-Rakers</small></h5>
+    <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>
+    <% if data.count == 0 %>
+      <% chart_height = "30px" %>
+    <% else %>
+      <% chart_height = (data.count * 40).to_s + "px" %>
+    <% end %>
+    <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
+  </div>
+  <div class="tab-pane <%= @feed_collapse %>" id="feed">
     <%= render 'feed' %>
   </div>
   <div class="tab-pane" id="channels">
@@ -84,12 +113,43 @@
     <% end %>
     <% leaflet_type = LeafletType.find_by_leaflet_type(lt) %>
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
-
-    <div class="tab-pane" id="heap-<%= leaflet_type_desc.gsub(/\W/, "") %>">
+    <div class="tab-pane <%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
+      <h5><%= leaflet_type_desc %></h5>
+      <% if user_signed_in? && @rake.user_id == current_user.id %>
+        <% if lt != 15 %>
+          <%= link_to "Add recommendation", new_leaflet_path, 
+                      data: {
+                        toggle: "modal",
+                        target: "#newLeafletModal",
+                        heapid: heap.id,
+                        collapse: "heap_" + "#{heap.leaflet_type_id}",
+                        typeid: lt
+                      },
+                      class: "btn btn-xs btn-primary leaflet-create" %>
+        <% else %>
+          <% if current_user.admin? %>
+            <%= link_to "Add recommendation", new_leaflet_path, 
+                        data: {
+                          toggle: "modal",
+                          target: "#newLeafletModal",
+                          heapid: heap.id,
+                          collapse: "heap_" + "#{heap.leaflet_type_id}",
+                          typeid: lt
+                        },
+                        class: "btn btn-xs btn-primary leaflet-create" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if lt != 15 %>
+          <%= link_to "Add recommendation", new_user_session_path, class: "btn btn-xs btn-primary" %>
+        <% end %>
+      <% end %>
+      <br><br>
       <% if @heaps.pluck(:leaflet_type_id).include? lt %>
         <ul id="feed-list" class="leaflet-list">
           <% heap.leaflets.order("published_at DESC").each do |l| %>
             <% channel = Channel.find(l.channel_id) %>
+            <a class="anchor" id="<%= 'leaflet_' + l.id.to_s %>"></a>
             <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
               <% if channel.channel_type == 4 %>
                 <% reddit_link = "http://reddit.com/" + l.identifier %>
@@ -159,19 +219,22 @@
                   <% if heap_leaflet != "" %>
                     <% description = heap_leaflet.leaflet_desc %>
                     <% if !description.nil? %>
-                      <%= description %><br><br>
+                      <span class="feed-timestamp"><%= description %></span>
                     <% end %>
                   <% end %>
                   <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
                   <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
                   <% content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/') %>
-                  <%= raw content unless l.content == description %>
+                  <p><%= raw content unless l.content == description %></p>
                 </p>
-                Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
-                &nbsp;|&nbsp;
-                Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-                &nbsp;|&nbsp;
-                Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+                <br>
+                <span class="leaflet-metrics">
+                  Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+                  &nbsp;|&nbsp;
+                  Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+                  &nbsp;|&nbsp;
+                  Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+                </span>
                 <span class="pull-right">
 
                 <% if user_signed_in? %>
@@ -228,4 +291,3 @@
     </div>
   <% end %>
 </div>
-

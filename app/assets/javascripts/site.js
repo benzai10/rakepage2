@@ -59,8 +59,10 @@ $(function() {
     $(".leaflet-create").click(function() {
         var leafletTypeId = $(this).data('typeid');
         var heapId = $(this).data('heapid');
+        var collapse = $(this).data('collapse');
         $(".leaflet-type-id").val(leafletTypeId);
         $(".heap-id").val(heapId);
+        $(".collapse-section").val(collapse);
     });
 
     $(".leaflet-move").click(function() {

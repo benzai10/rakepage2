@@ -1,3 +1,5 @@
+<h5>Blog & Subreddits</h5>
+<br>
 <% if user_signed_in? && @rake.user_id == current_user.id %>
   <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
               data: { toggle: "modal",
@@ -10,6 +12,11 @@
                       target: "#addSubredditModal",
                       rakeid: @rake.id,
                       channeltype: 4 },
+              class: "btn btn-xs btn-primary add-subreddit-feed" %>
+<% else %>
+  <%= link_to "Add Blog", new_user_session_path, 
+              class: "btn btn-xs btn-primary add-rss-feed" %>
+  <%= link_to "Add Subreddit", new_user_session_path,
               class: "btn btn-xs btn-primary add-subreddit-feed" %>
 <% end %>
 <hr>
@@ -102,6 +109,7 @@
             <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
           </p>
         </div>
+        <br>
       </li>
     <% end %>
   <% end %>

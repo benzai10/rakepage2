@@ -45,17 +45,23 @@ class MyrakesController < ApplicationController
     @rake = Myrake.find(params[:id])
     @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
-    if !@rake.heaps.pluck(:leaflet_type_id).include?(params[:heap_type].to_i)
-      @rake.add_heap(params[:heap_type].to_i)
+    missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
+    missing_leaflet_types.each do |mlt|
+      @rake.add_heap(mlt)
     end
     @heaps = @rake.heaps
     @heap_ids = @heaps.pluck(:id)
     @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
     @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
     #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
-    @feed_collapse = params[:collapse] == "feed" ? "in" : ""
-    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "in" : ""
+    @feed_collapse = params[:collapse] == "feed" ? "active" : ""
+    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
     @heap_id = params[:collapse].to_s.slice(5..-1)
+    if @feed_collapse == "" && @heap_collapse == ""
+      @stats_collapse = "active"
+    else
+      @stats_collapse = ""
+    end
   end
 
   def news
@@ -136,13 +142,13 @@ class MyrakesController < ApplicationController
   def update
     @rake = Myrake.find(params[:id])
     if params[:commit] == "Update Recommendation"
-      leaflet = Leaflet.find(params[:myrake][:id])
+      leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:myrake][:heap_id].to_i, 
-                                          params[:myrake][:id].to_i).first
+                                          params[:myrake][:leaflet_id].to_i).first
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc])
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
-      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:id])
+      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Recommendation"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       @rake.add_leaflet(leaflet, 
@@ -159,7 +165,7 @@ class MyrakesController < ApplicationController
                            params[:myrake][:leaflet_title],
                            params[:myrake][:leaflet_desc],
                            params[:myrake][:leaflet_url]) != false
-        redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
+        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
