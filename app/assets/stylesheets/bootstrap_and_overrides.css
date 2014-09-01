@@ -676,6 +676,31 @@ body.nav-expanded {
   opacity: 1;
 }
 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  .nav-thumbnails > li {
+    width: 50%;
+  }
+}
+
+/* iPad landscape */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation : landscape ) {
+  .nav-thumbnails > li {
+    width: 100%;
+  }
+}
+
+/* iPad portrait */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation : portrait ) {
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+
+}
+
+
 /* Landscape phones and down */
 @media (max-width: 480px) {
   #showTutorialModal .modal-body {
@@ -691,6 +716,10 @@ body.nav-expanded {
   .feed-body iframe {
     width: 100%;
     max-height: 160px;
+  }
+
+  .nav-thumbnails > li {
+    width: 100%;
   }
 
   .nav > li > a {

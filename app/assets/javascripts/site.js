@@ -32,6 +32,18 @@ $(function() {
         return false;
     });
 
+    // scroll to tab pane
+    function scrollToAnchor(aid){
+        var aTag = $("a[name='"+ aid +"']");
+        $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+    };
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var eth = e.target.href;
+        var anchorname = eth.substring(eth.indexOf('#') + 1, eth.length);
+        scrollToAnchor(anchorname);
+    });
+
     $(".leaflet-save").click(function() {
         var leafletid = $(this).data('id');
         var leaflettitle = $(this).data('title');

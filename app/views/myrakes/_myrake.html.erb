@@ -29,7 +29,7 @@
         </div>
       </a>
     </li>
-    <li class="<%= @feed_collapse %> col-lg-6">
+    <li class="<%= @feed_collapse %> col-lg-6" id="test">
       <a href="#feed" role="tab" data-toggle="tab">
         <div class="thumbnail">
           <div class="media">
@@ -90,6 +90,8 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
+    <a class="anchor" name="stats"></a>
+    <h5>Stats</h5>
     <br>
     <h5><small>Most active Co-Rakers</small></h5>
     <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>
@@ -101,9 +103,11 @@
     <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
   </div>
   <div class="tab-pane <%= @feed_collapse %>" id="feed">
+    <a class="anchor" name="feed"></a>
     <%= render 'feed' %>
   </div>
   <div class="tab-pane" id="channels">
+    <a class="anchor" name="channels"></a>
     <%= render 'channels' %>
   </div>
 
@@ -114,6 +118,7 @@
     <% leaflet_type = LeafletType.find_by_leaflet_type(lt) %>
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <div class="tab-pane <%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
+      <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>"></a>
       <h5><%= leaflet_type_desc %></h5>
       <% if user_signed_in? && @rake.user_id == current_user.id %>
         <% if lt != 15 %>

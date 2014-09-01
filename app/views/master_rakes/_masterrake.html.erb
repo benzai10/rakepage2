@@ -122,6 +122,7 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
+    <a class="anchor" name="stats"></a>
     <h5><small>Most active Co-Rakers</small></h5>
     <% data = @rake.get_corakers.first(5) %>
     <% if data.count == 0 %>
@@ -132,9 +133,11 @@
     <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
   </div>
   <div class="tab-pane <%= @feed_collapse %>" id="feed">
+    <a class="anchor" name="feed"></a>
     <%= render 'feed' %>
   </div>
   <div class="tab-pane" id="channels">
+    <a class="anchor" name="channels"></a>
     <%= render 'channels' %>
   </div>
 
@@ -143,7 +146,7 @@
     <% leaflet_type = LeafletType.find_by_leaflet_type(h.leaflet_type_id) %>
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
-
+      <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
       <% h.leaflets.order("created_at DESC").each do |l| %>
         <ul id="feed-list" class="leaflet-list">
             <% channel = Channel.find(l.channel_id) %>
@@ -263,5 +266,9 @@
 
     </div>
   <% end %>
-
+<%#= javascript_tag "$('a[data-toggle='tab']').on('shown.bs.tab', function (e) {
+        var eth = e.target.href;
+        var anchorname = eth.substring(eth.indexOf('#') + 1, eth.length);
+        scrollToAnchor(anchorname);
+    });", type: "text/javascript" %>
 </div>
