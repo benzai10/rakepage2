@@ -68,7 +68,7 @@ class MyrakesController < ApplicationController
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
     @heap_id = params[:collapse].to_s.slice(5..-1)
-     if !@feed_collapse != "" || !@heap_collapse != ""
+     if !@feed_collapse != "" && !@heap_collapse != ""
       @stats_collapse = "active"
     else
       @stats_collapse = ""
