@@ -12,6 +12,7 @@ namespace :rakepage_tests do
     end
   end
 
+  desc "Check if all master rakes have a heap 'Uncategorized'"
   task :check_uncategorize_master_heaps => :environment do
     MasterRake.all.each do |r|
       print "Checking master rake id: " + r.id.to_s + "\n"
@@ -22,4 +23,10 @@ namespace :rakepage_tests do
       end
     end
   end
+
+  desc "Test sending an email"
+  task :send_test_email => :environment do
+
+  end
+
 end
