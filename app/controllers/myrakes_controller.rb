@@ -43,6 +43,17 @@ class MyrakesController < ApplicationController
     end
     params[:heap_type] ||= "News"
     @rake = Myrake.find(params[:id])
+    if user_signed_in?
+      if current_user.id == @rake.user_id
+        history_changed_category = History.where(rake_id: @rake.id, history_code: "Master rake category changed").last
+        if !history_changed_category.nil? 
+          flash[:notice] = "The category of the master rake has changed.
+                          Recommendations which couldn't matched are in 'Uncategorized'.
+                          You can move your recommendations from there to new recommendation types!"
+          history_changed_category.update_attributes(history_code: "Master rake category change notified")
+        end
+      end
+    end
     @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
     missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
@@ -57,7 +68,7 @@ class MyrakesController < ApplicationController
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
     @heap_id = params[:collapse].to_s.slice(5..-1)
-    if @feed_collapse == "" && @heap_collapse == ""
+     if !@feed_collapse != "" || !@heap_collapse != ""
       @stats_collapse = "active"
     else
       @stats_collapse = ""

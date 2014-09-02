@@ -30,10 +30,10 @@ class MasterRakesController < ApplicationController
     @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @heaps = @rake.master_heaps
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
-    if @feed_collapse == ""
+    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
+    if !@feed_collapse != "" || !@heap_collapse != ""
       @stats_collapse = "active"
     end
-    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
     @heap_id = params[:collapse].to_s.slice(5..-1)
   end
 
@@ -51,6 +51,7 @@ class MasterRakesController < ApplicationController
       if @master_rake.save
         CategoryLeafletTypeMap.where(category_id: @master_rake.category_id).each do |c|
           MasterHeap.create(master_rake_id: @master_rake.id, leaflet_type_id: c.leaflet_type_id)
+
         end
         @rake = Myrake.new
         @rake.master_rake_id = @master_rake.id
@@ -83,7 +84,50 @@ class MasterRakesController < ApplicationController
 
   def update
     @master_rake = MasterRake.find(params[:id])
+    old_leaflet_types = Category.find(@master_rake.category_id).leaflet_types.pluck(:id)
     if @master_rake.update_attributes(master_rake_params)
+      # if category changes, all leaflets need to be remapped
+      CategoryLeafletTypeMap.where(category_id: params[:master_rake][:category_id].to_i).each do |c|
+        MasterHeap.create(master_rake_id: @master_rake.id, leaflet_type_id: c.leaflet_type_id)
+        rake_history = ""
+        @master_rake.myrakes.each do |r|
+          Heap.create(myrake_id: r.id, leaflet_type_id: c.leaflet_type_id)
+          if rake_history.empty?
+            History.create(user_id: r.user_id, 
+                           master_rake_id: @master_rake.id,
+                           rake_id: r.id,
+                           history_code: "Master rake category changed")
+            rake_history = "history is written"
+          end
+        end
+      end
+      # delete the not anymore valid master heaps and move their leaflets to 
+      # master heap 'Uncategorized'
+      new_leaflet_types = Category.find(params[:master_rake][:category_id].to_i).leaflet_types.pluck(:id)
+      all_leaflet_types = old_leaflet_types + new_leaflet_types
+      diff_leaflet_types = all_leaflet_types - new_leaflet_types
+      uncategorized_master_heap = @master_rake.master_heaps.find_by_leaflet_type_id(1)
+      if uncategorized_master_heap.nil?
+        @master_rake.add_heap(1)
+      end
+      @master_rake.master_heaps.where("leaflet_type_id IN (?)", diff_leaflet_types).each do |h|
+        MasterHeapLeafletMap.where(master_heap_id: h.id).each do |l|
+          l.update_attributes(master_heap_id: uncategorized_master_heap.id)
+        end
+        h.destroy
+        @master_rake.myrakes.each do |r|
+          uncategorized_heap = r.heaps.find_by_leaflet_type_id(1)
+          if uncategorized_heap.nil?
+            r.add_heap(1)
+          end
+          r.heaps.where("leaflet_type_id IN (?)", diff_leaflet_types).each do |h|
+            HeapLeafletMap.where(heap_id: h.id).each do |l|
+              l.update_attributes(heap_id: uncategorized_heap.id)
+            end
+            h.destroy
+          end
+        end
+      end
       redirect_to master_rake_path(@master_rake)
     else
       redirect_to :back

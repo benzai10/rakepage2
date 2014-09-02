@@ -2,6 +2,7 @@ class Heap < ActiveRecord::Base
   attr_accessor :leaflet_id
 
   validates :myrake_id, presence: true
+  validates_uniqueness_of :leaflet_type_id, :scope => :myrake_id
 
   belongs_to :myrake
 

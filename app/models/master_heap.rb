@@ -1,5 +1,6 @@
 class MasterHeap < ActiveRecord::Base
   validates :master_rake_id, presence: true
+  validates_uniqueness_of :leaflet_type_id, :scope => :master_rake_id
 
   belongs_to :master_rake
 

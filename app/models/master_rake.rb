@@ -48,6 +48,11 @@ class MasterRake < ActiveRecord::Base
 
   end
 
+  def add_master_heap(leaflet_type_id)
+    self.master_heaps.create(master_rake_id: self.id, leaflet_type_id: leaflet_type_id)
+  end
+
+
   def existing_custom_rakes(user)
     Myrake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
   end
