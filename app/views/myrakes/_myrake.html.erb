@@ -24,6 +24,13 @@
             </span>
             <div class="media-body">
               <h5 class="media-heading">Stats</h5>
+              <p>
+                <%= pluralize(@rake.master_rake.myrakes.count, "Co-Raker") %>
+              </p>
+              <p>
+                <%= pluralize(@heap_leaflets.count, 
+                              "Rec") %>
+              </p>
             </div>
           </div>
         </div>
@@ -76,7 +83,7 @@
             </span>
             <div class="media-body">
               <h5 class="media-heading"><%= leaflet_type_desc %></h5>
-              <p><%= pluralize(heap.leaflets.count, "Recommendation") if !heap.nil? %></p>
+              <p><%= pluralize(heap.leaflets.count, "Rec") if !heap.nil? %></p>
             </div>
             </div>
           </div>

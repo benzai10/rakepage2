@@ -690,7 +690,7 @@ body.nav-expanded {
 /* iPad landscape */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation : landscape ) {
   .nav-thumbnails > li {
-    width: 100%;
+    width: 50%;
   }
 }
 

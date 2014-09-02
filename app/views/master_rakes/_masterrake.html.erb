@@ -63,7 +63,7 @@
               <p>
                 <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", 
                               @rake.master_heaps.pluck(:id)).count, 
-                              "Recommendation") + " in total"%>
+                              "Rec") + " in total"%>
               </p>
             </div>
           </div>
@@ -118,7 +118,7 @@
               <div class="media-body">
                 <h5 class="media-heading"><%= leaflet_type_desc %></h5>
                   <p>
-                    <%= pluralize(h.leaflets.count, "Recommendation") %>
+                    <%= pluralize(h.leaflets.count, "Rec") %>
                   </p>
               </div>
             </div>
