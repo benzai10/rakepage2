@@ -89,16 +89,8 @@ class MasterRakesController < ApplicationController
       # if category changes, all leaflets need to be remapped
       CategoryLeafletTypeMap.where(category_id: params[:master_rake][:category_id].to_i).each do |c|
         MasterHeap.create(master_rake_id: @master_rake.id, leaflet_type_id: c.leaflet_type_id)
-        rake_history = ""
         @master_rake.myrakes.each do |r|
           Heap.create(myrake_id: r.id, leaflet_type_id: c.leaflet_type_id)
-          if rake_history.empty?
-            History.create(user_id: r.user_id, 
-                           master_rake_id: @master_rake.id,
-                           rake_id: r.id,
-                           history_code: "Master rake category changed")
-            rake_history = "history is written"
-          end
         end
       end
       # delete the not anymore valid master heaps and move their leaflets to 
@@ -127,6 +119,12 @@ class MasterRakesController < ApplicationController
             h.destroy
           end
         end
+      end
+      @master_rake.myrakes.each do |r|
+        History.create(user_id: r.user_id,
+                       master_rake_id: @master_rake.id,
+                       rake_id: r.id,
+                       history_code: "Master rake category changed")
       end
       redirect_to master_rake_path(@master_rake)
     else
