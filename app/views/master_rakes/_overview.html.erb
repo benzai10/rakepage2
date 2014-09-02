@@ -12,18 +12,18 @@
       <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a href="#featured-rakes" role="tab" data-toggle="tab">Featured</a></li>
-          <li><a href="#new-rakes" data-toggle="tab">New</a></li>
+          <li class="active"><a href="#new-rakes" role="tab" data-toggle="tab">New</a></li>
+          <li><a href="#featured-rakes" data-toggle="tab">Featured</a></li>
           <li><a href="#all-rakes" data-toggle="tab">All</a></li>
 <!--           <li><a href="#stats" data-toggle="tab">Stats</a></li> -->
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="featured-rakes">
-            <%= render 'featured_master_rakes' %>
-          </div>
-          <div class="tab-pane" id="new-rakes">
+          <div class="tab-pane active" id="new-rakes">
             <%= render 'new_master_rakes' %>
+          </div>
+          <div class="tab-pane" id="featured-rakes">
+            <%= render 'featured_master_rakes' %>
           </div>
           <div class="tab-pane" id="all-rakes">
             <%= render 'all_master_rakes' %>
