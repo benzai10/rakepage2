@@ -101,7 +101,7 @@
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
     <a class="anchor" name="stats"></a>
-    <h5>Stats</h5>
+    <h3>Stats</h3>
     <br>
     <h5><small>Most active Co-Rakers</small></h5>
     <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>

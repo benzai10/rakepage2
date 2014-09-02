@@ -6,13 +6,13 @@
       <h5>
         <small>
           <% if user_signed_in? %>
-            <%= link_to "MY RECOMMENDATION RAKES", myrakes_path %>
+            <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
             &nbsp;|&nbsp;
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path %>
             &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path %>
+          <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path, class: "nav-link" %>
         </small>
       </h5>
       <% if !flash.empty? %>

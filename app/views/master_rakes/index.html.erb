@@ -11,9 +11,9 @@
       <h5>
         <small>
           <% if user_signed_in? %>
-           <%= link_to "MY RECOMMENDATION RAKES", myrakes_path %>
+           <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
           <% else %>
-            <%= link_to "SIGN IN", new_user_session_path %>
+            <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
           <% end %>
         </small>
       </h5>
