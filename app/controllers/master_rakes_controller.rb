@@ -31,7 +31,9 @@ class MasterRakesController < ApplicationController
     @heaps = @rake.master_heaps
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
-    if !@feed_collapse != "" && !@heap_collapse != ""
+    if @feed_collapse == "feed" || @heap_collapse == "heap"
+      @stats_collapse = ""
+    else
       @stats_collapse = "active"
     end
     @heap_id = params[:collapse].to_s.slice(5..-1)
