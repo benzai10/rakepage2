@@ -132,7 +132,10 @@
       <h5><%= leaflet_type_desc %></h5>
       <% if user_signed_in? && @rake.user_id == current_user.id %>
         <% if lt != 15 %>
-          <%= link_to "Add recommendation", new_leaflet_path, 
+          <%= bootstrap_form_for (Leaflet.new) do |f| %>
+            <%= f.text_field :url, { label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}" } %>
+          <% end %>
+          <%= link_to "Go!", new_leaflet_path, 
                       data: {
                         toggle: "modal",
                         target: "#newLeafletModal",
@@ -140,10 +143,10 @@
                         collapse: "heap_" + "#{heap.leaflet_type_id}",
                         typeid: lt
                       },
-                      class: "btn btn-xs btn-primary leaflet-create" %>
+                      class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
         <% else %>
           <% if current_user.admin? %>
-            <%= link_to "Add recommendation", new_leaflet_path, 
+            <%= link_to "Go!", new_leaflet_path, 
                         data: {
                           toggle: "modal",
                           target: "#newLeafletModal",
@@ -151,12 +154,12 @@
                           collapse: "heap_" + "#{heap.leaflet_type_id}",
                           typeid: lt
                         },
-                        class: "btn btn-xs btn-primary leaflet-create" %>
+                        class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
           <% end %>
         <% end %>
       <% else %>
         <% if lt != 15 %>
-          <%= link_to "Add recommendation", new_user_session_path, class: "btn btn-xs btn-primary" %>
+          <%= link_to "Go!", new_user_session_path, class: "btn btn-xs btn-primary" %>
         <% end %>
       <% end %>
       <br><br>
@@ -164,7 +167,7 @@
         <ul id="feed-list" class="leaflet-list">
           <% heap.leaflets.order("published_at DESC").each do |l| %>
             <% channel = Channel.find(l.channel_id) %>
-            <a class="anchor" id="<%= 'leaflet_' + l.id.to_s %>"></a>
+            <a class="anchor" id="<%= 'anchor_leaflet_' + l.id.to_s %>"></a>
             <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
               <% if channel.channel_type == 4 %>
                 <% reddit_link = "http://reddit.com/" + l.identifier %>

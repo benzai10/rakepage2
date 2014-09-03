@@ -11,9 +11,9 @@
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
+          <%= f.text_area :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
           <%= f.text_field :leaflet_title, { label: "Recommendation Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)", class: "leaflet-description" } %>
-          <%= f.text_area :leaflet_url, { label: "URL (including leading http://)", class: "leaflet-url" } %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

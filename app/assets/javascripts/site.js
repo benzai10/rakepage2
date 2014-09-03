@@ -72,9 +72,14 @@ $(function() {
         var leafletTypeId = $(this).data('typeid');
         var heapId = $(this).data('heapid');
         var collapse = $(this).data('collapse');
+        var elementId = "url-" + leafletTypeId;
+        var url = document.getElementById("url-" + leafletTypeId).value;
         $(".leaflet-type-id").val(leafletTypeId);
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
+
+
+        $(".leaflet-url").val(url);
     });
 
     $(".leaflet-move").click(function() {

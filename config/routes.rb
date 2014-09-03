@@ -59,6 +59,7 @@ Rakepage2::Application.routes.draw do
 
   resources :myrakes do
     member do
+      get 'get_url_title'
       get 'add_channel'
       get 'remove_channel'
       get 'add_leaflet'

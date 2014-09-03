@@ -10,6 +10,7 @@ gem 'groupdate', '~> 2.1.0'
 gem 'bootstrap_tokenfield_rails'
 gem 'rails3-jquery-autocomplete'
 gem 'social-share-button'
+gem 'mechanize', '2.7.2'
 
 # gem 'jquery-turbolinks'
 # authentication gem

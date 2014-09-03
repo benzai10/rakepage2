@@ -159,7 +159,7 @@ class MyrakesController < ApplicationController
                                           params[:myrake][:leaflet_id].to_i).first
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc])
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
-      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:leaflet_id])
+      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Recommendation"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       @rake.add_leaflet(leaflet, 
@@ -167,14 +167,30 @@ class MyrakesController < ApplicationController
                         params[:myrake][:leaflet_title],
                         params[:myrake][:leaflet_desc])
       if session[:rake_class] == MasterRake
-        redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:leaflet_id])
+        redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
       else
-        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "leaflet_" + params[:myrake][:leaflet_id])
+        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
       end
     elsif params[:commit] == "Create Recommendation"
+      if params[:myrake][:leaflet_title].empty? || params[:myrake][:leaflet_desc].empty?
+        url_data = @rake.url_data(params[:myrake][:leaflet_url])
+      end
+      if params[:myrake][:leaflet_title].empty?
+        title = url_data[:leaflet_title]
+      else
+        title = params[:myrake][:leaflet_title]
+      end
+      if title.empty?
+        title = params[:myrake][:leaflet_url]
+      end
+      if params[:myrake][:leaflet_desc].empty?
+        description = url_data[:leaflet_desc]
+      else
+        description = params[:myrake][:leaflet_desc]
+      end
       if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
-                           params[:myrake][:leaflet_title],
-                           params[:myrake][:leaflet_desc],
+                           title,
+                           description,
                            params[:myrake][:leaflet_url]) != false
         redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
       else
@@ -249,6 +265,13 @@ class MyrakesController < ApplicationController
     @rake.toggle_channel_display(@channel, display)
     respond_to do |format|
       format.html { redirect_to myrake_path(rake_id: @rake.id) }
+    end
+  end
+
+  def get_url_title
+    respond_to do |format|
+      format.html { render :nothing }
+      format.js { "Hello" }
     end
   end
 

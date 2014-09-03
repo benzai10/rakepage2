@@ -1,4 +1,5 @@
 class Myrake < ActiveRecord::Base
+  require 'mechanize'
   after_create :create_channel #, :inherit_channels
   attr_accessor :feed_leaflets
   attr_accessor :rake_filters
@@ -27,6 +28,19 @@ class Myrake < ActiveRecord::Base
   has_many :channels, through: :rake_channel_maps, dependent: :destroy
   has_many :filters, dependent: :destroy
   has_many :heaps, dependent: :destroy
+
+  def url_data(url)
+    url_hash = {leaflet_title: "", leaflet_desc: ""}
+    agent = Mechanize.new
+    agent.get(url)
+    url_hash[:leaflet_title] = agent.page.title
+    if !agent.page.at("head meta[name='description']").nil?
+      url_hash[:leaflet_desc] = agent.page.at("head meta[name='description']").attributes["content"].value
+    else
+      url_hash[:leaflet_desc] = ""
+    end
+    url_hash
+  end
 
   def is_current_user?
     current_user
