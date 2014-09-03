@@ -32,11 +32,21 @@ class Myrake < ActiveRecord::Base
   def url_data(url)
     url_hash = {leaflet_title: "", leaflet_desc: ""}
     agent = Mechanize.new
-    agent.get(url)
-    url_hash[:leaflet_title] = agent.page.title
-    if !agent.page.at("head meta[name='description']").nil?
-      url_hash[:leaflet_desc] = agent.page.at("head meta[name='description']").attributes["content"].value
+    if !agent.nil?
+      begin
+        agent.get(url)
+        url_hash[:leaflet_title] = agent.page.title
+        if !agent.page.at("head meta[name='description']").nil?
+          url_hash[:leaflet_desc] = agent.page.at("head meta[name='description']").attributes["content"].value
+        else
+          url_hash[:leaflet_desc] = ""
+        end
+      rescue
+        url_hash[:leaflet_title] = ""
+        url_hash[:leaflet_desc] = ""
+      end
     else
+      url_hash[:leaflet_title] = ""
       url_hash[:leaflet_desc] = ""
     end
     url_hash

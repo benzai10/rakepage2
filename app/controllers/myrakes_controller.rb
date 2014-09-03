@@ -188,6 +188,9 @@ class MyrakesController < ApplicationController
       else
         description = params[:myrake][:leaflet_desc]
       end
+      if description.empty?
+        description = ""
+      end
       if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
                            title,
                            description,
