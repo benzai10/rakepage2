@@ -6,6 +6,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Save Recommendation</h4>
       </div>
+      <%#= data: { leaflet_id:  } %>
       <%= bootstrap_form_for(@custom_rake.first) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
