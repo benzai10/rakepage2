@@ -92,16 +92,16 @@
               <% else %>
                 <span class="feed-button">
                   <% if user_signed_in? %>
-                    <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe,
+                    <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe,
                                 add_leaflet_myrake_path(@custom_rake), 
                                 data: { toggle: "modal", 
-                                        target: "#saveLeafletModal",
+                                        target: "#myModal",
                                         id: l.id,
                                         title: l.title,
                                         collapse: "feed" },
                                         class: "leaflet-save" %>
                   <% else %>
-                    <%= link_to '&nbsp'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, new_user_session_path %>
+                    <%= link_to '&nbsp'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe, new_user_session_path %>
                   <% end %>
                 </span>
               <% end %>
