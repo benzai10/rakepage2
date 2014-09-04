@@ -49,10 +49,12 @@ $(function() {
         var leaflettitle = $(this).data('title');
         var collapse = $(this).data('collapse');
         var heapid = $(this).data('heapid');
+        var rakename = $(this).data('rakename');
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".collapse-section").val(collapse);
         $(".heap-id").val(heapid);
+        $(".rake-name").val(rakename);
     });
 
     $(".leaflet-edit").click(function() {
@@ -80,8 +82,6 @@ $(function() {
         $(".leaflet-custom-title").val("");
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
-
-
         $(".leaflet-url").val(url);
     });
 

@@ -11,7 +11,7 @@
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
           <% leaflet_types_array = LeafletType.where("id IN (?)", CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
-          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array), { label: "Choose a Recommendation Category" } %>
+          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose a Recommendation Category" }, class: "heap-id" %>
           <%= f.text_field :leaflet_title, { label: "Recommendation Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)" } %>
         </div>
