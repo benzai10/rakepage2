@@ -47,10 +47,10 @@
           <% end %>
           <%= channel_name %>
           <span class="pull-right">
-            <% if user_signed_in? && !@custom_rake.first.nil? %>
-              <% if !@custom_rake.first.channels.include? c %>
+            <% if user_signed_in? && !@custom_rake.nil? %>
+              <% if !@custom_rake.channels.include? c %>
                 <%= link_to "Add",
-                      add_channel_myrake_path(@custom_rake.first.id, channel: c.id),
+                      add_channel_myrake_path(@custom_rake.id, channel: c.id),
                       class: "btn btn-xs btn-default", title: "Add Channel to own Rake" %>
               <% end %>
             <% end %>

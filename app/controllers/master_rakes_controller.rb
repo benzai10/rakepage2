@@ -19,9 +19,9 @@ class MasterRakesController < ApplicationController
     @rake = @master_rakes.find(params[:id].to_i)
     @channels = @rake.channels
     if user_signed_in?
-      @custom_rake = @rake.existing_custom_rakes(current_user)
-      if @custom_rake.count > 0
-        @custom_heaps = @custom_rake.first.heaps
+      @custom_rake = @rake.existing_custom_rake(current_user)
+      if !@custom_rake.nil?
+        @custom_heaps = @custom_rake.heaps
         heap_ids = @custom_heaps.pluck(:id)
         leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)
         @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids).order("published_at DESC")

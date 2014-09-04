@@ -3,8 +3,8 @@
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
     <li class="col-lg-6">
       <% if user_signed_in? %>
-        <% if !@custom_rake.nil? && !@custom_rake.empty? %>
-          <%= link_to myrake_path(@custom_rake.first) do %>
+        <% if !@custom_rake.nil? %>
+          <%= link_to myrake_path(@custom_rake) do %>
             <div class="thumbnail">
               <div class="media">
                 <span class="pull-left">
@@ -160,9 +160,56 @@
     <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
       <h5><%= leaflet_type_desc %></h5>
+      <% if user_signed_in? && !@custom_rake.nil? %>
+        <% if leaflet_type.id != 15 %>
+          <%= bootstrap_form_for (Leaflet.new) do |f| %>
+            <%= f.text_field :url, { label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{leaflet_type.id}" } %>
+          <% end %>
+          <%= link_to "Go!", new_leaflet_path, 
+                      data: {
+                        toggle: "modal",
+                        target: "#newLeafletModal",
+                        heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: leaflet_type.id).first,
+                        collapse: "heap_" + "#{h.leaflet_type_id}",
+                        typeid: leaflet_type.id
+                      },
+                      class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+        <% else %>
+          <% if current_user.admin? %>
+            <%= link_to "Go!", new_leaflet_path, 
+                        data: {
+                          toggle: "modal",
+                          target: "#newLeafletModal",
+                          heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: leaflet_type.id).first,
+                          collapse: "heap_" + "#{h.leaflet_type_id}",
+                          typeid: leaflet_type.id
+                        },
+                        class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <h5>
+          <small>
+            To add recommendations you have to create a personlized rake first:
+            <% if user_signed_in? %>
+              <%= link_to "Create!", new_myrake_path(master_rake_id: @rake.id),
+                                                     data: { toggle: "modal",
+                                                             target: "#newCustomRakeModal" } %>
+            <% else %>
+              <%= link_to "Sign in", new_user_session_path %>
+            <% end %>
+          </small>
+        </h5>
+        <br>
+        <% if leaflet_type.id != 15 %>
+          <%#= link_to "Go!", new_user_session_path, class: "btn btn-xs btn-primary" %>
+        <% end %>
+      <% end %>
+
       <% h.leaflets.order("created_at DESC").each do |l| %>
         <ul id="feed-list" class="leaflet-list">
             <% channel = Channel.find(l.channel_id) %>
+            <a class="anchor" name="anchor_leaflet_<%= l.id.to_s %>"></a>
             <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
               <% if channel.channel_type == 4 %>
                 <% reddit_link = "http://reddit.com/" + l.identifier %>

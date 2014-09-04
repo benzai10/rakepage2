@@ -53,8 +53,8 @@ class MasterRake < ActiveRecord::Base
   end
 
 
-  def existing_custom_rakes(user)
-    Myrake.where("user_id = ? AND master_rake_id = ?", user.id, self.id)
+  def existing_custom_rake(user)
+    Myrake.where("user_id = ? AND master_rake_id = ?", user.id, self.id).first
   end
 
   def get_corakers

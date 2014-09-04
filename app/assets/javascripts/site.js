@@ -48,9 +48,11 @@ $(function() {
         var leafletid = $(this).data('id');
         var leaflettitle = $(this).data('title');
         var collapse = $(this).data('collapse');
+        var heapid = $(this).data('heapid');
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".collapse-section").val(collapse);
+        $(".heap-id").val(heapid);
     });
 
     $(".leaflet-edit").click(function() {
@@ -75,6 +77,7 @@ $(function() {
         var elementId = "url-" + leafletTypeId;
         var url = document.getElementById("url-" + leafletTypeId).value;
         $(".leaflet-type-id").val(leafletTypeId);
+        $(".leaflet-custom-title").val("");
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
 
