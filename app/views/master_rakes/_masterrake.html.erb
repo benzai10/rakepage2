@@ -298,7 +298,7 @@
                         <% if user_heap_leaflet_ids.include? l.id %>
                           <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-star"></i>'.html_safe, '#' %>
                         <% else %>
-                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe, 
+                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe, 
                                 add_leaflet_myrake_path(user_rake), 
                                 data: { toggle: "modal",
                                         target: "#saveLeafletModal",
@@ -309,7 +309,7 @@
                                 class: "leaflet-save" %>
                         <% end %>
                       <% else %>
-                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save to Heap"></i>'.html_safe,
+                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe,
                               new_myrake_path(master_rake_id: @rake.id),
                                             data: { toggle: "modal",
                                                     target: "#newCustomRakeModal",
