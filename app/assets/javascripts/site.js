@@ -1,5 +1,13 @@
 $(function() {
 
+    $('.add-recommendation-form').hide();
+
+    $('.add-recommendation').click(function(){
+        $('.add-recommendation-form').show();
+        return false;
+    });
+
+
     $(window).scroll(function(){
         // add navbar opacity on scroll
         // if ($(this).scrollTop() > 100) {
@@ -42,6 +50,7 @@ $(function() {
         var eth = e.target.href;
         var anchorname = eth.substring(eth.indexOf('#') + 1, eth.length);
         scrollToAnchor(anchorname);
+        $('.add-recommendation-form').hide();
     });
 
     $(".leaflet-save").click(function() {

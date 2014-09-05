@@ -131,6 +131,8 @@
 </div>
 
 <!-- Tab panes -->
+<div class="row">
+<div class="col-md-12">
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
     <a class="anchor" name="stats"></a>
@@ -159,23 +161,16 @@
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
-      <h5><%= leaflet_type_desc %></h5>
-      <% if user_signed_in? && !@custom_rake.nil? %>
-        <% if leaflet_type.id != 15 %>
-          <%= bootstrap_form_for (Leaflet.new) do |f| %>
-            <%= f.text_field :url, { label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{leaflet_type.id}" } %>
-          <% end %>
-          <%= link_to "Go!", new_leaflet_path, 
-                      data: {
-                        toggle: "modal",
-                        target: "#newLeafletModal",
-                        heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: leaflet_type.id).first,
-                        collapse: "heap_" + "#{h.leaflet_type_id}",
-                        typeid: leaflet_type.id
-                      },
-                      class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
-        <% else %>
-          <% if current_user.admin? %>
+      <h5>
+        <%= leaflet_type_desc %>
+        <small><%= link_to "Add Recommendation", "#", class: "add-recommendation" %></small>
+      </h5>
+        <div class="add-recommendation-form">
+        <% if user_signed_in? && !@custom_rake.nil? %>
+          <% if leaflet_type.id != 15 %>
+            <%= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
+              <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{leaflet_type.id}", size: 60 } %>
+            <span class="inline-group-btn">
             <%= link_to "Go!", new_leaflet_path, 
                         data: {
                           toggle: "modal",
@@ -184,9 +179,30 @@
                           collapse: "heap_" + "#{h.leaflet_type_id}",
                           typeid: leaflet_type.id
                         },
-                        class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+                        class: "btn btn-primary leaflet-create", id: "js-test" %>
+            </span>
+            <% end %>
+            <br><br>
+          <% else %>
+            <% if current_user.admin? %>
+              <%= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
+                <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{leaflet_type.id}", size: 60 } %>
+                <span class="inline-group-btn">
+                <%= link_to "Go!", new_leaflet_path, 
+                            data: {
+                              toggle: "modal",
+                              target: "#newLeafletModal",
+                              heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: leaflet_type.id).first,
+                              collapse: "heap_" + "#{h.leaflet_type_id}",
+                              typeid: leaflet_type.id
+                            },
+                            class: "btn btn-primary leaflet-create", id: "js-test" %>
+                </span>
+              <% end %>
+              <br><br>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       <% else %>
         <h5>
           <small>
@@ -333,4 +349,6 @@
         var anchorname = eth.substring(eth.indexOf('#') + 1, eth.length);
         scrollToAnchor(anchorname);
     });", type: "text/javascript" %>
+</div>
+</div>
 </div>
