@@ -26,7 +26,7 @@ namespace :rakepage_tests do
 
   desc "Test sending an email"
   task :send_test_email => :environment do
-
+    UserMailer.welcome_email.deliver
   end
 
 end
