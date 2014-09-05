@@ -63,23 +63,23 @@
                       <% end %>
                     </span>
                     <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-                    <p class="feed-body">
                       <%# description = l.leaflet_desc %>
                       <%# if !description.nil? %>
                         <%#= description %>
                       <%# end %>
-                      <br>
                       <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
                       <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
                       <% content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/') %>
                       <%#= raw content unless l.content == description %>
-                      <%= raw content %>
-                    </p>
-                    Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
-                    &nbsp;|&nbsp;
-                    Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-                    &nbsp;|&nbsp;
-                    Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+                    <p class="feed-body"><%= raw content %></p>
+                    <br>
+                    <span class="leaflet-metrics">
+                      Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+                      &nbsp;|&nbsp;
+                      Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+                      &nbsp;|&nbsp;
+                      Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+                    </span>
                     <span class="pull-right">
                       <span class="feed-button">
                         <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">

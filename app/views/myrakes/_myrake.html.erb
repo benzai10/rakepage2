@@ -1,3 +1,8 @@
+<% @new_channels = MasterRake.find(@rake.master_rake_id).channels
+                            .where("channel_type <> 3 AND channel_type <> 5")
+                            .order("created_at DESC")
+                            .limit(5) %>
+
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
@@ -26,11 +31,9 @@
               <h5 class="media-heading">Stats</h5>
               <p>
                 <%= pluralize(@rake.master_rake.myrakes.count, "Co-Raker") %>
-              </p>
-              <p>
+                &nbsp;|&nbsp;
                 <%= pluralize(@heap_leaflets.count, 
-                              "Rec") %>
-              </p>
+                              "Rec") %>              </p>
             </div>
           </div>
         </div>
@@ -44,9 +47,28 @@
               <%= image_tag("newsfeed.jpg", size: "96x54") %>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">News</h5>
+              <h5 class="media-heading">
+                News
+                <small>
+                  <% if !@rake.refreshed_at.nil? %>
+                    <%= "updated: " + time_ago_in_words(@rake.refreshed_at) + " ago" %>
+                  <% else %>
+                    (never updated)
+                  <% end %>
+                </small>
+              </h5>
               <p>
                 <%= pluralize(@feed_leaflets.count, "Post") %>
+              </p>
+              <p>
+                <% new_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", 
+                                                          @rake.master_rake.master_heaps.pluck(:id), 
+                                                          current_user.last_sign_in_at).pluck(:leaflet_id) %>
+                <% new_leaflets -= @leaflet_ids %>
+                <% new_count = new_leaflets.count %>
+                <span class="new-rec-alert">
+                  <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                </span>
               </p>
             </div>
           </div>
@@ -64,6 +86,14 @@
               <h5 class="media-heading">Blogs & Subreddits</h5>
               <p>
                 <%= pluralize(@rake.channels.where("channel_type <> 3 AND channel_type <> 5").count, "Channel") %>
+              </p>
+              <p>
+                <% new_count = @new_channels.where("created_at > ?", current_user.last_sign_in_at) %>
+                <% new_count -= @rake.channels %>
+                <% new_count = new_count.count %>
+                <span class="new-rec-alert">
+                  <%= pluralize(new_count, " New Channel") unless new_count == 0 %>
+                </span>
               </p>
             </div>
           </div>
@@ -87,6 +117,14 @@
             <div class="media-body">
               <h5 class="media-heading"><%= leaflet_type_desc %></h5>
               <p><%= pluralize(heap.leaflets.count, "Rec") if !heap.nil? %></p>
+              <p>
+                <%# new_count = MasterHeapLeafletMap.where("master_heap_id = ? AND created_at > ?", 
+                                                          @rake.master_rake.master_heaps.find_by_leaflet_type_id(lt), 
+                                                          current_user.last_sign_in_at).count %>
+                <span class="new-rec-alert">
+                  <%#= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                </span>
+              </p>
             </div>
             </div>
           </div>
@@ -136,8 +174,8 @@
       <div class="add-recommendation-form">
         <% if user_signed_in? && @rake.user_id == current_user.id %>
           <% if lt != 15 %>
-            <%= bootstrap_form_for(Leaflet.new, layout: :include) do |f| %>
-              <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 60 } %>
+            <%= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
+              <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 78 } %>
               <span class="inline-group-btn">
                 <%= link_to "Go!", new_leaflet_path, 
                             data: {
@@ -147,14 +185,14 @@
                               collapse: "heap_" + "#{heap.leaflet_type_id}",
                               typeid: lt
                             },
-                            class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+                            class: "btn btn-primary leaflet-create", id: "js-test" %>
               </span>
             <% end %>
             <br><br>
           <% else %>
             <% if current_user.admin? %>
-              <%= bootstrap_form_for(Leaflet.new, layout: :include) do |f| %>
-                <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 60 } %>
+              <%= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
+                <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 78 } %>
                 <span class="inline-group-btn">
                   <%= link_to "Go!", new_leaflet_path, 
                               data: {
@@ -164,7 +202,7 @@
                                 collapse: "heap_" + "#{heap.leaflet_type_id}",
                                 typeid: lt
                               },
-                              class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+                              class: "btn btn-primary leaflet-create", id: "js-test" %>
                 </span>
               <% end %>
               <br><br>

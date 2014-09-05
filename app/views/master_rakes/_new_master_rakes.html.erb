@@ -41,6 +41,7 @@
   </div>
 
   <% @new_master_rakes.each do |m| %>
+    <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
     <div class="col-lg-6">
       <div class="thumbnail">
         <%= link_to master_rake_path(m.id, refresh: "no") do %>
@@ -53,13 +54,36 @@
               <% end %>
             </span>
             <div class="media-body">
-              <h5 class="media-heading"><%= m.name %></h5>
+              <h5 class="media-heading">
+                <%= m.name %>
+                <% if user_signed_in? %>
+                  <% if m.myrakes.pluck(:user_id).include? current_user.id %>
+                    <i class="fa fa-star"></i>
+                  <% end %>
+                <% end %>
+              </h5>
               <p>
                 <%= pluralize(m.myrakes.count, "Raker") %>
+                &nbsp;|&nbsp;
+                <%= pluralize(master_leaflets.count,
+                              "Rec") %>
               </p>
               <p>
-                <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)).count,
-                              "Recommendation") %>
+                <% if user_signed_in? %>
+                  <span class="new-rec-alert">
+                    <% new_channels = m.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
+                    <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
+                    <% if !user_rake.nil? %>
+                      <% new_channels -= user_rake.channels %>
+                      <% @new_count = new_channels.count %>
+                    <% else %>
+                      <% @new_count = 0 %>
+                    <% end %>
+                    <%= pluralize(@new_count, "New Channel") + " | " unless @new_count == 0 %>
+                    <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
+                    <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                  </span>
+                <% end %>
               </p>
             </div>
           </div>

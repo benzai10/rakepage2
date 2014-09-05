@@ -23,12 +23,8 @@
 <span class="channel-title">Recently added Channels:</span>
 <br>
 <ul class="leaflet-list">
-  <% new_channels = MasterRake.find(@rake.master_rake_id).channels
-                              .where("channel_type <> 3 AND channel_type <> 5")
-                              .order("created_at DESC")
-                              .limit(5) %>
-  <% if (new_channels - @rake.channels).count > 0 %>
-    <% new_channels.each do |c| %>
+  <% if (@new_channels - @rake.channels).count > 0 %>
+    <% @new_channels.each do |c| %>
       <% if !@rake.channels.include? c %>
         <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
           <span class="pull-left">

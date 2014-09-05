@@ -45,7 +45,7 @@ a.anchor {
 
 .panel-master-rakes-overview {
   color: white !important;
-  background-color: #6e2384 !important;
+  background-color: #4a2b88 !important;
 }
 
 .panel-my-rakes-overview {
@@ -60,17 +60,17 @@ a.anchor {
 
 .panel-new-master-rakes {
   color: white !important;
-  background-color: #6e2384 !important;
+  background-color: #4a2b88 !important;
 }
 
 .panel-new-recommendations {
   color: white !important;
-  background-color: #6e2384 !important;
+  background-color: #4a2b88 !important;
 }
 
 .panel-all-master-rakes {
   color: white !important;
-  background-color: #6e2384 !important;
+  background-color: #4a2b88 !important;
 }
 
 .panel-feed {
@@ -129,6 +129,11 @@ a.anchor {
 
 .black {
   color: black !important;
+}
+
+.new-rec-alert {
+  font-weight: 700;
+  color: red;
 }
 
 .pull-right-menu {
