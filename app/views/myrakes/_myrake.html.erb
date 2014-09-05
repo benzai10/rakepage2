@@ -61,14 +61,16 @@
                 <%= pluralize(@feed_leaflets.count, "Post") %>
               </p>
               <p>
-                <% new_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", 
-                                                          @rake.master_rake.master_heaps.pluck(:id), 
-                                                          current_user.last_sign_in_at).pluck(:leaflet_id) %>
-                <% new_leaflets -= @leaflet_ids %>
-                <% new_count = new_leaflets.count %>
-                <span class="new-rec-alert">
-                  <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
-                </span>
+                <% if user_signed_in? %>
+                  <% new_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", 
+                                                            @rake.master_rake.master_heaps.pluck(:id), 
+                                                            current_user.last_sign_in_at).pluck(:leaflet_id) %>
+                  <% new_leaflets -= @leaflet_ids %>
+                  <% new_count = new_leaflets.count %>
+                  <span class="new-rec-alert">
+                    <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                  </span>
+                <% end %>
               </p>
             </div>
           </div>
@@ -88,12 +90,14 @@
                 <%= pluralize(@rake.channels.where("channel_type <> 3 AND channel_type <> 5").count, "Channel") %>
               </p>
               <p>
-                <% new_count = @new_channels.where("created_at > ?", current_user.last_sign_in_at) %>
-                <% new_count -= @rake.channels %>
-                <% new_count = new_count.count %>
-                <span class="new-rec-alert">
-                  <%= pluralize(new_count, " New Channel") unless new_count == 0 %>
-                </span>
+                <% if user_signed_in? %>
+                  <% new_count = @new_channels.where("created_at > ?", current_user.last_sign_in_at) %>
+                  <% new_count -= @rake.channels %>
+                  <% new_count = new_count.count %>
+                  <span class="new-rec-alert">
+                    <%= pluralize(new_count, " New Channel") unless new_count == 0 %>
+                  </span>
+                <% end %>
               </p>
             </div>
           </div>
