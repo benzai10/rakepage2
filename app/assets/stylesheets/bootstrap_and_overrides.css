@@ -43,9 +43,14 @@ a.anchor {
   overflow-y: auto;
 }
 
-.panel-overview {
+.panel-master-rakes-overview {
   color: white !important;
   background-color: #6e2384 !important;
+}
+
+.panel-my-rakes-overview {
+  color: white !important;
+  background-color: #2ccf73 !important;
 }
 
 .panel-myrake {

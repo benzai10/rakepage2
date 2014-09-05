@@ -129,40 +129,54 @@
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <div class="tab-pane <%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>"></a>
-      <h5><%= leaflet_type_desc %></h5>
-      <% if user_signed_in? && @rake.user_id == current_user.id %>
-        <% if lt != 15 %>
-          <%= bootstrap_form_for (Leaflet.new) do |f| %>
-            <%= f.text_field :url, { label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}" } %>
+      <h5>
+        <%= leaflet_type_desc %>
+        <small><%= link_to "Add Recommendation", "#", class: "add-recommendation" %></small>
+      </h5>
+      <div class="add-recommendation-form">
+        <% if user_signed_in? && @rake.user_id == current_user.id %>
+          <% if lt != 15 %>
+            <%= bootstrap_form_for(Leaflet.new, layout: :include) do |f| %>
+              <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 60 } %>
+              <span class="inline-group-btn">
+                <%= link_to "Go!", new_leaflet_path, 
+                            data: {
+                              toggle: "modal",
+                              target: "#newLeafletModal",
+                              heapid: heap.id,
+                              collapse: "heap_" + "#{heap.leaflet_type_id}",
+                              typeid: lt
+                            },
+                            class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+              </span>
+            <% end %>
+            <br><br>
+          <% else %>
+            <% if current_user.admin? %>
+              <%= bootstrap_form_for(Leaflet.new, layout: :include) do |f| %>
+                <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 60 } %>
+                <span class="inline-group-btn">
+                  <%= link_to "Go!", new_leaflet_path, 
+                              data: {
+                                toggle: "modal",
+                                target: "#newLeafletModal",
+                                heapid: heap.id,
+                                collapse: "heap_" + "#{heap.leaflet_type_id}",
+                                typeid: lt
+                              },
+                              class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+                </span>
+              <% end %>
+              <br><br>
+            <% end %>
           <% end %>
-          <%= link_to "Go!", new_leaflet_path, 
-                      data: {
-                        toggle: "modal",
-                        target: "#newLeafletModal",
-                        heapid: heap.id,
-                        collapse: "heap_" + "#{heap.leaflet_type_id}",
-                        typeid: lt
-                      },
-                      class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
         <% else %>
-          <% if current_user.admin? %>
-            <%= link_to "Go!", new_leaflet_path, 
-                        data: {
-                          toggle: "modal",
-                          target: "#newLeafletModal",
-                          heapid: heap.id,
-                          collapse: "heap_" + "#{heap.leaflet_type_id}",
-                          typeid: lt
-                        },
-                        class: "btn btn-xs btn-primary leaflet-create", id: "js-test" %>
+          <% if lt != 15 %>
+            <%= link_to "Go!", new_user_session_path, class: "btn btn-xs btn-primary" %>
           <% end %>
         <% end %>
-      <% else %>
-        <% if lt != 15 %>
-          <%= link_to "Go!", new_user_session_path, class: "btn btn-xs btn-primary" %>
-        <% end %>
-      <% end %>
-      <br><br>
+      </div>
+
       <% if @heaps.pluck(:leaflet_type_id).include? lt %>
         <ul id="feed-list" class="leaflet-list">
           <% heap.leaflets.order("published_at DESC").each do |l| %>
