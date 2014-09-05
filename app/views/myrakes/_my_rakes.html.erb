@@ -37,7 +37,7 @@
                 <%= pluralize(master_rake.myrakes.count, "Raker") %>
               </p>
               <p>
-                <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Recommendation") %>
+                <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Rec") %>
               </p>
             </div>
           </div>

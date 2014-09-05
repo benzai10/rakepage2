@@ -19,8 +19,10 @@ $(function() {
         // global scroll to top button
         if ($(this).scrollTop() > 300) {
             $('.scrolltop').fadeIn();
+            $('.navbar').fadeOut();
         } else {
             $('.scrolltop').fadeOut();
+            $('.navbar').fadeIn();
         }
     });
 
