@@ -10,18 +10,54 @@
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
       <div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a href="#my-rakes" role="tab" data-toggle="tab">My Rakes</a></li>
-          <!-- <li><a href="#stats" data-toggle="tab">Stats</a></li> -->
-        </ul>
+        <div class="row">
+         <div class="tab-header">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-thumbnails" role="tablist">
+              <li class="col-lg-6">
+                <a href="#my-rakes" role="tab" data-toggle="tab">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_basic.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">My Rakes</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <li class="col-lg-6">
+                <a href="#my-recommendations" role="tab" data-toggle="tab">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_basic.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">My Recommendations</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="my-rakes">
+            <a class="anchor" name="my-rakes"></a>
+            <h5>My Rakes</h5>
             <%= render 'my_rakes' %>
           </div>
-          <div class="tab-pane" id="stats">
-            <%#= render 'stats' %>
+          <div class="tab-pane" id="my-recommendations">
+            <a class="anchor" name="my-recommendations"></a>
+            <h5>My Recommendations</h5>
+            <%= render 'master_rakes/new_recommendations' %>
           </div>
         </div>
       </div>

@@ -7,29 +7,94 @@
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
       <div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a href="#new-rakes" role="tab" data-toggle="tab">New</a></li>
-          <li><a href="#featured-rakes" data-toggle="tab">Featured</a></li>
-          <li><a href="#all-rakes" data-toggle="tab">All</a></li>
-<!--           <li><a href="#stats" data-toggle="tab">Stats</a></li> -->
-        </ul>
+        <div class="row">
+         <div class="tab-header">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-thumbnails" role="tablist">
+              <li class="col-lg-6">
+                <a href="#new-rakes" role="tab" data-toggle="tab">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_new.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">New Rakes</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <li class="col-lg-6">
+                <a href="#featured-rakes" data-toggle="tab">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_featured.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">Featured Rakes</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <li class="col-lg-6">
+                <a href="#all-rakes" data-toggle="tab">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_all.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">All Rakes</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <li class="col-lg-6">
+                <a href="#latest-recommendations" data-toggle="tab">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_basic.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">Latest Recommendations</h5>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="new-rakes">
             <a class="anchor" name="new-rakes"></a>
+            <h5>New Rakes</h5>
             <%= render 'new_master_rakes' %>
           </div>
           <div class="tab-pane" id="featured-rakes">
             <a class="anchor" name="featured-rakes"></a>
+            <h5>Featured Rakes</h5>
             <%= render 'featured_master_rakes' %>
           </div>
           <div class="tab-pane" id="all-rakes">
             <a class="anchor" name="all-rakes"></a>
+            <h5>All Rakes</h5>
             <%= render 'all_master_rakes' %>
           </div>
-          <div class="tab-pane" id="stats">
-            <%#= render 'stats' %>
+          <div class="tab-pane" id="latest-recommendations">
+            <a class="anchor" name="latest-recommendations"></a>
+            <h5>Latest Recommendations</h5>
+            <%= render 'new_recommendations' %>
           </div>
         </div>
       </div>
