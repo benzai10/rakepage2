@@ -1,23 +1,26 @@
-<div class="row">
-  <div class="col-md-4 col-md-offset-4 mobile-form">
-    <h2>Change your password</h2>
-    <div class="alert alert-success alert-dismissable">
-      <% if !flash.empty? %>
-        <div class="alert alert-success alert-dismissable">
-          <% flash.each do |key, value| %>
-            <%= content_tag :div, value, class: "flash #{key}" %>
-          <% end %>
-        </div>
-      <% end %>
-      <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-        <%= devise_error_messages! %>
-        <%= f.hidden_field :reset_password_token %>
-        <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-        <%= f.password_field :password_confirmation, autocomplete: "off" %>
-        <%= f.submit "Change my password" %>
-      <% end %>
-      <br>
-      <%= render "devise/shared/links" %>
+<div class="jumbotron">
+  <%= link_to image_tag("logo_white_239x50.png", class: "landing-page-logo"), root_path %>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 mobile-form">
+      <h2>Change your password</h2>
+      <div class="alert alert-success alert-dismissable">
+        <% if !flash.empty? %>
+          <div class="alert alert-success alert-dismissable">
+            <% flash.each do |key, value| %>
+              <%= content_tag :div, value, class: "flash #{key}" %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= devise_error_messages! %>
+          <%= f.hidden_field :reset_password_token %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          <%= f.submit "Change my password" %>
+        <% end %>
+        <br>
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
   </div>
-</div>
+<div>
