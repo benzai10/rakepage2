@@ -1,9 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-my-rakes-overview">
     <h5 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion-overview" 
-         href="#collapse-overview">
-         Overview
+         My Rakes (<%= User.find(current_user.id).username %>)
       </a>
     </h5>
   </div>
@@ -22,9 +20,8 @@
                         <%= image_tag("rakes_basic.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading">My Rakes</h5>
+                        <h5 class="media-heading"><%= pluralize(@rakes.count, "Rake") %></h5>
                         <p>
-                          You have <%= pluralize(@rakes.count, "Rake") %>
                         </p>
                       </div>
                     </div>
@@ -40,9 +37,8 @@
                         <%= image_tag("rakes_basic.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading">My Recommendations</h5>
+                        <h5 class="media-heading"><%= pluralize(@recommendations.count, "Recommendation") %></h5>
                         <p>
-                          You have <%= pluralize(@recommendations.count, "Recommendation") %>
                         </p>
                       </div>
                     </div>
