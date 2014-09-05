@@ -10,7 +10,7 @@
             <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
             &nbsp;|&nbsp;
           <% else %>
-            <%= link_to "SIGN IN", new_user_session_path %>
+            <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
             &nbsp;|&nbsp;
           <% end %>
           <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path, class: "nav-link" %>
@@ -23,6 +23,11 @@
         <div class="panel panel-default">
           <div class="panel-heading panel-new-master-rakes">
             <h1 class="panel-title">
+              <% if user_signed_in? %>
+                <% if @rake.myrakes.pluck(:user_id).include? current_user.id %>
+                  <i class="fa fa-star white"></i>
+                <% end %>
+              <% end %>
               <%= @rake.name %> Recommendations
               <%= social_share_button_tag(@rake.name + " Recommendations", 
                                           image: @rake.image_url) %>
