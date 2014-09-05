@@ -48,24 +48,24 @@ a.anchor {
   background-color: #6e2384 !important;
 }
 
-.panel-my-rakes {
-  color: black !important;
-  background-color: #b7c42f !important;
+.panel-myrake {
+  color: white !important;
+  background-color: #2ccf73 !important;
 }
 
 .panel-new-master-rakes {
-  color: black !important;
-  background-color: #c7b330 !important;
+  color: white !important;
+  background-color: #6e2384 !important;
 }
 
 .panel-new-recommendations {
-  color: black !important;
-  background-color: #e3d262 !important;
+  color: white !important;
+  background-color: #6e2384 !important;
 }
 
 .panel-all-master-rakes {
-  color: black !important;
-  background-color: #d6e161 !important;
+  color: white !important;
+  background-color: #6e2384 !important;
 }
 
 .panel-feed {
