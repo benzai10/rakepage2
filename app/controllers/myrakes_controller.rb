@@ -61,7 +61,12 @@ class MyrakesController < ApplicationController
     missing_leaflet_types.each do |mlt|
       @rake.add_heap(mlt)
     end
-    @heaps = @rake.heaps
+    if user_signed_in? && current_user.admin?
+      @heaps = @rake.heaps
+    else
+      @leaflet_types.delete(15)
+      @heaps = @rake.heaps.where.not(leaflet_type_id: 15)
+    end
     @heap_ids = @heaps.pluck(:id)
     @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
     @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
