@@ -32,14 +32,14 @@ namespace :rakepage_tests do
   desc "Delete unused leaflet_ids from HeapLeafletMap and MasterHeapLeafletMap"
   task :delete_heap_leaflets => :environment do
     HeapLeafletMap.all.each do |hlm|
-      l = Leaflet.find(hlm.leaflet_id)
+      l = Leaflet.where(id: hlm.leaflet_id).first
       if l.nil?
         print "Leaflet id: " + hlm.leaflet_id.to_s + " destroyed in Heap: " + hlm.heap_id.to_s + "\n"
         hlm.destroy
       end
     end
     MasterHeapLeafletMap.all.each do |mhlm|
-      l = Leaflet.find(mhlm.leaflet_id)
+      l = Leaflet.where(id: hlm.leaflet_id).first
       if l.nil?
         print "Leaflet id: " + mhlm.leaflet_id.to_s + " destroyed in Master Heap: " + mhlm.heap_id.to_s + "\n"
         mhlm.destroy
