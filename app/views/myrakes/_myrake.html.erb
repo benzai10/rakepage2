@@ -28,12 +28,21 @@
               <%= image_tag("charts.png", size: "96x54") %>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">Stats</h5>
+              <h5 class="media-heading">Related Rakes & Stats</h5>
+              <p>
+                <%= (@parent_master_rakes.count + @sibling_master_rakes.count + @children_master_rakes.count).to_s %>
+                Rakes (
+                <i class="fa fa-level-up"></i>&nbsp;<%= @parent_master_rakes.count.to_s %>&nbsp;|&nbsp;
+                <i class="fa fa-long-arrow-right"></i>&nbsp;<%= @sibling_master_rakes.count.to_s %>&nbsp;|&nbsp;
+                <i class="fa fa-level-down"></i>&nbsp;<%= @children_master_rakes.count.to_s %>
+                )
+              </p>
               <p>
                 <%= pluralize(@rake.master_rake.myrakes.count, "Co-Raker") %>
                 &nbsp;|&nbsp;
                 <%= pluralize(@heap_leaflets.count, 
-                              "Rec") %>              </p>
+                              "Rec") %>
+              </p>
             </div>
           </div>
         </div>
@@ -142,9 +151,187 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
-    <a class="anchor" name="stats"></a>
-    <h3>Stats</h3>
-    <br>
+    <div class="row">
+      <div class="col-lg-12">
+        <a class="anchor" name="stats"></a>
+        <h5>Related Rakes & Stats</h5>
+      </div>
+    </div>
+    <% if @parent_master_rakes.count > 0 %>
+      <div class="row">
+        <div class="col-lg-12">
+          <h5><small><i class="fa fa-level-up"></i> Parent Rakes</small></h5>
+        </div>
+      </div>
+      <div class="row">
+        <% @parent_master_rakes.each do |pmr| %>
+          <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
+          <%= link_to master_rake_path(pmr) do %>
+            <div class="col-lg-6">
+              <div class="thumbnail">
+                <div class="media">
+                  <span class="pull-left">
+                    <%= image_tag(pmr.image_url, size: "96x54") %>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">
+                      <% if user_signed_in? %>
+                        <% if pmr.myrakes.pluck(:user_id).include? current_user.id %>
+                          <i class="fa fa-star"></i>
+                        <% end %>
+                      <% end %>
+                      <%= pmr.name %>
+                    </h5>
+                    <p>
+                      <%= pluralize(pmr.myrakes.count, "Raker") %>
+                      &nbsp;|&nbsp;
+                      <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)).count,
+                                    "Rec") %>
+                    </p>
+                    <p>
+                      <% if user_signed_in? %>
+                        <span class="new-rec-alert">
+                          <% user_rake = pmr.myrakes.find_by_user_id(current_user.id) %>
+                          <% if !user_rake.nil? %>
+                            <% new_channels = pmr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
+                            <% new_channels -= user_rake.channels %>
+                            <% @new_count = new_channels.count %>
+                            <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                            <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
+                            <% if @new_count > 0 && new_count > 0 %>
+                              &nbsp;|&nbsp;
+                            <% end %>
+                            <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                          <% end %>
+                        </span>
+                      <% end %>
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @sibling_master_rakes.count > 0 %>
+      <div class="row">
+        <div class="col-lg-12">
+          <h5><small><i class="fa fa-long-arrow-right"></i> Sibling Rakes</small></h5>
+        </div>
+      </div>
+      <div class="row">
+        <% @sibling_master_rakes.each do |smr| %>
+          <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
+          <%= link_to master_rake_path(smr) do %>
+            <div class="col-lg-6">
+              <div class="thumbnail">
+                <div class="media">
+                  <span class="pull-left">
+                    <%= image_tag(smr.image_url, size: "96x54") %>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">
+                      <% if user_signed_in? %>
+                        <% if smr.myrakes.pluck(:user_id).include? current_user.id %>
+                          <i class="fa fa-star"></i>
+                        <% end %>
+                      <% end %>
+                      <%= smr.name %>
+                    </h5>
+                    <p>
+                      <%= pluralize(smr.myrakes.count, "Raker") %>
+                      &nbsp;|&nbsp;
+                      <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)).count,
+                                    "Rec") %>
+                    </p>
+                    <p>
+                      <% if user_signed_in? %>
+                        <span class="new-rec-alert">
+                          <% user_rake = smr.myrakes.find_by_user_id(current_user.id) %>
+                          <% if !user_rake.nil? %>
+                            <% new_channels = smr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
+                            <% new_channels -= user_rake.channels %>
+                            <% @new_count = new_channels.count %>
+                            <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                            <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
+                            <% if @new_count > 0 && new_count > 0 %>
+                              &nbsp;|&nbsp;
+                            <% end %>
+                            <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                          <% end %>
+                        </span>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @children_master_rakes.count > 0 %>
+      <div class="row">
+        <div class="col-lg-12">
+          <h5><small><i class="fa fa-level-down"></i> Children Rakes</small></h5>
+        </div>
+      </div>
+      <div class="row">
+        <% @children_master_rakes.each do |cmr| %>
+          <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
+          <%= link_to master_rake_path(cmr) do %>
+            <div class="col-lg-6">
+              <div class="thumbnail">
+                <div class="media">
+                  <span class="pull-left">
+                    <%= image_tag(cmr.image_url, size: "96x54") %>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">
+                      <% if user_signed_in? %>
+                        <% if cmr.myrakes.pluck(:user_id).include? current_user.id %>
+                          <i class="fa fa-star"></i>
+                        <% end %>
+                      <% end %>
+                      <%= cmr.name %>
+                    </h5>
+                    <p>
+                      <%= pluralize(cmr.myrakes.count, "Raker") %>
+                      &nbsp;|&nbsp;
+                      <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)).count,
+                                    "Rec") %>
+                    </p>
+                    <p>
+                      <% if user_signed_in? %>
+                        <span class="new-rec-alert">
+                          <% user_rake = cmr.myrakes.find_by_user_id(current_user.id) %>
+                          <% if !user_rake.nil? %>
+                            <% new_channels = cmr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
+                            <% new_channels -= user_rake.channels %>
+                            <% @new_count = new_channels.count %>
+                            <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                            <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
+                            <% if @new_count > 0 && new_count > 0 %>
+                              &nbsp;|&nbsp;
+                            <% end %>
+                            <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                          <% end %>
+                        </span>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    
     <h5><small>Most active Co-Rakers</small></h5>
     <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>
     <% if data.count == 0 %>
@@ -154,6 +341,7 @@
     <% end %>
     <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
   </div>
+  
   <div class="tab-pane <%= @feed_collapse %>" id="feed">
     <a class="anchor" name="feed"></a>
     <%= render 'feed' %>
@@ -338,7 +526,7 @@
                     </span>
                     &nbsp;
                     <span class="feed-button">
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-long-arrow-right" data-toggle="tooltip" data-placement="top" title="Move"></i>'.html_safe, "#", data: { toggle: "modal", target: "#moveLeafletModal", id: l.id, heapid: heap.id, title: l.title }, :method => :put, :action => :update, remote: true, class: "leaflet-move" %>
+                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-clipboard" data-toggle="tooltip" data-placement="top" title="Move"></i>'.html_safe, "#", data: { toggle: "modal", target: "#moveLeafletModal", id: l.id, heapid: heap.id, title: l.title }, :method => :put, :action => :update, remote: true, class: "leaflet-move" %>
                     </span>
                     &nbsp;
                     <span class="feed-button">
