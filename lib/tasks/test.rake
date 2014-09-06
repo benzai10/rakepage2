@@ -39,7 +39,7 @@ namespace :rakepage_tests do
       end
     end
     MasterHeapLeafletMap.all.each do |mhlm|
-      l = Leaflet.where(id: hlm.leaflet_id).first
+      l = Leaflet.where(id: mhlm.leaflet_id).first
       if l.nil?
         print "Leaflet id: " + mhlm.leaflet_id.to_s + " destroyed in Master Heap: " + mhlm.heap_id.to_s + "\n"
         mhlm.destroy
