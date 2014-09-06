@@ -79,7 +79,7 @@ class MyrakesController < ApplicationController
     else
       @stats_collapse = "active"
     end
-    parent_channels = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.id.to_s + "%" ).pluck(:channel_id)
+    parent_channels = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.id.to_s).pluck(:channel_id)
     parent_rakes = Myrake.where("id IN (?)", Channel.where("id IN (?)", parent_channels).pluck(:source).map(&:to_i)).pluck(:master_rake_id)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
     rake_links = @rake.master_rake.master_heaps.find_by_leaflet_type_id(15)

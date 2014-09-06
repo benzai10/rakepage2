@@ -37,7 +37,7 @@ class MasterRakesController < ApplicationController
       @stats_collapse = "active"
     end
     @heap_id = params[:collapse].to_s.slice(5..-1)
-    parent_channels = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.id.to_s + "%" ).pluck(:channel_id)
+    parent_channels = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.id.to_s).pluck(:channel_id)
     parent_rakes = Myrake.where("id IN (?)", Channel.where("id IN (?)", parent_channels).pluck(:source).map(&:to_i)).pluck(:master_rake_id)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
     #@sibling_rakes = MasterHeap.where(leaflet_type_id: 15, master_rake_id: @rake.id)
