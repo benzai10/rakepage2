@@ -9,6 +9,7 @@ class MasterRake < ActiveRecord::Base
 
   validates :name, presence: true, :uniqueness => {:case_sensitive => false}
   validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}, :if => "admin == 'true'"
+  validates :category_id, presence: true
 
   has_many :channels_master_rakes, dependent: :destroy
   has_many :channels, through: :channels_master_rakes, dependent: :destroy

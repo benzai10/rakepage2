@@ -49,11 +49,7 @@ class MasterRakesController < ApplicationController
   end
 
   def new
-    @master_rake = MasterRake.new
-    respond_to do |format|
-      format.html
-      format.json
-    end
+
   end
 
   def create
