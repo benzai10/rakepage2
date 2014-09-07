@@ -116,13 +116,14 @@ class Myrake < ActiveRecord::Base
     end
   end
 
-  def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url)
+  def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url, leaflet_author)
     channel_id = self.channels.where("channel_type = 3").first.id
     leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
                              title: leaflet_title,
                              url: leaflet_url,
                              channel_id: channel_id,
                              content: leaflet_desc,
+                             author: leaflet_author,
                              created_by: self.user_id,
                              published_at: Time.now)
     if leaflet.valid?

@@ -37,19 +37,15 @@ class MasterRakesController < ApplicationController
       @stats_collapse = "active"
     end
     @heap_id = params[:collapse].to_s.slice(5..-1)
-    parent_channels = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.id.to_s).pluck(:channel_id)
-    parent_rakes = Myrake.where("id IN (?)", Channel.where("id IN (?)", parent_channels).pluck(:source).map(&:to_i)).pluck(:master_rake_id)
+    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.id.to_s).pluck(:author).map(&:to_i)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
-    #@sibling_rakes = MasterHeap.where(leaflet_type_id: 15, master_rake_id: @rake.id)
-    rake_links = @rake.master_heaps.find_by_leaflet_type_id(15)
-    rake_ids = []
-    if !rake_links.nil?
-      rake_ids = rake_links.leaflets.pluck(:url).map{|x|x.partition("master_rakes/").last.to_i}
-    end
-    @children_master_rakes = MasterRake.where("id IN (?)", rake_ids)
-    sibling_rake_ids = Leaflet.where("channel_id IN (?)", parent_channels).pluck(:url).map{|x|x.partition("master_rakes/").last.to_i}
-    sibling_rake_ids.delete(@rake.id)
-    @sibling_master_rakes = MasterRake.where("id IN (?)", sibling_rake_ids)
+    @children_master_rakes = MasterRake.where("id IN (?)",
+                                Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
+                                        @rake.id.to_s).pluck(:url).map{| x| x.partition("master_rakes/").last.to_i })
+    @sibling_master_rakes = MasterRake.where("id <> ? AND id IN (?)",
+                               @rake.id,
+                               Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
+                                       @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{| x| x.partition("master_rakes/").last.to_i })
   end
 
   def new
