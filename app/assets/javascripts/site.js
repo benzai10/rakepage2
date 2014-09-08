@@ -176,7 +176,6 @@ $(function() {
     $('.external').click(function() {
 
         var id = $(this).attr("value")
-
         var element = $(".v_count_" + id);
         var sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
         element.text(sum);
