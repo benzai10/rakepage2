@@ -1,8 +1,0 @@
-<% rake_name = MasterRake.find(params[:master_rake_id].to_i).name %>
-<h1><%= rake_name %></h1>
-<%= bootstrap_form_for(@rake) do |f| %>
-  <%= f.hidden_field :name, value: rake_name %>
-  <%= f.hidden_field :master_rake_id, value: params[:master_rake_id] %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.submit "Save", class: "btn btn-primary" %>
-<% end %>
