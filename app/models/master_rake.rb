@@ -8,7 +8,7 @@ class MasterRake < ActiveRecord::Base
   attr_accessor :admin
 
   validates :name, presence: true, :uniqueness => {:case_sensitive => false}
-  validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}, :if => "admin == 'false'"
+  validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}, unless: :user_is_admin?
   # validates :wikipedia_url, presence: true, :uniqueness => {:case_sensitive => false}
   validates :category_id, presence: true
 
@@ -75,8 +75,8 @@ class MasterRake < ActiveRecord::Base
     Channel.find_by(source: "master_rake_" + self.id.to_s)
   end
 
-  def check_wikipedia_url(url, admin)
-    if admin != "true"
+  def check_wikipedia_url(url)
+    if !user_is_admin?
       begin
         feed_helper = FeedHelper::Wiki.new(url)
         feed_helper.valid_url?
@@ -89,6 +89,10 @@ class MasterRake < ActiveRecord::Base
   end
 
   private
+
+  def user_is_admin?
+    return User.find(self.created_by).admin?
+  end
 
   def create_channel
     #add_channel(Channel.create!(source: "master_rake_" + self.id.to_s, name: name + " Notification", channel_type: 5))
