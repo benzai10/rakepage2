@@ -15,6 +15,8 @@
           <%= f.hidden_field :created_by, class: "created-by" %>
           <% if current_user.admin? %>
             <%= f.hidden_field :admin, value: "true" %>
+          <% else %>
+            <%= f.hidden_field :admin, value: "false" %>
           <% end %>
           <% categories_array = Category.all.map { |category| [category.desc, category.id] } %>
           <div class="category-select">
