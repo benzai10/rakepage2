@@ -50,6 +50,11 @@ group :development, :test do
   gem 'pry-byebug'
 # Rescue server with pry
   gem 'pry-rescue'
+# Test suite minitest-rails
+  gem 'minitest-rails', '~> 1.0'
+  gem 'minitest-rails-capybara'
+  gem 'minitest-colorize'
+  gem 'minitest-focus'
 end
 
 #### Default
