@@ -1,7 +1,7 @@
 class MyrakesController < ApplicationController
 
   def index
-    if current_user.nil?
+    if !user_signed_in?
       redirect_to master_rakes_path
       return
     end
@@ -12,10 +12,10 @@ class MyrakesController < ApplicationController
       session[:heap] = "no"
     end
     @rakes = Myrake.where("user_id = ?", current_user.id)
-    if @rakes.empty?
-      redirect_to master_rakes_path
-      return
-    end
+    #if @rakes.empty?
+    #  redirect_to master_rakes_path
+    #  return
+    #end
     category_ids = MasterRake.where("id IN (?)", @rakes.pluck(:master_rake_id)).pluck(:category_id).uniq
     @categories = Category.where("id IN (?)", category_ids)
     if !params[:category_id].nil?

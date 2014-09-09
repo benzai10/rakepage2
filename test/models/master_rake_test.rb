@@ -2,9 +2,7 @@ require 'test_helper'
 
 describe MasterRake do
 
-  fixtures :users
-
-  before { user = users(:user) }
+  before { user = users(:example_user) }
 
   describe "admin user" do
     let(:master_rake_params) { { name: "Master Rake Name", created_by: 1 } }
@@ -31,9 +29,4 @@ describe MasterRake do
     end
   end
 
-  describe "after create" do
-    it "should create a personalized rake for the creator" do 
-      skip "test this later"
-    end
-  end
 end

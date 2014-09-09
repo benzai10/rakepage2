@@ -19,6 +19,8 @@ class MasterRake < ActiveRecord::Base
   has_many :master_heaps, dependent: :destroy
   #has_one :category
 
+  scope :newly_added, -> { order(created_at: :desc).limit(13) }
+
   def add_channel(channel)
     self.channels_master_rakes.create(channel_id: channel.id)
   end

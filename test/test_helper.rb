@@ -42,4 +42,8 @@ class ActiveSupport::TestCase
   def teardown
     # Add code that need to be executed after each test
   end
+
+  class ActionController::TestCase
+    include Devise::TestHelpers
+  end
 end

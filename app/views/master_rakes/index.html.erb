@@ -1,8 +1,4 @@
-<% if !@category.nil? %>
-  <% title @category.desc + " Recommendations" %>
-<% else %>
-  <% title "Shared Recommendation Collections" %>
-<% end %>
+<% title "Shared Recommendation Collections" %>
 <div class="container-fluid">
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">

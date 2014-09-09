@@ -4,7 +4,7 @@ admin:
   email: "admin@example.com"
   admin: true
 
-user:
+example_user:
   id: 2
   username: "example_user"
   email: "user@example.com"

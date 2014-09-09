@@ -1,17 +1,13 @@
 <div class="row">
   <br>
+  <!-- Create new Master Rake (check if duplicated code in Myrakes view) -->
   <div class="col-lg-6">
     <% if user_signed_in? %>
-      <% if params[:category_id].nil? %>
-        <% category = "none" %>
-      <% else %>
-        <% category = params[:category_id] %>
-      <% end %>
       <div class="thumbnail">
         <%= link_to new_master_rake_path, data: { 
                     toggle: "modal",
                     target: "#newMasterRakeModal",
-                    category: category,
+                    category: "none",
                     user: current_user.id },
                     class: "masterrake-create" do %>
           <div class="media">

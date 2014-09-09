@@ -1,15 +1,10 @@
 class MasterRakesController < ApplicationController
 
   def index
-    @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    @categories = Category.all
-    if !params[:category_id].nil?
-      @category = @categories.find(params[:category_id].to_i)
-    end
-    @new_master_rakes = @master_rakes.order(created_at: :desc).limit(13)
-    master_heap_ids = MasterHeap.where("leaflet_type_id <> 15").pluck(:id)
-    @new_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_heap_ids).order(created_at: :desc).limit(50)
+    @master_rakes = MasterRake.all
+    @new_master_rakes = @master_rakes.newly_added
+    @new_leaflets = Leaflet.newly_added
   end
 
   def show
