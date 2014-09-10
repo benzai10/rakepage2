@@ -39,6 +39,11 @@
                       <div class="media-body">
                         <h5 class="media-heading"><%= pluralize(@recommendations.count, "Recommendation") %></h5>
                         <p>
+                          <span class="new-rec-alert">
+                            <% if @overdue_leaflets.count > 0 %>
+                              <%= pluralize(@overdue_leaflets.count, "Recommendation Reminder") %>
+                            <% end %>
+                          </span>
                         </p>
                       </div>
                     </div>
@@ -58,8 +63,10 @@
           </div>
           <div class="tab-pane" id="my-recommendations">
             <a class="anchor" name="my-recommendations"></a>
-            <h5>My Recommendations (recent 50)</h5>
-            <%= render 'master_rakes/new_recommendations' %>
+            <h5>Recommendation Reminders</h5>
+            <%= render 'my_recommendations' %>
+            <!-- <h5>Latest Recommendations</h5> -->
+            <%#= render 'master_rakes/new_recommendations' %>
           </div>
         </div>
       </div>

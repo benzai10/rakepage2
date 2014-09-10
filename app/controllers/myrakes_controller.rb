@@ -19,6 +19,7 @@ class MyrakesController < ApplicationController
     heap_ids = heap_ids.flatten
     @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
     @new_leaflets = @recommendations.order(created_at: :desc).limit(50)
+    @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now)
   end
 
   def show
@@ -159,15 +160,44 @@ class MyrakesController < ApplicationController
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:myrake][:heap_id].to_i, 
                                           params[:myrake][:leaflet_id].to_i).first
-      heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc])
+      case params[:myrake][:reminder_at].to_i
+      when 0
+        reminder_at = nil
+      when 1
+        reminder_at = Time.now + 1.day
+      when 2
+        reminder_at = Time.now + 3.day
+      when 3
+        reminder_at = Time.now + 1.week
+      when 4
+        reminder_at = Time.now + 1.month
+      else
+        reminder_at = nil
+      end
+      heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc], reminder_at: reminder_at)
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
       redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Recommendation"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
+      case params[:myrake][:reminder_at].to_i
+      when 0
+        reminder_at = nil
+      when 1
+        reminder_at = Time.now + 1.day
+      when 2
+        reminder_at = Time.now + 3.day
+      when 3
+        reminder_at = Time.now + 1.week
+      when 4
+        reminder_at = Time.now + 1.month
+      else
+        reminder_at = nil
+      end
       @rake.add_leaflet(leaflet, 
                         params[:myrake][:leaflet_type_id],
                         params[:myrake][:leaflet_title],
-                        params[:myrake][:leaflet_desc])
+                        params[:myrake][:leaflet_desc],
+                        reminder_at)
       if session[:rake_class] == MasterRake
         redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
       else
@@ -196,11 +226,26 @@ class MyrakesController < ApplicationController
       if params[:myrake][:leaflet_type_id].to_i == 15
         leaflet_author = @rake.master_rake_id.to_s
       end
+      case params[:myrake][:reminder_at].to_i
+      when 0
+        reminder_at = nil
+      when 1
+        reminder_at = Time.now + 1.day
+      when 2
+        reminder_at = Time.now + 3.day
+      when 3
+        reminder_at = Time.now + 1.week
+      when 4
+        reminder_at = Time.now + 1.month
+      else
+        reminder_at = nil
+      end
       if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
                            title,
                            description,
                            params[:myrake][:leaflet_url],
-                           leaflet_author) != false
+                           leaflet_author,
+                           reminder_at) != false
         redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140901044557) do
+ActiveRecord::Schema.define(version: 20140910064812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20140901044557) do
     t.integer  "leaflet_type_id", default: 0
     t.text     "leaflet_desc"
     t.text     "leaflet_title"
+    t.datetime "reminder_at"
   end
 
   add_index "heap_leaflet_maps", ["heap_id", "leaflet_id"], name: "index_heap_leaflet_maps_on_heap_id_and_leaflet_id", unique: true, using: :btree

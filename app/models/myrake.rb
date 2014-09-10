@@ -8,6 +8,7 @@ class Myrake < ActiveRecord::Base
   attr_accessor :leaflet_title
   attr_accessor :leaflet_desc
   attr_accessor :leaflet_url
+  attr_accessor :reminder_at
   attr_accessor :heap_id
   attr_accessor :category_id
   attr_accessor :created_by
@@ -105,18 +106,18 @@ class Myrake < ActiveRecord::Base
                     self.master_rake.channels.where(channel_type: 3).pluck(:id) + self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact)
   end
 
-  def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+  def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
     if self.heaps.where("leaflet_type_id = ?", leaflet_type_id).empty?
       self.add_heap(leaflet_type_id)
     end
-    self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+    self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
     master_heap = MasterHeap.where(master_rake_id: self.master_rake_id, leaflet_type_id: leaflet_type_id).first
     if !master_heap.nil?
       MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: leaflet.id, leaflet_desc: leaflet_desc)
     end
   end
 
-  def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url, leaflet_author)
+  def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url, leaflet_author, reminder)
     channel_id = self.channels.where("channel_type = 3").first.id
     leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
                              title: leaflet_title,
@@ -127,7 +128,7 @@ class Myrake < ActiveRecord::Base
                              created_by: self.user_id,
                              published_at: Time.now)
     if leaflet.valid?
-      self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc)
+      self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
     else
       self.leaflet_errors = leaflet.errors
       false

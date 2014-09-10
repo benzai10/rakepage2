@@ -556,7 +556,7 @@
         <ul id="feed-list" class="leaflet-list">
           <% heap.leaflets.order("published_at DESC").each do |l| %>
             <% channel = Channel.find(l.channel_id) %>
-            <a class="anchor" id="<%= 'anchor_leaflet_' + l.id.to_s %>"></a>
+            <a class="anchor" id="<%= 'anchor_leaflet_' + lt.to_s + '_' + l.id.to_s %>"></a>
             <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
               <% if channel.channel_type == 4 %>
                 <% reddit_link = "http://reddit.com/" + l.identifier %>
@@ -614,9 +614,9 @@
                       <% end %>
                     <% else %>
                       <% if lt == 15 %>
-                        <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
+                        <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
                       <% else %>
-                        <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
+                        <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
                       <% end %>
                     <% end %>
                   <% end %>
@@ -628,6 +628,12 @@
                     <% if !description.nil? %>
                       <span class="feed-timestamp"><%= description %></span>
                     <% end %>
+                    <% reminder_at = heap_leaflet.reminder_at %>
+                    <% if reminder_at.nil? %>
+                      <% reminder_at = "no reminder" %>
+                    <% else %>
+                      <% reminder_at = reminder_at.to_formatted_s(:short) %>
+                    <% end %> 
                   <% end %>
                   <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
                   <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
@@ -662,6 +668,7 @@
                                           title: l.title,
                                           content: l.content,
                                           description: description,
+                                          reminder: reminder_at,
                                           url: l.url,
                                           access: "full" },
                                   :method => :put, 

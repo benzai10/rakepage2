@@ -14,6 +14,13 @@
           <%= f.text_area :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
           <%= f.text_field :leaflet_title, { label: "Recommendation Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)", class: "leaflet-description" } %>
+          <% reminder_period = [] %>
+          <% reminder_period << ["no reminder", 0] %>
+          <% reminder_period << ["in 1 day", 1] %>
+          <% reminder_period << ["in 3 days", 2] %>
+          <% reminder_period << ["in 1 week", 3] %>
+          <% reminder_period << ["in 1 month", 4] %>
+          <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

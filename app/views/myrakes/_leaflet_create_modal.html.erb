@@ -27,6 +27,13 @@
           <h5>
             <small>*) You can add or change the title and description any time later as well.
           </h5>
+          <% reminder_period = [] %>
+          <% reminder_period << ["no reminder", 0] %>
+          <% reminder_period << ["in 1 day", 1] %>
+          <% reminder_period << ["in 3 days", 2] %>
+          <% reminder_period << ["in 1 week", 3] %>
+          <% reminder_period << ["in 1 month", 4] %>
+          <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -127,6 +127,12 @@
               <% if !description.nil? %>
                 <%= description %><br><br>
               <% end %>
+              <% reminder_at = heap_leaflet.reminder_at %>
+              <% if reminder_at.nil? %>
+                <% reminder_at = "no reminder" %>
+              <% else %>
+                <% reminder_at = reminder_at.to_formatted_s(:short) %>
+              <% end %> 
             <% end %>
             <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
             <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
@@ -159,6 +165,7 @@
                                     content: l.content,
                                     description: description,
                                     url: l.url,
+                                    reminder: "Hello",
                                     access: "full" },
                             :method => :put, 
                             :action => :update, 

@@ -75,12 +75,14 @@ $(function() {
         var leafletdescription = $(this).data('description');
         var leafleturl = $(this).data('url');
         var collapse = $(this).data('collapse');
+        var reminderat = $(this).data('reminder');
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".heap-id").val(heapId);
         $(".leaflet-description").val(leafletdescription)
         $(".leaflet-url").val(leafleturl);
         $(".collapse-section").val(collapse);
+        $(".reminder-at").val(reminderat);
     });
 
     $(".leaflet-create").click(function() {
