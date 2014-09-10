@@ -381,7 +381,7 @@
         <% @children_master_rakes.each do |cmr| %>
           <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
           <% if cmr.myrakes.pluck(:user_id).include? current_user.id %>
-            <%= link_to master_rake_path(cmr.myrakes.find_by_user_id(current_user.id)) do %>
+            <%= link_to myrake_path(cmr.myrakes.find_by_user_id(current_user.id)) do %>
               <div class="col-lg-6">
                 <div class="thumbnail">
                   <div class="media">
