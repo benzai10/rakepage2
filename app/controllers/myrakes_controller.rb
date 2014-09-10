@@ -1,29 +1,17 @@
 class MyrakesController < ApplicationController
 
   def index
+    session[:rake_class] = Myrake
     if !user_signed_in?
       redirect_to master_rakes_path
       return
     end
-    session[:rake_class] = Myrake
-    if params[:heap] == "yes"
-      session[:heap] = "yes"
-    else
-      session[:heap] = "no"
-    end
     @rakes = Myrake.where("user_id = ?", current_user.id)
-    #if @rakes.empty?
-    #  redirect_to master_rakes_path
-    #  return
-    #end
-    category_ids = MasterRake.where("id IN (?)", @rakes.pluck(:master_rake_id)).pluck(:category_id).uniq
-    @categories = Category.where("id IN (?)", category_ids)
-    if !params[:category_id].nil?
-      @category = Category.find(params[:category_id].to_i)
+    if @rakes.empty?
+      redirect_to master_rakes_path
+      return
     end
-    @authentications = current_user.authentications
-    current_user.import_fb unless @authentications.find_by(provider: "facebook").nil?
-    @new_master_rakes = MasterRake.limit(13).order(created_at: :desc).limit(12)
+    @new_master_rakes = MasterRake.newly_added
     heap_ids = []
     @rakes.each do |r|
       heap_ids << r.heaps.pluck(:id)
@@ -31,8 +19,6 @@ class MyrakesController < ApplicationController
     heap_ids = heap_ids.flatten
     @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
     @new_leaflets = @recommendations.order(created_at: :desc).limit(50)
-    #@new_leaflets = Leaflet.where("id IN (?) AND leaflet_type_id <> 15",
-    #                        HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id)).order(created_at: :desc).limit(50)
   end
 
   def show

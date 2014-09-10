@@ -55,6 +55,8 @@ group :development, :test do
   gem 'minitest-rails-capybara'
   gem 'minitest-colorize'
   gem 'minitest-focus'
+  gem 'fabrication'
+  gem 'faker'
 end
 
 #### Default

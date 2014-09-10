@@ -2,10 +2,14 @@ require 'test_helper'
 
 describe MasterRake do
 
-  before { user = users(:example_user) }
+  before do
+    @admin_user = Fabricate(:user, id: 100, admin: true)
+    @normal_user = Fabricate(:user, id: 200)
+  end
 
   describe "admin user" do
-    let(:master_rake_params) { { name: "Master Rake Name", created_by: 1 } }
+
+    let(:master_rake_params) { { name: "Master Rake Name", created_by: @admin_user.id } }
     let(:master_rake) { MasterRake.new master_rake_params }
 
     it "is valid with valid params" do
@@ -14,7 +18,8 @@ describe MasterRake do
   end
 
   describe "normal user" do
-    let(:master_rake_params) { { name: "Master Rake Name", wikipedia_url: "http://google.com", created_by: 2 } }
+
+    let(:master_rake_params) { { name: "Master Rake Name", wikipedia_url: "http://google.com", created_by: @normal_user.id } }
     let(:master_rake) { MasterRake.new master_rake_params }
 
     it "is valid with valid params" do

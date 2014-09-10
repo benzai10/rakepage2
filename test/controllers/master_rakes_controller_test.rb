@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class MasterRakesControllerTest < ActionController::TestCase
+
   test 'get index' do
     get :index
 
