@@ -213,7 +213,7 @@
                 </div>
               <% end %>
             <% else %>
-              <%= link_to myrake_path(pmr.myrakes.find_by_user_id(current_user.id)) do %>
+              <%= link_to master_rake_path(pmr) do %>
                 <div class="col-lg-6">
                   <div class="thumbnail">
                     <div class="media">
