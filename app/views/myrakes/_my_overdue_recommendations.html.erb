@@ -48,7 +48,7 @@
             &nbsp;|&nbsp;
             Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
           </span>
-          <span class="pull-right">
+          <span class="pull-right leaflet-metrics">
             <%= link_to "View Rake", myrake_path(lm.heap.myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "anchor_leaflet_" + lm.leaflet_type_id.to_s + '_' + l.id.to_s) %>
           </span>
         </div>

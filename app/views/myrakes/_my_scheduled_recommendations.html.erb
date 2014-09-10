@@ -1,0 +1,59 @@
+<ul id="feed-list" class="leaflet-list">
+  <% leaflet_duplication_array = [] %>
+  <% @scheduled_leaflets.each do |lm| %>
+    <% l = Leaflet.find(lm.leaflet_id) %>
+    <% if !leaflet_duplication_array.include? l.id %>
+      <% leaflet_duplication_array << l.id %>
+
+      <li class="rake-show-list">
+        <a class="pull-left" href="#">
+          <% channel = Channel.find(l.channel_id) %>
+          <% if channel.channel_type == 4 %>
+            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
+          <% elsif channel.channel_type == 3 %>
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
+          <% else %>
+            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+          <% end %>
+        </a>
+        <div class="media-body">
+          <span class="feed-timestamp">
+            <%= Channel.find(l.channel_id).name %>
+            <% if l.leaflet_type_id != 0 %>
+              &nbsp;|&nbsp;
+              <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+              <% if !l.created_by.nil? %>
+                &nbsp;|&nbsp;
+                added by <%= User.find(l.created_by).username %>
+              <% end %>
+            <% end %>
+            <span class="pull-right-menu">
+              in <%= distance_of_time_in_words(Time.now, lm.reminder_at) %> 
+            </span>
+          </span>
+          <br>
+          <span class="leaflet-title">
+            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+          </span>
+            <% content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>') %>
+            <% content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/') %>
+            <% content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/') %>
+          <p class="feed-body"><%= raw content unless l.content == "No more content available." %></p>
+          <br>
+          <span class="leaflet-metrics">
+            Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+            &nbsp;|&nbsp;
+            Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+            &nbsp;|&nbsp;
+            Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+          </span>
+          <span class="pull-right leaflet-metrics">
+            <%= link_to "View Rake", myrake_path(lm.heap.myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "anchor_leaflet_" + lm.leaflet_type_id.to_s + '_' + l.id.to_s) %>
+          </span>
+        </div>
+        <hr>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
