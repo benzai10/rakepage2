@@ -485,6 +485,11 @@ h5 {
   min-height: auto;
 }
 
+.feed-body > img {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 /*input[type=text] {
   height: 2.2em;
 }

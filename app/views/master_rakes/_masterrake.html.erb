@@ -401,7 +401,7 @@
           <% if leaflet_type.id != 15 %>
             <%= form_tag Leaflet.new do %>
               <div class="input-group">
-                <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">
+                <input type="text" class="form-control url-input" id="url-<%= leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
                 <span class="inline-group-btn">
                   <%= link_to "Go!", new_leaflet_path, 
                               data: {
@@ -420,7 +420,7 @@
             <% if current_user.admin? %>
               <%= form_tag Leaflet.new do %>
                 <div class="input-group">
-                  <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">
+                  <input type="text" class="form-control url-input" id="url-<%= leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
                   <span class="inline-group-btn">
                     <%= link_to "Go!", new_leaflet_path, 
                                 data: {
