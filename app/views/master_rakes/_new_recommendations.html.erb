@@ -1,6 +1,6 @@
 <ul id="feed-list" class="leaflet-list">
   <% leaflet_duplication_array = [] %>
-  <% @new_leaflets.each do |lm| %>
+  <% @new_recommendations.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
     <% if !leaflet_duplication_array.include? l.id %>
       <% leaflet_duplication_array << l.id %>
@@ -19,14 +19,13 @@
         </a>
         <div class="media-body">
           <span class="feed-timestamp">
-            <%= Channel.find(l.channel_id).name %>
-            <% if l.leaflet_type_id != 0 %>
+            <%#= Channel.find(l.channel_id).name %>
+            <%= link_to lm.master_heap.master_rake.name, master_rake_path(lm.master_heap.master_rake) %>
               &nbsp;|&nbsp;
-              <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              <% if !l.created_by.nil? %>
-                &nbsp;|&nbsp;
-                added by <%= User.find(l.created_by).username %>
-              <% end %>
+            <%= link_to LeafletType.find_by_leaflet_type(lm.master_heap.leaflet_type_id).leaflet_type_desc, master_rake_path(lm.master_heap.master_rake, collapse: "heap_" + lm.master_heap.leaflet_type_id.to_s) %>
+            <% if !l.created_by.nil? %>
+              &nbsp;|&nbsp;
+              added by <%= User.find(l.created_by).username %>
             <% end %>
             <span class="pull-right-menu">
               <% if !l.published_at.nil? %>

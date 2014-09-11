@@ -4,6 +4,7 @@
     <% l = Leaflet.find(lm.leaflet_id) %>
     <% if !leaflet_duplication_array.include? l.id %>
       <% leaflet_duplication_array << l.id %>
+      <% myrake = lm.heap.myrake %>
 
       <li class="rake-show-list">
         <a class="pull-left" href="#">
@@ -19,15 +20,18 @@
         </a>
         <div class="media-body">
           <span class="feed-timestamp">
-            <%= Channel.find(l.channel_id).name %>
-            <% if l.leaflet_type_id != 0 %>
+            <%#= Channel.find(l.channel_id).name %>
+            <%= link_to myrake.name, myrake_path(myrake) %>
+            <%# if l.leaflet_type_id != 0 %>
               &nbsp;|&nbsp;
-              <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+              <%#= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+              <%= link_to LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc,
+                          myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s) %>
               <% if !l.created_by.nil? %>
                 &nbsp;|&nbsp;
                 added by <%= User.find(l.created_by).username %>
               <% end %>
-            <% end %>
+            <%# end %>
             <span class="pull-right-menu new-rec-alert">
               <%= time_ago_in_words(lm.reminder_at) %> ago 
             </span>
@@ -49,7 +53,7 @@
             Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
           </span>
           <span class="pull-right leaflet-metrics">
-            <%= link_to "View Rake", myrake_path(lm.heap.myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "anchor_leaflet_" + lm.leaflet_type_id.to_s + '_' + l.id.to_s) %>
+            <%= link_to "View in Rake", myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "anchor_leaflet_" + lm.leaflet_type_id.to_s + '_' + l.id.to_s) %>
           </span>
         </div>
         <hr>

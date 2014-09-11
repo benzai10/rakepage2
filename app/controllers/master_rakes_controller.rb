@@ -4,7 +4,13 @@ class MasterRakesController < ApplicationController
     session[:rake_class] = MasterRake
     @master_rakes = MasterRake.all
     @new_master_rakes = @master_rakes.newly_added
-    @new_leaflets = Leaflet.newly_added
+    # @new_leaflets = Leaflet.newly_added
+    master_heap_ids = []
+    @master_rakes.each do |r|
+      master_heap_ids << r.master_heaps.pluck(:id)
+    end
+    master_heap_ids = master_heap_ids.flatten
+    @new_recommendations = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_heap_ids).order(created_at: :desc).limit(50)
   end
 
   def show
