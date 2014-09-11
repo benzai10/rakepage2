@@ -1,6 +1,6 @@
 <div class="row">
   <br>
-  <div class="col-lg-6">
+  <div class="col-md-6">
     <div class="thumbnail">
       <%= link_to new_master_rake_path, data: { 
                   toggle: "modal",
@@ -20,7 +20,7 @@
     </div>
   </div>
   <% @rakes.each do |r| %>
-    <div class="col-lg-6">
+    <div class="col-md-6">
       <div class="thumbnail">
         <%= link_to myrake_path(r.id, refresh: "no") do %>
           <% master_rake = MasterRake.find(r.master_rake_id) %>

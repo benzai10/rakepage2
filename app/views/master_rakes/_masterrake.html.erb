@@ -1,7 +1,7 @@
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-    <li class="col-lg-6">
+    <li class="col-md-6">
       <% if user_signed_in? %>
         <% if !@custom_rake.nil? %>
           <%= link_to myrake_path(@custom_rake) do %>
@@ -48,7 +48,7 @@
         <% end %>
       <% end %>
     </li>
-    <li class="<%= @stats_collapse %> col-lg-6">
+    <li class="<%= @stats_collapse %> col-md-6">
       <a href="#stats" role="tab" data-toggle="tab">
         <div class="thumbnail">
           <div class="media">
@@ -77,7 +77,7 @@
         </div>
       </a>
     </li>
-    <li class="<%= @feed_collapse %> col-lg-6">
+    <li class="<%= @feed_collapse %> col-md-6">
       <a href="#feed" role="tab" data-toggle="tab">
         <div class="thumbnail">
           <div class="media">
@@ -98,7 +98,7 @@
         </div>
       </a>
     </li>
-    <li class="col-lg-6">
+    <li class="col-md-6">
       <a href="#channels" data-toggle="tab">
         <div class="thumbnail">
           <div class="media">
@@ -134,7 +134,7 @@
     <% @heaps.each do |h| %>
       <% leaflet_type = LeafletType.find_by_leaflet_type(h.leaflet_type_id) %>
       <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
-      <li class="<%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %> col-lg-6">
+      <li class="<%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %> col-md-6">
         <a href="#heap_<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
           <div class="thumbnail">
             <div class="media">
@@ -171,14 +171,14 @@
 <div class="tab-content">
   <div class="tab-pane <%= @stats_collapse %>" id="stats">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-md-12">
         <a class="anchor" name="stats"></a>
         <h5>Related Rakes & Stats</h5>
       </div>
     </div>
     <% if @parent_master_rakes.count > 0 %>
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
           <h5><small><i class="fa fa-level-up"></i> Parent Rakes</small></h5>
         </div>
       </div>
@@ -186,7 +186,7 @@
         <% @parent_master_rakes.each do |pmr| %>
           <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
           <%= link_to master_rake_path(pmr) do %>
-            <div class="col-lg-6">
+            <div class="col-md-6">
               <div class="thumbnail">
                 <div class="media">
                   <span class="pull-left">
@@ -237,7 +237,7 @@
 
     <% if @sibling_master_rakes.count > 0 %>
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
           <h5><small><i class="fa fa-long-arrow-right"></i> Sibling Rakes</small></h5>
         </div>
       </div>
@@ -245,7 +245,7 @@
         <% @sibling_master_rakes.each do |smr| %>
           <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
           <%= link_to master_rake_path(smr) do %>
-            <div class="col-lg-6">
+            <div class="col-md-6">
               <div class="thumbnail">
                 <div class="media">
                   <span class="pull-left">
@@ -295,7 +295,7 @@
 
     <% if @children_master_rakes.count > 0 %>
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
           <h5><small><i class="fa fa-level-down"></i> Children Rakes</small></h5>
         </div>
       </div>
@@ -303,7 +303,7 @@
         <% @children_master_rakes.each do |cmr| %>
           <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
           <%= link_to master_rake_path(cmr) do %>
-            <div class="col-lg-6">
+            <div class="col-md-6">
               <div class="thumbnail">
                 <div class="media">
                   <span class="pull-left">

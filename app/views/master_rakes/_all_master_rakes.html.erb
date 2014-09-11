@@ -1,6 +1,6 @@
 <div class="row">
   <br>
-  <div class="col-lg-6">
+  <div class="col-md-6">
     <% if user_signed_in? %>
       <% if params[:category_id].nil? %>
         <% category = "none" %>
@@ -41,7 +41,7 @@
   </div>
   <% @master_rakes.each do |m| %>
     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
-    <div class="col-lg-6">
+    <div class="col-md-6">
       <div class="thumbnail">
         <%= link_to master_rake_path(m.id, refresh: "no") do %>
           <div class="media load-rake" value="<%= m.id %>">
