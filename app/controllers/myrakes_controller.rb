@@ -19,8 +19,8 @@ class MyrakesController < ApplicationController
     heap_ids = heap_ids.flatten
     @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
     @new_leaflets = @recommendations.order(created_at: :desc).limit(50)
-    @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now)
-    @scheduled_leaflets = @recommendations.where("reminder_at > ?", Time.now)
+    @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+    @scheduled_leaflets = @recommendations.where("reminder_at > ?", Time.now).order(:reminder_at)
   end
 
   def show

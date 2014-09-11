@@ -64,9 +64,21 @@
           <div class="tab-pane" id="my-recommendations">
             <a class="anchor" name="my-recommendations"></a>
             <h5>Recommendation Reminders</h5>
-            <%= render 'my_overdue_recommendations' %>
+            <% if @overdue_leaflets.count > 0 %>
+              <%= render 'my_overdue_recommendations' %>
+            <% else %>
+              <p>
+                You don't have any overdue recommendations.
+              </p>
+            <% end %>
             <h5>Scheduled Recommendations</h5>
-            <%= render 'my_scheduled_recommendations' %>
+            <% if @scheduled_leaflets.count > 0 %>
+              <%= render 'my_scheduled_recommendations' %>
+            <% else %>
+              <p>
+                You don't have any scheduled recommendations.
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
