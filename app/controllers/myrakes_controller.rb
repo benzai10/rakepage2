@@ -125,7 +125,7 @@ class MyrakesController < ApplicationController
           @heap_leaflets_maps = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_rake.master_heaps.pluck(:id))
           @heap_leaflets_maps.each do |hl|
             leaflet = Leaflet.find(hl.leaflet_id)
-            @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc)
+            @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc, nil)
           end
         end
         redirect_to myrake_path(@rake, refresh: "yes")
