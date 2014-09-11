@@ -22,13 +22,12 @@
           <span class="feed-timestamp">
             <%#= Channel.find(l.channel_id).name %>
             <%= link_to myrake.name, myrake_path(myrake) %>
+            &nbsp;|&nbsp;
+            <%= link_to LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc,
+                        myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s) %>
+            <% if !l.created_by.nil? %>
               &nbsp;|&nbsp;
-              <%= link_to LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc,
-                          myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s) %>
-              <% if !l.created_by.nil? %>
-                &nbsp;|&nbsp;
-                added by <%= User.find(l.created_by).username %>
-              <% end %>
+              added by <%= User.find(l.created_by).username %>
             <% end %>
             <span class="pull-right-menu">
               in <%= distance_of_time_in_words(Time.now, lm.reminder_at) %> 
