@@ -490,6 +490,11 @@ h5 {
   width: 100% !important;
 }
 
+.feed-body .reddit-thumbnail {
+  height: 39px !important;
+  width: 70px !important;
+}
+
 /*input[type=text] {
   height: 2.2em;
 }
