@@ -1,14 +1,12 @@
-<% if @feed_leaflets.count == 0 %>
-  Add a blog or subreddit to populate the feed.
-  <%#= render 'tutorial_new_master_rake' %>
-  <%#= javascript_tag "$('#showTutorialNewMasterRakeModal').modal('show');", type: "text/javascript" %>
-<% end %>
 <h5>
   News
   <span class="pull-right">
     <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed", anchor: "feed") %></small>
   </span>
 </h5>
+<% if @feed_leaflets.count == 0 %>
+  <h5><small>Add a blog or subreddit to populate the feed.</small></h5>
+<% end %>
 <br>
 <ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>

@@ -4,6 +4,9 @@
     <small><%= link_to "Refresh", myrake_path(refresh: "yes", collapse: "feed", anchor: "feed") %></small>
   </span>
 </h5>
+<% if @feed_leaflets.count == 0 %>
+  <h5><small>Add a blog or subreddit to populate the feed.</small></h5>
+<% end %>
 <br>
 <ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>
