@@ -174,7 +174,7 @@ module FeedHelper
         elsif !hash["thumbnail"].empty?
           content = "<img src=#{hash["thumbnail"]} />"
         else
-          content = "No more content available."
+          content = "No content details to display.."
         end
         Leaflet.create!(channel_id: channel.id,
                         identifier: hash["id"],
