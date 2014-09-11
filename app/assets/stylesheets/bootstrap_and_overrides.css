@@ -485,7 +485,7 @@ h5 {
   min-height: auto;
 }
 
-input[type=text] {
+/*input[type=text] {
   height: 2.2em;
 }
 
@@ -495,7 +495,7 @@ input[type=email] {
 
 input[type=password] {
   height: 2.2em;
-}
+}*/
 
 .title-rake-show {
   /*margin-left: 16px;*/

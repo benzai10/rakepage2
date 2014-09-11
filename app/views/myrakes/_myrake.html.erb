@@ -519,27 +519,14 @@
       <div class="add-recommendation-form">
         <% if user_signed_in? && @rake.user_id == current_user.id %>
           <% if lt != 15 %>
-            <%= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
-              <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 78 } %>
-              <span class="inline-group-btn">
-                <%= link_to "Go!", new_leaflet_path, 
-                            data: {
-                              toggle: "modal",
-                              target: "#newLeafletModal",
-                              heapid: heap.id,
-                              collapse: "heap_" + "#{heap.leaflet_type_id}",
-                              typeid: lt
-                            },
-                            class: "btn btn-primary leaflet-create", id: "js-test" %>
-              </span>
-            <% end %>
-            <br><br>
-          <% else %>
-            <% if current_user.admin? %>
-              <%= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
-                <%= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}", size: 78 } %>
-                <span class="inline-group-btn">
-                  <%= link_to "Go!", new_leaflet_path, 
+
+            <%#= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
+              <%#= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}"} %>
+            <%= form_tag Leaflet.new do %>
+              <div class="input-group">
+                <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">
+                <span class="input-group-btn">
+                  <%= link_to "Go!", "#", 
                               data: {
                                 toggle: "modal",
                                 target: "#newLeafletModal",
@@ -547,11 +534,31 @@
                                 collapse: "heap_" + "#{heap.leaflet_type_id}",
                                 typeid: lt
                               },
-                              class: "btn btn-primary leaflet-create", id: "js-test" %>
+                              class: "btn btn-primary leaflet-create", id: "js-test", remote: true %>
                 </span>
-              <% end %>
-              <br><br>
+              </div>
             <% end %>
+            <br><br>
+          <% else %>
+            <% if current_user.admin? %>
+              <%= form_tag Leaflet.new do %>
+                <div class="input-group">
+                  <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">
+                  <span class="input-group-btn">
+                    <%= link_to "Go!", "#", 
+                                data: {
+                                  toggle: "modal",
+                                  target: "#newLeafletModal",
+                                  heapid: heap.id,
+                                  collapse: "heap_" + "#{heap.leaflet_type_id}",
+                                  typeid: lt
+                                },
+                                class: "btn btn-primary leaflet-create inline-group-btn", id: "js-test", remote: true %>
+                  </span>
+                </div>
+              <% end %>
+            <% end %>
+            <br><br>
           <% end %>
         <% else %>
           <% if lt != 15 %>
