@@ -480,9 +480,9 @@ h5 {
   font-size: 12px !important;
 }
 
-.feed-body iframe {
-  width: 100%;
-  min-height: auto;
+.feed-body > iframe {
+  width: 100% !important;
+  min-height: auto !important;
 }
 
 .feed-body > img {
@@ -711,22 +711,34 @@ body.nav-expanded {
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-
+  .feed-body iframe {
+    width: 100%;
+    max-height: 240px;
+  }
 }
 
 /* iPad landscape */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation : landscape ) {
-
+  .feed-body iframe {
+    width: 100%;
+    max-height: 240px;
+  }
 }
 
 /* iPad portrait */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation : portrait ) {
-
+  .feed-body iframe {
+    width: 100%;
+    max-height: 240px;
+  }
 }
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-
+  .feed-body iframe {
+    width: 100%;
+    max-height: 240px;
+  }
 }
 
 
