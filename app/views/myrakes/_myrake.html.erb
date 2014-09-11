@@ -6,8 +6,8 @@
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-    <li class="col-md-6">
-      <%= link_to master_rake_path(@rake.master_rake_id) do %>
+    <%= link_to master_rake_path(@rake.master_rake_id) do %>
+      <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -18,10 +18,11 @@
             </div>
           </div>
         </div>
-      <% end %>
-    </li>
-    <li class="<%= @stats_collapse %> col-md-6">
-      <a href="#stats" role="tab" data-toggle="tab">
+      </li>
+    <% end %>
+    
+    <a href="#stats" role="tab" data-toggle="tab">
+      <li class="<%= @stats_collapse %>col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -46,10 +47,10 @@
             </div>
           </div>
         </div>
-      </a>
-    </li>
-    <li class="<%= @feed_collapse %> col-md-6" id="test">
-      <a href="#feed" role="tab" data-toggle="tab">
+      </li>
+    </a>
+    <a href="#feed" role="tab" data-toggle="tab">
+      <li class="<%= @feed_collapse %> col-md-6" id="test">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -84,10 +85,10 @@
             </div>
           </div>
         </div>
-      </a>
-    </li>
-    <li class="col-md-6">
-      <a href="#channels" data-toggle="tab">
+      </li>
+    </a>
+    <a href="#channels" data-toggle="tab">
+      <li class="col-md-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -111,8 +112,8 @@
             </div>
           </div>
         </div>
-      </a>
-    </li>
+      </li>
+    </a>
 
     <% @leaflet_types.each do |lt| %>
       <% if @heaps.pluck(:leaflet_type_id).include? lt %>
@@ -120,8 +121,8 @@
       <% end %>
       <% leaflet_type = LeafletType.find_by_leaflet_type(lt) %>
       <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
-      <li class="<%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %> col-md-6">
-        <a href="#heap_<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
+      <a href="#heap_<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
+        <li class="<%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %> col-md-6">
           <div class="thumbnail">
             <div class="media">
             <span class="pull-left">
@@ -141,8 +142,8 @@
             </div>
             </div>
           </div>
-        </a>
-      </li>
+        </li>
+      </a>
     <% end %>
 
   </ul>

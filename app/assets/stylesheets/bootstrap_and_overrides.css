@@ -402,9 +402,10 @@ h5 {
   font-size: 11px;
 }
 
-.nav-thumbnails > li > a {
-  border: none !important;
+.nav-thumbnails > li {
+/*  border: none !important;
   padding: 0 !important;
+  width: 100% !important;*/
 }
 
 .leaflet-metrics {
@@ -700,16 +701,12 @@ body.nav-expanded {
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-  .nav-thumbnails > li {
-    width: 50%;
-  }
+
 }
 
 /* iPad landscape */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation : landscape ) {
-  .nav-thumbnails > li {
-    width: 50%;
-  }
+
 }
 
 /* iPad portrait */
@@ -747,14 +744,6 @@ body.nav-expanded {
   .nav-link {
     font-weight: 700;
     font-size: 9px;
-  }
-
-  .nav-thumbnails > li {
-    width: 100%;
-  }
-
-  .nav > li > a {
-  padding: 10px; 
   }
 
 }
