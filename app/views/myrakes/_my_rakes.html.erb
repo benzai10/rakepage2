@@ -1,6 +1,6 @@
 <div class="row">
   <br>
-  <div class="col-md-6">
+  <div class="col-md-12 col-lg-6">
     <div class="thumbnail">
       <%= link_to new_master_rake_path, data: { 
                   toggle: "modal",
@@ -20,7 +20,7 @@
     </div>
   </div>
   <% @rakes.each do |r| %>
-    <div class="col-md-6">
+    <div class="col-md-12 col-lg-6">
       <div class="thumbnail">
         <%= link_to myrake_path(r.id, refresh: "no") do %>
           <% master_rake = MasterRake.find(r.master_rake_id) %>
@@ -41,9 +41,15 @@
               </p>
               <p>
                 <% new_count = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", r.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).count %>
-                <span class="new-rec-alert">
-                  <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
-                </span>
+                  <% if new_count == 0 %>
+                    <% if !r.refreshed_at.nil? %>
+                      <small>last news checked: <%= time_ago_in_words(r.refreshed_at) %> ago</small>
+                    <% end %>
+                  <% else %>
+                    <span class="new-rec-alert">
+                      <%= pluralize(new_count, "New Rec") %>
+                    </span>
+                  <% end %>
               </p>
             </div>
           </div>
