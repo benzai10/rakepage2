@@ -48,15 +48,15 @@ module FeedHelper
 
       retry unless count > 80
         p DEBUG_MSG_ABORT + url
-        @@logger.debug DEBUG_MSG_ABORT + url
+        # @@logger.debug DEBUG_MSG_ABORT + url
 
       rescue Curl::Err::TimeoutError => e
         p e.message
-        @@logger.debug DEBUG_MSG_ABORT + url
+        # @@logger.debug DEBUG_MSG_ABORT + url
 
       rescue Exception => e
         p e.message
-        @@logger.error + e.message + DEBUG_MSG_PARAM + url
+        # @@logger.debug + e.message + DEBUG_MSG_PARAM + url
       end
       nil
     end

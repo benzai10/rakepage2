@@ -3,7 +3,7 @@
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
     <% if user_signed_in? %>
       <% if !@custom_rake.nil? %>
-        <%= link_to myrake_path(@custom_rake, class: "nav-list-link") do %>
+        <%= link_to myrake_path(@custom_rake) do %>
           <li class="col-lg-6">
             <div class="thumbnail">
               <div class="media">

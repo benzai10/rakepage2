@@ -10,7 +10,7 @@
         <div class="modal-body">
           <%= f.hidden_field :rake_id, class: "rake-id-rss" %>
           <%= f.hidden_field :channel_type, class: "channel-type-rss" %>
-          <%= f.text_field :source, { label: "Enter Website or RSS/Atom URL", url: autocomplete_channel_source_channels_path, as: :autocomplete } %>
+          <%= f.text_field :source, { label: "Enter Website or RSS/Atom URL", placeholder: "http://... only", url: autocomplete_channel_source_channels_path, as: :autocomplete } %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
