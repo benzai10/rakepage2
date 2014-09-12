@@ -24,6 +24,27 @@ namespace :rakepage_tests do
     end
   end
 
+  desc "Adding a new leaflet_type to a category"
+  task :add_leaflet_type_to_category => :environment do
+    puts "\n Enter a Leaflet Type Id (make sure it exists!)"
+    leaflet_type_id = STDIN.gets.chomp
+    added_leaflet_type = LeafletType.find(leaflet_type_id.to_i)
+    puts "\n Enter the Category Id you want the Leaflet Type added to (make sure, the category exists!)"
+    category_id = STDIN.gets.chomp
+    category = Category.find(category_id.to_i)
+    if category.add_leaflet_type(added_leaflet_type)
+      puts "\n Leaflet Type was added to Category!"
+      MasterRake.where(category_id: category.id).each do |mr|
+        mr.add_master_heap(added_leaflet_type.id)
+        puts "\n Master Heap added to MR id: " + mr.id.to_s
+      end
+      puts "\n All master heaps created"
+    else
+      puts "\n Category matching failed!"
+      return false
+    end
+  end
+
   desc "Test sending an email"
   task :send_test_email => :environment do
     UserMailer.welcome_email.deliver
@@ -45,7 +66,6 @@ namespace :rakepage_tests do
         mhlm.destroy
       end
     end
-
   end
 
 end
