@@ -45,6 +45,30 @@ namespace :rakepage_tests do
     end
   end
 
+  desc "Sanitize all leaflet content"
+  task :sanitize_leaflet_contents => :environment do
+    start_time = Time.now
+    Leaflet.all.each_with_index do |l, i|
+      if i % 1000 == 0
+        puts "\nProcessing: " + i.to_s
+      end
+      # content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>')
+      content = l.content
+      if content.include? "width=\"1\" height=\"1\""
+        content = content.gsub(/<img alt[()\s\S]*?\/>/mi, '')
+      end
+      content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/')
+      content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/')
+      content = content.gsub(/img src=http:\/\/b.thumbs.redditmedia.com/, 'img class="reddit-thumbnail" src=http://b.thumbs.redditmedia.com')
+      content = content.gsub(/img src=http:\/\/a.thumbs.redditmedia.com/, 'img class="reddit-thumbnail" src=http://a.thumbs.redditmedia.com')
+      content = content.gsub(/\<img src=default \/\>/, '')
+      content = content.gsub(/\<img src=self \/\>/, '')
+      l.update_attributes(content: content)
+    end
+    end_time = Time.now
+    puts "Time elapsed: " + (end_time - start_time).to_s
+  end
+
   desc "Test sending an email"
   task :send_test_email => :environment do
     UserMailer.welcome_email.deliver

@@ -1,4 +1,5 @@
 class Leaflet < ActiveRecord::Base
+  before_create :sanitize_content
   attr_accessor :rake_id
   attr_accessor :leaflet_desc
 
@@ -10,4 +11,20 @@ class Leaflet < ActiveRecord::Base
   has_many :feeds, dependent: :destroy
 
   scope :newly_added, -> { where.not(leaflet_type_id: 15).where.not(save_count: 0).order(created_at: :desc).limit(50) }
+
+  protected
+
+  def sanitize_content
+    content = self.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>')
+    content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/')
+    content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/')
+    content = content.gsub(/img src=http:\/\/b.thumbs.redditmedia.com/, 'img class="reddit-thumbnail" src=http://b.thumbs.redditmedia.com')
+    content = content.gsub(/img src=http:\/\/a.thumbs.redditmedia.com/, 'img class="reddit-thumbnail" src=http://a.thumbs.redditmedia.com')
+    content = content.gsub(/\<img src=default \/\>/, '')
+    content = content.gsub(/\<img src=self \/\>/, '')
+    if content.include? "width=\"1\" height=\"1\""
+      content = content.gsub(/<img alt[()\s\S]*?\/>/mi, '')
+    end
+    self.content = content
+  end
 end
