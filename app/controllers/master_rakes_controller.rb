@@ -143,7 +143,7 @@ class MasterRakesController < ApplicationController
   def destroy
     master_rake = MasterRake.find_by_id(params[:id])
     master_rake.destroy
-    redirect_to master_rakes_path, :notice => "Rake Deleted."
+    redirect_to master_rakes_path, :notice => ["Rake Deleted."]
   end
 
   def toggle_channel_display

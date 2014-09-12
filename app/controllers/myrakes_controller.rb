@@ -36,9 +36,9 @@ class MyrakesController < ApplicationController
       if current_user.id == @rake.user_id
         history_changed_category = History.where(rake_id: @rake.id, history_code: "Master rake category changed").last
         if !history_changed_category.nil? 
-          flash[:notice] = "The category of the master rake has changed.
+          flash[:notice] = ["The category of the master rake has changed.
                           Recommendations which couldn't matched are in 'Uncategorized'.
-                          You can move your recommendations from there to new recommendation types!"
+                          You can move your recommendations from there to new recommendation types!"]
           history_changed_category.update_attributes(history_code: "Master rake category change notified")
         end
       end
@@ -276,7 +276,7 @@ class MyrakesController < ApplicationController
           MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: params[:myrake][:leaflet_id].to_i)
         end
       end
-      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => "Leaflet moved."
+      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => ["Leaflet moved."]
     else
       @rake.filters.each do |f|
         f.destroy
@@ -292,7 +292,7 @@ class MyrakesController < ApplicationController
   def destroy
     rake = Myrake.find_by_id(params[:id])
     rake.destroy
-    redirect_to myrakes_path, :notice => "Rake deleted."
+    redirect_to myrakes_path, :notice => ["Rake deleted."]
   end
 
   def add_channel
