@@ -37,7 +37,19 @@
           <span class="leaflet-title">
             <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           </span>
-          <p class="feed-body"><%= raw l.content unless l.content == "No content details to display." %></p>
+          <p class="feed-body">
+            <% description = lm.leaflet_desc %>
+            <% if !description.nil? %>
+              <%= description %><br><br>
+            <% end %>
+            <% reminder_at = lm.reminder_at %>
+            <% if reminder_at.nil? %>
+              <% reminder_at = "no reminder" %>
+            <% else %>
+              <% reminder_at = reminder_at.to_formatted_s(:short) %>
+            <% end %>
+            <%= raw l.content unless l.content == "No content details to display." %>
+          </p>
           <br>
           <span class="leaflet-metrics">
             Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
@@ -46,8 +58,29 @@
             &nbsp;|&nbsp;
             Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
           </span>
-          <span class="pull-right leaflet-metrics">
-            <%= link_to "View Rake", myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "anchor_leaflet_" + lm.leaflet_type_id.to_s + '_' + l.id.to_s) %>
+          <% if l.identifier.nil? %>
+            <% modalType = "#editLeafletModal2" %>
+          <% else %>
+            <% modalType = "#editRestrictedLeafletModal2" %>
+          <% end %>
+          <span class="pull-right feed-button">
+            <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i>&nbsp;'.html_safe,
+                        "#",
+                        data: { toggle: "modal",
+                                target: "#{modalType}",
+                                id: l.id,
+                                heapid: lm.heap.id,
+                                collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
+                                title: l.title,
+                                content: l.content,
+                                description: description,
+                                url: l.url,
+                                reminder: reminder_at,
+                                access: "full" },
+                        :method => :put, 
+                        :action => :update, 
+                        remote: true,
+                        class: "leaflet-edit" %>
           </span>
         </div>
         <hr>

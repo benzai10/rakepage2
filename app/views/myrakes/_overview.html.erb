@@ -56,12 +56,12 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="my-rakes">
+          <div class="tab-pane <%= @myrakes_collapse %>" id="my-rakes">
             <a class="anchor" name="my-rakes"></a>
             <h5>My Rakes</h5>
             <%= render 'my_rakes' %>
           </div>
-          <div class="tab-pane" id="my-recommendations">
+          <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
             <a class="anchor" name="my-recommendations"></a>
             <h5>Recommendation Reminders</h5>
             <% if @overdue_leaflets.count > 0 %>
@@ -88,6 +88,6 @@
 
 <% if user_signed_in? %>
   <%#= render 'myrakes/leaflet_move_modal' %>
-  <%#= render 'myrakes/leaflet_edit_modal' %>
-  <%#= render 'myrakes/leaflet_edit_restricted_modal' %>
+  <%= render 'myrakes/leaflet_edit_modal2' %>
+  <%= render 'myrakes/leaflet_edit_restricted_modal2' %>
 <% end %>

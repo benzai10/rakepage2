@@ -110,6 +110,10 @@ $(function() {
         $(".leaflet-id").val(leafletid);
     });
 
+    $(".leaflet-master-edit").click(function() {
+        var leafletid = $(this).data('id');
+        $(".leaflet-id").val(leafletid);
+    });
 
     $(".masterrake-create").click(function() {
         var categoryId = $(this).data('category');

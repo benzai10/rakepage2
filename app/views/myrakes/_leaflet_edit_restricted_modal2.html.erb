@@ -1,0 +1,32 @@
+<!-- Modal -->
+<div class="modal fade" id="editRestrictedLeafletModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Recommendation</h4>
+      </div>
+      <%= bootstrap_form_for(current_user) do |f| %>
+        <div class="modal-body">
+          <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
+          <%= f.hidden_field :heap_id, class: "heap-id" %>
+          <%= f.hidden_field :collapse, class: "collapse-section" %>
+          <%= f.text_field :leaflet_title, { disabled: true, label: "Recommendation Title", class: "leaflet-custom-title" } %>
+          <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)", class: "leaflet-description" } %>
+          <%= f.text_area :leaflet_url, { disabled: true, label: "URL (including leading http://)", class: "leaflet-url" } %>
+          <% reminder_period = [] %>
+          <% reminder_period << ["no reminder", 0] %>
+          <% reminder_period << ["in 1 day", 1] %>
+          <% reminder_period << ["in 3 days", 2] %>
+          <% reminder_period << ["in 1 week", 3] %>
+          <% reminder_period << ["in 1 month", 4] %>
+          <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Update Recommendation", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

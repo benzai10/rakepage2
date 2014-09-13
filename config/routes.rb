@@ -19,6 +19,7 @@ Rakepage2::Application.routes.draw do
   resources :users do
     member do
       get 'save_leaflet'
+      get 'edit_leaflet'
     end
   end
 

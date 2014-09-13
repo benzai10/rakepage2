@@ -21,6 +21,13 @@ class MyrakesController < ApplicationController
     @new_leaflets = @recommendations.order(created_at: :desc).limit(50)
     @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
     @scheduled_leaflets = @recommendations.where("reminder_at > ?", Time.now).order(:reminder_at)
+    if params[:collapse] == "reminders"
+      @reminders_collapse = "active"
+      @myrakes_collapse = ""
+    else
+      @reminders_collapse = ""
+      @myrakes_collapse = "active"
+    end
   end
 
   def show

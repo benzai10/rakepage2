@@ -132,7 +132,7 @@
                 <% reminder_at = "no reminder" %>
               <% else %>
                 <% reminder_at = reminder_at.to_formatted_s(:short) %>
-              <% end %> 
+              <% end %>
             <% end %>
             <%= raw l.content unless l.content == description %>
           </p>
@@ -162,7 +162,7 @@
                                     content: l.content,
                                     description: description,
                                     url: l.url,
-                                    reminder: "Hello",
+                                    reminder: reminder_at,
                                     access: "full" },
                             :method => :put, 
                             :action => :update, 
