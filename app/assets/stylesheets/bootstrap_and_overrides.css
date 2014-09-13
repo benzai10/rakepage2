@@ -359,10 +359,10 @@ h5 {
 }
 
 .leaflet-title {
-  white-space: nowrap;
+/*  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-top: 4px;
+*/  padding-top: 4px;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 12px !important;
