@@ -15,6 +15,7 @@
           <%= f.hidden_field :rake_name, class: "rake-name" %>
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <% category_array = Category.pluck(:id, :desc) %>
+          <% category_array.delete(15) %>
           <% category_array.map! { |category| [category[0], CategoryLeafletTypeMap.where(category_id: category[0]).pluck(:leaflet_type_id).map { |leaflet_type| [LeafletType.find(leaflet_type).leaflet_type_desc, leaflet_type] }] } %>
           <%= f.select :leaflet_type_id, grouped_options_for_select(category_array), {}, id: "leaflet-type-id" %>
         </div>
