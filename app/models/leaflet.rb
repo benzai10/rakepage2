@@ -22,8 +22,8 @@ class Leaflet < ActiveRecord::Base
     content = content.gsub(/img src=http:\/\/a.thumbs.redditmedia.com/, 'img class="reddit-thumbnail" src=http://a.thumbs.redditmedia.com')
     content = content.gsub(/\<img src=default \/\>/, '')
     content = content.gsub(/\<img src=self \/\>/, '')
-    if content.include? "width=\"1\" height=\"1\""
-      content = content.gsub(/<img alt[()\s\S]*?\/>/mi, '')
+    if (content.include? 'width=\"1\"') || (content.include? 'height=\"1\"')
+      content = content.gsub(/<img [()\s\S]*?\/>/mi, '')
     end
     self.content = content
   end
