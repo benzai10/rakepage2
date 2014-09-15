@@ -5,7 +5,8 @@ class Leaflet < ActiveRecord::Base
 
   validates :channel_id, presence: true
   validates :url, :format => URI::regexp(%w(http https))
-  #validates :content, presence: true
+  validates :leaflet_type_id, presence: true
+  validates :title, length: { minimum: 3 }
 
   belongs_to :channel
   has_many :feeds, dependent: :destroy
