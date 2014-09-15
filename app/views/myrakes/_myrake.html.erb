@@ -638,10 +638,10 @@
                 <span class="leaflet-title">
                   <% if heap_leaflet != "" %>
                     <% title = heap_leaflet.leaflet_title %>
-                    <% if title.empty? %>
-                      <% title = l.title %>
-                    <% end %>
                     <% if !title.nil? %>
+                      <% if title.empty? %>
+                        <% title = l.title %>
+                      <% end %>
                       <% if lt == 15 %>
                         <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
                       <% else %>

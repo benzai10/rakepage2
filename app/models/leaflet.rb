@@ -24,7 +24,12 @@ class Leaflet < ActiveRecord::Base
     content = content.gsub(/\<img src=default \/\>/, '')
     content = content.gsub(/\<img src=self \/\>/, '')
     if (content.include? "width=\"1\"") or (content.include? "height=\"1\"")
-      content = content.gsub(/<img [()\s\S]*?\/>/mi, '')
+      img_match = content.match(/.*(<img [\s\S]*?\/>)/mi)
+      if !img_match.nil?
+        content.slice! img_match.captures.last
+      else
+        content = content.gsub(/<img [()\s\S]*?\/>/mi, '')
+      end
     end
     self.content = content
   end
