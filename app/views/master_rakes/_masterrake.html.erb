@@ -396,14 +396,15 @@
         <%= leaflet_type_desc %>
         <small><%= link_to "Add Recommendation", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %></small>
       </h5>
+      <br>
       <div class="add-recommendation-form">
         <% if user_signed_in? && !@custom_rake.nil? %>
           <% if leaflet_type.id != 15 %>
             <%= form_tag Leaflet.new do %>
               <div class="input-group">
                 <input type="text" class="form-control url-input" id="url-<%= leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
-                <span class="inline-group-btn">
-                  <%= link_to "Go!", new_leaflet_path, 
+                <span class="input-group-btn">
+                  <%= link_to "Go!", "#", 
                               data: {
                                 toggle: "modal",
                                 target: "#newLeafletModal",
@@ -421,8 +422,8 @@
               <%= form_tag Leaflet.new do %>
                 <div class="input-group">
                   <input type="text" class="form-control url-input" id="url-<%= leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
-                  <span class="inline-group-btn">
-                    <%= link_to "Go!", new_leaflet_path, 
+                  <span class="input-group-btn">
+                    <%= link_to "Go!", "#", 
                                 data: {
                                   toggle: "modal",
                                   target: "#newLeafletModal",

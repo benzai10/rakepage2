@@ -525,12 +525,10 @@
           <% end %>
         </small>
       </h5>
+      <br>
       <div class="add-recommendation-form">
         <% if user_signed_in? && @rake.user_id == current_user.id %>
           <% if lt != 15 %>
-
-            <%#= bootstrap_form_for(Leaflet.new, layout: :inline) do |f| %>
-              <%#= f.text_field :url, { hide_label: true, label: "Add a new recommendation", placeholder: "Enter a valid URL (http://...)", id: "url-#{lt}"} %>
             <%= form_tag Leaflet.new do %>
               <div class="input-group">
                 <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">

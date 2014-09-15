@@ -7,7 +7,9 @@
       <h5>
         <small>
           <% if user_signed_in? %>
-           <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
+            <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
+            &nbsp;
+            <span class="new-rec-alert"><%= pluralize(@overdue_leaflets.count, "Reminder") %></span>
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
           <% end %>

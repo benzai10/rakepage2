@@ -11,6 +11,20 @@ class MasterRakesController < ApplicationController
     end
     master_heap_ids = master_heap_ids.flatten
     @new_recommendations = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_heap_ids).order(created_at: :desc).limit(50)
+    if user_signed_in? 
+      @rakes = Myrake.where("user_id = ?", current_user.id)
+      if @rakes.empty?
+        redirect_to master_rakes_path
+        return
+      end
+      heap_ids = []
+      @rakes.each do |r|
+        heap_ids << r.heaps.pluck(:id)
+      end
+      heap_ids = heap_ids.flatten
+      @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
+      @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+    end
   end
 
   def show
