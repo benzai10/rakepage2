@@ -517,7 +517,13 @@
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>"></a>
       <h5>
         <%= leaflet_type_desc %>
-        <small><%= link_to "Add Recommendation", "#", class: "add-recommendation" %></small>
+        <small>
+          <% if user_signed_in? %>
+            <%= link_to "Add Recommendation", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+          <% else %>
+            <%= link_to "Add Recommendation", new_user_session_path, class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+          <% end %>
+        </small>
       </h5>
       <div class="add-recommendation-form">
         <% if user_signed_in? && @rake.user_id == current_user.id %>
@@ -564,8 +570,18 @@
             <br><br>
           <% end %>
         <% else %>
-          <% if lt != 15 %>
-            <%= link_to "Go!", new_user_session_path, class: "btn btn-xs btn-primary" %>
+          <% if user_signed_in? %>
+            <h5>
+              <small>
+                To add recommendations please switch to your own personalized rake!
+              </small>
+            </h5>
+          <% else %>
+            <h5>
+              <small>You have to be signed in to add recommendations:
+                <%= link_to "Sign in", new_user_session_path %>
+              </small>
+            </h5>
           <% end %>
         <% end %>
       </div>

@@ -394,7 +394,7 @@
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
       <h5>
         <%= leaflet_type_desc %>
-        <small><%= link_to "Add Recommendation", "#", class: "add-recommendation" %></small>
+        <small><%= link_to "Add Recommendation", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %></small>
       </h5>
       <div class="add-recommendation-form">
         <% if user_signed_in? && !@custom_rake.nil? %>

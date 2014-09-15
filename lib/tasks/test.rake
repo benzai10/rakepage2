@@ -55,7 +55,7 @@ namespace :rakepage_tests do
       # content = l.content.gsub(/\<a href=["'](.*?)["']\>(.*?)\<\/a\>/mi, '<a href="\1" target="_blank" >\2</a>')
       content = l.content
       if content.include? "width=\"1\" height=\"1\""
-        content = content.gsub(/<img alt[()\s\S]*?\/>/mi, '')
+        content = content.gsub(/<img [()\s\S]*?\/>/mi, '')
       end
       content = content.gsub(/<a href=\"\/r\//, '<a href="http://reddit.com/r/')
       content = content.gsub(/<a href=\"\/u\//, '<a href="http://reddit.com/u/')

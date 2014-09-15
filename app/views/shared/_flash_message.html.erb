@@ -4,10 +4,14 @@
     <span class="sr-only">Close</span>
   </button>
   <% flash.each do |key, value| %>
-    <% Array.new(value).each do |elem| %>
-        <div id="flash_message" class="alert alert-<%= key %>">
-            <%= elem %>
-        </div>
+    <% if value.class == String %>
+      <%= content_tag :div, value, class: "flash #{key}" %>
+    <% else %>
+      <% Array.new(value).each do |elem| %>
+          <div id="flash_message" class="alert alert-<%= key %>">
+              <%= elem %>
+          </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

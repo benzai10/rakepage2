@@ -1,7 +1,11 @@
 <h5>
   News
   <span class="pull-right">
-    <small><%= link_to "Refresh", myrake_path(refresh: "yes", collapse: "feed", anchor: "feed") %></small>
+  <% if user_signed_in? %>
+    <small><%= link_to "Refresh", myrake_path(refresh: "yes", collapse: "feed", anchor: "feed"), class: "btn btn-xs btn-primary" %></small>
+  <% else %>
+    <small><%= link_to "Sign in to refresh", new_user_session_path %></small>
+  <% end %>
   </span>
 </h5>
 <% if @feed_leaflets.count == 0 %>
