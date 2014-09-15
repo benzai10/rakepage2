@@ -69,6 +69,19 @@ namespace :rakepage_tests do
     puts "Time elapsed: " + (end_time - start_time).to_s
   end
 
+  desc "Sanitize leaflets with img heights or widths of 1"
+  task :sanitize_leaflets_with_1x1_images => :environment do
+    start_time = Time.now
+    Leaflet.where("content ILIKE '%height=\"1%'").each do |l|
+      new_content = l.content.gsub(/<img [()\s\S]*?\/>/mi, '')
+      l.update_attributes(content: new_content)
+      puts l.id.to_s + "\n"
+    end
+    end_time = Time.now
+    puts "Time elapsed: " + (end_time - start_time).to_s
+  end
+
+
   desc "Test sending an email"
   task :send_test_email => :environment do
     UserMailer.welcome_email.deliver
