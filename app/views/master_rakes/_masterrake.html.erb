@@ -399,18 +399,18 @@
       <br>
       <div class="add-recommendation-form">
         <% if user_signed_in? && !@custom_rake.nil? %>
-          <% if leaflet_type.id != 15 %>
+          <% if leaflet_type.leaflet_type != 15 %>
             <%= form_tag Leaflet.new do %>
               <div class="input-group">
-                <input type="text" class="form-control url-input" id="url-<%= leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
+                <input type="text" class="form-control url-input" id="url-<%= leaflet_type.leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
                 <span class="input-group-btn">
                   <%= link_to "Go!", "#", 
                               data: {
                                 toggle: "modal",
                                 target: "#newLeafletModal",
-                                heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: leaflet_type.id).first,
+                                heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: h.leaflet_type_id).first,
                                 collapse: "heap_" + "#{h.leaflet_type_id}",
-                                typeid: leaflet_type.id
+                                typeid: h.leaflet_type_id
                               },
                               class: "btn btn-primary leaflet-create", id: "js-test", remote: true %>
                 </span>
@@ -421,15 +421,15 @@
             <% if current_user.admin? %>
               <%= form_tag Leaflet.new do %>
                 <div class="input-group">
-                  <input type="text" class="form-control url-input" id="url-<%= leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
+                  <input type="text" class="form-control url-input" id="url-<%= leaflet_type.leaflet_type.to_s %>" placeholder="Enter URL (http://...)">
                   <span class="input-group-btn">
                     <%= link_to "Go!", "#", 
                                 data: {
                                   toggle: "modal",
                                   target: "#newLeafletModal",
-                                  heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: leaflet_type.id).first,
+                                  heapid: Heap.where(myrake_id: @custom_rake.id, leaflet_type_id: h.leaflet_type_id).first,
                                   collapse: "heap_" + "#{h.leaflet_type_id}",
-                                  typeid: leaflet_type.id
+                                  typeid: h.leaflet_type_id
                                 },
                                 class: "btn btn-primary leaflet-create", id: "js-test", remote: true %>
                   </span>
