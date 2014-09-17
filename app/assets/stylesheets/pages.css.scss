@@ -213,9 +213,10 @@
 /* Landscape phones and down */
 @media (max-width: 480px) {
   .jumbotron {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 20px;
+    // padding-left: 0;
+    // padding-right: 0;
+    min-height: 480px;
+    padding-top: 40px;
     h2 {
       margin-bottom: 2px;
       margin-top: 5px;
@@ -238,7 +239,6 @@
   }
 
   .mobile-form {
-    padding: 30px;
   }
 
   .landing-page-logo {
