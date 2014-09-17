@@ -1,0 +1,152 @@
+<% title "Shared Recommendation Collections" %>
+<div class="jumbotron">
+  <%= image_tag "logo_white_239x50.png", class: "landing-page-logo" %>
+  <span class="pull-right">
+    <%= link_to "Sign in", new_user_session_path, class: "sign-in-label" %>
+    <%= link_to "<i class='fa fa-rocket fa-2x white'></i>".html_safe,
+                new_user_session_path,
+                class: "sign-in-icon" %> 
+  </span>
+  <h2>Shared Recommendation Collections</h2>
+  <br>
+  <br>
+  <p>Share recommendations about specific topics in one place.</p>
+  <p>Create your own customized recommendation collections.</p>
+  <p>Get inspired and construct a Rakepage community.</p>
+  <br>
+  <br>
+  <div class="col-md-4 col-md-offset-4">
+    <%= link_to "Join the new community", new_user_registration_path, class: "btn btn-primary btn-lg center-block" %>
+    <p class="scrolllearn" style="color:white; font-weight:300">
+      Learn more  <%= image_tag("arrow-down.png", size: "32x32") %>
+    </p>
+  </div>
+</div>
+<div class="container landing-page" id="learnmore">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>What's a Rake?</h2>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <p>
+        <small><em>n.</em> <small><strong>1. a:</strong></small></small> An implement to gather material or smoothing loose soil or gravel. <small><small><strong>b:</strong></small></small> A device that resembles such an implement.
+      </p>
+    </div>
+    <div class="col-md-5">
+      <p>
+        <small><em>v.tr.</em> <small><strong>2. a:</strong></small></small> To gather, smooth or scrape with a rake. <small><small><strong>b:</strong></small></small> To gain in abundance. <small><small><strong>c:</strong></small></small> To search or examine thoroughly.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>Share recommendations about specific topics in one place.</h2>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <%= image_tag("landing_page_screen_shot_1.png", class: "img-responsive") %>
+    </div>
+    <div class="col-md-5">
+      <br>
+      <p class="feature-center">
+        <i class="fa fa-space-shuttle fa-2x"></i>
+      </p>
+      <p>
+        Discover how easy it is to start giving and receiving recommendations.
+      </p>
+      <br>
+      <p class="feature-center">
+        <i class="fa fa-sitemap fa-2x"></i>
+      </p>
+      <p>
+        People with the same interests collectively share recommendations with the same rake. This keeps everything simple and in one place.
+      </p>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>Create your own customized recommendation collection.</h2>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <br>
+      <p class="feature-center">
+        <i class="fa fa-sliders fa-2x"></i>
+      </p>
+      <p>
+         Create your own customized rake and adjust where you get your information and recommendations from.
+      </p>
+      <br>
+      <p class="feature-center">
+        <i class="fa fa-bullseye fa-2x"></i>
+      </p>
+      <p>
+        Being updated from one source helps you focus on what you want.
+      </p>
+      <br>
+    </div>
+    <div class="col-md-5">
+      <%= image_tag("landing_page_screen_shot_2.png", class: "img-responsive") %>
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>Get inspired and construct a Rakepage community.</h2>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <%= image_tag("landing_page_screen_shot_3.png", class: "img-responsive") %>
+    </div>
+    <div class="col-md-5">
+      <br>
+      <p class="feature-center">
+        <i class="fa fa-bullhorn fa-2x"></i>
+      </p>
+      <p>
+        Be up-to-date on what others are recommending and then give your own recommendation to the community.
+      </p>
+      <br>
+      <p class="feature-center">
+        <i class="fa fa-heart fa-2x"></i>
+      </p>
+      <p>
+        Always be on the ball about your interests and hobbies. At the same time see what people can find online.
+      </p>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br>
+
+<div class="jumbotron-2">
+  <h2><br><br><br><br></h2>
+  <h2>Stop searching. Start finding.</h2>
+  <br>
+  <br>
+  <p>
+    <div class="col-md-4 col-md-offset-4">
+      <%= link_to "Start now", master_rakes_path, class: "btn btn-primary btn-lg center-block" %>
+    </div>
+  </p>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="text-center">
+    <h4>
+      &copy;2014 - Rakepage. All rights reserved - <a href="http://blog.rakepage.com" target="_blank">Blog</a> - <%= link_to "Terms of Service", pages_path(section: "terms_of_service") %> - <%= link_to "Privacy Policy", pages_path(section: "privacy_policy") %>
+    </h4>
+  </div>
+</div>

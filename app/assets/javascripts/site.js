@@ -37,10 +37,10 @@ $(function() {
 
 
    // scroll to learn more
-    $('.scrolllearn').click(function(){
-        $("html, body").animate({ scrollTop: $(this).offset().top }, 700);
-        return false;
-    });
+    // $('.scrolllearn').click(function(){
+    //     $("html, body").animate({ scrollTop: $(this).offset().top }, 700);
+    //     return false;
+    // });
 
     // scroll to tab pane
     function scrollToAnchor(aid){
