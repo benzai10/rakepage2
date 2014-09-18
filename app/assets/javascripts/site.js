@@ -254,5 +254,9 @@ $(function() {
 
     $('.excerpt-more').hide();
 
+
+    // $(".ui-autocomplete").on('autocompletechange change', function() {
+    //     alert("Hello");
+    // });
 });
 

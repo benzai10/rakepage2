@@ -8,9 +8,11 @@ gem 'font-awesome-sass', '~> 4.1.0'
 gem 'chartkick', '~> 1.2.4'
 gem 'groupdate', '~> 2.1.0'
 gem 'bootstrap_tokenfield_rails'
-gem 'rails3-jquery-autocomplete'
 gem 'social-share-button'
 gem 'mechanize', '2.7.2'
+gem 'rails4-autocomplete', '~> 1.1.1'
+# gem 'elasticsearch-rails', '~> 0.1.5'
+# gem "searchkick"
 # gem 'jquery-turbolinks'
 
 # authentication gem

@@ -53,6 +53,8 @@ Rakepage2::Application.routes.draw do
       get 'toggle_channel_display'
     end
     collection do
+      get 'search'
+      get :autocomplete_master_rake_name
       get 'add_rake'
       post 'add_rake'
     end

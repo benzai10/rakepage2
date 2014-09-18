@@ -87,7 +87,7 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="new-rakes">
+          <div class="tab-pane <%= @new_collapse %>" id="new-rakes">
             <a class="anchor" name="new-rakes"></a>
             <h5>New Rakes</h5>
             <%= render 'new_master_rakes' %>
@@ -97,10 +97,24 @@
             <h5>Featured Rakes</h5>
             <%= render 'featured_master_rakes' %>
           </div>
-          <div class="tab-pane" id="all-rakes">
+          <div class="tab-pane <%= @search_collapse %>" id="all-rakes">
             <a class="anchor" name="all-rakes"></a>
-            <h5>All Rakes</h5>
-            <%= render 'all_master_rakes' %>
+            <h5>Search (<%= pluralize(@master_rakes.count, "Rake") %> available)
+              <span class="pull-right">
+                <% if user_signed_in? %>
+                  <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
+                              toggle: "modal",
+                              target: "#newMasterRakeModal",
+                              category: "none",
+                              user: current_user.id },
+                              class: "btn btn-xs btn-primary" %>
+                <% else %>
+                  <%= link_to "Add new Master Rake", new_user_session_path, class: "btn btn-xs btn-primary" %>
+                <% end %>
+            </span>
+            </h5>
+            <br>
+            <%= render 'search_master_rakes' %>
           </div>
           <div class="tab-pane" id="latest-recommendations">
             <a class="anchor" name="latest-recommendations"></a>

@@ -1,5 +1,44 @@
 <div class="row">
   <br>
+  <div class="col-md-6">
+    <% if user_signed_in? %>
+      <% if params[:category_id].nil? %>
+        <% category = "none" %>
+      <% else %>
+        <% category = params[:category_id] %>
+      <% end %>
+      <div class="thumbnail">
+        <%= link_to new_master_rake_path, data: { 
+                    toggle: "modal",
+                    target: "#newMasterRakeModal",
+                    category: category,
+                    user: current_user.id },
+                    class: "masterrake-create" do %>
+          <div class="media">
+            <span class="pull-left">
+              <%= image_tag("add_master_rake.png", size: "96x54") %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Add new Master Rake</h5>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="thumbnail">
+        <%= link_to new_user_session_path do %>
+          <div class="media">
+            <span class="pull-left">
+              <%= image_tag("add_master_rake.png", size: "96x54") %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Add new Master Rake</h5>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
   <% @master_rakes.each do |m| %>
     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
     <div class="col-md-6">

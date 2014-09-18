@@ -1,4 +1,5 @@
 class MasterRakesController < ApplicationController
+  autocomplete :master_rake, :name, :full => true
 
   def index
     session[:rake_class] = MasterRake
@@ -8,6 +9,11 @@ class MasterRakesController < ApplicationController
     master_heap_ids = []
     @master_rakes.each do |r|
       master_heap_ids << r.master_heaps.pluck(:id)
+    end
+    @new_collapse = "active"
+    @search_collapse = params[:collapse] == "search" ? "active" : ""
+    if @search_collapse == "active"
+      @new_collapse = ""
     end
     master_heap_ids = master_heap_ids.flatten
     @new_recommendations = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_heap_ids).order(created_at: :desc).limit(50)
@@ -61,6 +67,16 @@ class MasterRakesController < ApplicationController
                                @rake.id,
                                Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
                                        @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{| x| x.partition("master_rakes/").last.to_i })
+  end
+
+  def search
+    @rake = MasterRake.find_by_name(params[:name])
+    if @rake.nil?
+      flash[:error] = "Couldn't find it, make sure you select a rake or add a new one!"
+      redirect_to master_rakes_path(collapse: "search")
+    else
+      redirect_to :controller => 'master_rakes', :action => 'show', :id => @rake.id
+    end
   end
 
   def new
