@@ -67,6 +67,8 @@ class MasterRakesController < ApplicationController
                                @rake.id,
                                Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
                                        @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{| x| x.partition("master_rakes/").last.to_i })
+    @children_master_rakes -= @sibling_master_rakes
+    @sibling_master_rakes -= @parent_master_rakes
   end
 
   def search
