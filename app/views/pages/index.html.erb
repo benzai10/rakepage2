@@ -1,53 +1,6 @@
 <div class="container-fluid">
 <%= render 'pages/menu' %>
 <div class="row">
-  <div class="col-md-3">
-    <h5>
-      <small>
-        PAGES
-      </small>
-    </h5>
-    <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="panel-title">
-            <%= link_to "Terms of Service", pages_path(section: "terms_of_service") %>
-          </h5>
-        </div>
-        <% if params[:section] == "terms_of_service" %>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <span class="channel-title">
-                 Seoul, last update: June 19, 2014
-              </span>
-            </div>
-        <% else %>
-          <div class="panel-collapse collapse">
-        <% end %>
-        </div>
-      </div>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h5 class="panel-title">
-            <%= link_to "Privacy Policy", pages_path(section: "privacy_policy") %>
-          </h5>
-        </div>
-        <% if params[:section] == "privacy_policy" %>
-          <div class="panel-collapse collapse in">
-            <div class="panel-body">
-              <span class="channel-title">
-                 Seoul, last update: June 19, 2014
-              </span>
-            </div>
-        <% else %>
-          <div class="panel-collapse collapse">
-        <% end %>
-        </div>
-      </div>
-
-    </div>
-  </div>
   <% if params[:section].nil? %>
     GENERAL INFO
   <% else %>
