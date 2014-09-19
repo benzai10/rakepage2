@@ -37,6 +37,7 @@
   .centered {
     display: block;
     text-align: center;
+    cursor: pointer;
   }
 }
 
@@ -80,6 +81,11 @@
     color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+  }
+  .centered {
+    display: block;
+    text-align: center;
+    cursor: pointer;
   }
 }
 
@@ -146,6 +152,11 @@
   }
   .footer-text {
     padding-top: 50px;
+  }
+  .centered {
+    display: block;
+    text-align: center;
+    cursor: pointer;
   }
 }
 
@@ -223,6 +234,10 @@
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+  .container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
   .jumbotron {
     // padding-left: 0;
     // padding-right: 0;
