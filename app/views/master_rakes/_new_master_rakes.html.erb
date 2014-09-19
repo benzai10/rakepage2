@@ -36,7 +36,7 @@
     <% end %>
   </div>
 
-  <% @new_master_rakes.find_each do |m| %>
+  <% @new_master_rakes.each do |m| %>
     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
     <div class="col-md-6">
       <div class="thumbnail">
