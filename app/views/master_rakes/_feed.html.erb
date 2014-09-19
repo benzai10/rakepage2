@@ -13,7 +13,7 @@
 <% end %>
 <br>
 <ul id="feed-list" class="leaflet-list">
-  <% @feed_leaflets.each do |l| %>
+  <% @feed_leaflets.find_each do |l| %>
     <% channel = Channel.find(l.channel_id) %>
     <a class="anchor" id="<%= 'leaflet_' + l.id.to_s %>"></a>
     <li class="rake-show-list">

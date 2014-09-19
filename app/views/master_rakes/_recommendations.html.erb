@@ -1,4 +1,4 @@
-<% @heaps.each do |h| %>
+<% @heaps.find_each do |h| %>
   <% leaflet_type_desc = LeafletType.find_by_leaflet_type(h.leaflet_type_id).leaflet_type_desc %>
     <div class="panel panel-default">
       <div class="panel-heading panel-recommendations">
@@ -16,7 +16,7 @@
       </div>
       <div class="panel-collapse collapse <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="collapse-<%= leaflet_type_desc.gsub(/\W/, "") %>">
         <div class="panel-body">
-          <% h.leaflets.order("created_at DESC").each do |l| %>
+          <% h.leaflets.order("created_at DESC").find_each do |l| %>
             <ul id="feed-list" class="leaflet-list">
                 <% channel = Channel.find(l.channel_id) %>
                 <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
