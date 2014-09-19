@@ -25,11 +25,11 @@ class ChannelsController < ApplicationController
         if @channel.save
           rake_class.find(rake_id).add_channel(@channel)
           @channel.pull_source
-          if rake_class == Myrake
+          # if rake_class == Myrake
             redirect_to myrake_path(rake_id)
-          else
-            redirect_to master_rake_path(rake_id)
-          end
+          # else
+            # redirect_to master_rake_path(rake_id)
+          # end
         else
           flash[:error] = @channel.errors.full_messages
           redirect_to :back
@@ -61,11 +61,11 @@ class ChannelsController < ApplicationController
         c.pull_source
       end
     end
-    if session[:rake_class] == Myrake
+    # if session[:rake_class] == Myrake
       redirect_to myrake_path(params[:id])
-    else
-      redirect_to master_rake_path(params[:id])
-    end
+    # else
+      # redirect_to master_rake_path(params[:id])
+    # end
   end
 
   def channel_params
