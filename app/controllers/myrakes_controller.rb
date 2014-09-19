@@ -1,4 +1,5 @@
 class MyrakesController < ApplicationController
+  autocomplete :myrake, :name, :full => true
 
   def index
     session[:rake_class] = Myrake
@@ -86,6 +87,17 @@ class MyrakesController < ApplicationController
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
   end
+
+  def search
+    @rake = Myrake.find_by_name(params[:name])
+    if @rake.nil?
+      flash[:error] = "Couldn't find it, make sure you select a rake. Go to all rakes to discover other rakes."
+      redirect_to rakes_path
+    else
+      redirect_to :controller => 'myrakes', :action => 'show', :id => @rake.id
+    end
+  end
+
 
   def news
     @rake = Myrake.find(params[:id])

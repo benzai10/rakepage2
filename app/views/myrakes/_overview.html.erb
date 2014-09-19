@@ -20,7 +20,7 @@
                         <%= image_tag("rakes_basic.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading"><%= pluralize(@rakes.count, "Rake") %></h5>
+                        <h5 class="media-heading"><%= pluralize(@rakes.count, "personal Rake") %></h5>
                         <p>
                         </p>
                       </div>
@@ -50,6 +50,25 @@
                   </div>
                 </li>
               </a>
+
+              <a href="#all-rakes" data-toggle="tab">
+                <li class="col-md-6">
+                  <div class="thumbnail">
+                    <div class="media">
+                      <span class="pull-left">
+                        <%= image_tag("rakes_all.png", size: "96x54") %>
+                      </span>
+                      <div class="media-body">
+                        <h5 class="media-heading">Rakepage Rakes</h5>
+                        <p>
+                          View and search all Rakes
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </a>
+
             </ul>
           </div>
         </div>
@@ -79,6 +98,12 @@
                 <small>You don't have any scheduled recommendations.</small>
               </p>
             <% end %>
+          </div>
+          <div class="tab-pane" id="all-rakes">
+            <a class="anchor" name="all-rakes"></a>
+            <h5>Search</h5>
+            <br>
+            <%= render 'master_rakes/search_master_rakes' %>
           </div>
         </div>
       </div>

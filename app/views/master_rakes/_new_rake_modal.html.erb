@@ -4,14 +4,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">New Personalized Rake</h4>
+        <h4 class="modal-title" id="myModalLabel">New Personal Rake</h4>
       </div>
       <%= bootstrap_form_for(Myrake.new) do |f| %>
         <div class="modal-body">
           <h3>My <%= @rake.name %> recommendations</h3>
           <%= f.hidden_field :name, value: @rake.name %>
           <p>
-            Exisiting recommendations will be copied to your personalized rake. If you want to start your recommendation rake from scratch, please uncheck the box below.
+            Exisiting recommendations will be copied to your personal rake. If you want to start your recommendation rake from scratch, please uncheck the box below.
           </p>
           <%= f.check_box :copy_recommendations, checked: true %>
           <%= f.hidden_field :master_rake_id, label: "Copy existing recommendations", value: @rake.id %>

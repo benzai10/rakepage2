@@ -71,6 +71,10 @@ Rakepage2::Application.routes.draw do
       get 'news'
       get 'saved'
     end
+    collection do
+      get 'search'
+      get :autocomplete_myrake_name
+    end
   end
 
   resources :authentications do

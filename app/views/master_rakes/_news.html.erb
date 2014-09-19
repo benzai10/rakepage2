@@ -24,7 +24,7 @@
                       myrake_path(@custom_rake.first),
                       class: "btn btn-xs btn-primary" %>
         <% else %>
-          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personalized Rake",
+          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personal Rake",
                       new_myrake_path(master_rake_id: @rake.id),
                                     data: { toggle: "modal",
                                             target: "#newCustomRakeModal",
@@ -32,7 +32,7 @@
                       class: "btn btn-xs btn-primary" %>
         <% end %>
       <% else %>
-        <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personalized Rake",
+        <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personal Rake",
                     new_user_session_path,
                     class: "btn btn-xs btn-primary" %>
       <% end %>

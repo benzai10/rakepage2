@@ -11,7 +11,7 @@
                   <%= image_tag(@rake.image_url, size: "96x54") %>
                 </span>
                 <div class="media-body">
-                  <h5 class="media-heading">View personalized Rake</h5>
+                  <h5 class="media-heading">View personal Rake</h5>
                   <p>
                     to see and add your own recommendations
                   </p>
@@ -32,7 +32,7 @@
                   <%= image_tag(@rake.image_url, size: "96x54") %>
                 </span>
                 <div class="media-body">
-                  <h5 class="media-heading">Create personalized Rake</h5>
+                  <h5 class="media-heading">Create personal Rake</h5>
                   <p>
                     to add and save your own recommendations
                   </p>
@@ -51,7 +51,7 @@
                 <%= image_tag(@rake.image_url, size: "96x54") %>
               </span>
               <div class="media-body">
-                <h5 class="media-heading">Create personalized Rake</h5>
+                <h5 class="media-heading">Create personal Rake</h5>
                 <p>
                   to add and save your own recommendations
                 </p>
@@ -441,7 +441,7 @@
         <% else %>
           <h5>
             <small>
-              To add recommendations you have to create a personlized rake first:
+              To add recommendations you have to create a personal rake first:
               <% if user_signed_in? %>
                 <%= link_to "Create!", new_myrake_path(master_rake_id: @rake.id),
                                                        data: { toggle: "modal",
