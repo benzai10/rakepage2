@@ -207,7 +207,7 @@ class MasterRakesController < ApplicationController
     unless params[:master_rake].nil?
       params[:master_rake][:rakes].each do |master_rake_id,val|
         m_rake = MasterRake.find(master_rake_id)
-        Rake.create!(name: m_rake.name, master_rake_id: master_rake_id, user_id: current_user.id)
+        Myrake.create!(name: m_rake.name, master_rake_id: master_rake_id, user_id: current_user.id)
       end
       redirect_to myrakes_path
     end
