@@ -46,10 +46,12 @@
             <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           </span>
           <p class="feed-body">
-            <%# description = lm.leaflet_desc %>
-            <%# if !description.nil? %>
-              <%#= description %><br><br>
-            <%# end %>
+            <% description = lm.leaflet_desc %>
+            <% if !description.nil? %>
+              <% if description != l.content %>
+                <%= description %><br><br>
+              <% end %>
+            <% end %>
             <% reminder_at = lm.reminder_at %>
             <% if reminder_at.nil? %>
               <% reminder_at = "no reminder" %>
@@ -95,7 +97,7 @@
             <span class="feed-button">
               <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete"></i>'.html_safe, 
                     remove_leaflet_heap_path(lm.heap, leaflet_id: l.id),
-                    :data => { :confirm => "Are you sure?" },
+                    :data => { :confirm => "Are you sure? You will delete the recommendation also from your rake!" },
                     :method => :get, remote: true %>
             </span>
             &nbsp;
