@@ -94,7 +94,7 @@ class MyrakesController < ApplicationController
       flash[:error] = "Couldn't find it, make sure you select a rake. Go to all rakes to discover other rakes."
       redirect_to rakes_path
     else
-      redirect_to :controller => 'myrakes', :action => 'show', :id => @rake.id
+      redirect_to :controller => 'myrakes', :action => 'show', :id => @rake
     end
   end
 

@@ -75,7 +75,7 @@ class MasterRakesController < ApplicationController
       flash[:error] = "Couldn't find it, make sure you select a rake or add a new one!"
       redirect_to master_rakes_path(collapse: "search")
     else
-      redirect_to :controller => 'master_rakes', :action => 'show', :id => @rake.id
+      redirect_to :controller => 'master_rakes', :action => 'show', :id => @rake
     end
   end
 
