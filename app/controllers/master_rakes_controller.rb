@@ -35,7 +35,7 @@ class MasterRakesController < ApplicationController
     session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
-    @rake = @master_rakes.find(params[:id].to_i)
+    @rake = @master_rakes.find(params[:id])
     @channels = @rake.channels
     if user_signed_in?
       @custom_rake = @rake.existing_custom_rake(current_user)

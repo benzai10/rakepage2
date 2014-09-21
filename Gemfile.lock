@@ -116,6 +116,8 @@ GEM
       thor (~> 0.19.1)
     formtastic (2.3.0.rc3)
       actionpack (>= 3.0)
+    friendly_id (5.0.4)
+      activerecord (>= 4.0.0)
     groupdate (2.1.0)
       activerecord (>= 3.0.0)
     has_scope (0.6.0.rc)
@@ -358,6 +360,7 @@ DEPENDENCIES
   feedjira
   font-awesome-sass (~> 4.1.0)
   foreman
+  friendly_id (~> 5.0.0)
   groupdate (~> 2.1.0)
   holder_rails
   jbuilder (~> 1.2)

@@ -30,6 +30,9 @@ class Myrake < ActiveRecord::Base
   has_many :filters, dependent: :destroy
   has_many :heaps, dependent: :destroy
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   def url_data(url)
     url_hash = {leaflet_title: "", leaflet_desc: ""}
     agent = Mechanize.new
@@ -160,6 +163,13 @@ class Myrake < ActiveRecord::Base
   end
 
   private
+
+  def slug_candidates
+    [
+      :name,
+      [:name, :user_id],
+    ]
+  end
 
   def create_channel
     add_channel(Channel.create!(source: id.to_s, name: name, channel_type: 3))

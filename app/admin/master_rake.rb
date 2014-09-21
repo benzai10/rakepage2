@@ -1,5 +1,5 @@
 ActiveAdmin.register MasterRake do
-  permit_params :name, :created_by, :category_id, :wikipedia_url, :wikipedia_first_paragraph, :image_url, :featured
+  permit_params :name, :created_by, :category_id, :wikipedia_url, :wikipedia_first_paragraph, :image_url, :featured, :slug
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -23,6 +23,7 @@ ActiveAdmin.register MasterRake do
       f.input :wikipedia_first_paragraph
       f.input :image_url
       f.input :featured
+      f.input :slug
     end
     f.actions
   end

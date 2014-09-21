@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910064812) do
+ActiveRecord::Schema.define(version: 20140921065755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,9 +199,11 @@ ActiveRecord::Schema.define(version: 20140910064812) do
     t.text     "wikipedia_first_paragraph"
     t.text     "image_url"
     t.boolean  "featured",                  default: false
+    t.string   "slug"
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree
+  add_index "master_rakes", ["slug"], name: "index_master_rakes_on_slug", unique: true, using: :btree
 
   create_table "myrakes", force: true do |t|
     t.string   "name",               default: "", null: false
@@ -212,7 +214,10 @@ ActiveRecord::Schema.define(version: 20140910064812) do
     t.datetime "refreshed_at"
     t.integer  "snapshot_count",     default: 0
     t.datetime "saved_refreshed_at"
+    t.string   "slug"
   end
+
+  add_index "myrakes", ["slug"], name: "index_myrakes_on_slug", unique: true, using: :btree
 
   create_table "rake_channel_maps", force: true do |t|
     t.integer  "channel_id"
@@ -245,10 +250,12 @@ ActiveRecord::Schema.define(version: 20140910064812) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end

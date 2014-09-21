@@ -1,4 +1,6 @@
 class MasterRake < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
   require 'feed_helper'
   after_create :create_channel
   attr_accessor :feed_leaflets

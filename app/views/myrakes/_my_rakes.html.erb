@@ -22,7 +22,7 @@
   <% @rakes.each do |r| %>
     <div class="col-md-12 col-lg-6">
       <div class="thumbnail">
-        <%= link_to myrake_path(r.id, refresh: "no") do %>
+        <%= link_to myrake_path(r) do %>
           <% master_rake = MasterRake.find(r.master_rake_id) %>
           <div class="media load-rake" value="<%= r.id %>">
             <span class="pull-left">

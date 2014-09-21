@@ -6,7 +6,7 @@
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-    <%= link_to master_rake_path(@rake.master_rake_id) do %>
+    <%= link_to master_rake_path(MasterRake.find(@rake.master_rake_id)) do %>
       <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
