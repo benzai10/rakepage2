@@ -46,10 +46,10 @@
             <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           </span>
           <p class="feed-body">
-            <% description = lm.leaflet_desc %>
-            <% if !description.nil? %>
-              <%= description %><br><br>
-            <% end %>
+            <%# description = lm.leaflet_desc %>
+            <%# if !description.nil? %>
+              <%#= description %><br><br>
+            <%# end %>
             <% reminder_at = lm.reminder_at %>
             <% if reminder_at.nil? %>
               <% reminder_at = "no reminder" %>
