@@ -30,8 +30,8 @@
             <%# if l.leaflet_type_id != 0 %>
               &nbsp;|&nbsp;
               <%#= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              <%= link_to LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc,
-                          myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s) %>
+              <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
+              <%= link_to leaflet_type_desc, myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
               <% if !l.created_by.nil? %>
                 &nbsp;|&nbsp;
                 added by <%= User.find(l.created_by).username %>

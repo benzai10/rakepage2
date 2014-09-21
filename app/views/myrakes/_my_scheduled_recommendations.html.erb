@@ -28,8 +28,8 @@
             <%#= Channel.find(l.channel_id).name %>
             <%= link_to myrake.name, myrake_path(myrake) %>
             &nbsp;|&nbsp;
-            <%= link_to LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc,
-                        myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s) %>
+            <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
+            <%= link_to leaflet_type_desc, myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
             <% if !l.created_by.nil? %>
               &nbsp;|&nbsp;
               added by <%= User.find(l.created_by).username %>
