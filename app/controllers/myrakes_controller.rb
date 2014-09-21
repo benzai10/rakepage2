@@ -233,7 +233,7 @@ class MyrakesController < ApplicationController
       else
         title = params[:myrake][:leaflet_title]
       end
-      if title.empty?
+      if title.nil? || title.empty?
         title = params[:myrake][:leaflet_url]
       end
       if params[:myrake][:leaflet_desc].empty?
