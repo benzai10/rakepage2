@@ -132,9 +132,10 @@ class Myrake < ActiveRecord::Base
                              published_at: Time.now)
     if leaflet.valid?
       self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
+      leaflet.id
     else
       self.leaflet_errors = leaflet.errors
-      false
+      nil
     end
   end
 

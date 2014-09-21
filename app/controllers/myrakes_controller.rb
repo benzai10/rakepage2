@@ -261,13 +261,14 @@ class MyrakesController < ApplicationController
       else
         reminder_at = nil
       end
-      if @rake.create_leaflet(params[:myrake][:leaflet_type_id],
+      leaflet_id = @rake.create_leaflet(params[:myrake][:leaflet_type_id],
                            title,
                            description,
                            params[:myrake][:leaflet_url],
                            leaflet_author,
-                           reminder_at) != false
-        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
+                           reminder_at)
+      if !leaflet_id.nil?
+        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_type_id] + "_" + leaflet_id.to_s)
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
