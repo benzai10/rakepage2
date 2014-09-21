@@ -1,7 +1,7 @@
 <% title @rake.name + " Recommendations" %>
 <% meta title: @rake.name + " Recommendations",
         description: @rake.description,
-        keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" %>
+        keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
 <div class="container-fluid">
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
