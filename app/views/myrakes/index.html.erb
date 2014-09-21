@@ -1,8 +1,6 @@
-<% if !@category.nil? %>
-  <% title @category.desc + " Recommendations" %>
-<% else %>
-  <% title "Shared Recommendation Collections" %>
-<% end %>
+<% meta title: "Shared Recommendations Collections",
+        description: "Find the best resources at one place. Stop searching, start finding. Rakepage is a place for sharing recommendation collections, dedicated to a specific topic.",
+        keywords: %w(find shared recommendations collaborative collective social bookmarks information overload) %>
 <div class="container-fluid">
   <%= render 'myrakes/rakes_menu' %>
   <div class="row">
