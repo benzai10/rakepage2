@@ -7,8 +7,13 @@
       <% myrake = lm.heap.myrake %>
 
       <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
-        <a class="pull-left" href="#">
-          <% channel = Channel.find(l.channel_id) %>
+        <% channel = Channel.find(l.channel_id) %>
+        <% if channel.channel_type == 4 %>
+          <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
+        <% else %>
+          <% reddit_link = "" %>
+        <% end %>
+        <a class="pull-left" <%= reddit_link %>>
           <% if channel.channel_type == 4 %>
             <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
           <% elsif channel.channel_type == 3 %>
