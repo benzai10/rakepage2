@@ -56,17 +56,17 @@ class MasterRakesController < ApplicationController
       @stats_collapse = "active"
     end
     @heap_id = params[:collapse].to_s.slice(5..-1)
-    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.id.to_s).pluck(:author).map(&:to_i)
+    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.slug).pluck(:author).map(&:to_i)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
-    @children_master_rakes = MasterRake.where("id IN (?)",
+    @children_master_rakes = MasterRake.where("slug IN (?)",
                                 Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
-                                        @rake.id.to_s).pluck(:url).map{| x| x.partition("master_rakes/").last.to_i })
-    @sibling_master_rakes = MasterRake.where("id <> ? AND id IN (?)",
+                                        @rake.id.to_s).pluck(:url).map{|x| x.partition("master_rakes/").last })
+    @sibling_master_rakes = MasterRake.where("id <> ? AND slug IN (?)",
                                @rake.id,
                                Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
-                                       @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{| x| x.partition("master_rakes/").last.to_i })
-    #@children_master_rakes -= @sibling_master_rakes
-    #@sibling_master_rakes -= @parent_master_rakes
+                                       @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
+    @children_master_rakes -= @sibling_master_rakes
+    @sibling_master_rakes -= @parent_master_rakes
   end
 
   def search
