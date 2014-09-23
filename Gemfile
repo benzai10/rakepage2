@@ -13,6 +13,7 @@ gem 'mechanize', '2.7.2'
 gem 'rails4-autocomplete', '~> 1.1.1'
 gem 'friendly_id', '~> 5.0.0'
 gem 'metamagic'
+gem 'newrelic_rpm'
 # gem 'elasticsearch-rails', '~> 0.1.5'
 # gem "searchkick"
 # gem 'jquery-turbolinks'
