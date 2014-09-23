@@ -185,12 +185,14 @@ class MyrakesController < ApplicationController
       when 0
         reminder_at = nil
       when 1
-        reminder_at = Time.now + 1.day
+        reminder_at = Time.now + 1.hour
       when 2
-        reminder_at = Time.now + 3.day
+        reminder_at = Time.now + 1.day
       when 3
-        reminder_at = Time.now + 1.week
+        reminder_at = Time.now + 3.day
       when 4
+        reminder_at = Time.now + 1.week
+      when 5
         reminder_at = Time.now + 1.month
       else
         reminder_at = nil
@@ -204,12 +206,14 @@ class MyrakesController < ApplicationController
       when 0
         reminder_at = nil
       when 1
-        reminder_at = Time.now + 1.day
+        reminder_at = Time.now + 1.hour
       when 2
-        reminder_at = Time.now + 3.day
+        reminder_at = Time.now + 1.day
       when 3
-        reminder_at = Time.now + 1.week
+        reminder_at = Time.now + 3.day
       when 4
+        reminder_at = Time.now + 1.week
+      when 5
         reminder_at = Time.now + 1.month
       else
         reminder_at = nil
@@ -251,12 +255,14 @@ class MyrakesController < ApplicationController
       when 0
         reminder_at = nil
       when 1
-        reminder_at = Time.now + 1.day
+        reminder_at = Time.now + 1.hour
       when 2
-        reminder_at = Time.now + 3.day
+        reminder_at = Time.now + 1.day
       when 3
-        reminder_at = Time.now + 1.week
+        reminder_at = Time.now + 3.day
       when 4
+        reminder_at = Time.now + 1.week
+      when 5
         reminder_at = Time.now + 1.month
       else
         reminder_at = nil

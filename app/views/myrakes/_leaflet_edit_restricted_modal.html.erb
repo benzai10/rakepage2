@@ -16,10 +16,11 @@
           <%= f.text_area :leaflet_url, { disabled: true, label: "URL (including leading http://)", class: "leaflet-url" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
-          <% reminder_period << ["in 1 day", 1] %>
-          <% reminder_period << ["in 3 days", 2] %>
-          <% reminder_period << ["in 1 week", 3] %>
-          <% reminder_period << ["in 1 month", 4] %>
+          <% reminder_period << ["in 1 hour", 1] %>
+          <% reminder_period << ["in 1 day", 2] %>
+          <% reminder_period << ["in 3 days", 3] %>
+          <% reminder_period << ["in 1 week", 4] %>
+          <% reminder_period << ["in 1 month", 5] %>
           <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
         </div>
         <div class="modal-footer">
