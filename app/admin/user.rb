@@ -22,6 +22,8 @@ ActiveAdmin.register User do
     column :admin
     column :last_sign_in_at
     column :current_sign_in_at
+    column :current_sign_in_ip
+    column :last_sign_in_ip
     column :sign_in_count
     column :created_at
     actions
