@@ -75,7 +75,7 @@ class MyrakesController < ApplicationController
     else
       @stats_collapse = "active"
     end
-    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.slug).pluck(:author).map(&:to_i)
+    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
     @children_master_rakes = MasterRake.where("slug IN (?)",
                                 Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
