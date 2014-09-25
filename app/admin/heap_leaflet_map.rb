@@ -19,6 +19,8 @@ ActiveAdmin.register HeapLeafletMap do
     id_column
     column :heap
     column :leaflet
+    column :leaflet_title
+    column :reminder_at
     column :created_at
     column :updated_at
     actions
