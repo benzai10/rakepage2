@@ -45,7 +45,7 @@
           <p class="feed-body">
             <% description = lm.leaflet_desc %>
             <% if !description.nil? %>
-              <% if description != l.content %>
+              <% if description != l.content && !description.empty? %>
                 <%= description %><br><br>
               <% end %>
             <% end %>
