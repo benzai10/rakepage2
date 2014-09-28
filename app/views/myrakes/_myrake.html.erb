@@ -5,6 +5,9 @@
 
 <!-- Nav tabs -->
 <div class="row">
+  <div class="col-md-12">
+    <span class="rake-nav">NAVIGATION<hr></span>
+  </div>
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
     <%= link_to master_rake_path(MasterRake.find(@rake.master_rake_id)) do %>
       <li class="col-md-12 col-lg-6">
@@ -45,6 +48,9 @@
         </div>
       </li>
     </a>
+    <div class="col-md-12">
+      <span class="rake-nav">NEWS / BLOGS & SUBREDDITS<hr></span>
+    </div>
     <a href="#feed" role="tab" data-toggle="tab">
       <li class="<%= @feed_collapse %> col-md-6" id="test">
         <div class="thumbnail">
@@ -112,6 +118,10 @@
         </div>
       </li>
     </a>
+
+    <div class="col-md-12">
+      <span class="rake-nav">BOOKMARK CATEGORIES<hr></span>
+    </div>
 
     <% @leaflet_types.each do |lt| %>
       <% if @heaps.pluck(:leaflet_type_id).include? lt %>

@@ -1,6 +1,9 @@
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
+    <div class="col-md-12">
+      <span class="rake-nav">NAVIGATION<hr></span>
+    </div>
     <% if user_signed_in? %>
       <% if !@custom_rake.nil? %>
         <%= link_to myrake_path(@custom_rake) do %>
@@ -85,6 +88,10 @@
       </li>
     </a>
 
+    <div class="col-md-12">
+      <span class="rake-nav">NEWS / BLOGS & SUBREDDITS<hr></span>
+    </div>
+
     <a href="#feed" data-toggle="tab">
       <li class="<%= @feed_collapse %> col-md-6">
           <div class="thumbnail">
@@ -140,6 +147,10 @@
           </div>
       </li>
     </a>
+
+    <div class="col-md-12">
+      <span class="rake-nav">BOOKMARK CATEGORIES<hr></span>
+    </div>
 
     <% @heaps.each do |h| %>
       <% leaflet_type = LeafletType.find_by_leaflet_type(h.leaflet_type_id) %>

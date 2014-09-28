@@ -9,7 +9,10 @@
     <div class="panel-body">
       <div>
         <div class="row">
-         <div class="tab-header">
+          <div class="col-md-12">
+            <span class="rake-nav">SELECT A VIEW<hr></span>
+          </div>
+          <div class="tab-header">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-thumbnails" role="tablist">
               <a href="#my-rakes" role="tab" data-toggle="tab">
@@ -90,12 +93,12 @@
         <div class="tab-content">
           <div class="tab-pane <%= @myrakes_collapse %>" id="my-rakes">
             <a class="anchor" name="my-rakes"></a>
-            <h5>My Bookmarking Rakes</h5>
+            <span class="rake-nav">MY BOOKMARKING RAKES<hr></span>
             <%= render 'my_rakes' %>
           </div>
           <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
             <a class="anchor" name="my-recommendations"></a>
-            <h5>Bookmark Reminders</h5>
+            <span class="rake-nav">BOOKMARK REMINDERS<hr></span>
             <% if @overdue_leaflets.count > 0 %>
               <%= render 'my_overdue_recommendations' %>
             <% else %>
@@ -103,7 +106,7 @@
                 <small>You don't have any overdue bookmarks.</small>
               </p>
             <% end %>
-            <h5>Scheduled Bookmarks</h5>
+            <span class="rake-nav">SCHEDULED BOOKMARKS<hr></span>
             <% if @scheduled_leaflets.count > 0 %>
               <%= render 'my_scheduled_recommendations' %>
             <% else %>
@@ -114,7 +117,7 @@
           </div>
           <div class="tab-pane" id="all-rakes">
             <a class="anchor" name="all-rakes"></a>
-            <h5>Search Rakes</h5>
+            <span class="rake-nav">SEARCH RAKES<hr></span>
             <br>
             <%= render 'master_rakes/search_master_rakes' %>
           </div>

@@ -8,7 +8,10 @@
     <div class="panel-body">
       <div>
         <div class="row">
-         <div class="tab-header">
+          <div class="col-md-12">
+            <span class="rake-nav">SELECT A VIEW<hr></span>
+          </div>
+          <div class="tab-header">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-thumbnails" role="tablist">
               <a href="#new-rakes" role="tab" data-toggle="tab">
@@ -89,36 +92,38 @@
         <div class="tab-content">
           <div class="tab-pane <%= @new_collapse %>" id="new-rakes">
             <a class="anchor" name="new-rakes"></a>
-            <h5>New Rakes</h5>
+            <span class="rake-nav">NEW RAKES<hr></span>
             <%= render 'new_master_rakes' %>
           </div>
           <div class="tab-pane" id="featured-rakes">
             <a class="anchor" name="featured-rakes"></a>
-            <h5>Featured Rakes</h5>
+            <span class="rake-nav">FEATURED RAKES<hr></span>
             <%= render 'featured_master_rakes' %>
           </div>
           <div class="tab-pane <%= @search_collapse %>" id="all-rakes">
             <a class="anchor" name="all-rakes"></a>
-            <h5>Search Rakes (<%= pluralize(@master_rakes.count, "Rake") %> available)
-              <span class="pull-right">
-                <% if user_signed_in? %>
-                  <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
-                              toggle: "modal",
-                              target: "#newMasterRakeModal",
-                              category: "none",
-                              user: current_user.id },
-                              class: "btn btn-xs btn-primary masterrake-create" %>
-                <% else %>
-                  <%= link_to "Add new Master Rake", new_user_session_path, class: "btn btn-xs btn-primary" %>
-                <% end %>
+            <span class="rake-nav">
+              SEARCH RAKES (<%= pluralize(@master_rakes.count, "RAKE").upcase %> AVAILABLE)
             </span>
-            </h5>
+            <span class="pull-right">
+              <% if user_signed_in? %>
+                <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
+                            toggle: "modal",
+                            target: "#newMasterRakeModal",
+                            category: "none",
+                            user: current_user.id },
+                            class: "btn btn-xs btn-primary masterrake-create" %>
+              <% else %>
+                <%= link_to "Add new Master Rake", new_user_session_path, class: "btn btn-xs btn-primary" %>
+              <% end %>
+            </span>
+            <br>
             <br>
             <%= render 'search_master_rakes' %>
           </div>
           <div class="tab-pane" id="latest-recommendations">
             <a class="anchor" name="latest-recommendations"></a>
-            <h5>Latest Bookmarks</h5>
+            <span class="rake-nav">FEATURED RAKES<hr></span>
             <%= render 'new_recommendations' %>
             <%#= render 'new_leaflets' %>
           </div>

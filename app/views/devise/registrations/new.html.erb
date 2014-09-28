@@ -15,7 +15,7 @@
           <%= devise_error_messages! %>
         </span>
         <%= f.email_field :email, autofocus: true %>
-        <%= f.text_field :username, autocomplete: "off", label: "Username - only letters, numbers, dash and underscore are allowed. Make sure you don't use any spaces" %>
+        <%= f.text_field :username, autocomplete: "off", label: "Username" %>
         <%= f.password_field :password, autocomplete: "off" %>
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
         <br>

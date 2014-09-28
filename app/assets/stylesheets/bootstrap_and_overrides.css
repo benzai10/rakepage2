@@ -409,6 +409,21 @@ h5 {
   color: gray;
 }
 
+.rake-nav {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: gray;
+  display: block;
+  text-align: center;
+}
+
+.rake-nav hr {
+  color: gray;
+  margin-top: 0px;
+  margin-bottom: 6px;
+}
+
 .media-object {
   /*cursor: default;*/
 }
