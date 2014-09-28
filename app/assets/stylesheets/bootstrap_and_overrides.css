@@ -206,6 +206,12 @@ h5 {
   font-weight: 300;
 }
 
+.info-text {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 500;
+  font-size: 12px;
+}
+
 .thumbnail {
   padding: 0;
 }

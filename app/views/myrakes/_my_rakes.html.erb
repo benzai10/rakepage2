@@ -1,23 +1,25 @@
 <div class="row">
   <br>
-  <div class="col-md-12 col-lg-6">
-    <div class="thumbnail">
-      <%= link_to new_master_rake_path, data: { 
-                  toggle: "modal",
-                  target: "#newMasterRakeModal",
-                  category: "none",
-                  user: current_user.id },
-                  class: "masterrake-create" do %>
-        <div class="media">
-          <span class="pull-left">
-            <%= image_tag("add_master_rake.png", size: "96x54") %>
-          </span>
-          <div class="media-body">
-            <h5 class="media-heading">Add new Master Rake</h5>
-          </div>
-        </div>
-      <% end %>
+  <% if @rakes.empty? %>
+    <div class="col-md-12 col-lg-6">
+      <span class="info-text">
+        Get things done based on bookmarks. You get the most benefit by creating personal rakes. You can then add bookmarks with reminders. Start with exploring existing rakes. If you don't find a topic of your interest, you're welcome to create a new one! 
+      </span>
     </div>
+    <div class="col-md-12 col-lg-6">
+      <div class="thumbnail">
+        <%= link_to master_rakes_path do %>
+          <div class="media">
+            <span class="pull-left">
+              <%= image_tag("rakes_all.png", size: "96x54") %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Explore existing Master Rakes</h5>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <% @rakes.each do |r| %>
     <div class="col-md-12 col-lg-6">

@@ -21,8 +21,7 @@
                       </span>
                       <div class="media-body">
                         <h5 class="media-heading"><%= pluralize(@rakes.count, "personal Rake") %></h5>
-                        <p>
-                        </p>
+                        <h5 class="media-heading"><%= pluralize(@recommendations.count, "Bookmark") %></h5>
                       </div>
                     </div>
                   </div>
@@ -37,14 +36,28 @@
                         <%= image_tag("rakes_basic.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading"><%= pluralize(@recommendations.count, "Bookmark") %></h5>
-                        <p>
-                          <span class="new-rec-alert">
-                            <% if @overdue_leaflets.count > 0 %>
-                              <%= pluralize(@overdue_leaflets.count, "Reminder") %>
+                        <% active_bookmarks = @overdue_leaflets.count + @scheduled_leaflets.count %>
+                        <% if active_bookmarks > 0 %>
+                          <h5 class="media-heading"><%= pluralize(active_bookmarks, "Active Bookmark") %></h5>
+                          <p>
+                            <span class="new-rec-alert">
+                              <% if @overdue_leaflets.count > 0 %>
+                                <%= pluralize(@overdue_leaflets.count, "Reminder") %>
+                              <% end %>
+                            </span>
+                          </p>
+                          <p>
+                            <% if @scheduled_leaflets.count > 0 %>
+                              <%= @scheduled_leaflets.count.to_s + " Scheduled" %>
                             <% end %>
-                          </span>
-                        </p>
+                          </p>
+                        <% else %>
+                          <p>
+                            <span class="new-rec-alert">
+                              You don't have any scheduled bookmarks. Add bookmarks to increase your productivity.
+                            </span>
+                          </p>
+                        <% end %>
                       </div>
                     </div>
                   </div>

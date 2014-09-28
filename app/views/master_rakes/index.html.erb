@@ -7,13 +7,9 @@
       <h5>
         <small>
           <% if user_signed_in? %>
-            <% if !@rakes.empty? %> 
-              <%= link_to "MY BOOKMARKING RAKES", myrakes_path, class: "nav-link" %>
-              &nbsp;
-              <span class="new-rec-alert"><%= pluralize(@overdue_leaflets.count, "Reminder") %></span>
-            <% else %>
-              <strong>You have no personal bookmark rakes and reminders yet.</strong>
-            <% end %>
+            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, class: "nav-link" %>
+            &nbsp;
+            <span class="new-rec-alert"><%= pluralize(@overdue_leaflets.count, "Reminder") unless @overdue_leaflets.nil? %></span>
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
           <% end %>

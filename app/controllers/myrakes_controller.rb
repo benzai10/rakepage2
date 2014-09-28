@@ -8,10 +8,10 @@ class MyrakesController < ApplicationController
       return
     end
     @rakes = Myrake.where("user_id = ?", current_user.id)
-    if @rakes.empty?
-      redirect_to master_rakes_path
-      return
-    end
+    #if @rakes.empty?
+    #  redirect_to master_rakes_path
+    #  return
+    #end
     @new_master_rakes = MasterRake.newly_added
     heap_ids = []
     @rakes.each do |r|
