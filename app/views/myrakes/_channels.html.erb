@@ -1,4 +1,4 @@
-<h5>Blogs & Subreddits</h5>
+<span class="rake-nav">BLOGS & SUBREDDITS<hr></span>
 <br>
 <% if user_signed_in? && @rake.user_id == current_user.id %>
   <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),

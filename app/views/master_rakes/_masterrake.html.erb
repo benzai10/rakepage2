@@ -194,7 +194,7 @@
     <div class="row">
       <div class="col-md-12">
         <a class="anchor" name="stats"></a>
-        <h5>Related Rakes & Stats</h5>
+        <span class="rake-nav">RELATED RAKES & STATS<hr></span>
       </div>
     </div>
     <% if @parent_master_rakes.count + @sibling_master_rakes.count + @children_master_rakes.count == 0 %>
@@ -402,8 +402,8 @@
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
+      <span class="rake-nav"><%= leaflet_type_desc.upcase %><hr></span>
       <h5>
-        <%= leaflet_type_desc %>
         <small><%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %></small>
       </h5>
       <br>
