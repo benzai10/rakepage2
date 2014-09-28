@@ -1,6 +1,6 @@
 <ul id="feed-list" class="leaflet-list">
   <% leaflet_duplication_array = [] %>
-  <% @scheduled_leaflets.find_each do |lm| %>
+  <% @scheduled_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
     <% if !leaflet_duplication_array.include? l.id %>
       <% leaflet_duplication_array << l.id %>
