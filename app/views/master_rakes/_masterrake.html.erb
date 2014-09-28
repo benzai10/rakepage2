@@ -120,8 +120,6 @@
                 </h5>
                 <p>
                   View/add sources for the news feed
-                </p>
-                <p>
                   <% if user_signed_in? %>
                     <span class="new-rec-alert">
                       <% new_channels = @rake.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
@@ -132,6 +130,7 @@
                       <% else %>
                         <% @new_count = 0 %>
                       <% end %>
+                      &nbsp;
                       <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
                     </span>
                   <% end %>
