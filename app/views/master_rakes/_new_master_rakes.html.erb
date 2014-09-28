@@ -62,7 +62,7 @@
                 <%= pluralize(m.myrakes.count, "Raker") %>
                 &nbsp;|&nbsp;
                 <%= pluralize(master_leaflets.count,
-                              "Rec") %>
+                              "Bookmark") %>
               </p>
               <p>
                 <% if user_signed_in? %>
@@ -72,12 +72,12 @@
                       <% new_channels = m.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
                       <% new_channels -= user_rake.channels %>
                       <% @new_count = new_channels.count %>
-                      <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                      <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
                       <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
                       <% if @new_count > 0 && new_count > 0 %>
                         &nbsp;|&nbsp;
                       <% end %>
-                      <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                      <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                     <% end %>
                   </span>
                 <% end %>

@@ -39,7 +39,7 @@
               <p>
                 <%= pluralize(master_rake.myrakes.count, "Raker") %>
                 &nbsp;|&nbsp;
-                <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Rec") %>
+                <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Bookmark") %>
               </p>
               <p>
                 <% new_count = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", r.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).count %>
@@ -49,7 +49,7 @@
                     <% end %>
                   <% else %>
                     <span class="new-rec-alert">
-                      <%= pluralize(new_count, "New Rec") %>
+                      <%= pluralize(new_count, "New Bookmark") %>
                     </span>
                   <% end %>
               </p>
