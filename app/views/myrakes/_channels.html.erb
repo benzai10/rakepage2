@@ -1,4 +1,4 @@
-<h5>Blog & Subreddits</h5>
+<h5>Blogs & Subreddits</h5>
 <br>
 <% if user_signed_in? && @rake.user_id == current_user.id %>
   <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
@@ -20,7 +20,7 @@
               class: "btn btn-xs btn-primary add-subreddit-feed" %>
 <% end %>
 <hr>
-<span class="channel-title">Recently added Channels:</span>
+<span class="channel-title">Recently added Blogs/Subreddits:</span>
 <br>
 <ul class="leaflet-list">
   <% if (@new_channels - @rake.channels).count > 0 %>

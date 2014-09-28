@@ -72,19 +72,12 @@
             <div class="media-body">
               <h5 class="media-heading">Related Rakes & Stats</h5>
               <p>
-                <%= (@parent_master_rakes.count + @sibling_master_rakes.count + @children_master_rakes.count).to_s %>
-                Rakes (
-                <i class="fa fa-level-up"></i>&nbsp;<%= @parent_master_rakes.count.to_s %>&nbsp;|&nbsp;
-                <i class="fa fa-long-arrow-right"></i>&nbsp;<%= @sibling_master_rakes.count.to_s %>&nbsp;|&nbsp;
-                <i class="fa fa-level-down"></i>&nbsp;<%= @children_master_rakes.count.to_s %>
-                )
+                <%= pluralize(@rake.myrakes.count, "Co-Raker") %>
               </p>
               <p>
-                <%= pluralize(@rake.myrakes.count, "Co-Raker") %>
-                &nbsp;|&nbsp;
                 <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", 
                               @rake.master_heaps.pluck(:id)).count, 
-                              "Rec") + " in total"%>
+                              "Bookmark") + " in total"%>
               </p>
             </div>
           </div>
@@ -106,7 +99,7 @@
                   </small>
                 </h5>
                 <p>
-                  <%= pluralize(@feed_leaflets.count, "Post") %>
+                  <%= pluralize(@feed_leaflets.count, "Entry") %>
                 </p>
               </div>
             </div>
@@ -122,9 +115,11 @@
                 <%= image_tag("channels.jpg", size: "96x54") %>
               </span>
               <div class="media-body">
-                <h5 class="media-heading">Blogs & Subreddits</h5>
+                <h5 class="media-heading">
+                  <%= @rake.channels.where("channel_type <> 3 AND channel_type <> 5").count.to_s + " Blogs & Subreddits" %>
+                </h5>
                 <p>
-                  <%= pluralize(@rake.channels.where("channel_type <> 3 AND channel_type <> 5").count, "Channel") %>
+                  View/add sources for the news feed
                 </p>
                 <p>
                   <% if user_signed_in? %>
@@ -137,7 +132,7 @@
                       <% else %>
                         <% @new_count = 0 %>
                       <% end %>
-                      <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                      <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
                     </span>
                   <% end %>
                 </p>
@@ -160,7 +155,7 @@
                 <div class="media-body">
                   <h5 class="media-heading"><%= leaflet_type_desc %></h5>
                     <p>
-                      <%= pluralize(h.leaflets.count, "Rec") %>
+                      <%= pluralize(h.leaflets.count, "Bookmark") %>
                     </p>
                     <p>
                       <% if !@custom_rake.nil? %>
@@ -169,7 +164,7 @@
                         <% my_leaflets = HeapLeafletMap.where("heap_id IN (?)", @custom_rake.heaps.pluck(:id)).pluck(:leaflet_id) %>
                         <% new_count = (new_leaflets - my_leaflets).count %>
                         <span class="new-rec-alert">
-                          <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                          <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                         </span>
                       <% end %>
                     </p>
@@ -192,6 +187,11 @@
         <h5>Related Rakes & Stats</h5>
       </div>
     </div>
+    <% if @parent_master_rakes.count + @sibling_master_rakes.count + @children_master_rakes.count == 0 %>
+      <span class="info-text">
+        No related rakes available.
+      </span>
+    <% end %>
     <% if @parent_master_rakes.count > 0 %>
       <div class="row">
         <div class="col-md-12">
@@ -231,12 +231,12 @@
                             <% new_channels = pmr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
                             <% new_channels -= user_rake.channels %>
                             <% @new_count = new_channels.count %>
-                            <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                            <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
                             <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
                             <% if @new_count > 0 && new_count > 0 %>
                               &nbsp;|&nbsp;
                             <% end %>
-                            <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                            <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                           <% end %>
                         </span>
                       <% end %>
@@ -290,12 +290,12 @@
                             <% new_channels = smr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
                             <% new_channels -= user_rake.channels %>
                             <% @new_count = new_channels.count %>
-                            <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                            <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
                             <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
                             <% if @new_count > 0 && new_count > 0 %>
                               &nbsp;|&nbsp;
                             <% end %>
-                            <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                            <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                           <% end %>
                         </span>
                       <% end %>
@@ -348,12 +348,12 @@
                             <% new_channels = cmr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
                             <% new_channels -= user_rake.channels %>
                             <% @new_count = new_channels.count %>
-                            <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
+                            <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
                             <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
                             <% if @new_count > 0 && new_count > 0 %>
                               &nbsp;|&nbsp;
                             <% end %>
-                            <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                            <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                           <% end %>
                         </span>
                       <% end %>
