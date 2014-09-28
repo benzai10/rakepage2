@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
 
   def update
-    if params[:commit] == "Save Recommendation"
+    if params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:user][:leaflet_id])
       myrake = Myrake.where(user_id: current_user.id, name: params[:user][:rake_name]).first
       myrake.add_leaflet(leaflet, params[:user][:leaflet_type_id], leaflet.title, "", nil)
       redirect_to master_rakes_path(collapse: "recommendations", anchor: "leaflet_" + leaflet.id.to_s)
-    elsif params[:commit] == "Update Recommendation"
+    elsif params[:commit] == "Update Bookmark"
       leaflet = Leaflet.find(params[:user][:leaflet_id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:user][:heap_id].to_i, 

@@ -4,16 +4,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Save Recommendation</h4>
+        <h4 class="modal-title" id="myModalLabel">Save Bookmark</h4>
       </div>
       <%= bootstrap_form_for(@custom_rake) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
           <% leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: @rake.category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
-          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose a Recommendation Category" }, class: "heap-id" %>
-          <%= f.text_field :leaflet_title, { label: "Recommendation Title", class: "leaflet-custom-title" } %>
-          <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)" } %>
+          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose a Bookmark Category" }, class: "heap-id" %>
+          <%= f.text_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
+          <%= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
           <% reminder_period << ["in 1 hour", 1] %>
@@ -25,7 +25,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Save Recommendation", class: "btn btn-primary" %>
+          <%= f.submit "Save Bookmark", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

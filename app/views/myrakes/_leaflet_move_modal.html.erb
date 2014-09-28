@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Move Recommendation</h4>
+        <h4 class="modal-title" id="myModalLabel">Move Bookmark</h4>
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
@@ -17,11 +17,11 @@
           <%= f.hidden_field :name, class: "rake-name" %>
           <% category_array = Category.pluck(:id, :desc) %>
           <% category_array.map! { |category| [category[0], CategoryLeafletTypeMap.where(category_id: category[0]).pluck(:leaflet_type_id).map { |leaflet_type| [LeafletType.find(leaflet_type).leaflet_type_desc, leaflet_type] }] } %>
-          <%= f.select :leaflet_type_id, grouped_options_for_select(category_array), { label: "Recommendation category", include_blank: "Select a category" }, id: "leaflet-type-id" %>
+          <%= f.select :leaflet_type_id, grouped_options_for_select(category_array), { label: "Bookmark category", include_blank: "Select a category" }, id: "leaflet-type-id" %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Move Recommendation", class: "btn btn-primary" %>
+          <%= f.submit "Move Bookmark", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

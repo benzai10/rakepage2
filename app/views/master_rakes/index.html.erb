@@ -1,20 +1,18 @@
-<% meta title: "Shared Recommendations Collections",
-        description: "Find the best resources at one place. Stop searching, start finding. Rakepage is a place for sharing recommendation collections, dedicated to a specific topic.",
-        keywords: %w(find shared recommendations collaborative collective social bookmarks information overload) %>
+<%= render 'shared/title' %>
 <div class="container-fluid">
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1>Shared Recommendation Collections</h1>
+      <h1>Productive Bookmarks</h1>
       <h5>
         <small>
           <% if user_signed_in? %>
             <% if !@rakes.empty? %> 
-              <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
+              <%= link_to "MY BOOKMARKING RAKES", myrakes_path, class: "nav-link" %>
               &nbsp;
               <span class="new-rec-alert"><%= pluralize(@overdue_leaflets.count, "Reminder") %></span>
             <% else %>
-              <strong>You have no personal rakes and reminders yet.</strong>
+              <strong>You have no personal bookmark rakes and reminders yet.</strong>
             <% end %>
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>

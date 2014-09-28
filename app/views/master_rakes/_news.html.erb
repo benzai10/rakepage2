@@ -16,7 +16,7 @@
       <% else %>
         <% chart_height = (data.count * 40).to_s + "px" %>
       <% end %>
-      <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
+      <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Bookmarks", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
       <br>
       <% if user_signed_in? %>
         <% if !@custom_rake.nil? && !@custom_rake.empty? %>
@@ -45,7 +45,7 @@
         <% end %>
       <% end %>
       <span class="pull-right">
-        <%= social_share_button_tag(@rake.name + " Recommendations", 
+        <%= social_share_button_tag(@rake.name + " Bookmarks", 
                                     image: @rake.image_url) %>
       </span>
     </div>

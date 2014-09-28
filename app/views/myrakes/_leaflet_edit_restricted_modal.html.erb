@@ -4,15 +4,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Edit Recommendation</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Bookmark</h4>
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
-          <%= f.text_field :leaflet_title, { disabled: true, label: "Recommendation Title", class: "leaflet-custom-title" } %>
-          <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)", class: "leaflet-description" } %>
+          <%= f.text_field :leaflet_title, { disabled: true, label: "Bookmark Title", class: "leaflet-custom-title" } %>
+          <%= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
           <%= f.text_area :leaflet_url, { disabled: true, label: "URL (including leading http://)", class: "leaflet-url" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
@@ -25,7 +25,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Update Recommendation", class: "btn btn-primary" %>
+          <%= f.submit "Update Bookmark", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

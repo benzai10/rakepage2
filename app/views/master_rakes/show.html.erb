@@ -1,22 +1,22 @@
-<% title @rake.name + " Recommendations" %>
-<% meta title: @rake.name + " Recommendations",
+<% title @rake.name + " Bookmarks" %>
+<% meta title: @rake.name + " Bookmarks",
         description: @rake.description,
         keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
 <div class="container-fluid">
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1>Shared Recommendation Collections</h1>
+      <h1>Productive Bookmarks</h1>
       <h5>
         <small>
           <% if user_signed_in? %>
-            <%= link_to "MY RECOMMENDATION RAKES", myrakes_path, class: "nav-link" %>
+            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, class: "nav-link" %>
             &nbsp;|&nbsp;
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
             &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "ALL RECOMMENDATION RAKES", master_rakes_path, class: "nav-link" %>
+          <%= link_to "ALL BOOKMARKING RAKES", master_rakes_path, class: "nav-link" %>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -31,8 +31,8 @@
                   <i class="fa fa-star white"></i>
                 <% end %>
               <% end %>
-              <%= @rake.name %> Recommendations
-              <%= social_share_button_tag(@rake.name + " Recommendations", 
+              <%= @rake.name %> Bookmarks
+              <%= social_share_button_tag(@rake.name + " Bookmarks", 
                                           image: @rake.image_url) %>
             </h1>
           </div>

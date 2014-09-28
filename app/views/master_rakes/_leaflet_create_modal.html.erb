@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">New Recommendation</h4>
+        <h4 class="modal-title" id="myModalLabel">New Bookmark</h4>
       </div>
       <%= bootstrap_form_for(@custom_rake) do |f| %>
         <div class="modal-body">
@@ -14,7 +14,7 @@
               <%# leaflet_type_array.delete_if { |x| x[1] == 15 } %>
             <%# end %>
             <div class="category-select">
-              <%#= f.select :leaflet_type_id, options_for_select(leaflet_type_array), { label: "Choose a Recommendation Category" } %>
+              <%#= f.select :leaflet_type_id, options_for_select(leaflet_type_array), { label: "Choose a Bookmark Category" } %>
             </div>
           <%# else %>
             <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
@@ -22,8 +22,8 @@
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
           <%= f.text_field :leaflet_url, { label: "Recommended URL", class: "leaflet-url" } %>
-          <%= f.text_field :leaflet_title, { label: "Recommendation Title", placeholder: "Automatically filled if empty*", class: "leaflet-custom-title"} %>
-          <%= f.text_area :leaflet_desc, { label: "Recommendation Description (optional)", placeholder: "Automatically filled if empty*" } %>
+          <%= f.text_field :leaflet_title, { label: "Bookmark Title", placeholder: "Automatically filled if empty*", class: "leaflet-custom-title"} %>
+          <%= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)", placeholder: "Automatically filled if empty*" } %>
           <h5>
             <small>*) You can add or change the title and description any time later as well.</small>
           </h5>
@@ -38,7 +38,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Create Recommendation", class: "btn btn-primary" %>
+          <%= f.submit "Create Bookmark", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

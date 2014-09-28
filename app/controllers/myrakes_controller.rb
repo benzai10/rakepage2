@@ -45,8 +45,8 @@ class MyrakesController < ApplicationController
         history_changed_category = History.where(rake_id: @rake.id, history_code: "Master rake category changed").last
         if !history_changed_category.nil? 
           flash[:notice] = ["The category of the master rake has changed.
-                          Recommendations which couldn't matched are in 'Uncategorized'.
-                          You can move your recommendations from there to new recommendation types!"]
+                          Bookmarks which couldn't matched are in 'Uncategorized'.
+                          You can move your bookmarks from there to new bookmark types!"]
           history_changed_category.update_attributes(history_code: "Master rake category change notified")
         end
       end
@@ -176,7 +176,7 @@ class MyrakesController < ApplicationController
 
   def update
     @rake = Myrake.find(params[:id])
-    if params[:commit] == "Update Recommendation"
+    if params[:commit] == "Update Bookmark"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:myrake][:heap_id].to_i, 
@@ -200,7 +200,7 @@ class MyrakesController < ApplicationController
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc], reminder_at: reminder_at)
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
       redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
-    elsif params[:commit] == "Save Recommendation"
+    elsif params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       case params[:myrake][:reminder_at].to_i
       when 0
@@ -228,7 +228,7 @@ class MyrakesController < ApplicationController
       else
         redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
       end
-    elsif params[:commit] == "Create Recommendation"
+    elsif params[:commit] == "Create Bookmark"
       if params[:myrake][:leaflet_title].empty? || params[:myrake][:leaflet_desc].empty?
         url_data = @rake.url_data(params[:myrake][:leaflet_url])
       end
@@ -279,10 +279,10 @@ class MyrakesController < ApplicationController
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
       end
-    elsif params[:commit] == "Add Recommendation Category"
+    elsif params[:commit] == "Add Bookmark Category"
       @rake.add_heap(params[:myrake][:leaflet_type_id])
       redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
-    elsif params[:commit] == "Move Recommendation"
+    elsif params[:commit] == "Move Bookmark"
       heapleaflet = HeapLeafletMap.where(heap_id: params[:myrake][:heap_id].to_i).find_by_leaflet_id(params[:myrake][:leaflet_id].to_i)
       # Check if there is an existing target heap
       target_rake = Myrake.where(user_id: current_user.id).find_by_name(params[:myrake][:name])
@@ -303,7 +303,7 @@ class MyrakesController < ApplicationController
           MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: params[:myrake][:leaflet_id].to_i)
         end
       end
-      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => ["Leaflet moved."]
+      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => ["Bookmark moved."]
     else
       @rake.filters.each do |f|
         f.destroy

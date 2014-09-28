@@ -8,13 +8,13 @@
       </div>
       <%= bootstrap_form_for(Myrake.new) do |f| %>
         <div class="modal-body">
-          <h3>My <%= @rake.name %> recommendations</h3>
+          <h3>My <%= @rake.name %> bookmarks</h3>
           <%= f.hidden_field :name, value: @rake.name %>
           <p>
-            Exisiting recommendations will be copied to your personal rake. If you want to start your recommendation rake from scratch, please uncheck the box below.
+            Exisiting bookmarks will be copied to your personal rake. If you want to start your bookmarking rake from scratch, please uncheck the box below.
           </p>
           <%= f.check_box :copy_recommendations, checked: true %>
-          <%= f.hidden_field :master_rake_id, label: "Copy existing recommendations", value: @rake.id %>
+          <%= f.hidden_field :master_rake_id, label: "Copy existing bookmarks", value: @rake.id %>
           <%= f.hidden_field :user_id, value: current_user.id %>
         </div>
         <div class="modal-footer">

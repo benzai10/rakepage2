@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-master-rakes-overview">
     <h5 class="panel-title">
-      Rakepage Rakes
+      Rakepage Bookmarking Rakes
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
@@ -72,9 +72,9 @@
                         <%= image_tag("rakes_basic.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading">Latest Recommendations</h5>
+                        <h5 class="media-heading">Latest Bookmarks</h5>
                         <p>
-                          View the latest recommendations
+                          View the latest bookmarks
                         </p>
                       </div>
                     </div>
@@ -99,7 +99,7 @@
           </div>
           <div class="tab-pane <%= @search_collapse %>" id="all-rakes">
             <a class="anchor" name="all-rakes"></a>
-            <h5>Search (<%= pluralize(@master_rakes.count, "Rake") %> available)
+            <h5>Search Rakes (<%= pluralize(@master_rakes.count, "Rake") %> available)
               <span class="pull-right">
                 <% if user_signed_in? %>
                   <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
@@ -118,7 +118,7 @@
           </div>
           <div class="tab-pane" id="latest-recommendations">
             <a class="anchor" name="latest-recommendations"></a>
-            <h5>Latest Recommendations</h5>
+            <h5>Latest Bookmarks</h5>
             <%= render 'new_recommendations' %>
             <%#= render 'new_leaflets' %>
           </div>

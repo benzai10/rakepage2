@@ -13,7 +13,7 @@
                 <div class="media-body">
                   <h5 class="media-heading">View personal Rake</h5>
                   <p>
-                    to see and add your own recommendations
+                    to see and add your own bookmarks
                   </p>
                 </div>
               </div>
@@ -34,7 +34,7 @@
                 <div class="media-body">
                   <h5 class="media-heading">Create personal Rake</h5>
                   <p>
-                    to add and save your own recommendations
+                    to add and save your own bookmarks
                   </p>
                 </div>
               </div>
@@ -53,7 +53,7 @@
               <div class="media-body">
                 <h5 class="media-heading">Create personal Rake</h5>
                 <p>
-                  to add and save your own recommendations
+                  to add and save your own bookmarks
                 </p>
               </div>
             </div>
@@ -374,7 +374,7 @@
     <% else %>
       <% chart_height = (data.count * 40).to_s + "px" %>
     <% end %>
-    <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Recommendations", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
+    <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Bookmarks", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
   </div>
 
   <div class="tab-pane <%= @feed_collapse %>" id="feed">
@@ -394,7 +394,7 @@
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
       <h5>
         <%= leaflet_type_desc %>
-        <small><%= link_to "Add Recommendation", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %></small>
+        <small><%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %></small>
       </h5>
       <br>
       <div class="add-recommendation-form">
@@ -441,7 +441,7 @@
         <% else %>
           <h5>
             <small>
-              To add recommendations you have to create a personal rake first:
+              To add bookmarks you have to create a personal rake first:
               <% if user_signed_in? %>
                 <%= link_to "Create!", new_myrake_path(master_rake_id: @rake.id),
                                                        data: { toggle: "modal",
@@ -547,7 +547,7 @@
                         <% if user_heap_leaflet_ids.include? l.id %>
                           <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-star"></i>'.html_safe, '#' %>
                         <% else %>
-                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe, 
+                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, 
                                 add_leaflet_myrake_path(user_rake), 
                                 data: { toggle: "modal",
                                         target: "#myModal",
@@ -559,7 +559,7 @@
                                 class: "leaflet-save" %>
                         <% end %>
                       <% else %>
-                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe,
+                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
                               new_myrake_path(master_rake_id: @rake.id),
                                             data: { toggle: "modal",
                                                     target: "#newCustomRakeModal",
