@@ -221,7 +221,7 @@
                       <%= pluralize(pmr.myrakes.count, "Raker") %>
                       &nbsp;|&nbsp;
                       <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)).count,
-                                    "Rec") %>
+                                    "Bookmark") %>
                     </p>
                     <p>
                       <% if user_signed_in? %>
@@ -280,7 +280,7 @@
                       <%= pluralize(smr.myrakes.count, "Raker") %>
                       &nbsp;|&nbsp;
                       <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)).count,
-                                    "Rec") %>
+                                    "Bookmark") %>
                     </p>
                     <p>
                       <% if user_signed_in? %>
@@ -338,7 +338,7 @@
                       <%= pluralize(cmr.myrakes.count, "Raker") %>
                       &nbsp;|&nbsp;
                       <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)).count,
-                                    "Rec") %>
+                                    "Bookmark") %>
                     </p>
                     <p>
                       <% if user_signed_in? %>
