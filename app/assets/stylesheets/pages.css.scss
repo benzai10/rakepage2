@@ -54,6 +54,15 @@
   // width: inherit;
   background-size: cover;
   background-color: #4a2b88;
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+  }
   h2 {
     font-family: 'Roboto', sans-serif;
     font-size: 50px;
@@ -205,6 +214,16 @@
 
 @media (min-width: 980px) {
   .jumbotron {
+    h1 {
+      margin-bottom: 2px;
+      margin-top: 40px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      color: white;
+      text-align: center;
+    }
     h2 {
       margin-bottom: 2px;
       margin-top: 40px;
@@ -243,6 +262,16 @@
     // padding-right: 0;
     min-height: 480px;
     padding-top: 40px;
+    h1 {
+      margin-bottom: 2px;
+      margin-top: 40px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: white;
+      text-align: center;
+    }
     h2 {
       margin-bottom: 2px;
       margin-top: 5px;
