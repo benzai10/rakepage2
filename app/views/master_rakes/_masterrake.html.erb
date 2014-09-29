@@ -1,13 +1,13 @@
 <!-- Nav tabs -->
 <div class="row">
+  <div class="col-md-12">
+    <span class="rake-nav">NAVIGATION<hr></span>
+  </div>
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-    <div class="col-md-12">
-      <span class="rake-nav">NAVIGATION<hr></span>
-    </div>
     <% if user_signed_in? %>
       <% if !@custom_rake.nil? %>
         <%= link_to myrake_path(@custom_rake), id: "my-bookmarking-rakes" do %>
-          <li class="col-lg-6">
+          <li class="col-md-12 col-lg-6">
             <div class="thumbnail">
               <div class="media">
                 <span class="pull-left">
@@ -28,7 +28,7 @@
                                   { data: { toggle: "modal",
                                           target: "#newCustomRakeModal",
                                         }, id: "view-personal-rake" } do %>
-          <li class="col-lg-6">
+          <li class="col-md-12 col-lg-6">
             <div class="thumbnail">
               <div class="media">
                 <span class="pull-left">
@@ -47,7 +47,7 @@
       <% end %>
     <% else %>
       <%= link_to new_user_session_path, id: "create-personal-rake" do %>
-        <li class="col-lg-6">
+        <li class="col-md-12 col-lg-6">
           <div class="thumbnail">
             <div class="media">
               <span class="pull-left">
@@ -66,7 +66,7 @@
     <% end %>
 
     <a href="#stats" id="view-related-rakes" role="tab" data-toggle="tab">
-      <li class="<%= @stats_collapse %> col-lg-6">
+      <li class="<%= @stats_collapse %> col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
