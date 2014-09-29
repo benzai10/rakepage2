@@ -118,8 +118,6 @@ GEM
       actionpack (>= 3.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    ga_events (1.0.1)
-      rails (>= 3.1)
     groupdate (2.1.0)
       activerecord (>= 3.0.0)
     has_scope (0.6.0.rc)
@@ -366,7 +364,6 @@ DEPENDENCIES
   font-awesome-sass (~> 4.1.0)
   foreman
   friendly_id (~> 5.0.0)
-  ga_events
   groupdate (~> 2.1.0)
   holder_rails
   jbuilder (~> 1.2)
