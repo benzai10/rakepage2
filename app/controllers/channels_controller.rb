@@ -26,7 +26,7 @@ class ChannelsController < ApplicationController
           rake_class.find(rake_id).add_channel(@channel)
           @channel.pull_source
           # if rake_class == Myrake
-            redirect_to myrake_path(rake_id)
+            redirect_to myrake_path(Myrake.find(rake_id))
           # else
             # redirect_to master_rake_path(rake_id)
           # end
