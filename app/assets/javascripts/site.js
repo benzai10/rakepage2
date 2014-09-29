@@ -346,7 +346,7 @@ $(function() {
     });
 
     $('#ga-all-bookmarking-rakes').click(function() {
-        ga('send', 'event', 'myrakes-index', 'nav', 'all-master-rakes');
+        ga('send', 'event', 'my-rakes-index', 'nav', 'all-master-rakes');
     });
 
     $('#ga-view-myrakes').click(function() {
