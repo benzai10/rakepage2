@@ -260,12 +260,22 @@
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-
+    .fb-like {
+      display: none !important;
+    }
+    .twitter-follow-button {
+      display: none;
+    }
 }
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-
+    .fb-like {
+      display: none !important;
+    }
+    .twitter-follow-button {
+      display: none;
+    }
 }
 
 /* Landscape phones and down */
