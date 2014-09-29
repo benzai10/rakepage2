@@ -233,6 +233,7 @@ $(function() {
 
     $('.refresh-button').click(function() {
         $('#refresh-icon').html("<i class='fa fa-refresh fa-spin'></i>");
+        ga('send', 'event', 'button', 'click', 'refresh');
     });
 
     $('.load-rake').click(function() {
@@ -250,6 +251,10 @@ $(function() {
         if (screen.width < 1024) {
           $('body').removeClass('nav-expanded');
         };
+    });
+
+    $('#my-bookmarking-rakes').click(function() {
+        ga('send', 'event', 'link', 'click', 'my-bookmarking-rakes');
     });
 
     $('.excerpt-more').hide();
