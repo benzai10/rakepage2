@@ -11,6 +11,11 @@
         <small>
           <% if !current_user.nil? %>
             <%= link_to "MY BOOKMARKING RAKES", myrakes_path, class: "nav-link" %>
+            (
+            <span class="new-rec-alert">
+              <%= pluralize(@overdue_leaflets.count, "REMINDER").upcase %>
+            </span>
+            )
             &nbsp;|&nbsp;
           <% end %>
           <%= link_to "ALL BOOKMARKING RAKES", master_rakes_path, class: "nav-link" %>

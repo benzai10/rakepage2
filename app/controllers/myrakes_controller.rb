@@ -75,6 +75,15 @@ class MyrakesController < ApplicationController
     else
       @stats_collapse = "active"
     end
+    if user_signed_in?
+      heap_ids = []
+      current_user.myrakes.each do |r|
+        heap_ids << r.heaps.pluck(:id)
+      end
+      heap_ids = heap_ids.flatten
+      @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
+      @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+    end
     parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
     @children_master_rakes = MasterRake.where("slug IN (?)",
