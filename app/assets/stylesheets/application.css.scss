@@ -16,6 +16,17 @@
  */
 @import "bootstrap";
 
+.navbar-share-buttons {
+  padding-top: 4px;
+}
+
+.fb-like {
+  vertical-align: bottom !important;
+}
+.twitter-follow-button {
+  vertical-align: bottom !important;
+}
+
 div.ajax-progress {
   position: fixed;
   display: none;

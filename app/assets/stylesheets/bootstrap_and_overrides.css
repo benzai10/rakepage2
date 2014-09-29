@@ -801,6 +801,13 @@ body.nav-expanded {
     overflow-y: auto;
   }
 
+  .fb-like {
+    display: none !important;
+  }
+  .twitter-follow-button {
+    display: none;
+  }
+
   .feed-body iframe {
     width: 100%;
     max-height: 160px;

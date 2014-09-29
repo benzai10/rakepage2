@@ -41,6 +41,14 @@
   }
 }
 
+.fb-like {
+  vertical-align: middle !important;
+}
+
+.twitter-follow-button {
+  vertical-align: middle !important;
+}
+
 .feature-center {
   text-align: center;
 }
@@ -267,6 +275,15 @@
     margin-right: 15px;
   }
   .jumbotron {
+    .sign-in-icon {
+      display: none;
+    }
+    .fb-like {
+      display: none !important;
+    }
+    .twitter-follow-button {
+      display: none;
+    }
     // padding-left: 0;
     // padding-right: 0;
     min-height: 480px;
@@ -316,6 +333,7 @@
 
   .landing-page-logo {
     width: 100px;
+    margin-top: 5px;
     margin-bottom: 20px;
   }
 
