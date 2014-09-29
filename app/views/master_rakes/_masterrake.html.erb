@@ -6,7 +6,7 @@
     </div>
     <% if user_signed_in? %>
       <% if !@custom_rake.nil? %>
-        <%= link_to myrake_path(@custom_rake) do %>
+        <%= link_to myrake_path(@custom_rake), id: "my-bookmarking-rakes" do %>
           <li class="col-lg-6">
             <div class="thumbnail">
               <div class="media">
@@ -25,9 +25,9 @@
         <% end %>
       <% else %>
         <%= link_to new_myrake_path(master_rake_id: @rake.id),
-                                  data: { toggle: "modal",
+                                  { data: { toggle: "modal",
                                           target: "#newCustomRakeModal",
-                                        } do %>
+                                        }, id: "view-personal-rake" } do %>
           <li class="col-lg-6">
             <div class="thumbnail">
               <div class="media">
@@ -46,7 +46,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= link_to new_user_session_path do %>
+      <%= link_to new_user_session_path, id: "create-personal-rake" do %>
         <li class="col-lg-6">
           <div class="thumbnail">
             <div class="media">
@@ -65,7 +65,7 @@
       <% end %>
     <% end %>
 
-    <a href="#stats" role="tab" data-toggle="tab">
+    <a href="#stats" id="view-related-rakes" role="tab" data-toggle="tab">
       <li class="<%= @stats_collapse %> col-lg-6">
         <div class="thumbnail">
           <div class="media">
@@ -92,7 +92,7 @@
       <span class="rake-nav">NEWS / BLOGS & SUBREDDITS<hr></span>
     </div>
 
-    <a href="#feed" data-toggle="tab">
+    <a href="#feed" id="view-news" data-toggle="tab">
       <li class="<%= @feed_collapse %> col-md-6">
           <div class="thumbnail">
             <div class="media">
@@ -114,7 +114,7 @@
       </li>
     </a>
 
-    <a href="#channels" data-toggle="tab">
+    <a href="#channels" id="view-channels" data-toggle="tab">
       <li class="col-md-6">
           <div class="thumbnail">
             <div class="media">
@@ -454,10 +454,11 @@
               To add bookmarks you have to create a personal rake first:
               <% if user_signed_in? %>
                 <%= link_to "Create!", new_myrake_path(master_rake_id: @rake.id),
-                                                       data: { toggle: "modal",
-                                                               target: "#newCustomRakeModal" } %>
+                                                       { data: { toggle: "modal",
+                                                                 target: "#newCustomRakeModal" },
+                                                                 id: "ga-create-personal-rake-to-bookmark" } %>
               <% else %>
-                <%= link_to "Sign in", new_user_session_path %>
+                <%= link_to "Sign in", new_user_session_path, id: "ga-sign-in-to-bookmark" %>
               <% end %>
             </small>
           </h5>

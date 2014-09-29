@@ -4,6 +4,7 @@ $(function() {
 
     $('.add-recommendation').click(function(){
         $('.add-recommendation-form').show();
+        ga('send', 'event', 'button', 'click', 'add-bookmark');
         return false;
     });
 
@@ -66,6 +67,7 @@ $(function() {
         $(".collapse-section").val(collapse);
         $(".heap-id").val(heapid);
         $(".rake-name").val(rakename);
+        ga('send', 'event', 'button', 'click', 'leaflet-save');
     });
 
     $(".leaflet-edit").click(function() {
@@ -83,6 +85,7 @@ $(function() {
         $(".leaflet-url").val(leafleturl);
         $(".collapse-section").val(collapse);
         $(".reminder-at").val(reminderat);
+        ga('send', 'event', 'button', 'click', 'leaflet-edit');
     });
 
     $(".leaflet-create").click(function() {
@@ -96,6 +99,7 @@ $(function() {
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
         $(".leaflet-url").val(url);
+        ga('send', 'event', 'button', 'click', 'leaflet-create');
     });
 
     $(".leaflet-move").click(function() {
@@ -103,6 +107,7 @@ $(function() {
         var heapId = $(this).data('heapid');
         $(".leaflet-id").val(leafletid);
         $(".heap-id").val(heapId);
+        ga('send', 'event', 'button', 'click', 'leaflet-move');
     });
 
     $(".leaflet-master-save").click(function() {
@@ -123,6 +128,7 @@ $(function() {
         if (categoryId != "none") {
             $(".category-select").hide();
         }
+        ga('send', 'event', 'master-rakes-index', 'add-new-master-rake', 'new-master-rake');
     });
 
     $(".rake-create").click(function() {
@@ -133,6 +139,7 @@ $(function() {
         if (categoryId != "none") {
             $(".category-select").hide();
         }
+        ga('send', 'event', 'button', 'click', 'rake-create');
     });
 
     $(".add-rss-feed").click(function() {
@@ -185,6 +192,7 @@ $(function() {
         var element = $(".v_count_" + id);
         var sum = parseInt(element.text().slice(element.text().indexOf(":")+1,element.text().length).trim()) + 1;
         element.text(sum);
+        ga('send', 'event', 'link', 'click', 'external');
 
         $.ajax({
             url: "/leaflets/view_add",
@@ -253,14 +261,148 @@ $(function() {
         };
     });
 
-    $('#my-bookmarking-rakes').click(function() {
-        ga('send', 'event', 'link', 'click', 'my-bookmarking-rakes');
+    $('.sign-in-label').click(function() {
+        ga('send', 'event', 'landing-page', 'sign-in-label', 'sign-in');
     });
+
+    $('.sign-in-icon').click(function() {
+        ga('send', 'event', 'landing-page', 'sign-in-icon', 'sign-in');
+    });
+
+    $('#sign-up').click(function() {
+        ga('send', 'event', 'landing-page', 'sign-up-button', 'sign-up');
+    });
+
+    $('#take-a-look').click(function() {
+        ga('send', 'event', 'landing-page', 'take-a-look-button', 'take-a-look');
+    });
+
+    $('#my-bookmarking-rakes').click(function() {
+        ga('send', 'event', 'master-rakes-index', 'nav', 'my-bookmarking-rakes');
+    });
+
+    $('#master-rakes-sign-in').click(function() {
+        ga('send', 'event', 'master-rakes-index', 'sign-in-link', 'sign-in');
+    });
+
+    $('#view-new-master-rakes').click(function() {
+        ga('send', 'event', 'master-rakes-index', 'view', 'new-master-rakes');
+    });
+
+    $('#view-featured-master-rakes').click(function() {
+        ga('send', 'event', 'master-rakes-index', 'view', 'featured-master-rakes');
+    });
+
+    $('#view-all-master-rakes').click(function() {
+        ga('send', 'event', 'master-rakes-index', 'view', 'all-master-rakes');
+    });
+
+    $('#master-rake-sign-in').click(function() {
+        ga('send', 'event', 'master-rake-show', 'sign-in-link', 'sign-in');
+    });
+
+    $('#ga-my-bookmarking-rakes').click(function() {
+        ga('send', 'event', 'master-rake-show', 'nav', 'my-bookmarking-rakes');
+    });
+
+    $('#view-master-rakes-index').click(function() {
+        ga('send', 'event', 'master-rake-show', 'nav', 'all-master-rakes');
+    });
+
+    $('#view-personal-rake').click(function() {
+        ga('send', 'event', 'master-rake-show', 'nav', 'view-personal-rake');
+    });
+
+    $('#create-personal-rake').click(function() {
+        ga('send', 'event', 'master-rake-show', 'nav', 'create-personal-rake');
+    });
+
+    $('#view-related-rakes').click(function() {
+        ga('send', 'event', 'master-rake-show', 'view', 'view-related-rakes');
+    });
+
+    $('#view-news').click(function() {
+        ga('send', 'event', 'master-rake-show', 'view', 'news');
+    });
+
+    $('#view-channels').click(function() {
+        ga('send', 'event', 'master-rake-show', 'view', 'channels');
+    });
+
+    $('#ga-feed-refresh').click(function() {
+        ga('send', 'event', 'master-rake-show', 'click', 'news-refresh');
+    });
+
+    $('#ga-feed-refresh-sign-in').click(function() {
+        ga('send', 'event', 'master-rake-show', 'click', 'news-refresh-sign-in');
+    });
+
+    $('#ga-create-personal-rake-to-bookmark').click(function() {
+        ga('send', 'event', 'button', 'click', 'ga-create-personal-rake-to-bookmark');
+    });
+
+    $('#ga-sign-in-to-bookmark').click(function() {
+        ga('send', 'event', 'master-rake-show', 'sign-in-link', 'sign-in-to-bookmark');
+    });
+
+    $('#ga-all-bookmarking-rakes').click(function() {
+        ga('send', 'event', 'myrakes-index', 'nav', 'all-master-rakes');
+    });
+
+    $('#ga-view-myrakes').click(function() {
+        ga('send', 'event', 'my-rakes-index', 'view', 'all-my-rakes');
+    });
+
+    $('#ga-view-reminders').click(function() {
+        ga('send', 'event', 'my-rakes-index', 'view', 'reminders');
+    });
+
+    $('#ga-view-all-rakes').click(function() {
+        ga('send', 'event', 'my-rakes-index', 'view', 'all-master-rakes');
+    });
+
+    $('#ga-my-bookmarking-rakes-index').click(function() {
+        ga('send', 'event', 'my-rakes-show', 'nav', 'my-bookmarking-rakes');
+    });
+
+    $('#ga-all-master-rakes').click(function() {
+        ga('send', 'event', 'my-rake-show', 'nav', 'all-master-rakes');
+    });
+
+    $('#my-rakes-sign-in').click(function() {
+        ga('send', 'event', 'my-rake-show', 'sign-in-link', 'sign-in');
+    });
+
+    $('#view-master-rake').click(function() {
+        ga('send', 'event', 'my-rake-show', 'nav', 'view-master-rake');
+    });
+
+    $('#ga-related-rakes').click(function() {
+        ga('send', 'event', 'my-rake-show', 'view', 'view-related-rakes');
+    });
+
+    $('#ga-feed').click(function() {
+        ga('send', 'event', 'my-rake-show', 'view', 'news');
+    });
+
+    $('#ga-channels').click(function() {
+        ga('send', 'event', 'my-rake-show', 'view', 'channels');
+    });
+
+    $('#ga-my-feed-refresh').click(function() {
+        ga('send', 'event', 'my-rake-show', 'click', 'news-refresh');
+    });
+
+    $('#ga-my-feed-refresh-sign-in').click(function() {
+        ga('send', 'event', 'my-rake-show', 'click', 'news-refresh-sign-in');
+    });
+
+    $('#ga-my-sign-in-to-bookmark').click(function() {
+        ga('send', 'event', 'my-rake-show', 'sign-in-link', 'sign-in-to-bookmark');
+    });
+
 
     $('.excerpt-more').hide();
 
-    // $(".ui-autocomplete").on('autocompletechange change', function() {
-    //     alert("Hello");
-    // });
 });
 

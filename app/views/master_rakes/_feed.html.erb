@@ -2,9 +2,9 @@
 <h5>
   <span class="pull-right">
   <% if user_signed_in? %>
-    <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed", anchor: "feed"), class: "btn btn-xs btn-primary" %></small>
+    <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed", anchor: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
   <% else %>
-    <small><%= link_to "Sign in to refresh", new_user_session_path %></small>
+    <small><%= link_to "Sign in to refresh", new_user_session_path, id: "ga-feed-refresh-sign-in" %></small>
   <% end %>
   </span>
 </h5>

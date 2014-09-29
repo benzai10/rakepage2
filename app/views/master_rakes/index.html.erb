@@ -11,7 +11,7 @@
             &nbsp;
             <span class="new-rec-alert"><%= pluralize(@overdue_leaflets.count, "Reminder") unless @overdue_leaflets.nil? %></span>
           <% else %>
-            <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
+            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rakes-sign-in" } %>
           <% end %>
         </small>
       </h5>

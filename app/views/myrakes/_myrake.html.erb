@@ -9,7 +9,7 @@
     <span class="rake-nav">NAVIGATION<hr></span>
   </div>
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-    <%= link_to master_rake_path(MasterRake.find(@rake.master_rake_id)) do %>
+    <%= link_to master_rake_path(MasterRake.find(@rake.master_rake_id)), id: "ga-view-master-rake" do %>
       <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
@@ -27,7 +27,7 @@
       </li>
     <% end %>
     
-    <a href="#stats" role="tab" data-toggle="tab">
+    <a href="#stats" id="ga-related-rakes" role="tab" data-toggle="tab">
       <li class="<%= @stats_collapse %> col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
@@ -51,7 +51,7 @@
     <div class="col-md-12">
       <span class="rake-nav">NEWS / BLOGS & SUBREDDITS<hr></span>
     </div>
-    <a href="#feed" role="tab" data-toggle="tab">
+    <a href="#feed" id="ga-feed" role="tab" data-toggle="tab">
       <li class="<%= @feed_collapse %> col-md-6" id="test">
         <div class="thumbnail">
           <div class="media">
@@ -89,7 +89,7 @@
         </div>
       </li>
     </a>
-    <a href="#channels" data-toggle="tab">
+    <a href="#channels" id="ga-channels" data-toggle="tab">
       <li class="col-md-6">
         <div class="thumbnail">
           <div class="media">
@@ -586,7 +586,7 @@
           <% else %>
             <h5>
               <small>You have to be signed in to add bookmarks:
-                <%= link_to "Sign in", new_user_session_path %>
+                <%= link_to "Sign in", new_user_session_path, id: "ga-my-sign-in-to-bookmark" %>
               </small>
             </h5>
           <% end %>

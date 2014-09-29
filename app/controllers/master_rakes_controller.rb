@@ -67,6 +67,18 @@ class MasterRakesController < ApplicationController
                                        @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
+    if user_signed_in? 
+      @rakes = Myrake.where("user_id = ?", current_user.id)
+      if !@rakes.empty?
+        heap_ids = []
+        @rakes.each do |r|
+          heap_ids << r.heaps.pluck(:id)
+        end
+        heap_ids = heap_ids.flatten
+        @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
+        @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+      end
+    end
   end
 
   def search

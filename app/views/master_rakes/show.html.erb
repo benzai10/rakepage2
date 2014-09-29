@@ -10,13 +10,18 @@
       <h5>
         <small>
           <% if user_signed_in? %>
-            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, class: "nav-link" %>
+            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmark-rakes" } %>
+            (
+            <span class="new-rec-alert">
+              <%= pluralize(@overdue_leaflets.count, "REMINDER").upcase %>
+            </span>
+            )
             &nbsp;|&nbsp;
           <% else %>
-            <%= link_to "SIGN IN", new_user_session_path, class: "nav-link" %>
+            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rake-sign-in" } %>
             &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "ALL BOOKMARKING RAKES", master_rakes_path, class: "nav-link" %>
+          <%= link_to "ALL BOOKMARKING RAKES", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
         </small>
       </h5>
       <% if !flash.empty? %>
