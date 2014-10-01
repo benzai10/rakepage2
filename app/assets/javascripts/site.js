@@ -362,7 +362,7 @@ $(function() {
     });
 
     $('#ga-my-bookmarking-rakes-index').click(function() {
-        ga('send', 'event', 'my-rakes-show', 'nav', 'my-bookmarking-rakes');
+        ga('send', 'event', 'my-rake-show', 'nav', 'my-bookmarking-rakes');
     });
 
     $('#ga-all-master-rakes').click(function() {
