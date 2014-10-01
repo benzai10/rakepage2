@@ -70,7 +70,7 @@
                 </small>
               </h5>
               <p>
-                <%= pluralize(@feed_leaflets.count, "Entry") %>
+                <span class="new-rec-alert"><%= pluralize(@feed_leaflets.count, "Entry") %></span>
               </p>
               <p>
                 <% if user_signed_in? %>
