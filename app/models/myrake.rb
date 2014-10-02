@@ -28,7 +28,7 @@ class Myrake < ActiveRecord::Base
   has_many :rake_channel_maps, dependent: :destroy
   has_many :channels, through: :rake_channel_maps, dependent: :destroy
   has_many :filters, dependent: :destroy
-  has_many :heaps, through: :heap_leaflet_maps, dependent: :destroy
+  has_many :heaps, dependent: :destroy
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
