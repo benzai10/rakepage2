@@ -17,8 +17,8 @@ ActiveAdmin.register HeapLeafletMap do
   index do
     selectable_column
     id_column
-    column :heap_id
-    column :leaflet_id
+    column :heap
+    column :leaflet
     column :leaflet_title
     column :reminder_at
     column :created_at
