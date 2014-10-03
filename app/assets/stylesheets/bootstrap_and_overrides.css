@@ -159,7 +159,7 @@ a.anchor {
 
 .new-rec-alert {
   font-weight: 700;
-  color: red;
+  color: red !important;
 }
 
 .pull-right-menu {

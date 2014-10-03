@@ -12,9 +12,7 @@
           <% if !current_user.nil? %>
             <%= link_to "MY BOOKMARKING RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmarking-rakes-index" } %>
             (
-            <span class="new-rec-alert">
-              <%= pluralize(@overdue_leaflets.count, "REMINDER").upcase %>
-            </span>
+            <%= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" %>
             )
             &nbsp;|&nbsp;
           <% end %>
