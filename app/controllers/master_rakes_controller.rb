@@ -46,12 +46,13 @@ class MasterRakesController < ApplicationController
         @heap_leaflets = Leaflet.where("id IN (?)", leaflet_ids).order("published_at DESC")
       end
     end
-    if user_signed_in?
-      @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_heaps.pluck(:id), current_user.last_sign_in_at).pluck(:leaflet_id))
-    else
-      @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
-    end
-    @feed_leaflets += @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
+    # -- This part has to be more refined because it creates duplicates...
+    # if user_signed_in?
+    #   @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_heaps.pluck(:id), current_user.last_sign_in_at).pluck(:leaflet_id))
+    # else
+    #   @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
+    # end
+    @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @heaps = @rake.master_heaps.where.not(leaflet_type_id: 15)
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""

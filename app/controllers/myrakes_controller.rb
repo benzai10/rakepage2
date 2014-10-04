@@ -51,12 +51,13 @@ class MyrakesController < ApplicationController
         end
       end
     end
-    if user_signed_in?
-      @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).pluck(:leaflet_id))
-    else
-      @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
-    end
-    @feed_leaflets += @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
+    # -- This part has to be more refined because it creates duplicates...
+    # if user_signed_in?
+    #   @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).pluck(:leaflet_id))
+    # else
+    #   @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
+    # end
+    @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
     missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
     missing_leaflet_types.each do |mlt|
