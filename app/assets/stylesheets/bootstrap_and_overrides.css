@@ -358,6 +358,7 @@ h5 {
 }
 
 a.menu-link:hover {
+  color: #4a2b88 !important;
   text-decoration: none;
 }
 

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-my-rakes-overview">
     <h5 class="panel-title">
-         My Bookmarking Rakes (<%= User.find(current_user.id).username %>)
+         <%= User.find(current_user.id).username %>'s Bookmarking Rakes
       </a>
     </h5>
   </div>
@@ -75,9 +75,8 @@
                         <%= image_tag("rakes_all.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading">All Bookmarking Rakes</h5>
+                        <h5 class="media-heading">Search Rakes</h5>
                         <p>
-                          View and search all Rakes
                         </p>
                       </div>
                     </div>
@@ -118,6 +117,23 @@
           <div class="tab-pane" id="all-rakes">
             <a class="anchor" name="all-rakes"></a>
             <span class="rake-nav">SEARCH RAKES<hr></span>
+            <ul class="info-list">
+              <li><strong>When you start typing in the input box below, available rakes will show up</strong></li>
+              <li><strong>If there's no search result, you can add a new rake</strong></li>
+            </ul>
+            <span class="pull-right">
+              <% if user_signed_in? %>
+                <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
+                            toggle: "modal",
+                            target: "#newMasterRakeModal",
+                            category: "none",
+                            user: current_user.id },
+                            class: "btn btn-xs btn-primary masterrake-create" %>
+              <% else %>
+                <%= link_to "Add new Master Rake", new_user_session_path, class: "btn btn-xs btn-primary" %>
+              <% end %>
+            </span>
+            <br>
             <br>
             <%= render 'master_rakes/search_master_rakes' %>
           </div>
@@ -128,6 +144,7 @@
 </div>
 
 <% if user_signed_in? %>
+  <%= render 'master_rakes/new_modal' %>
   <%#= render 'myrakes/leaflet_move_modal' %>
   <%= render 'myrakes/leaflet_edit_modal2' %>
   <%= render 'myrakes/leaflet_edit_restricted_modal2' %>
