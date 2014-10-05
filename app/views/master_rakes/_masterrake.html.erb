@@ -1,7 +1,19 @@
 <!-- Nav tabs -->
 <div class="row">
+  <div class="col-md-12 col-lg-8">
+    <ul class="info-list">
+      <li><strong><em>Create your personal rake</em> to manage your own bookmarks,</strong></li>
+      <li><strong>to set reminders for your bookmarks</strong></li>
+      <li><strong>to customize your own aggregated news feed for this topic</strong></li>
+    </ul>
+  </div>
+  <% if !user_signed_in? %>
+    <div class="col-md-12 col-lg-4">
+      <%= link_to "Sign up", new_user_registration_path, { class: "btn btn-primary btn-lg centered rake-nav-primary-btn", id: "sign-up" } %>
+    </div>
+  <% end %>
   <div class="col-md-12">
-    <span class="rake-nav">NAVIGATION<hr></span>
+    <span class="rake-nav mobile">NAVIGATION<hr></span>
   </div>
   <ul class="nav nav-tabs nav-thumbnails" role="tablist">
     <% if user_signed_in? %>
