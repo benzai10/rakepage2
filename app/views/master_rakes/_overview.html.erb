@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-master-rakes-overview">
     <h5 class="panel-title">
-      Rakepage Bookmarking Rakes
+      <%= "Explore #{@master_rakes.count} Topics with #{@saved_leaflets.count} Bookmarks" %>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
@@ -54,12 +54,11 @@
                   <div class="thumbnail">
                     <div class="media">
                       <span class="pull-left">
-                        <%= image_tag("rakes_all.png", size: "96x54") %>
+                        <%= image_tag("rakes_search.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
-                        <h5 class="media-heading">All Rakes</h5>
+                        <h5 class="media-heading">Search Rakes</h5>
                         <p>
-                          View and search all Rakes
                         </p>
                       </div>
                     </div>
@@ -72,7 +71,7 @@
                   <div class="thumbnail">
                     <div class="media">
                       <span class="pull-left">
-                        <%= image_tag("rakes_basic.png", size: "96x54") %>
+                        <%= image_tag("rakes_bookmarks.png", size: "96x54") %>
                       </span>
                       <div class="media-body">
                         <h5 class="media-heading">Latest Bookmarks</h5>

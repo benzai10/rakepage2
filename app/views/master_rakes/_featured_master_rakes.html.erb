@@ -17,7 +17,7 @@
               <h5 class="media-heading">
                 <% if user_signed_in? %>
                   <% if m.myrakes.pluck(:user_id).include? current_user.id %>
-                    <i class="fa fa-star"></i>
+                    <i class="fa fa-bookmark"></i>
                   <% end %>
                 <% end %>
                 <%= m.name %>

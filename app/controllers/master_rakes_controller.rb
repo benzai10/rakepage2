@@ -4,6 +4,7 @@ class MasterRakesController < ApplicationController
   def index
     session[:rake_class] = MasterRake
     @master_rakes = MasterRake.all
+    @saved_leaflets = Leaflet.where.not(save_count: 0)
     @new_master_rakes = @master_rakes.newly_added
     # @new_leaflets = Leaflet.newly_added
     master_heap_ids = []

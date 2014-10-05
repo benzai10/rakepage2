@@ -25,7 +25,7 @@
             </h5>
             <i class="fa fa-rss-square"> <%= c.source %></i>
             <p>
-              <i class="fa fa-star"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+              <i class="fa fa-bookmark"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
               <i class="fa fa-user"></i> <%= c.count_subscribers %>
               <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
             </p>
@@ -62,7 +62,7 @@
               <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url, class: "external", value: l.id, target: "_blank" %></p>
             <% end %>
             <i class="fa fa-eye"></i> <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
-            <i class="fa fa-star"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+            <i class="fa fa-bookmark"></i> <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
           </div>
         </li>
       <% end %>

@@ -65,7 +65,7 @@
                 <% heap_ids = Heap.where("myrake_id IN (?)", Myrake.where(user_id: current_user.id).pluck(:id)).pluck(:id) %>
                 <% user_leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", heap_ids).pluck(:leaflet_id) %>
                 <% if user_leaflet_ids.include? l.id %>
-                  &nbsp;<i class="fa fa-star"></i>
+                  &nbsp;<i class="fa fa-bookmark"></i>
                 <% else %>
                   <%# user_rake = lm.master_heap.master_rake.myrakes.where(user_id: current_user.id).first %>
                   <%# if !user_rake.nil? %>

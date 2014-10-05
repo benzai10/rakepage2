@@ -220,7 +220,7 @@
                     <h5 class="media-heading">
                       <% if user_signed_in? %>
                         <% if pmr.myrakes.pluck(:user_id).include? current_user.id %>
-                          <i class="fa fa-star"></i>
+                          <i class="fa fa-bookmark"></i>
                         <% end %>
                       <% end %>
                       <%= pmr.name %>
@@ -279,7 +279,7 @@
                     <h5 class="media-heading">
                       <% if user_signed_in? %>
                         <% if smr.myrakes.pluck(:user_id).include? current_user.id %>
-                          <i class="fa fa-star"></i>
+                          <i class="fa fa-bookmark"></i>
                         <% end %>
                       <% end %>
                       <%= smr.name %>
@@ -337,7 +337,7 @@
                     <h5 class="media-heading">
                       <% if user_signed_in? %>
                         <% if cmr.myrakes.pluck(:user_id).include? current_user.id %>
-                          <i class="fa fa-star"></i>
+                          <i class="fa fa-bookmark"></i>
                         <% end %>
                       <% end %>
                       <%= cmr.name %>
@@ -555,7 +555,7 @@
                         <% user_heap_ids = user_rake.heaps.pluck(:id) %>
                         <% user_heap_leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", user_heap_ids).pluck(:leaflet_id) %>
                         <% if user_heap_leaflet_ids.include? l.id %>
-                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-star"></i>'.html_safe, '#' %>
+                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-bookmark"></i>'.html_safe, '#' %>
                         <% else %>
                           <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, 
                                 add_leaflet_myrake_path(user_rake), 
