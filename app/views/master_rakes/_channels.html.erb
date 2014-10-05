@@ -1,6 +1,9 @@
 <span class="rake-nav">BLOGS & SUBREDDITS<hr></span>
-<h5><small>To add a blog or subreddit, switch to your personal rake or create one (on the top of this page). You can then add a blog or subreddit from there.</small></h5>
-<br>
+<ul class="info-list">
+  <li><strong>The news feed of this rake is based on the blogs (RSS feeds) and subreddits below.</strong></li>
+  <li><strong>To add a blog or subreddit, switch to your personal rake or create one (on the top of this page).</strong></li>
+  <li><strong>You can then add a blog or subreddit from there.</strong></li>
+</ul>
 <% if !current_user.nil? %>
   <%#= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
               data: { toggle: "modal",

@@ -116,6 +116,11 @@
             <span class="rake-nav">
               SEARCH RAKES (<%= pluralize(@master_rakes.count, "RAKE").upcase %> AVAILABLE)
             </span>
+            <br>
+            <ul class="info-list">
+              <li><strong>When you start typing in the input box below, available rakes will show up</strong></li>
+              <li><strong>If there's no search result, you can add a new rake</strong></li>
+            </ul>
             <span class="pull-right">
               <% if user_signed_in? %>
                 <%= link_to "Add new Master Rake", new_master_rake_path, data: { 

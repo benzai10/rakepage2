@@ -8,8 +8,12 @@
   <% end %>
   </span>
 </h5>
+<ul class="info-list">
+  <li><strong>The news feed is based on the blog and subreddit bookmarks of this rake.</strong></li>
+  <li><strong>Customize your news feed in your personal rake</strong></li>
+</ul>
 <% if @feed_leaflets.count == 0 %>
-  <h5><small>Add a blog or subreddit to populate the feed.</small></h5>
+  <h5><small>This rake has no blogs or subreddits yet!</small></h5>
 <% end %>
 <br>
 <ul id="feed-list" class="leaflet-list">
