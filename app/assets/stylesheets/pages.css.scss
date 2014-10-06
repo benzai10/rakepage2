@@ -150,7 +150,7 @@
 
 .jumbotron-2 {
   // background: url(image-path('macbook_image.jpg'));
-  min-height: 200px;
+  min-height: 230px;
   // mid-width: 948px;
   // width: inherit;
   background-size: cover;
@@ -177,7 +177,7 @@
     font-weight: 300;
   }
   .footer-text {
-    padding-top: 50px;
+    padding-top: 30px;
   }
   .centered {
     display: block;
@@ -219,6 +219,10 @@
 .scrolllearn {
   margin-top: 177px;
   cursor: pointer;
+}
+
+#take-a-look {
+  margin-bottom: 30px;
 }
 
 /* Responsive
