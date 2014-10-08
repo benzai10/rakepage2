@@ -6,8 +6,7 @@ Rakepage2::Application.routes.draw do
 
   #match 'pages/help', to: 'pages#help', via: [:get]
 
-  resources :sitemaps, :only => :show
-  get "sitemap" => "sitemaps#show"
+  get "sitemap.xml" => "sitemaps#index", as: "sitemap", defaults: { format: "xml" }
 
   resources :charts do
     member do
