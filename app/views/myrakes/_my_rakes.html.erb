@@ -71,7 +71,7 @@
                 <% new_count = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", r.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).count %>
                   <% if new_count == 0 %>
                     <% if !r.refreshed_at.nil? %>
-                      <small>last news checked: <%= time_ago_in_words(r.refreshed_at) %> ago</small>
+                      <small>viewed: <%= time_ago_in_words(r.refreshed_at) %> ago</small>
                     <% end %>
                   <% else %>
                     <span class="new-rec-alert">
