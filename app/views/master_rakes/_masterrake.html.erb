@@ -87,12 +87,13 @@
             <div class="media-body">
               <h5 class="media-heading">Related Rakes & Stats</h5>
               <p>
-                <%= pluralize(@rake.myrakes.count, "Co-Raker") %>
-              </p>
-              <p>
-                <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", 
-                              @rake.master_heaps.pluck(:id)).count, 
-                              "Bookmark") + " in total"%>
+                <%= @rake.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
+                &nbsp;|&nbsp;
+                <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", 
+                    @rake.master_heaps.pluck(:id)).count.to_s %>
+                    &nbsp;<i class="fa fa-bookmark purple"></i>
+                &nbsp;|&nbsp;
+                <%= @rake.channels.count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
               </p>
             </div>
           </div>
@@ -113,7 +114,7 @@
               </span>
               <div class="media-body">
                 <h5 class="media-heading">
-                  News
+                  <i class="fa fa-rss"></i>&nbsp;News
                 </h5>
                 <p>
                   <span class="new-rec-alert"><%= pluralize(@feed_leaflets.count, "Entry") %></span>
@@ -133,6 +134,7 @@
               </span>
               <div class="media-body">
                 <h5 class="media-heading">
+                  <i class="fa fa-rss"></i>&nbsp;
                   <%= @rake.channels.where("channel_type <> 3 AND channel_type <> 5").count.to_s + " Blogs & Subreddits" %>
                 </h5>
                 <p>
@@ -175,7 +177,7 @@
                 <div class="media-body">
                   <h5 class="media-heading"><%= leaflet_type_desc %></h5>
                     <p>
-                      <%= pluralize(h.leaflets.count, "Bookmark") %>
+                      <%= h.leaflets.count.to_s %>&nbsp;<i class="fa fa-bookmark purple"></i>
                     </p>
                     <p>
                       <% if !@custom_rake.nil? %>
