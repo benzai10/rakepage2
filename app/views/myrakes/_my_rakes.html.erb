@@ -60,9 +60,12 @@
             <div class="media-body">
               <h5 class="media-heading"><%= r.name %></h5>
               <p>
-                <%= pluralize(master_rake.myrakes.count, "Raker") %>
+                <%= master_rake.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
                 &nbsp;|&nbsp;
-                <%= pluralize(HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count, "Bookmark") %>
+                <%= HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count.to_s %>
+                <i class="fa fa-bookmark purple"></i>
+                &nbsp;|&nbsp;
+                <%= r.channels.count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
               </p>
               <p>
                 <% new_count = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", r.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).count %>
