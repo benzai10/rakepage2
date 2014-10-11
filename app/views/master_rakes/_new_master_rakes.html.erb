@@ -65,8 +65,9 @@
                 <%= m.name %>
               </h5>
               <p>
-                <%= pluralize(master_leaflets.count,
-                              "Bookmark") %>
+                <%= master_leaflets.count.to_s %>&nbsp;<i class="fa fa-bookmark purple"></i>
+                &nbsp;|&nbsp;
+                <%= m.channels.count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
               </p>
               <p>
                 <% if user_signed_in? %>

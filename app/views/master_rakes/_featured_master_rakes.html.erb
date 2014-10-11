@@ -23,8 +23,9 @@
                 <%= m.name %>
               </h5>
               <p>
-                <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)).count,
-                              "Bookmark") %>
+                <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)).count.to_s %>&nbsp;<i class="fa fa-bookmark purple"></i>
+                &nbsp;|&nbsp;
+                <%= m.channels.count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
               </p>
               <p>
                 <% if user_signed_in? %>
