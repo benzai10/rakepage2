@@ -37,7 +37,7 @@
             <h1 class="panel-title">
               <% if user_signed_in? %>
                 <% if @rake.myrakes.pluck(:user_id).include? current_user.id %>
-                  <i class="fa fa-bookmark white"></i>
+                  <i class="fa fa-star-o white"></i>
                 <% end %>
               <% end %>
               <%= @rake.name %> Bookmarks
