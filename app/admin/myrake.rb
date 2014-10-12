@@ -23,6 +23,7 @@ ActiveAdmin.register Myrake do
     column :heap
     column :updated_at
     column :created_at
+    column :refreshed_at
     actions
   end
 end
