@@ -1,5 +1,5 @@
-<% title @rake.name + " Recommendations" %>
-<% meta title: @rake.name + " Recommendations",
+<% title @rake.name + " " + @rake.seo_title %>
+<% meta title: @rake.name + " " + @rake.seo_title,
         description: @rake.description,
         keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
 <div class="container-fluid">

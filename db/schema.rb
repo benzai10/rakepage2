@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921095640) do
+ActiveRecord::Schema.define(version: 20141012061651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20140921095640) do
     t.boolean  "featured",                  default: false
     t.string   "slug"
     t.string   "description"
+    t.string   "seo_title"
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree
