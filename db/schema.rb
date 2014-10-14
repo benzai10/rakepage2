@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 20141012061651) do
     t.boolean  "featured",                  default: false
     t.string   "slug"
     t.string   "description"
-    t.string   "seo_title"
+    t.string   "seo_title"                  default: ""
   end
 
   add_index "master_rakes", ["name"], name: "index_master_rakes_on_name", unique: true, using: :btree

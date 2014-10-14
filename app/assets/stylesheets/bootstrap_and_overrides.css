@@ -479,10 +479,15 @@ a.menu-link:hover {
   font-size: 11px;
 }
 
-.nav-thumbnails > li {
-/*  border: none !important;
-  padding: 0 !important;
-  width: 100% !important;*/
+.nav-tabs {
+  font-size: 12px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.nav-thumbnails {
+  margin-left: -15px !important;
+  margin-right: -15px !important;
 }
 
 .leaflet-metrics {

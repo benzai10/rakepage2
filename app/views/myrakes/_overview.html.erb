@@ -1,160 +1,50 @@
+<h1>My Rakes (<%= User.find(current_user.id).username %>)</h1>
 <div class="panel panel-default">
   <div class="panel-heading panel-my-rakes-overview">
     <h5 class="panel-title">
-         <%= User.find(current_user.id).username %>'s Bookmarking Rakes
-      </a>
+      <%= "#{@rakes.count} Rakes with #{@recommendations.count} Bookmarks" %>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
-      <div>
-        <div class="row">
-          <div class="col-md-12">
-            <span class="rake-nav">SELECT A VIEW<hr></span>
-          </div>
-          <div class="tab-header">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-              <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_basic.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading"><%= pluralize(@rakes.count, "personal Rake") %></h5>
-                        <h5 class="media-heading"><%= pluralize(@recommendations.count, "Bookmark") %></h5>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-
-              <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_bookmarks.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <% active_bookmarks = @overdue_leaflets.count + @scheduled_leaflets.count %>
-                        <% if active_bookmarks > 0 %>
-                          <h5 class="media-heading"><%= pluralize(active_bookmarks, "Active Bookmark") %></h5>
-                          <p>
-                            <span class="new-rec-alert">
-                              <% if @overdue_leaflets.count > 0 %>
-                                <%= pluralize(@overdue_leaflets.count, "Reminder") %>
-                              <% end %>
-                            </span>
-                          </p>
-                          <p>
-                            <% if @scheduled_leaflets.count > 0 %>
-                              <%= @scheduled_leaflets.count.to_s + " Scheduled" %>
-                            <% end %>
-                          </p>
-                        <% else %>
-                          <p>
-                            <span class="new-rec-alert">
-                              You don't have any scheduled bookmarks. Add bookmarks to increase your productivity.
-                            </span>
-                          </p>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-
-              <%= link_to master_rakes_path do %>
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_new.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">New Rakes</h5>
-                        <p>
-                          View newly created Rakes
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              <% end %>
-
-              <a href="#all-rakes" id="ga-view-all-rakes" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_search.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">Search Rakes</h5>
-                        <p>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-
-            </ul>
-          </div>
+      <div class="row">
+        <div class="tab-header">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+              <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">Rakes</a>
+            </li>
+            <li>
+              <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">Reminders</a>
+            </li>
+          </ul>
         </div>
+      </div>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <div class="tab-pane <%= @myrakes_collapse %>" id="my-rakes">
-            <a class="anchor" name="my-rakes"></a>
-            <span class="rake-nav">MY BOOKMARKING RAKES<hr></span>
-            <%= render 'my_rakes' %>
-          </div>
-          <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
-            <a class="anchor" name="my-recommendations"></a>
-            <span class="rake-nav">BOOKMARK REMINDERS<hr></span>
-            <% if @overdue_leaflets.count > 0 %>
-              <%= render 'my_overdue_recommendations' %>
-            <% else %>
-              <p>
-                <small>You don't have any overdue bookmarks.</small>
-              </p>
-            <% end %>
-            <span class="rake-nav">SCHEDULED BOOKMARKS<hr></span>
-            <% if @scheduled_leaflets.count > 0 %>
-              <%= render 'my_scheduled_recommendations' %>
-            <% else %>
-              <p>
-                <small>You don't have any scheduled bookmarks.</small>
-              </p>
-            <% end %>
-          </div>
-          <div class="tab-pane" id="all-rakes">
-            <a class="anchor" name="all-rakes"></a>
-            <span class="rake-nav">SEARCH RAKES<hr></span>
-            <ul class="info-list">
-              <li><strong>When you start typing in the input box below, available rakes will show up</strong></li>
-              <li><strong>If there's no search result, you can add a new rake</strong></li>
-            </ul>
-            <span class="pull-right">
-              <% if user_signed_in? %>
-                <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
-                            toggle: "modal",
-                            target: "#newMasterRakeModal",
-                            category: "none",
-                            user: current_user.id },
-                            class: "btn btn-xs btn-primary masterrake-create" %>
-              <% else %>
-                <%= link_to "Add new Master Rake", new_user_session_path, class: "btn btn-xs btn-primary" %>
-              <% end %>
-            </span>
-            <br>
-            <br>
-            <%= render 'master_rakes/search_master_rakes' %>
-          </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane <%= @myrakes_collapse %>" id="my-rakes">
+          <br>
+          <%= render 'my_rakes' %>
+        </div>
+        <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
+          <br>
+          <span class="rake-nav">OVERDUE BOOKMARKS<hr></span>
+          <% if @overdue_leaflets.count > 0 %>
+            <%= render 'my_overdue_recommendations' %>
+          <% else %>
+            <p>
+              <small>You don't have any overdue bookmarks.</small>
+            </p>
+          <% end %>
+          <span class="rake-nav">SCHEDULED BOOKMARKS<hr></span>
+          <% if @scheduled_leaflets.count > 0 %>
+            <%= render 'my_scheduled_recommendations' %>
+          <% else %>
+            <p>
+              <small>You don't have any scheduled bookmarks.</small>
+            </p>
+          <% end %>
         </div>
       </div>
     </div>

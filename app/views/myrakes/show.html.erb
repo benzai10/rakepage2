@@ -26,11 +26,12 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
+      <h1><%= @rake.name %></h1>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-myrake">
-            <h1 class="panel-title">
-              <%= @rake.name %> Bookmarks
+            <h5 class="panel-title">
+              Everything in one place
               <span class="pull-right">
                 <small>
                   <% if user_signed_in? && @rake.user_id == current_user.id %>
@@ -40,9 +41,7 @@
                   <% end %>
                 </small>
               </span>
-                <%= social_share_button_tag(@rake.name + " Bookmarks", 
-                                            image: @rake.master_rake.image_url) %>
-            </h1>
+            </h5>
           </div>
           <div class="panel-collapse collapse in" id="collapse-feed">
             <div class="panel-body">

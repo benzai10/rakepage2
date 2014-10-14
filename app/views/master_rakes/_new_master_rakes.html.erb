@@ -1,47 +1,5 @@
 <div class="row">
   <br>
-  <!-- Create new Master Rake (check if duplicated code in Myrakes view) -->
-  <div class="col-md-6">
-    <% if user_signed_in? %>
-      <div class="thumbnail">
-        <%= link_to new_master_rake_path, data: { 
-                    toggle: "modal",
-                    target: "#newMasterRakeModal",
-                    category: "none",
-                    user: current_user.id },
-                    class: "masterrake-create" do %>
-          <div class="media">
-            <span class="pull-left">
-              <%= image_tag("add_master_rake.png", size: "96x54") %>
-            </span>
-            <div class="media-body">
-              <h5 class="media-heading">Add new Master Rake</h5>
-              <p>
-                Your contribution is highly appreciated!
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="thumbnail">
-        <%= link_to new_user_session_path do %>
-          <div class="media">
-            <span class="pull-left">
-              <%= image_tag("add_master_rake.png", size: "96x54") %>
-            </span>
-            <div class="media-body">
-              <h5 class="media-heading">Add new Master Rake</h5>
-              <p>
-                Your contribution is highly appreciated!
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
   <% @new_master_rakes.each do |m| %>
     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
     <div class="col-md-6">

@@ -25,25 +25,24 @@
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rake-sign-in" } %>
             &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "ALL BOOKMARKING RAKES", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
+          <%= link_to "RAKES OVERVIEW", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
         </small>
       </h5>
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
+      <h1>
+        <% if user_signed_in? %>
+          <% if @rake.myrakes.pluck(:user_id).include? current_user.id %>
+            <i class="fa fa-star-o purple"></i>
+          <% end %>
+        <% end %>
+        <%= @rake.name %>
+      </h1>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-new-master-rakes">
-            <h1 class="panel-title">
-              <% if user_signed_in? %>
-                <% if @rake.myrakes.pluck(:user_id).include? current_user.id %>
-                  <i class="fa fa-star-o white"></i>
-                <% end %>
-              <% end %>
-              <%= @rake.name %> Bookmarks
-              <%= social_share_button_tag(@rake.name + " Bookmarks", 
-                                          image: @rake.image_url) %>
-            </h1>
+            <h1 class="panel-title">Everything in one place</h1>
           </div>
           <div class="panel-collapse collapse in" id="collapse-feed">
             <div class="panel-body">

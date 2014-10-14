@@ -1,21 +1,13 @@
-<span class="rake-nav">NEWS<hr></span>
 <h5>
-  <span class="pull-right">
   <% if user_signed_in? %>
     <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed", anchor: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
   <% else %>
     <small><%= link_to "Sign in to refresh", new_user_session_path, id: "ga-feed-refresh-sign-in" %></small>
   <% end %>
-  </span>
 </h5>
-<ul class="info-list">
-  <li><strong>The news feed is based on the blog and subreddit bookmarks of this rake.</strong></li>
-  <li><strong>Customize your news feed in your personal rake</strong></li>
-</ul>
 <% if @feed_leaflets.count == 0 %>
-  <h5><small>This rake has no blogs or subreddits yet!</small></h5>
+  <h5><small>The news feed is empty because there are no blogs or subreddits added!</small></h5>
 <% end %>
-<br>
 <ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>
     <% channel = Channel.find(l.channel_id) %>

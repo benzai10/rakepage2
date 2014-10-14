@@ -1,148 +1,43 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-master-rakes-overview">
     <h5 class="panel-title">
-      <%= "Explore #{@master_rakes.count} Topics with #{@saved_leaflets.count} Bookmarks" %>
+      <%= "#{@master_rakes.count} Rakes with #{@saved_leaflets.count} Bookmarks" %>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
-      <div>
-        <div class="row">
-          <div class="col-md-12 col-lg-8">
-            <ul class="info-list">
-              <li><strong>Collectively organized and maintained</strong></li>
-              <li><strong>Find everything relevant in one place</strong></li>
-              <li><strong>Save your own bookmarks and get reminded</strong></li>
-            </ul>
-          </div>
-          <% if !user_signed_in? %>
-            <div class="col-md-12 col-lg-4">
-              <%= link_to "Sign up", new_user_registration_path, { class: "btn btn-primary btn-lg centered rake-nav-primary-btn", id: "sign-up" } %>
-            </div>
-          <% end %>
-          <div class="col-md-12">
-            <span class="rake-nav">SELECT A VIEW<hr></span>
-          </div>
-          <div class="tab-header">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-              <a href="#new-rakes" id="view-new-master-rakes" role="tab" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_new.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">New Rakes</h5>
-                        <p>
-                          View newly created Rakes
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-              <a href="#featured-rakes" id="view-featured-master-rakes" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_featured.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">Featured Rakes</h5>
-                        <p>
-                          View some featured Rakes
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-
-              <a href="#all-rakes" id="view-all-master-rakes" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_search.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">Search Rakes</h5>
-                        <p>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-
-              <a href="#latest-recommendations" id="view-latest-bookmarks" data-toggle="tab">
-                <li class="col-md-6">
-                  <div class="thumbnail">
-                    <div class="media">
-                      <span class="pull-left">
-                        <%= image_tag("rakes_bookmarks.png", size: "96x54") %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">Latest Bookmarks</h5>
-                        <p>
-                          View the latest bookmarks
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </a>
-
-            </ul>
-          </div>
+      <h5><small>Search for Rakes:<small></h5>
+      <%= bootstrap_form_tag url: "/master_rakes/search", method: :get do |f| %>
+        <div class="input-group">
+          <%= f.hidden_field :id, class: "master-rake-id" %>
+          <%= f.text_field :name, hide_label: true,
+            data: { autocomplete: autocomplete_master_rake_name_master_rakes_path }, class: "master-rake-search" %>
+          <span class="input-group-btn">
+            <%= f.submit "Go", class: "btn btn-primary" %>
+          </span>
         </div>
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <div class="tab-pane <%= @new_collapse %>" id="new-rakes">
-            <a class="anchor" name="new-rakes"></a>
-            <span class="rake-nav">NEW RAKES<hr></span>
-            <%= render 'new_master_rakes' %>
-          </div>
-          <div class="tab-pane" id="featured-rakes">
-            <a class="anchor" name="featured-rakes"></a>
-            <span class="rake-nav">FEATURED RAKES<hr></span>
-            <%= render 'featured_master_rakes' %>
-          </div>
-          <div class="tab-pane <%= @search_collapse %>" id="all-rakes">
-            <a class="anchor" name="all-rakes"></a>
-            <span class="rake-nav">
-              SEARCH RAKES (<%= pluralize(@master_rakes.count, "RAKE").upcase %> AVAILABLE)
-            </span>
-            <br>
-            <ul class="info-list">
-              <li><strong>When you start typing in the input box below, available rakes will show up</strong></li>
-              <li><strong>If there's no search result, you can add a new rake</strong></li>
-            </ul>
-            <span class="pull-right">
-              <% if user_signed_in? %>
-                <%= link_to "Add new Master Rake", new_master_rake_path, data: { 
-                            toggle: "modal",
-                            target: "#newMasterRakeModal",
-                            category: "none",
-                            user: current_user.id },
-                            class: "btn btn-xs btn-primary masterrake-create" %>
-              <% else %>
-                <%= link_to "Add new Master Rake", new_user_session_path, class: "btn btn-xs btn-primary" %>
-              <% end %>
-            </span>
-            <br>
-            <br>
-            <%= render 'search_master_rakes' %>
-          </div>
-          <div class="tab-pane" id="latest-recommendations">
-            <a class="anchor" name="latest-recommendations"></a>
-            <span class="rake-nav">LATEST BOOKMARKS<hr></span>
-            <%= render 'new_recommendations' %>
-            <%#= render 'new_leaflets' %>
-          </div>
+      <% end %>
+      <br>
+      <div class="row">
+        <div class="tab-header">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+              <a href="#featured-rakes" id="view-featured-master-rakes" role="tab" data-toggle="tab">Explore</a>
+            </li>
+            <li>
+              <a href="#new-rakes" id="view-new-master-rakes" role="tab" data-toggle="tab">New</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="featured-rakes">
+          <%= render 'featured_master_rakes' %>
+        </div>
+        <div class="tab-pane" id="new-rakes">
+          <%= render 'new_master_rakes' %>
         </div>
       </div>
     </div>
