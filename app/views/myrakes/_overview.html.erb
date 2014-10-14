@@ -11,11 +11,14 @@
         <div class="tab-header">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
-            <li class="<%= @myrakes_collapse %>">
-              <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">Rakes</a>
+            <li class="rake-nav <%= @myrakes_collapse %>">
+              <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">RAKES</a>
             </li>
-            <li class="<%= @reminders_collapse %>">
-              <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">Reminders</a>
+            <li class="rake-nav <%= @reminders_collapse %>">
+              <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">
+                REMINDERS&nbsp;&nbsp;
+                <span class="badge pull-right"><%= @overdue_leaflets.count.to_s %></span>
+              </a>
             </li>
           </ul>
         </div>

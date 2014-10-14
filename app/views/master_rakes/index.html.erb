@@ -6,11 +6,15 @@
       <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
+          <span class="nav-link"><strong>ALL RAKES</strong></span>
+          &nbsp;|&nbsp;
           <% if user_signed_in? %>
-            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, { class: "nav-link", id: "my-bookmarking-rakes" }%>
-            &nbsp;
+            <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "my-bookmarking-rakes" }%>
+            &nbsp;|&nbsp;
             <%= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" unless @overdue_leaflets.nil? %>
           <% else %>
+            <span class="nav-link">MY RAKES</span>
+            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rakes-sign-in" } %>
           <% end %>
         </small>
@@ -18,7 +22,7 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1>Rake (Topics) Overview</h1>
+      <h1>All Rakes</h1>
       <div class="panel-group" id="accordion-main">
         <%= render 'overview' %>
       </div>

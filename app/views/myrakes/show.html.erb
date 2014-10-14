@@ -9,16 +9,16 @@
       <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
+          <%= link_to "ALL RAKES", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"} %>
+          &nbsp;|&nbsp;
           <% if !current_user.nil? %>
-            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmarking-rakes-index" } %>
-            (
+            <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmarking-rakes-index" } %>
+            &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
             <%= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" %>
-            )
-            &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "ALL BOOKMARKING RAKES", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"} %>
           <% if !user_signed_in? %>
-            &nbsp;|&nbsp;
+            <span class="nav-link">MY RAKES</span>
+            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in" } %>
           <% end %>
         </small>
@@ -26,7 +26,18 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1><%= @rake.name %></h1>
+      <h1>
+        <%= @rake.name %>
+        <span class="pull-right">
+          <small>
+            <% if user_signed_in? && @rake.user_id == current_user.id %>
+              <%= link_to "Delete", myrake_path(@rake),
+                            :data => { :confirm => "Are you sure?" }, 
+                            :method => :delete %>
+            <% end %>
+          </small>
+        </span>
+      </h1>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-myrake">
@@ -34,11 +45,7 @@
               Everything in one place
               <span class="pull-right">
                 <small>
-                  <% if user_signed_in? && @rake.user_id == current_user.id %>
-                    <%= link_to "Delete", myrake_path(@rake),
-                                  :data => { :confirm => "Are you sure?" }, 
-                                  :method => :delete, class: "white" %>
-                  <% end %>
+                  <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " MASTER RAKE", master_rake_path(@rake.master_rake), class: "white" %>
                 </small>
               </span>
             </h5>

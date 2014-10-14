@@ -9,9 +9,11 @@
       <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
+          <%= link_to "ALL RAKES", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
+          &nbsp;|&nbsp;
           <% if user_signed_in? %>
-            <%= link_to "MY BOOKMARKING RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmark-rakes" } %>
-            (
+            <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmark-rakes" } %>
+            &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
             <% if @overdue_leaflets.nil? %>
               <span class="new-rec-alert">
                 <%= "0 REMINDERS" %>
@@ -19,13 +21,11 @@
             <% else %>
               <%= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" %>
             <% end %>
-            )
-            &nbsp;|&nbsp;
           <% else %>
+            <span class="nav-link">MY RAKES</span>
+            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rake-sign-in" } %>
-            &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "RAKES OVERVIEW", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -48,9 +48,9 @@
                 <small>
                   <% if user_signed_in? %>
                     <% if !@custom_rake.nil? %>
-                      <%= link_to "My Rake", myrake_path(@custom_rake), class: "white" %>
+                      <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " MY RAKE", myrake_path(@custom_rake), class: "white" %>
                     <% else %>
-                      <%= link_to "Customize", new_myrake_path(master_rake_id: @rake.id),
+                      <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " Customize", new_myrake_path(master_rake_id: @rake.id),
                                       data: { toggle: "modal",
                                               target: "#newCustomRakeModal",
                                             }, class: "white" %>

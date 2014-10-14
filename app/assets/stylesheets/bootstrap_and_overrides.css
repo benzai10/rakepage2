@@ -10,6 +10,12 @@ body {
   margin-top: 50px;
 }
 
+.badge {
+  color: white !important;
+  background-color: #D91E18 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
 #accordion-main {
   padding-top: 6px;
 }
