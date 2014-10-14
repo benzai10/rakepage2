@@ -24,10 +24,10 @@
                   <%= pmr.name %>
                 </h5>
                 <p>
-                  <%= pluralize(pmr.myrakes.count, "Raker") %>
+                  <%= pmr.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
                   &nbsp;|&nbsp;
-                  <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)).count,
-                                "Rec") %>
+                  <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)).count.to_s %>
+                  <i class="fa fa-bookmark purple"></i>
                 </p>
                 <p>
                   <% if user_signed_in? %>
@@ -42,7 +42,7 @@
                         <% if @new_count > 0 && new_count > 0 %>
                           &nbsp;|&nbsp;
                         <% end %>
-                        <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                       <% end %>
                     </span>
                   <% end %>
@@ -83,10 +83,10 @@
                   <%= smr.name %>
                 </h5>
                 <p>
-                  <%= pluralize(smr.myrakes.count, "Raker") %>
+                  <%= smr.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
                   &nbsp;|&nbsp;
-                  <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)).count,
-                                "Rec") %>
+                  <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)).count.to_s %>
+                  <i class="fa fa-bookmark purple"></i>
                 </p>
                 <p>
                   <% if user_signed_in? %>
@@ -101,7 +101,7 @@
                         <% if @new_count > 0 && new_count > 0 %>
                           &nbsp;|&nbsp;
                         <% end %>
-                        <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                       <% end %>
                     </span>
                   <% end %>
@@ -141,10 +141,10 @@
                   <%= cmr.name %>
                 </h5>
                 <p>
-                  <%= pluralize(cmr.myrakes.count, "Raker") %>
+                  <%= cmr.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
                   &nbsp;|&nbsp;
-                  <%= pluralize(MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)).count,
-                                "Rec") %>
+                  <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)).count.to_s %>
+                  <i class="fa fa-bookmark purple"></i>
                 </p>
                 <p>
                   <% if user_signed_in? %>
@@ -159,7 +159,7 @@
                         <% if @new_count > 0 && new_count > 0 %>
                           &nbsp;|&nbsp;
                         <% end %>
-                        <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                       <% end %>
                     </span>
                   <% end %>
