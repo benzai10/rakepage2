@@ -42,7 +42,25 @@
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-new-master-rakes">
-            <h1 class="panel-title">Everything in one place</h1>
+            <h1 class="panel-title">
+              Everything in one place
+              <span class="pull-right">
+                <small>
+                  <% if user_signed_in? %>
+                    <% if !@custom_rake.nil? %>
+                      <%= link_to "My Rake", myrake_path(@custom_rake), class: "white" %>
+                    <% else %>
+                      <%= link_to "Customize", new_myrake_path(master_rake_id: @rake.id),
+                                      data: { toggle: "modal",
+                                              target: "#newCustomRakeModal",
+                                            }, class: "white" %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to "Customize", new_user_session_path, class: "white" %>
+                  <% end %>
+                </small>
+              </span>
+            </h1>
           </div>
           <div class="panel-collapse collapse in" id="collapse-feed">
             <div class="panel-body">
