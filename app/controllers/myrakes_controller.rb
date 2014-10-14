@@ -89,6 +89,9 @@ class MyrakesController < ApplicationController
       heap_ids = heap_ids.flatten
       @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
       @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+      @overdue_leaflets_rake = @overdue_leaflets.where("heap_id IN (?)", @heap_ids)
+    else
+      @overdue_leaflets_rake = []
     end
     parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)

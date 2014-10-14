@@ -10,7 +10,7 @@
             <div class="media-body">
               <h5 class="media-heading">Blogs & Subreddits</h5>
               <p>
-                <%= pluralize(@rake.channels.where("channel_type <> 3 AND channel_type <> 5").count, "Channel") %>
+                <%= @rake.channels.where("channel_type <> 3 AND channel_type <> 5").count %>&nbsp;<i class="fa fa-rss purple"></i>
               </p>
               <p>
                 <% if user_signed_in? %>
@@ -33,6 +33,56 @@
     </li>
   </a>
 
+  <% if user_signed_in? %>
+    <%= link_to myrakes_path(collapse: "reminders") do %>
+      <li class="col-md-6">
+        <div class="thumbnail">
+          <div class="media">
+            <span class="pull-left">
+              <%#= image_tag("reminder_image.png", size: "96x54") %>
+              <p class="reminder-month">
+                <%= Date.today.strftime("%B") %>
+              </p>
+              <p class="reminder-day">
+                <%= Time.now.day %>
+              </p>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Reminders</h5>
+              <p class=<%= "new-rec-alert" if @overdue_leaflets_rake.count > 0 %>>
+                You have <%= pluralize(@overdue_leaflets_rake.count, "reminder") %> for this rake.
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  <% else %>
+    <a href="#rake-reminders" data-toggle="tab">
+      <li class="col-md-6">
+        <div class="thumbnail">
+          <div class="media">
+            <span class="pull-left">
+              <%#= image_tag("reminder_image.png", size: "96x54") %>
+              <p class="reminder-month">
+                <%= Date.today.strftime("%B") %>
+              </p>
+              <p class="reminder-day">
+                <%= Time.now.day %>
+              </p>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">Reminders</h5>
+              <p>
+                Don't forget to get back to your bookmarks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </a>
+  <% end %>
+
   <% @heaps.each do |h| %>
     <% leaflet_type = LeafletType.find_by_leaflet_type(h.leaflet_type_id) %>
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
@@ -46,7 +96,7 @@
               <div class="media-body">
                 <h5 class="media-heading"><%= leaflet_type_desc %></h5>
                   <p>
-                    <%= pluralize(h.leaflets.count, "Rec") %>
+                    <%= h.leaflets.count %>&nbsp;<i class="fa fa-bookmark purple"></i>
                   </p>
                   <p>
                     <% if !@custom_rake.nil? %>
@@ -74,6 +124,23 @@
   <div class="tab-pane active" id="channels">
     <a class="anchor" name="channels"></a>
     <%= render 'channels' %>
+  </div>
+
+  <div class="tab-pane" id="rake-reminders">
+    <a class="anchor" name="rake-reminders"></a>
+    <span class="rake-nav">BOOKMARK REMINDERS<hr></span>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <p class="info-text centered">
+          You need  an account and a customized rake to create and view bookmark reminders.
+        </p>
+        <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+        <br><br>
+        <p class="info-text centered">
+          or <%= link_to "sign in", new_user_session_path %>.
+        </p>
+      </div>
+    </div>
   </div>
 
   <% @heaps.each do |h| %>

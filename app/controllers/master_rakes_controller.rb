@@ -84,6 +84,11 @@ class MasterRakesController < ApplicationController
         heap_ids = heap_ids.flatten
         @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
         @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+        if !@custom_heaps.nil?
+          @overdue_leaflets_rake = @overdue_leaflets.where("heap_id IN (?)", @custom_heaps.pluck(:id))
+        else
+          @overdue_leaflets_rake = []
+        end
       end
     end
   end
