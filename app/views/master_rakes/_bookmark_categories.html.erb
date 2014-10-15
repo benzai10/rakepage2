@@ -1,7 +1,7 @@
 <br>
 <ul class="nav nav-tabs nav-thumbnails" role="tablist">
   <a href="#channels" data-toggle="tab">
-    <li class="col-md-6 active">
+    <li class="col-md-6 <%= @feed_collapse %>">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -50,7 +50,7 @@
             <div class="media-body">
               <h5 class="media-heading">Reminders</h5>
               <p class=<%= "new-rec-alert" if @overdue_leaflets_rake.count > 0 %>>
-                You have <%= pluralize(@overdue_leaflets_rake.count, "reminder") %> for this rake.
+                <%= pluralize(@overdue_leaflets_rake.count, "reminder") %> for this rake.
               </p>
             </div>
           </div>
@@ -121,7 +121,7 @@
 <!-- Tab panes -->
 <div class="tab-content">
 
-  <div class="tab-pane active" id="channels">
+  <div class="tab-pane <%= @feed_collapse %>" id="channels">
     <a class="anchor" name="channels"></a>
     <%= render 'channels' %>
   </div>
@@ -146,7 +146,7 @@
   <% @heaps.each do |h| %>
     <% leaflet_type = LeafletType.find_by_leaflet_type(h.leaflet_type_id) %>
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
-    <div class="tab-pane" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
+    <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
       <span class="rake-nav"><%= leaflet_type_desc.upcase %><hr></span>
       <%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %>

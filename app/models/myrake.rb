@@ -113,10 +113,14 @@ class Myrake < ActiveRecord::Base
     if self.heaps.where("leaflet_type_id = ?", leaflet_type_id).empty?
       self.add_heap(leaflet_type_id)
     end
-    self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
-    master_heap = MasterHeap.where(master_rake_id: self.master_rake_id, leaflet_type_id: leaflet_type_id).first
-    if !master_heap.nil?
-      MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: leaflet.id, leaflet_desc: leaflet_desc)
+    if self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
+      master_heap = MasterHeap.where(master_rake_id: self.master_rake_id, leaflet_type_id: leaflet_type_id).first
+      if !master_heap.nil?
+        MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: leaflet.id, leaflet_desc: leaflet_desc)
+      end
+    else
+      self.leaflet_errors = leaflet.errors
+      nil
     end
   end
 

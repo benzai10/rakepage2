@@ -77,10 +77,8 @@ class MyrakesController < ApplicationController
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
     @heap_id = params[:collapse].to_s.slice(5..-1)
-    if @feed_collapse == "active" || @heap_collapse == "active"
-      @stats_collapse = ""
-    else
-      @stats_collapse = "active"
+    if @heap_collapse != "active"
+      @feed_collapse = "active"
     end
     if user_signed_in?
       heap_ids = []
@@ -306,12 +304,15 @@ class MyrakesController < ApplicationController
       target_rake = Myrake.where(user_id: current_user.id).find_by_name(params[:myrake][:name])
       leaflet = Leaflet.find(heapleaflet.leaflet_id)
       leaflet.update_attributes(updated_at: Time.now)
-      target_rake.add_leaflet(leaflet,
-                              heapleaflet.leaflet_type_id,
-                              heapleaflet.leaflet_title,
-                              heapleaflet.leaflet_desc,
-                              "")
-      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => ["Bookmark copied."]
+      if target_rake.add_leaflet(leaflet,
+                                 params[:myrake][:leaflet_type_id].to_i,
+                                 heapleaflet.leaflet_title,
+                                 heapleaflet.leaflet_desc,
+                                 "")
+        redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark copied."]
+      else
+        redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark couln't be copied. It probably exists already."]
+      end
     else
       @rake.filters.each do |f|
         f.destroy

@@ -11,12 +11,15 @@ class Heap < ActiveRecord::Base
 
 
   def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
-    if self.heap_leaflet_maps.create(leaflet_id: leaflet.id,
+    begin 
+      self.heap_leaflet_maps.create(leaflet_id: leaflet.id,
                                   leaflet_type_id: leaflet_type_id,
                                   leaflet_title: leaflet_title,
                                   leaflet_desc: leaflet_desc,
                                   reminder_at: reminder)
       Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count+1)
+    rescue
+      nil
     end
   end
 
