@@ -52,12 +52,13 @@ class MyrakesController < ApplicationController
       end
     end
     # -- This part has to be more refined because it creates duplicates...
-    # if user_signed_in?
-    #   @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).pluck(:leaflet_id))
-    # else
-    #   @feed_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
-    # end
+    if user_signed_in?
+      @added_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).pluck(:leaflet_id))
+    else
+      @added_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
+    end
     @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
+    @feed_leaflets -= @added_leaflets
     @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
     missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
     missing_leaflet_types.each do |mlt|
@@ -300,28 +301,17 @@ class MyrakesController < ApplicationController
     elsif params[:commit] == "Add Bookmark Category"
       @rake.add_heap(params[:myrake][:leaflet_type_id])
       redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
-    elsif params[:commit] == "Move Bookmark"
+    elsif params[:commit] == "Copy Bookmark"
       heapleaflet = HeapLeafletMap.where(heap_id: params[:myrake][:heap_id].to_i).find_by_leaflet_id(params[:myrake][:leaflet_id].to_i)
-      # Check if there is an existing target heap
       target_rake = Myrake.where(user_id: current_user.id).find_by_name(params[:myrake][:name])
-      target_rake_heaps = target_rake.heaps
-      if target_rake_heaps.pluck(:leaflet_type_id).include? params[:myrake][:leaflet_type_id].to_i
-        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:myrake][:leaflet_type_id].to_i)
-        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i)
-        master_heap = MasterHeap.where(master_rake_id: target_rake.master_rake.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i).first
-        if !master_heap.nil?
-          MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: params[:myrake][:leaflet_id].to_i)
-        end
-      else
-        target_rake.add_heap(params[:myrake][:leaflet_type_id])
-        target_heap = target_rake_heaps.find_by_leaflet_type_id(params[:myrake][:leaflet_type_id].to_i)
-        heapleaflet.update_attributes(heap_id: target_heap.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i)
-        master_heap = MasterHeap.where(master_rake_id: target_rake.master_rake.id, leaflet_type_id: params[:myrake][:leaflet_type_id].to_i).first
-        if !master_heap.nil?
-          MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: params[:myrake][:leaflet_id].to_i)
-        end
-      end
-      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => ["Bookmark moved."]
+      leaflet = Leaflet.find(heapleaflet.leaflet_id)
+      leaflet.update_attributes(updated_at: Time.now)
+      target_rake.add_leaflet(leaflet,
+                              heapleaflet.leaflet_type_id,
+                              heapleaflet.leaflet_title,
+                              heapleaflet.leaflet_desc,
+                              "")
+      redirect_to myrake_path(@rake, heap_type: Heap.find(params[:myrake][:heap_id].to_i).leaflet_type_id), :notice => ["Bookmark copied."]
     else
       @rake.filters.each do |f|
         f.destroy

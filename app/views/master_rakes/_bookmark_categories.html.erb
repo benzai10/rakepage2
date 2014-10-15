@@ -105,7 +105,7 @@
                       <% my_leaflets = HeapLeafletMap.where("heap_id IN (?)", @custom_rake.heaps.pluck(:id)).pluck(:leaflet_id) %>
                       <% new_count = (new_leaflets - my_leaflets).count %>
                       <span class="new-rec-alert">
-                        <%= pluralize(new_count, "New Rec") unless new_count == 0 %>
+                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
                       </span>
                     <% end %>
                   </p>
@@ -293,14 +293,14 @@
                   </span>
                   &nbsp;
                   <% if user_signed_in? %>
-                    <span class="feed-button">
-                      <% user_rake = @rake.myrakes.where(user_id: current_user.id).first %>
-                      <% if !user_rake.nil? %>
-                        <% user_heap_ids = user_rake.heaps.pluck(:id) %>
-                        <% user_heap_leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", user_heap_ids).pluck(:leaflet_id) %>
-                        <% if user_heap_leaflet_ids.include? l.id %>
-                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-star"></i>'.html_safe, '#' %>
-                        <% else %>
+                    <% user_rake = @rake.myrakes.where(user_id: current_user.id).first %>
+                    <% if !user_rake.nil? %>
+                      <% user_heap_ids = user_rake.heaps.pluck(:id) %>
+                      <% user_heap_leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", user_heap_ids).pluck(:leaflet_id) %>
+                      <% if user_heap_leaflet_ids.include? l.id %>
+                        <i class="fa fa-bookmark"></i>
+                      <% else %>
+                        <span class="feed-button">
                           <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe, 
                                 add_leaflet_myrake_path(user_rake), 
                                 data: { toggle: "modal",
@@ -311,15 +311,17 @@
                                         title: l.title,
                                         collapse: "heap_" + "#{h.leaflet_type_id}" },
                                 class: "leaflet-save" %>
-                        <% end %>
-                      <% else %>
+                        </span>
+                      <% end %>
+                    <% else %>
+                      <span class="feed-button">
                         <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Recommendation"></i>'.html_safe,
                               new_myrake_path(master_rake_id: @rake.id),
                                             data: { toggle: "modal",
                                                     target: "#newCustomRakeModal",
                                                   } %>
-                      <% end %>
-                    </span>
+                      </span>
+                    <% end %>
                   <% end %>
                   &nbsp;
                 </span>

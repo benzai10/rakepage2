@@ -102,12 +102,12 @@ $(function() {
         ga('send', 'event', 'button', 'click', 'leaflet-create');
     });
 
-    $(".leaflet-move").click(function() {
+    $(".leaflet-copy").click(function() {
         var leafletid = $(this).data('id');
         var heapId = $(this).data('heapid');
         $(".leaflet-id").val(leafletid);
         $(".heap-id").val(heapId);
-        ga('send', 'event', 'button', 'click', 'leaflet-move');
+        ga('send', 'event', 'button', 'click', 'leaflet-copy');
     });
 
     $(".leaflet-master-save").click(function() {

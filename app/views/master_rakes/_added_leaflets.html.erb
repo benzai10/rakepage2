@@ -1,9 +1,19 @@
-<span class="rake-nav">NEWS FEED<hr></span>
-<% if @feed_leaflets.count == 0 %>
-  <h5><small>The news feed is empty because there are no blogs or subreddits added!</small></h5>
-<% end %>
+<h5>
+  <% if user_signed_in? %>
+    <span class="pull-right">
+      <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed", anchor: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
+    </span>
+    <br>
+  <% else %>
+    <small><%= link_to "Sign in to refresh", new_user_session_path, id: "ga-feed-refresh-sign-in" %></small>
+  <% end %>
+</h5>
+<br><br>
+<div>
+  <span class="rake-nav">SAVED BY USERS<hr></span>
+</div>
 <ul id="feed-list" class="leaflet-list">
-  <% @feed_leaflets.each do |l| %>
+  <% @added_leaflets.each do |l| %>
     <% channel = Channel.find(l.channel_id) %>
     <a class="anchor" id="<%= 'leaflet_' + l.id.to_s %>"></a>
     <li class="rake-show-list">
@@ -38,11 +48,7 @@
             <% end %>
           <% end %>
           <span class="pull-right-menu">
-            <% if !l.published_at.nil? %>
-              <%= time_ago_in_words(l.published_at) %> ago 
-            <% else %>
-              <%= time_ago_in_words(l.created_at) %> ago 
-            <% end %>
+            <%= time_ago_in_words(l.updated_at) %> ago 
           </span>
         </span>
         <br>

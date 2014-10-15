@@ -10,9 +10,9 @@
         <div class="modal-body">
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
+          <%= f.text_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
           <% leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
           <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose a Bookmark Category" }, class: "heap-id" %>
-          <%= f.text_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
           <%= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
