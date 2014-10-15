@@ -13,7 +13,7 @@
     <h5>
       <% if user_signed_in? %>
         <span class="pull-right">
-          <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed", anchor: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
+          <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
         </span>
         <br>
       <% else %>
