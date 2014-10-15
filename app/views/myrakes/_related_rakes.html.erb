@@ -5,8 +5,10 @@
     <br><br><br><br><br><br><br><br><br><br><br><br><br>
   </span>
 <% end %>
-<span class="rake-nav"><i class="fa fa-level-up"></i> PARENT RAKES<hr></span>
+
 <% if @parent_master_rakes.count > 0 %>
+  <br>
+  <span class="rake-nav"><i class="fa fa-level-up"></i> PARENT RAKES<hr></span>
   <div class="row">
     <% @parent_master_rakes.each do |pmr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
@@ -115,14 +117,11 @@
       <% end %>
     <% end %>
   </div>
-<% else %>
-  <p class="info-text centered">
-    No parent rakes available yet.
-  </p>
 <% end %>
 
-<span class="rake-nav"><i class="fa fa-long-arrow-right"></i> SIBLING RAKES<hr></span>
 <% if @sibling_master_rakes.count > 0 %>
+  <br>
+  <span class="rake-nav"><i class="fa fa-long-arrow-right"></i> SIBLING RAKES<hr></span>
   <div class="row">
     <% @sibling_master_rakes.each do |smr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
@@ -215,14 +214,11 @@
       <% end %>
     <% end %>
   </div>
-<% else %>
-  <p class="info-text centered">
-    No sibling rakes available yet.
-  </p>
 <% end %>
 
-<span class="rake-nav"><i class="fa fa-level-down"></i> CHILDREN RAKES<hr></span>
 <% if @children_master_rakes.count > 0 %>
+  <br>
+  <span class="rake-nav"><i class="fa fa-level-down"></i> CHILDREN RAKES<hr></span>
   <div class="row">
     <% @children_master_rakes.each do |cmr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
@@ -331,8 +327,4 @@
       <% end %>
     <% end %>
   </div>
-<% else %>
-  <p class="info-text centered">
-    No children rakes available yet.
-  </p>
 <% end %>
