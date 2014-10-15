@@ -1,6 +1,9 @@
+<br>
 <span class="rake-nav">NEWS FEED<hr></span>
 <% if @feed_leaflets.count == 0 %>
-  <h5><small>The news feed is empty because there are no blogs or subreddits added!</small></h5>
+  <p>
+    The news feed is empty. Maybe because there are no blogs or subreddits added to this rake. Check your personal rake.
+  </p>
 <% end %>
 <ul id="feed-list" class="leaflet-list">
   <% @feed_leaflets.each do |l| %>
