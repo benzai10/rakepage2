@@ -1,7 +1,7 @@
-<% if @rake.master_rake.seo_title.nil? %>
+<% if @rake.seo_title.nil? %>
   <% seo_title = "" %>
 <% else %>
-  <% seo_title = @rake.master_rake.seo_title %>
+  <% seo_title = @rake.seo_title %>
 <% end %>
 <% title @rake.name + " " + seo_title %>
 <% meta title: @rake.name + " " + seo_title,
