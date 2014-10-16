@@ -1,5 +1,10 @@
-<% title @rake.name + " " + @rake.master_rake.seo_title %>
-<% meta title: @rake.name + " " + @rake.master_rake.seo_title,
+<% if @rake.master_rake.seo_title.nil? %>
+  <% seo_title = "" %>
+<% else %>
+  <% seo_title = @rake.master_rake.seo_title %>
+<% end %>
+<% title @rake.name + " " + seo_title %>
+<% meta title: @rake.name + " " + seo_title,
         description: @rake.master_rake.description,
         keywords: Category.find(@rake.master_rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
 <div class="container-fluid">
