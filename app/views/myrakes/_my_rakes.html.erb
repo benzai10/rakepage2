@@ -1,47 +1,14 @@
 <div class="row">
   <% if @rakes.empty? %>
     <div class="col-md-12">
+      <h2>Welcome, <%= current_user.username %></h2>
       <ul class="info-list">
-        <li><strong>Create your personal rakes to manage your own bookmarks,</strong></li>
-        <li><strong>to set reminders for your bookmarks</strong></li>
-        <li><strong>to customize your own aggregated news feed for a specific topic</strong></li>
+        <li>Create rakes to customize your news feed and to save and organize your bookmarks organized by topics.</li>
+        <li>You can also add reminders to your bookmarks, so you don't forget to get back to them.</li>
+        <li>Please have a look at the available rakes here: <%= link_to "All Rakes", master_rakes_path %></li>
+        <li>If you can't find your topic of interest, feel free to create a new rake!</li>
       </ul>
-    </div>
-    <div class="col-md-6">
-      <div class="thumbnail">
-        <%= link_to master_rakes_path do %>
-          <div class="media">
-            <span class="pull-left">
-              <%= image_tag("rakes_all.png", size: "96x54") %>
-            </span>
-            <div class="media-body">
-              <h5 class="media-heading">Explore existing Master Rakes</h5>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="thumbnail">
-        <%= link_to new_master_rake_path, data: { 
-                    toggle: "modal",
-                    target: "#newMasterRakeModal",
-                    category: "none",
-                    user: current_user.id },
-                    class: "masterrake-create" do %>
-          <div class="media">
-            <span class="pull-left">
-              <%= image_tag("add_master_rake.png", size: "96x54") %>
-            </span>
-            <div class="media-body">
-              <h5 class="media-heading">Add new Master Rake</h5>
-              <p>
-                Your contribution is highly appreciated!
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
+      <br><br><br><br><br><br><br><br><br>
     </div>
   <% end %>
   <% @rakes.each do |r| %>
