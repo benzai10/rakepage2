@@ -36,16 +36,16 @@
           <% if @overdue_leaflets.count > 0 %>
             <%= render 'my_overdue_recommendations' %>
           <% else %>
-            <p>
-              <small>You don't have any overdue bookmarks.</small>
+            <p class="centered">
+              You don't have any overdue bookmarks.
             </p>
           <% end %>
           <span class="rake-nav">SCHEDULED BOOKMARKS<hr></span>
           <% if @scheduled_leaflets.count > 0 %>
             <%= render 'my_scheduled_recommendations' %>
           <% else %>
-            <p>
-              <small>You don't have any scheduled bookmarks.</small>
+            <p class="centered">
+              You don't have any scheduled bookmarks.
             </p>
           <% end %>
         </div>

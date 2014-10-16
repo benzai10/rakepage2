@@ -190,6 +190,10 @@ a.anchor {
   margin-left: 0px;
 }
 
+p {
+  font-family: 'Roboto', sans-serif;
+}
+
 h1 {
   margin-top: 20px;
   font-family: 'Roboto', sans-serif;
@@ -218,12 +222,13 @@ h4 {
 h5 {
   font-family: 'Roboto', sans-serif !important;
   font-weight: 300;
+  font-size: 16px !important;
 }
 
 .info-text {
   font-family: 'Roboto', sans-serif !important;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .info-list {
@@ -417,8 +422,8 @@ a.menu-link:hover {
 .menu-list {
   margin-left: -25px;
   list-style-type: none;
-  font-size: 12px;
-  font-weight: 200;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .leaflet-title {
@@ -428,7 +433,7 @@ a.menu-link:hover {
 */  padding-top: 4px;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 12px !important;
+  font-size: 16px !important;
 }
 
 .leaflet-title a {
@@ -475,7 +480,7 @@ a.menu-link:hover {
   padding-top: 4px;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 .media-body p {
@@ -509,7 +514,7 @@ a.menu-link:hover {
 #feed-list p {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 #feed-list h1 {
@@ -527,19 +532,19 @@ a.menu-link:hover {
 #feed-list h3 {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
 
 #feed-list h4 {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 #feed-list h5 {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 #feed-list blockquote {
