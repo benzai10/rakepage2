@@ -296,7 +296,7 @@
                   <% if heap_leaflet != "" %>
                     <% description = heap_leaflet.leaflet_desc %>
                     <% if !description.nil? %>
-                      <span class="feed-timestamp"><%= description %></span>
+                      <p><em><%= description %></em></p>
                     <% end %>
                     <% reminder_at = heap_leaflet.reminder_at %>
                     <% if reminder_at.nil? %>
