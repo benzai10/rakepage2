@@ -1,7 +1,7 @@
 <br>
 <ul class="nav nav-tabs nav-thumbnails" role="tablist">
   <a href="#channels" data-toggle="tab">
-    <li class="col-md-6 <%= @feed_collapse %>">
+    <li class="col-md-12 col-md-lg-6 <%= @feed_collapse %>">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -35,7 +35,7 @@
 
   <% if user_signed_in? %>
     <%= link_to myrakes_path(collapse: "reminders") do %>
-      <li class="col-md-6">
+      <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -59,7 +59,7 @@
     <% end %>
   <% else %>
     <a href="#rake-reminders" data-toggle="tab">
-      <li class="col-md-6">
+      <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -87,7 +87,7 @@
     <% leaflet_type = LeafletType.find_by_leaflet_type(h.leaflet_type_id) %>
     <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
     <a href="#heap_<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
-      <li class="col-md-6">
+      <li class="col-md-12 col-lg-6">
           <div class="thumbnail">
             <div class="media">
               <span class="pull-left">

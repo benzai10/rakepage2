@@ -1,7 +1,7 @@
 <br>
 <ul class="nav nav-tabs nav-thumbnails" role="tablist">
   <a href="#channels" data-toggle="tab">
-    <li class="col-md-6">
+    <li class="col-md-12 col-lg-6">
       <div class="thumbnail">
         <div class="media">
           <span class="pull-left">
@@ -30,7 +30,7 @@
 
   <% if user_signed_in? %>
     <%= link_to myrakes_path(collapse: "reminders") do %>
-      <li class="col-md-6">
+      <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
@@ -60,7 +60,7 @@
     <% end %>
   <% else %>
     <a href="#rake-reminders" data-toggle="tab">
-      <li class="col-md-6">
+      <li class="col-md-12 col-lg-6">
         <div class="thumbnail">
           <div class="media">
             <span class="pull-left">
