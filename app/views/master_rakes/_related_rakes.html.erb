@@ -12,7 +12,7 @@
     <% @parent_master_rakes.each do |pmr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
       <%= link_to master_rake_path(pmr) do %>
-        <div class="col-md-6">
+        <div class="col-md-12 col-lg-6">
           <div class="thumbnail">
             <div class="media">
               <span class="pull-left">
@@ -68,7 +68,7 @@
     <% @sibling_master_rakes.each do |smr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
       <%= link_to master_rake_path(smr) do %>
-        <div class="col-md-6">
+        <div class="col-md-12 col-lg-6">
           <div class="thumbnail">
             <div class="media">
               <span class="pull-left">
@@ -123,7 +123,7 @@
     <% @children_master_rakes.each do |cmr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
       <%= link_to master_rake_path(cmr) do %>
-        <div class="col-md-6">
+        <div class="col-md-12 col-lg-6">
           <div class="thumbnail">
             <div class="media">
               <span class="pull-left">
