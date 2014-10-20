@@ -593,10 +593,12 @@ a.menu-link:hover {
   width: 70px !important;
 }
 
-/*input[type=text] {
-  height: 2.2em;
+input[type=text]:focus {
+  border-color: #4a2b88;
+  box-shadow: 0 0 10px #4a2b88;
 }
 
+/*
 input[type=email] {
   height: 2.2em;
 }
