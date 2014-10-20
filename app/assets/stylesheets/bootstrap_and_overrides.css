@@ -246,7 +246,9 @@ h5 {
 }
 
 .thumbnail {
+  border-radius: 0px;
   padding: 0;
+  border: 1px solid #dadada;
 }
 
 .thumbnail .caption {
@@ -254,6 +256,9 @@ h5 {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .thumbnail:hover .caption {
@@ -261,6 +266,12 @@ h5 {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 500;
+}
+
+.thumbnail:hover {
+  outline: none;
+  border-color: #4a2b88;
+  box-shadow: 0 0 10px #4a2b88;
 }
 
 .caption img {
@@ -309,16 +320,6 @@ h5 {
   padding-right: 10px;
   color: white;
   background-color: gray;
-}
-
-.thumbnail {
-  border-radius: 0px;
-}
-
-.thumbnail .caption {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .select-rake-info {
