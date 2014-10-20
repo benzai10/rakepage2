@@ -21,7 +21,9 @@
       <% end %>
     </h5>
     <br><br>
-    <%= render 'added_leaflets' %>
+    <% if @added_leaflets.count == 0 %>
+      <%= render 'added_leaflets' %>
+    <% end %>
     <%= render 'feed' %>
   </div>
   <div class="tab-pane" id="bookmark-categories">

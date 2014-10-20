@@ -1,98 +1,81 @@
 <div>
   <span class="rake-nav">SAVED BY USERS<hr></span>
 </div>
-<% if @added_leaflets.count == 0 %>
-  <p class="info-text centered">
-    There are no bookmarks recently saved by other users.
-  </p>
-<% else %>
-  <ul id="feed-list" class="leaflet-list">
-    <% @added_leaflets.each do |l| %>
-      <% channel = Channel.find(l.channel_id) %>
-      <a class="anchor" id="<%= 'anchor_leaflet_' + l.id.to_s %>"></a>
-      <li class="rake-show-list">
+<ul id="feed-list" class="leaflet-list">
+  <% @added_leaflets.each do |l| %>
+    <% channel = Channel.find(l.channel_id) %>
+    <a class="anchor" id="<%= 'anchor_leaflet_' + l.id.to_s %>"></a>
+    <li class="rake-show-list">
+      <% if channel.channel_type == 4 %>
+        <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
+      <% else %>
+        <% reddit_link = "" %>
+      <% end %>
+      <a class="pull-left" <%= reddit_link %>>
         <% if channel.channel_type == 4 %>
-          <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
+          <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
+        <% elsif channel.channel_type == 3 %>
+          <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
         <% else %>
-          <% reddit_link = "" %>
+          <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+          <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
         <% end %>
-        <a class="pull-left" <%= reddit_link %>>
-          <% if channel.channel_type == 4 %>
-            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-          <% elsif channel.channel_type == 3 %>
-            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-          <% else %>
-            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
-            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+      </a>
+      <div class="media-body">
+        <span class="feed-timestamp">
+          <% channel_name = channel.name %>
+          <% if channel_name == "Title not available." %>
+            <% channel_name = channel.source %>
           <% end %>
-        </a>
-        <div class="media-body">
-          <span class="feed-timestamp">
-            <% channel_name = channel.name %>
-            <% if channel_name == "Title not available." %>
-              <% channel_name = channel.source %>
-            <% end %>
-            Channel: <%= channel_name %>
-            <% if l.leaflet_type_id != 0 %>
-              &nbsp;|&nbsp;
-              <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              &nbsp;|&nbsp;
-              <% if !l.created_by.nil? %>
-                added by <%= User.find(l.created_by).username %>
-              <% end %>
-            <% end %>
-            <span class="pull-right-menu">
-              <%= time_ago_in_words(l.updated_at) %> ago 
-            </span>
-          </span>
-          <br>
-          <span class="leaflet-title">
-            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
-          </span>
-          <p class="feed-body"><%= l.content.html_safe unless l.content == "No content details to display." %></p>
-          <br>
-          <span class="leaflet-metrics">
-            Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+          Channel: <%= channel_name %>
+          <% if l.leaflet_type_id != 0 %>
             &nbsp;|&nbsp;
-            Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+            <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
             &nbsp;|&nbsp;
-            Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+            <% if !l.created_by.nil? %>
+              added by <%= User.find(l.created_by).username %>
+            <% end %>
+          <% end %>
+          <span class="pull-right-menu">
+            <%= time_ago_in_words(l.updated_at) %> ago 
           </span>
-          <span class="pull-right">
-            <% if user_signed_in? %>
-              <span class="feed-button">
-                <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-                    <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
-                      &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Liked count"></i>
-                    <% else %>
-                      &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
-                    <% end %>
-                </span>
-                <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
+        </span>
+        <br>
+        <span class="leaflet-title">
+          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+        </span>
+        <p class="feed-body"><%= l.content.html_safe unless l.content == "No content details to display." %></p>
+        <br>
+        <span class="leaflet-metrics">
+          Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
+          &nbsp;|&nbsp;
+          Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+          &nbsp;|&nbsp;
+          Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+        </span>
+        <span class="pull-right">
+          <% if user_signed_in? %>
+            <span class="feed-button">
+              <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
+                  <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
+                    &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Liked count"></i>
+                  <% else %>
+                    &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
+                  <% end %>
               </span>
-              &nbsp;
-            <% end %>
-            <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
-              <% if (@heap_leaflets.include? l) && user_signed_in? && (@rake.user_id == current_user.id) %>
-                &nbsp;<i class="fa fa-bookmark"></i>
-              <% else %>
-                <% if user_signed_in? %>
-                  <span class="feed-button">
-                    <% if @rake.user_id == current_user.id %>
-                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
-                                    add_leaflet_myrake_path(@rake),
-                                    data: { toggle: "modal",
-                                            target: "#myModal",
-                                            id: l.id,
-                                            heapid: l.leaflet_type_id,
-                                            title: l.title,
-                                            collapse: "feed" },
-                                    class: "leaflet-save" %>
-                        &nbsp;
-                    <% else %>
-                      <% if !@other_user_rake.nil? %>
-                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
-                                  add_leaflet_myrake_path(@other_user_rake),
+              <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
+            </span>
+            &nbsp;
+          <% end %>
+          <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
+            <% if (@heap_leaflets.include? l) && user_signed_in? && (@rake.user_id == current_user.id) %>
+              &nbsp;<i class="fa fa-bookmark"></i>
+            <% else %>
+              <% if user_signed_in? %>
+                <span class="feed-button">
+                  <% if @rake.user_id == current_user.id %>
+                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
+                                  add_leaflet_myrake_path(@rake),
                                   data: { toggle: "modal",
                                           target: "#myModal",
                                           id: l.id,
@@ -100,22 +83,33 @@
                                           title: l.title,
                                           collapse: "feed" },
                                   class: "leaflet-save" %>
-                        &nbsp;
-                      <% else %>
-                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, new_myrake_path, 
-                                    data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
-                        &nbsp;
-                      <% end %>
+                      &nbsp;
+                  <% else %>
+                    <% if !@other_user_rake.nil? %>
+                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
+                                add_leaflet_myrake_path(@other_user_rake),
+                                data: { toggle: "modal",
+                                        target: "#myModal",
+                                        id: l.id,
+                                        heapid: l.leaflet_type_id,
+                                        title: l.title,
+                                        collapse: "feed" },
+                                class: "leaflet-save" %>
+                      &nbsp;
+                    <% else %>
+                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, new_myrake_path, 
+                                  data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
+                      &nbsp;
                     <% end %>
-                  </span>
-                <% end %>
+                  <% end %>
+                </span>
               <% end %>
-            </span>
+            <% end %>
           </span>
-        </div>
-        <hr>
-      </li>
-    <% end %>
-  </ul>
-  <%#= paginate @feed_leaflets %>
-<% end %>
+        </span>
+      </div>
+      <hr>
+    </li>
+  <% end %>
+</ul>
+<%#= paginate @feed_leaflets %>
