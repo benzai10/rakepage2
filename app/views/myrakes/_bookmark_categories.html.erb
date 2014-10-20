@@ -1,32 +1,4 @@
-<br>
 <ul class="nav nav-tabs nav-thumbnails" role="tablist">
-  <a href="#channels" data-toggle="tab">
-    <li class="col-md-12 col-lg-6">
-      <div class="thumbnail">
-        <div class="media">
-          <span class="pull-left">
-            <%= image_tag("channels.jpg", size: "96x54") %>
-          </span>
-          <div class="media-body">
-            <h5 class="media-heading">Blogs & Subreddits</h5>
-            <p>
-              <%= @rake.channels.where("channel_type <> 3 AND channel_type <> 5").count %>&nbsp;<i class="fa fa-rss purple"></i>
-            </p>
-            <p>
-              <% if user_signed_in? %>
-                <% new_count = @new_channels.where("created_at > ?", current_user.last_sign_in_at) %>
-                <% new_count -= @rake.channels %>
-                <% new_count = new_count.count %>
-                <span class="new-rec-alert">
-                  <%= pluralize(new_count, " New Channel") unless new_count == 0 %>
-                </span>
-              <% end %>
-            </p>
-          </div>
-        </div>
-      </div>
-    </li>
-  </a>
 
   <% if user_signed_in? %>
     <%= link_to myrakes_path(collapse: "reminders") do %>
@@ -118,11 +90,6 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-
-  <div class="tab-pane <%= @feed_collapse %>" id="channels">
-    <a class="anchor" name="channels"></a>
-    <%= render 'channels' %>
-  </div>
 
   <div class="tab-pane" id="rake-reminders">
     <a class="anchor" name="rake-reminders"></a>

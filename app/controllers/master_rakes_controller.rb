@@ -58,10 +58,8 @@ class MasterRakesController < ApplicationController
     @heaps = @rake.master_heaps.where.not(leaflet_type_id: 15)
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
-    if @feed_collapse == "active" || @heap_collapse == "active"
-      @stats_collapse = ""
-    else
-      @stats_collapse = "active"
+    if @heap_collapse = ""
+      @feed_collapse = "active"
     end
     @heap_id = params[:collapse].to_s.slice(5..-1)
     parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.slug).pluck(:author).map(&:to_i)
