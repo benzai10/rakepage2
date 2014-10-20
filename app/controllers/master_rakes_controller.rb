@@ -89,6 +89,9 @@ class MasterRakesController < ApplicationController
           @overdue_leaflets_rake = []
         end
       end
+      if @overdue_leaflets_rake.nil? 
+       @overdue_leaflets_rake = [] 
+      end
     end
   end
 
