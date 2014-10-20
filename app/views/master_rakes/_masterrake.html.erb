@@ -23,7 +23,7 @@
       <% end %>
     </h5>
     <br><br>
-    <% if @added_leaflets.count == 0 %>
+    <% if @added_leaflets.count > 0 %>
       <%= render 'added_leaflets' %>
     <% end %>
     <%= render 'feed' %>
