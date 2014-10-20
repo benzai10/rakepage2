@@ -1,12 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-master-rakes-overview">
     <h5 class="panel-title">
-      <%= "#{@master_rakes.count} Rakes with #{@saved_leaflets.count} Bookmarks" %>
+      <%= "#{@master_rakes.count} Topics with #{@saved_leaflets.count} Bookmarks" %>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
-      <h5><small>Search for Rakes:<small></h5>
+      <h5><small>Search for Topics:<small></h5>
       <%= bootstrap_form_tag url: "/master_rakes/search", method: :get do |f| %>
         <div class="input-group">
           <%= f.hidden_field :id, class: "master-rake-id" %>
@@ -23,7 +23,7 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li class="rake-nav active">
-              <a href="#featured-rakes" id="view-featured-master-rakes" role="tab" data-toggle="tab">EXPLORE</a>
+              <a href="#featured-rakes" id="view-featured-master-rakes" role="tab" data-toggle="tab">DISCOVER</a>
             </li>
             <li class="rake-nav">
               <a href="#new-rakes" id="view-new-master-rakes" role="tab" data-toggle="tab">NEW</a>

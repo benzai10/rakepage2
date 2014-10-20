@@ -6,7 +6,7 @@
       <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
-          <span class="nav-link"><strong>ALL RAKES</strong></span>
+          <span class="nav-link"><strong>ALL TOPICS</strong></span>
           &nbsp;|&nbsp;
           <% if user_signed_in? %>
             <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "my-bookmarking-rakes" }%>
@@ -22,7 +22,7 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1>All Rakes</h1>
+      <h1>All Topics</h1>
       <div class="panel-group" id="accordion-main">
         <%= render 'overview' %>
       </div>
