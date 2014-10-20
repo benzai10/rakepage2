@@ -14,7 +14,7 @@
       <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
-          <%= link_to "ALL RAKES", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
+          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
           &nbsp;|&nbsp;
           <% if user_signed_in? %>
             <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmark-rakes" } %>
@@ -50,20 +50,18 @@
             <h1 class="panel-title">
               Everything in one place
               <span class="pull-right">
-                <small>
-                  <% if user_signed_in? %>
-                    <% if !@custom_rake.nil? %>
-                      <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " MY RAKE", myrake_path(@custom_rake), class: "white" %>
-                    <% else %>
-                      <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " Customize", new_myrake_path(master_rake_id: @rake.id),
-                                      data: { toggle: "modal",
-                                              target: "#newCustomRakeModal",
-                                            }, class: "white" %>
-                    <% end %>
+                <% if user_signed_in? %>
+                  <% if !@custom_rake.nil? %>
+                    <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " Show Rake", myrake_path(@custom_rake), class: "white" %>
                   <% else %>
-                    <%= link_to "Customize", new_user_session_path, class: "white" %>
+                    <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " Create Rake", new_myrake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          }, class: "white" %>
                   <% end %>
-                </small>
+                <% else %>
+                  <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " Create Rake", new_user_session_path, class: "white" %>
+                <% end %>
               </span>
             </h1>
           </div>

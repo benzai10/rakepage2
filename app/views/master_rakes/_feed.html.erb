@@ -1,7 +1,7 @@
 <span class="rake-nav">NEWS FEED<hr></span>
 <% if @feed_leaflets.count == 0 %>
   <p class="info-text centered">
-    The news feed is empty because there are no blogs or subreddits added to this rake. 
+    The news feed is empty because there are no blogs or subreddits added to this topic. 
     <% if user_signed_in? %>
       <% if !@custom_rake.nil? %>
         You can add blogs or subreddits if you <%= link_to "switch to your personal rake.", myrake_path(@custom_rake) %>

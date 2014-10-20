@@ -14,7 +14,7 @@
       <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
-          <%= link_to "ALL RAKES", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"} %>
+          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"} %>
           &nbsp;|&nbsp;
           <% if !current_user.nil? %>
             <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmarking-rakes-index" } %>
@@ -49,9 +49,7 @@
             <h5 class="panel-title">
               Everything in one place
               <span class="pull-right">
-                <small>
-                  <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " MASTER RAKE", master_rake_path(@rake.master_rake), class: "white" %>
-                </small>
+                <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + " Show Topic", master_rake_path(@rake.master_rake), class: "white" %>
               </span>
             </h5>
           </div>
