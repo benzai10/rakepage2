@@ -17,7 +17,9 @@
         </span>
         <br>
       <% else %>
-        <small><%= link_to "Sign in to refresh", new_user_session_path, id: "ga-feed-refresh-sign-in" %></small>
+        <span class="pull-right">
+          <small><%= link_to "Sign in to refresh", new_user_session_path, { class: "btn btn-xs btn-primary", id: "ga-feed-refresh-sign-in" } %></small>
+        </span>
       <% end %>
     </h5>
     <br><br>
