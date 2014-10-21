@@ -8,6 +8,19 @@ $(function() {
         return false;
     });
 
+    $('.create-rake-info').hide();
+
+    $('#create-rake-info').click(function(){
+        if ($('#create-rake-toggle').html() == 'Create Rake') {
+            $('.master-rake-content').hide();
+            $('.create-rake-info').show();
+            $('#create-rake-toggle').html('Back');
+        } else {
+            $('.create-rake-info').hide();
+            $('.master-rake-content').show();
+            $('#create-rake-toggle').html('Create Rake');
+        }
+    });
 
     $(window).scroll(function(){
         // add navbar opacity on scroll
