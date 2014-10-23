@@ -1,3 +1,4 @@
 $('#leaflet_<%= @leaflet.id %>').remove();
+$('.badge').html(parseInt($(".badge").html()) - 1);
 //$('#feed_star_icon_<%= params[:leaflet_id] %>').html("<i class='fa fa-save'></i>");
 //$('.s_count_<%= params[:leaflet_id] %>').text(<%= Leaflet.find(params[:leaflet_id]).save_count %>);
