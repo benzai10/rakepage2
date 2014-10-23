@@ -37,15 +37,17 @@
             <%= render 'my_overdue_recommendations' %>
           <% else %>
             <p class="centered">
-              You don't have any overdue bookmarks.
+              Yay, nothing here. You must be up-to-date with everything!
             </p>
+            <br>
+            <br>
           <% end %>
           <span class="rake-nav">SCHEDULED BOOKMARKS<hr></span>
           <% if @scheduled_leaflets.count > 0 %>
             <%= render 'my_scheduled_recommendations' %>
           <% else %>
             <p class="centered">
-              You don't have any scheduled bookmarks.
+              Add reminders to your bookmarks, so you won't forget them to check out later!
             </p>
           <% end %>
         </div>

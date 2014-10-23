@@ -1,14 +1,27 @@
 <div class="row">
   <% if @rakes.empty? %>
     <div class="col-md-12">
-      <h2>Welcome, <%= current_user.username %></h2>
+      <h3 class="centered">Welcome, <%= current_user.username %></h2>
+      <p class="centered">
+      Create a rake to start the Rakepage experience:
+      </p>
       <ul class="info-list">
-        <li>Create rakes to customize your news feed and to save and organize your bookmarks organized by topics.</li>
-        <li>You can also add reminders to your bookmarks, so you don't forget to get back to them.</li>
-        <li>Please have a look at the available rakes here: <%= link_to "All Rakes", master_rakes_path %></li>
-        <li>If you can't find your topic of interest, feel free to create a new rake!</li>
+        <li class="centered">Manage and read your customized news feed.</li>
+        <li class="centered">Save your bookmarks in pre-defined categories.
+        <li class="centered">Discover what other people find on the Internet.</li>
+        <li class="centered">Set reminders for your bookmarks.</li>
       </ul>
-      <br><br><br><br><br><br><br><br><br>
+      <br>
+      <br>
+      <p class="centered">
+      To create a rake, start with choosing a topic here:
+      </p>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= link_to "View Topics", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
+        </div>
+      </div>
+      <br><br><br><br>
     </div>
   <% end %>
   <% @rakes.each do |r| %>
