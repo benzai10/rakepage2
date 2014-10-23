@@ -27,6 +27,9 @@
               <div class="media-body">
                 <h5 class="media-heading">Feed</h5>
                 <p>
+                  <% if !@rake.refreshed_at.nil? %>
+                    updated: <%= time_ago_in_words(@rake.refreshed_at) %> ago
+                  <% end %>
                 </p>
               </div>
             </div>
@@ -43,6 +46,7 @@
               <div class="media-body">
                 <h5 class="media-heading">Channels</h5>
                 <p>
+                  <%= pluralize(@rake.channels.where.not(channel_type: 3).count, "Channel") %>
                 </p>
               </div>
             </div>
