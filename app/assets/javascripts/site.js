@@ -11,14 +11,14 @@ $(function() {
     $('.create-rake-info').hide();
 
     $('#create-rake-info').click(function(){
-        if ($('#create-rake-toggle').html() == 'Create Rake') {
+        if ($('#create-rake-toggle').html().indexOf("Create Rake") > 0) {
             $('.master-rake-content').hide();
             $('.create-rake-info').show();
-            $('#create-rake-toggle').html('Back');
+            $('#create-rake-toggle').html('<i class="fa fa-long-arrow-right white"></i>' + 'Back');
         } else {
             $('.create-rake-info').hide();
             $('.master-rake-content').show();
-            $('#create-rake-toggle').html('Create Rake');
+            $('#create-rake-toggle').html('<i class="fa fa-plus white"></i>' + 'Create Rake');
         }
     });
 
