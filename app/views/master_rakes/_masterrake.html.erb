@@ -22,6 +22,7 @@
               <div class="media-body">
                 <h5 class="media-heading">Feed</h5>
                 <p>
+                  updated: <%= time_ago_in_words(@rake.refreshed_at) %> ago
                 </p>
               </div>
             </div>
@@ -38,6 +39,7 @@
               <div class="media-body">
                 <h5 class="media-heading">Channels</h5>
                 <p>
+                  <%= pluralize(@channels.count, "Channel") %>
                 </p>
               </div>
             </div>
@@ -53,11 +55,11 @@
         <h5>
           <% if user_signed_in? %>
             <span class="pull-right">
-              <small><%= link_to "Refresh", master_rake_path(refresh: "yes", collapse: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
+              <small><%= link_to "Update", master_rake_path(refresh: "yes", collapse: "feed"), { class: "btn btn-xs btn-primary", id: "ga-feed-refresh" } %></small>
             </span>
           <% else %>
             <span class="pull-right">
-              <small><%= link_to "Sign in to refresh", new_user_session_path, { class: "btn btn-xs btn-primary", id: "ga-feed-refresh-sign-in" } %></small>
+              <small><%= link_to "Sign in to update", new_user_session_path, { class: "btn btn-xs btn-primary", id: "ga-feed-refresh-sign-in" } %></small>
             </span>
           <% end %>
         </h5>
