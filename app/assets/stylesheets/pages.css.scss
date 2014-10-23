@@ -314,18 +314,18 @@
     h1 {
       margin-bottom: 2px;
       margin-top: 25px !important;
-      font-family: 'Roboto', sans-serif;
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: white;
-      text-align: center;
+      font-family: 'Roboto', sans-serif !important;
+      font-size: 30px !important;
+      font-weight: 700 !important;
+      letter-spacing: 3px !important;
+      color: white !important;
+      text-align: center !important;
     }
     h2 {
       margin-bottom: 2px;
       margin-top: 5px;
       font-family: 'Roboto', sans-serif;
-      font-size: 20px;
+      font-size: 20px !important;
       font-weight: 500;
       letter-spacing: 0px;
       color: white;

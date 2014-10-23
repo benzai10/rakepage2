@@ -892,7 +892,11 @@ body.nav-expanded {
   }
 
   h1 {   
-    font-size: 17px;
+    font-size: 17px !important;
+  }
+
+  h2 {
+    font-size: 15px !important;
   }
 
 }
