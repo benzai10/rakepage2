@@ -242,15 +242,23 @@ class MyrakesController < ApplicationController
       else
         reminder_at = nil
       end
-      @rake.add_leaflet(leaflet, 
+      if @rake.add_leaflet(leaflet, 
                         params[:myrake][:leaflet_type_id],
                         params[:myrake][:leaflet_title],
                         params[:myrake][:leaflet_desc],
                         reminder_at)
-      if session[:rake_class] == MasterRake
-        redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+        if session[:rake_class] == MasterRake
+          redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+        else
+          redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+        end
       else
-        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+        flash[:error] = ["You have to select a bookmark category."]
+        if session[:rake_class] == MasterRake
+          redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse])
+        else
+          redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
+        end
       end
     elsif params[:commit] == "Create Bookmark"
       if params[:myrake][:leaflet_title].empty? || params[:myrake][:leaflet_desc].empty?
