@@ -68,52 +68,26 @@
             &nbsp;|&nbsp;
             Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
           </span>
-          <% if l.identifier.nil? %>
-            <% modalType = "#editLeafletModal2" %>
-          <% else %>
-            <% modalType = "#editRestrictedLeafletModal2" %>
-          <% end %>
           <span class="pull-right">
-              <%#= link_to '&nbsp;'.html_safe + '<i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i>&nbsp;'.html_safe,
-                          "#",
-                          data: { toggle: "modal",
-                                  target: "#{modalType}",
-                                  id: l.id,
-                                  heapid: lm.heap.id,
-                                  collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
-                                  title: l.title,
-                                  content: l.content,
-                                  description: description,
-                                  url: l.url,
-                                  reminder: reminder_at,
-                                  access: "full" },
-                          :method => :put, 
-                          :action => :update, 
-                          remote: true,
-                          class: "leaflet-edit" %>
-              <%= link_to "Edit", "#",
-                          data: { toggle: "modal",
-                                  target: "#{modalType}",
-                                  id: l.id,
-                                  heapid: lm.heap.id,
-                                  collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
-                                  title: l.title,
-                                  content: l.content,
-                                  description: description,
-                                  url: l.url,
-                                  reminder: reminder_at,
-                                  access: "full" },
-                          :method => :put, 
-                          :action => :update, 
-                          remote: true,
-                          class: "btn btn-default btn-xs leaflet-edit" %>
-              <%#= link_to '&nbsp;'.html_safe + '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete"></i>'.html_safe, 
-                    remove_leaflet_heap_path(lm.heap, leaflet_id: l.id),
-                    :data => { :confirm => "Are you sure? You will delete the bookmark also from your rake!" },
-                    :method => :get, remote: true %>
-              <%= link_to "Delete", remove_leaflet_heap_path(lm.heap, leaflet_id: l.id),
-                    :data => { :confirm => "Are you sure? You will delete the bookmark also from your rake!" },
-                    :method => :get, remote: true, class: "btn btn-default btn-xs" %>
+            <%= link_to "Set", "#",
+                        data: { toggle: "modal",
+                                target: "#setReminderModal",
+                                id: l.id,
+                                heapid: lm.heap.id,
+                                collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
+                                title: l.title,
+                                content: l.content,
+                                description: description,
+                                url: l.url,
+                                reminder: reminder_at,
+                                access: "full" },
+                        :method => :put, 
+                        :action => :update, 
+                        remote: true,
+                        class: "btn btn-default btn-xs leaflet-edit" %>
+            <%= link_to "Delete", remove_leaflet_heap_path(lm.heap, leaflet_id: l.id),
+                  :data => { :confirm => "Are you sure? You will delete the bookmark also from your rake!" },
+                  :method => :get, remote: true, class: "btn btn-default btn-xs" %>
           </span>
         </div>
         <hr>
