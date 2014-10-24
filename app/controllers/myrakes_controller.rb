@@ -86,6 +86,8 @@ class MyrakesController < ApplicationController
     @heap_id = params[:collapse].to_s.slice(5..-1)
     if @heap_collapse != "active"
       @feed_collapse = "active"
+    else
+      @feed_collapse = ""
     end
     if user_signed_in?
       heap_ids = []
@@ -223,7 +225,7 @@ class MyrakesController < ApplicationController
       end
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title], leaflet_desc: params[:myrake][:leaflet_desc], reminder_at: reminder_at)
       leaflet.update_attributes(title: params[:myrake][:leaflet_title], content: params[:myrake][:leaflet_desc], url: params[:myrake][:leaflet_url])
-      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:heap_id] + "_" + params[:myrake][:leaflet_id])
+      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:collapse].scan(/\d+$/).first + "_" + params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       case params[:myrake][:reminder_at].to_i

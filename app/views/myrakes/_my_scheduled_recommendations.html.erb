@@ -66,7 +66,7 @@
             Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
           </span>
           <span class="pull-right">
-            <%= link_to "Set", "#",
+            <%#= link_to "Set", "#",
                         data: { toggle: "modal",
                                 target: "#setReminderModal",
                                 id: l.id,
@@ -81,6 +81,19 @@
                         :method => :put, 
                         :action => :update, 
                         remote: true,
+                        class: "btn btn-default btn-xs leaflet-edit" %>
+            <%= link_to "Set", "#",
+                        data: { toggle: "modal",
+                                target: "#setReminderModal",
+                                id: l.id,
+                                heapid: lm.heap.id,
+                                collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
+                                title: l.title,
+                                content: l.content,
+                                description: description,
+                                url: l.url,
+                                reminder: reminder_at,
+                                access: "full" },
                         class: "btn btn-default btn-xs leaflet-edit" %>
             <%= link_to "Delete", remove_leaflet_heap_path(lm.heap, leaflet_id: l.id),
                   :data => { :confirm => "Are you sure? You will delete the bookmark also from your rake!" },

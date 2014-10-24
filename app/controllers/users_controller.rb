@@ -11,16 +11,18 @@ class UsersController < ApplicationController
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:user][:heap_id].to_i, 
                                           params[:user][:leaflet_id].to_i).first
-      case params[:user][:reminder_at].to_i
+      case xparams[:user][:reminder_at].to_i
       when 0
         reminder_at = nil
       when 1
-        reminder_at = Time.now + 1.day
+        reminder_at = Time.now + 1.hour
       when 2
-        reminder_at = Time.now + 3.day
+        reminder_at = Time.now + 1.day
       when 3
-        reminder_at = Time.now + 1.week
+        reminder_at = Time.now + 3.day
       when 4
+        reminder_at = Time.now + 1.week
+      when 5
         reminder_at = Time.now + 1.month
       else
         reminder_at = nil
