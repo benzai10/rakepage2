@@ -35,6 +35,9 @@ class Leaflet < ActiveRecord::Base
       #end
       content = content.gsub(/<img[^>]+\>/mi, '')
     end
+    if content.include? "new.livestream.com"
+      content = ""
+    end
     self.content = content
   end
 end
