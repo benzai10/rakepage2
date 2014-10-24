@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:user][:heap_id].to_i, 
                                           params[:user][:leaflet_id].to_i).first
-      case xparams[:user][:reminder_at].to_i
+      case params[:user][:reminder_at].to_i
       when 0
         reminder_at = nil
       when 1
