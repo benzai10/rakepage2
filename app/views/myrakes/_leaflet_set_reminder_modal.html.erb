@@ -11,9 +11,9 @@
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
-          <%#= f.text_field :leaflet_title, { disabled: true, label: "Bookmark Title", class: "leaflet-custom-title" } %>
-          <%#= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
-          <%#= f.text_area :leaflet_url, { disabled: true, label: "URL (including leading http://)", class: "leaflet-url" } %>
+          <%= f.hidden_field :leaflet_title, { disabled: true, label: "Bookmark Title", class: "leaflet-custom-title" } %>
+          <%= f.hidden_area :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
+          <%= f.hidden_area :leaflet_url, { disabled: true, label: "URL (including leading http://)", class: "leaflet-url" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
           <% reminder_period << ["in 1 hour", 1] %>

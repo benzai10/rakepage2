@@ -58,7 +58,7 @@ class MasterRakesController < ApplicationController
     @heaps = @rake.master_heaps.where.not(leaflet_type_id: 15)
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""
     @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
-    if @heap_collapse = ""
+    if @heap_collapse == ""
       @feed_collapse = "active"
     end
     @heap_id = params[:collapse].to_s.slice(5..-1)
