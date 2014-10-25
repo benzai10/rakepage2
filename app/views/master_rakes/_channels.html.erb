@@ -67,8 +67,10 @@
           </span>
         </h5>
         <p class="channel-info">
-          <i class="fa fa-bookmark" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
           <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
+          &nbsp;|&nbsp;
+          <i class="fa fa-bookmark" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+          &nbsp;|&nbsp;
           <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
         </p>
       </div>

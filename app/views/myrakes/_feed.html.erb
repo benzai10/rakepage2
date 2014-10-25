@@ -1,7 +1,7 @@
-<span class="rake-nav">NEWS FEED<hr></span>
+<span class="rake-nav">NEW INSPIRATIONS<hr></span>
 <% if @feed_leaflets.count == 0 %>
   <p class="info-text centered">
-    Add a blog or subreddit to populate the feed.
+    Add a blog or subreddit to get inspirations from your favorite channels.
   </p>
 <% end %>
 <br>
@@ -55,62 +55,42 @@
         <p class="feed-body"><%= l.content.html_safe unless l.content == "No content details to display." %></p>
         <br>
         <span class="leaflet-metrics">
-          Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
-          &nbsp;|&nbsp;
-          Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-          &nbsp;|&nbsp;
-          Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+          <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+          <i class="fa fa-user purple"></i>
         </span>
         <span class="pull-right">
-          <% if user_signed_in? %>
-            <span class="feed-button">
-              <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-                  <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
-                    &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Liked count"></i>
-                  <% else %>
-                    &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
-                  <% end %>
-              </span>
-              <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
-            </span>
-            &nbsp;
-          <% end %>
           <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
             <% if (@heap_leaflets.include? l) && user_signed_in? && (@rake.user_id == current_user.id) %>
               &nbsp;<i class="fa fa-bookmark"></i>
             <% else %>
               <% if user_signed_in? %>
-                <span class="feed-button">
-                  <% if @rake.user_id == current_user.id %>
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
-                                  add_leaflet_myrake_path(@rake),
-                                  data: { toggle: "modal",
-                                          target: "#myModal",
-                                          id: l.id,
-                                          heapid: l.leaflet_type_id,
-                                          title: l.title,
-                                          collapse: "feed" },
-                                  class: "leaflet-save" %>
-                      &nbsp;
-                  <% else %>
-                    <% if !@other_user_rake.nil? %>
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
-                                add_leaflet_myrake_path(@other_user_rake),
+                <% if @rake.user_id == current_user.id %>
+                    <%= link_to "Inspiring!",
+                                add_leaflet_myrake_path(@rake),
                                 data: { toggle: "modal",
                                         target: "#myModal",
                                         id: l.id,
                                         heapid: l.leaflet_type_id,
                                         title: l.title,
                                         collapse: "feed" },
-                                class: "leaflet-save" %>
-                      &nbsp;
-                    <% else %>
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, new_myrake_path, 
-                                  data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
-                      &nbsp;
-                    <% end %>
+                                class: "btn btn-primary btn-xs leaflet-save" %>
+                <% else %>
+                  <% if !@other_user_rake.nil? %>
+                    <%= link_to "Inspiring!",
+                              add_leaflet_myrake_path(@other_user_rake),
+                              data: { toggle: "modal",
+                                      target: "#myModal",
+                                      id: l.id,
+                                      heapid: l.leaflet_type_id,
+                                      title: l.title,
+                                      collapse: "feed" },
+                              class: "btn btn-primary btn-xs leaflet-save" %>
+                  <% else %>
+                    <%= link_to "Inspiring!", new_myrake_path, 
+                                data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title },
+                                class: "btn btn-primary btn-xs leaflet-save" %>
                   <% end %>
-                </span>
+                <% end %>
               <% end %>
             <% end %>
           </span>

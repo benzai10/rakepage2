@@ -64,7 +64,7 @@
           <% if user_signed_in? %>
             <small><%= link_to "Refresh", myrake_path(refresh: "yes", collapse: "feed"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %></small>
           <% else %>
-            <small><%= link_to "Sign in to refresh or save", new_user_session_path, id: "ga-my-feed-refresh-sign-in" %></small>
+            <small><%= link_to "Sign in to refresh or save", root_path, id: "ga-my-feed-refresh-sign-in" %></small>
           <% end %>
           </span>
         </h5>
@@ -93,9 +93,9 @@
                                   channeltype: 4 },
                           class: "btn btn-xs btn-primary add-subreddit-feed" %>
             <% else %>
-              <%= link_to "Add Blog", new_user_session_path, 
+              <%= link_to "Add Blog", root_path, 
                           class: "btn btn-xs btn-primary add-rss-feed" %>
-              <%= link_to "Add Subreddit", new_user_session_path,
+              <%= link_to "Add Subreddit", root_path,
                           class: "btn btn-xs btn-primary add-subreddit-feed" %>
             <% end %>
           </span>

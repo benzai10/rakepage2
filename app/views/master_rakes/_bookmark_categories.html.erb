@@ -15,9 +15,9 @@
               </p>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">Reminders</h5>
+              <h5 class="media-heading">Get productive</h5>
               <p class=<%= "new-rec-alert" if @overdue_leaflets_rake.count > 0 %>>
-                <%= pluralize(@overdue_leaflets_rake.count, "reminder") %> for this rake.
+                <%= pluralize(@overdue_leaflets_rake.count, "due inspiration") %> for this rake.
               </p>
             </div>
           </div>
@@ -39,9 +39,9 @@
               </p>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">Reminders</h5>
+              <h5 class="media-heading">Get productive</h5>
               <p>
-                for bookmarks
+                based on bookmarked inspirations
               </p>
             </div>
           </div>
@@ -90,16 +90,20 @@
 
   <div class="tab-pane" id="rake-reminders">
     <a class="anchor" name="rake-reminders"></a>
-    <span class="rake-nav">BOOKMARK REMINDERS<hr></span>
+    <span class="rake-nav">BOOKMARKED INSPIRATIONS<hr></span>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <p class="info-text centered">
-          You need  an account and a customized rake to create and view bookmark reminders.
+          <strong>Motivated to get productive?</strong>
         </p>
-        <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+        <p class="info-text centered">
+          You need  an account and a customized rake to create and view bookmarked inspirations.
+        </p>
+        <br>
+        <%= link_to "Sign Up", root_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
         <br><br>
         <p class="info-text centered">
-          or <%= link_to "sign in", new_user_session_path %>.
+          or <%= link_to "sign in", root_path %>.
         </p>
       </div>
     </div>
@@ -231,28 +235,10 @@
                 </p>
                 <br>
                 <span class="leaflet-metrics">
-                  Viewed <span class="v_count_<%= h.leaflet_type_id.to_s + "_" + l.id.to_s %>"><%= l.view_count %></span>
-                  &nbsp;|&nbsp;
-                  Saved <span class="s_count_<%= h.leaflet_type_id.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
-                  &nbsp;|&nbsp;
-                  Deleted <span class="d_count_<%= h.leaflet_type_id.to_s + "_" + l.id.to_s %>"><%= l.delete_count %></span>
+                  <span class="s_count_<%= h.leaflet_type_id.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
+                  <i class="fa fa-user purple"></i>
                 </span>
                 <span class="pull-right">
-                  <span class="feed-button">
-                    <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-                    <% if user_signed_in? %>
-                      <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
-                        &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Liked"></i>
-                      <% else %>
-                        &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
-                      <% end %>
-                    <% else %>
-                      &nbsp;<i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Like"></i>
-                    <% end %>
-                    </span>
-                    <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
-                  </span>
-                  &nbsp;
                   <% if user_signed_in? %>
                     <% user_rake = @rake.myrakes.where(user_id: current_user.id).first %>
                     <% if !user_rake.nil? %>
@@ -261,28 +247,27 @@
                       <% if user_heap_leaflet_ids.include? l.id %>
                         <i class="fa fa-bookmark"></i>
                       <% else %>
-                        <span class="feed-button">
-                          <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, 
-                                add_leaflet_myrake_path(user_rake), 
-                                data: { toggle: "modal",
-                                        target: "#myModal",
-                                        rakename: user_rake.name,
-                                        id: l.id,
-                                        heapid: h.leaflet_type_id,
-                                        title: l.title,
-                                        collapse: "heap_" + "#{h.leaflet_type_id}" },
-                                class: "leaflet-save" %>
-                        </span>
+                        <%= link_to "Inspiring!", 
+                              add_leaflet_myrake_path(user_rake), 
+                              data: { toggle: "modal",
+                                      target: "#myModal",
+                                      rakename: user_rake.name,
+                                      id: l.id,
+                                      heapid: h.leaflet_type_id,
+                                      title: l.title,
+                                      collapse: "heap_" + "#{h.leaflet_type_id}" },
+                              class: "btn btn-primary btn-xs leaflet-save" %>
                       <% end %>
                     <% else %>
-                      <span class="feed-button">
-                        <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
-                              new_myrake_path(master_rake_id: @rake.id),
-                                            data: { toggle: "modal",
-                                                    target: "#newCustomRakeModal",
-                                                  } %>
-                      </span>
+                      <%= link_to "Inspiring!",
+                            new_myrake_path(master_rake_id: @rake.id),
+                                          data: { toggle: "modal",
+                                                  target: "#newCustomRakeModal",
+                                                },
+                                          class: "btn btn-primary btn-xs" %>
                     <% end %>
+                  <% else %>
+                    <%= link_to "Inspiring!", root_path, class: "btn btn-primary btn-xs" %>
                   <% end %>
                   &nbsp;
                 </span>

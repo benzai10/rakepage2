@@ -1,4 +1,4 @@
-<span class="rake-nav">NEWS FEED<hr></span>
+<span class="rake-nav">NEW INSPIRATIONS<hr></span>
 <% if @feed_leaflets.count == 0 %>
   <p class="info-text centered">
     The news feed is empty because there are no blogs or subreddits added to this topic. 
@@ -13,7 +13,7 @@
                                                                                  } %>
       <% end %>
     <% else %>
-      You can add blogs or subreddits if you create a personal rake. <%= link_to "Sign in.", new_user_session_path %>
+      You can add blogs or subreddits if you create a personal rake. <%= link_to "Sign in.", root_path %>
     <% end %>
   </p>
 <% end %>
@@ -67,63 +67,41 @@
         <p class="feed-body"><%= raw l.content unless l.content == "No content details to display." %></p>
         <br>
         <span class="leaflet-metrics">
-          Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
-          &nbsp;|&nbsp;
-          Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-          &nbsp;|&nbsp;
-          Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+          <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+          <i class="fa fa-user purple"></i>
         </span>
         <span class="pull-right">
-          <span class="feed-button">
-            <span id="<%= 'feed-heart-icon-' + l.id.to_s %>">
-              <% if user_signed_in? %>
-                <% if History.where("user_id = ?", current_user.id).liked.pluck(:leaflet_id).include? l.id %>
-                  &nbsp;<i class="fa fa-heart" data-toggle="tooltip" data-placement="top" title="Liked count"></i>
-                <% else %>
-                  &nbsp;<i class="fa fa-heart-o like" data-toggle="tooltip" data-placement="top" title="Like" value=<%= l.id %>></i>
-                <% end %>
-              <% else %>
-                &nbsp;<i class="fa fa-heart-o" data-toggle="tooltip" data-placement="top" title="Liked count"></i>
-              <% end %>
-            </span>
-            <span class="l_count_<%= l.id %>"><%= l.like_count %></span>
-          </span>
-          &nbsp;
           <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
             <% if !@heap_leaflets.nil? %>
               <% if @heap_leaflets.include? l %>
                 &nbsp;<i class="fa fa-bookmark"></i>
               <% else %>
-                <span class="feed-button">
-                  <% if user_signed_in? %>
-                    <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
-                                add_leaflet_myrake_path(@custom_rake), 
-                                data: { toggle: "modal", 
-                                        target: "#myModal",
-                                        id: l.id,
-                                        title: l.title,
-                                        collapse: "feed" },
-                                        class: "leaflet-save" %>
-                  <% else %>
-                    <%= link_to '&nbsp'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, new_user_session_path %>
-                  <% end %>
-                </span>
+                <% if user_signed_in? %>
+                  <%= link_to "Inspiring!",
+                              add_leaflet_myrake_path(@custom_rake), 
+                              data: { toggle: "modal", 
+                                      target: "#myModal",
+                                      id: l.id,
+                                      title: l.title,
+                                      collapse: "feed" },
+                                      class: "btn btn-primary btn-xs leaflet-save" %>
+                <% else %>
+                  <%= link_to "Inspiring!", root_path, class: "btn btn-primary btn-xs" %>
+                <% end %>
               <% end %>
             <% else %>
-              <span class="feed-button">
               <% if user_signed_in? %>
-                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe,
+                <%= link_to "Inspiring!",
                       new_myrake_path(master_rake_id: @rake.id),
                                     data: { toggle: "modal",
                                             target: "#newCustomRakeModal",
-                                          } %>
+                                          },
+                                    class: "btn btn-primary btn-xs" %>
               <% else %>
-                <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save Bookmark"></i>'.html_safe, new_user_session_path %>
+                <%= link_to "Inspiring!", root_path, class: "btn btn-primary btn-xs" %>
               <% end %>
-              </span>
             <% end %>
           </span>
-          &nbsp;
         </span>
       </div>
       <hr>

@@ -23,6 +23,9 @@
                 <%= m.name %>
               </h5>
               <p>
+                <%= m.myrakes.count.to_s %>
+                <i class="fa fa-user purple"></i>
+                &nbsp;|&nbsp;
                 <%= master_leaflets.count.to_s %>
                 <% if user_signed_in? %>
                   <span class="new-rec-alert">

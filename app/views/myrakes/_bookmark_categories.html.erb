@@ -15,14 +15,14 @@
               </p>
             </span>
             <div class="media-body">
-              <h5 class="media-heading">Reminders</h5>
+              <h5 class="media-heading">Get productive</h5>
               <% if user_signed_in? %>
                 <p class=<%= "new-rec-alert" if @overdue_leaflets_rake.count > 0 %>>
-                  <%= pluralize(@overdue_leaflets_rake.count, "reminder") %> for this rake.
+                  <%= pluralize(@overdue_leaflets_rake.count, "due inspiration") %> for this rake.
                 </p>
               <% else %>
                 <p>
-                  Don't forget to get back to your bookmarks!
+                  based on your bookmarked inspirations.
                 </p>
               <% end %>
             </div>
@@ -102,7 +102,7 @@
         <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
         <br><br>
         <p class="info-text centered">
-          or <%= link_to "sign in", new_user_session_path %>.
+          or <%= link_to "sign in", root_path %>.
         </p>
       </div>
     </div>
@@ -122,7 +122,7 @@
           <% if user_signed_in? %>
             <%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %>
           <% else %>
-            <%= link_to "Add Bookmark", new_user_session_path, class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+            <%= link_to "Add Bookmark", root_path, class: "pull-right btn btn-xs btn-primary add-recommendation" %>
           <% end %>
         </small>
       </h5>
@@ -179,7 +179,7 @@
           <% else %>
             <h5>
               <small>You have to be signed in to add bookmarks:
-                <%= link_to "Sign in", new_user_session_path, id: "ga-my-sign-in-to-bookmark" %>
+                <%= link_to "Sign in", root_path, id: "ga-my-sign-in-to-bookmark" %>
               </small>
             </h5>
           <% end %>
@@ -276,23 +276,18 @@
                 </p>
                 <br>
                 <span class="leaflet-metrics">
-                  Viewed <span class="v_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.view_count %></span>
-                  &nbsp;|&nbsp;
-                  Saved <span class="s_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
-                  &nbsp;|&nbsp;
-                  Deleted <span class="d_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.delete_count %></span>
+                  <span class="s_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
+                  <i class="fa fa-user purple"></i>
                 </span>
                 <span class="pull-right">
-
-                <% if user_signed_in? %>
-                  <% if @rake.user_id == current_user.id %>
-                    <% if l.identifier.nil? %>
-                      <% modalType = "#editLeafletModal" %>
-                    <% else %>
-                      <% modalType = "#editRestrictedLeafletModal" %>
-                    <% end %>
-                    <span class="feed-button">
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i>'.html_safe,
+                  <% if user_signed_in? %>
+                    <% if @rake.user_id == current_user.id %>
+                      <% if l.identifier.nil? %>
+                        <% modalType = "#editLeafletModal" %>
+                      <% else %>
+                        <% modalType = "#editRestrictedLeafletModal" %>
+                      <% end %>
+                      <%= link_to "Edit",
                                   "#",
                                   data: { toggle: "modal",
                                           target: "#{modalType}",
@@ -308,27 +303,31 @@
                                   :method => :put, 
                                   :action => :update, 
                                   remote: true,
-                                  class: "leaflet-edit" %>
-                    </span>
-                    &nbsp;
-                    <span class="feed-button">
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-clipboard" data-toggle="tooltip" data-placement="top" title="Copy"></i>'.html_safe, "#", data: { toggle: "modal", target: "#copyLeafletModal", id: l.id, heapid: heap.id, title: l.title }, :method => :put, :action => :update, remote: true, class: "leaflet-copy" %>
-                    </span>
-                    &nbsp;
-                    <span class="feed-button">
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Delete"></i>'.html_safe, 
+                                  class: "btn btn-default btn-xs leaflet-edit" %>
+                      <%= link_to "Copy", 
+                                  "#",
+                                  data: { toggle: "modal",
+                                          target: "#copyLeafletModal", 
+                                          id: l.id,
+                                          heapid: heap.id,
+                                          title: l.title },
+                                  :method => :put,
+                                  :action => :update,
+                                  remote: true,
+                                  class: "btn btn-default btn-xs leaflet-copy" %>
+                      <%= link_to "Delete", 
                             remove_leaflet_heap_path(heap, leaflet_id: l.id),
                             :data => { :confirm => "Are you sure?" },
-                            :method => :get, remote: true %>
-                    </span>
-                  <% else %>
-                    <span class="feed-button">
-                      <%= link_to '&nbsp;'.html_safe + '<i class="fa fa-save" data-toggle="tooltip" data-placement="top" title="Save"></i>'.html_safe, new_myrake_path, 
-                                  data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title }, class: "leaflet-save" %>
-                    </span>
+                            :method => :get, remote: true, class: "btn btn-default btn-xs" %>
+                    <% else %>
+                      <%= link_to "Inspiring!", new_myrake_path, 
+                                  data: { toggle: "modal",
+                                          target: "#newCustomRakeAddLeafletModal",
+                                          id: l.id,
+                                          title: l.title },
+                                  class: "btn btn-default btn-xs leaflet-save" %>
+                    <% end %>
                   <% end %>
-                <% end %>
-                &nbsp;
                 </span>
               </div>
               <hr>

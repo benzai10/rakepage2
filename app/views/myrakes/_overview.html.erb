@@ -1,8 +1,8 @@
-<h1>My Rakes (<%= User.find(current_user.id).username %>)</h1>
+<h1><%= User.find(current_user.id).username %>, let's get productive based on inspirations!</h1>
 <div class="panel panel-default">
   <div class="panel-heading panel-my-rakes-overview">
     <h5 class="panel-title">
-      <%= "#{@rakes.count} Rakes with #{@recommendations.count} Bookmarks" %>
+      <%= "#{@rakes.count} Rakes with #{@recommendations.count} bookmarked Inspirations" %>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
@@ -32,7 +32,7 @@
         </div>
         <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
           <br>
-          <span class="rake-nav">OVERDUE BOOKMARKS<hr></span>
+          <span class="rake-nav">DUE INSPIRATIONS<hr></span>
           <% if @overdue_leaflets.count > 0 %>
             <%= render 'my_overdue_recommendations' %>
           <% else %>
@@ -42,12 +42,12 @@
             <br>
             <br>
           <% end %>
-          <span class="rake-nav">SCHEDULED BOOKMARKS<hr></span>
+          <span class="rake-nav">UPCOMING INSPIRATIONS<hr></span>
           <% if @scheduled_leaflets.count > 0 %>
             <%= render 'my_scheduled_recommendations' %>
           <% else %>
             <p class="centered">
-              Add reminders to your bookmarks, so you won't forget them to check out later!
+              Add reminders to your bookmarked inspirations to increase your productivity!
             </p>
             <br><br><br><br>
           <% end %>

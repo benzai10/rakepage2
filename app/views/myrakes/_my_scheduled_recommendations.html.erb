@@ -59,11 +59,8 @@
           </p>
           <br>
           <span class="leaflet-metrics">
-            Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
-            &nbsp;|&nbsp;
-            Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-            &nbsp;|&nbsp;
-            Deleted <span class="d_count_<%= l.id %>"><%= l.delete_count %></span>
+            <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+            <i class="fa fa-user purple"></i>
           </span>
           <span class="pull-right">
             <%#= link_to "Set", "#",
