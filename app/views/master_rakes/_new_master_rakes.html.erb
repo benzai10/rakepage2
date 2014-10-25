@@ -23,11 +23,19 @@
                 <%= m.name %>
               </h5>
               <p>
-                <%= master_leaflets.count.to_s %>&nbsp;<i class="fa fa-bookmark purple"></i>
+                <%= master_leaflets.count.to_s %>
+                <% if user_signed_in? %>
+                  <span class="new-rec-alert">
+                    <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
+                    <% if !user_rake.nil? %>
+                      <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
+                      <%= "(" + new_count.to_s + ")" unless new_count == 0 %>
+                    <% end %>
+                  </span>
+                <% end %>
+                <i class="fa fa-bookmark purple"></i>
                 &nbsp;|&nbsp;
-                <%= m.channels.count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
-              </p>
-              <p>
+                <%= m.channels.count.to_s %>
                 <% if user_signed_in? %>
                   <span class="new-rec-alert">
                     <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
@@ -35,15 +43,13 @@
                       <% new_channels = m.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
                       <% new_channels -= user_rake.channels %>
                       <% @new_count = new_channels.count %>
-                      <%= pluralize(@new_count, "New Blog/Subreddit") unless @new_count == 0 %>
-                      <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                      <% if @new_count > 0 && new_count > 0 %>
-                        &nbsp;|&nbsp;
-                      <% end %>
-                      <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
+                      <%= "(" + @new_count.to_s + ")" unless @new_count == 0 %>
                     <% end %>
                   </span>
                 <% end %>
+                <i class="fa fa-rss purple"></i>
+              </p>
+              <p>
               </p>
             </div>
           </div>
