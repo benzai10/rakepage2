@@ -23,13 +23,6 @@
                     <h5 class="media-heading">
                       <% if user_signed_in? %>
                         <% if pmr.myrakes.pluck(:user_id).include? current_user.id %>
-                          <% user_rake = pmr.myrakes.find_by_user_id(current_user.id) %>
-                          <% if !user_rake.nil? %>
-                            <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                            <% if new_count > 0 %>
-                              <%= "(" + new_count.to_s + ")" unless new_count == 0 %>
-                            <% end %>
-                          <% end %>
                           <i class="fa fa-bookmark"></i>
                         <% end %>
                       <% end %>
