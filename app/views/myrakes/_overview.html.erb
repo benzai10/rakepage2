@@ -11,8 +11,11 @@
         <div class="tab-header">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
+            <li class="rake-nav <%= @toprakes_collapse %>">
+              <a href="#top-rakes" id="ga-view-toprakes" role="tab" data-toggle="tab">TOP 5</a>
+            </li>
             <li class="rake-nav <%= @myrakes_collapse %>">
-              <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">RAKES</a>
+              <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">OTHER</a>
             </li>
             <li class="rake-nav <%= @reminders_collapse %>">
               <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">
@@ -26,6 +29,10 @@
 
       <!-- Tab panes -->
       <div class="tab-content">
+        <div class="tab-pane <%= @toprakes_collapse %>" id="top-rakes">
+          <br>
+          <%= render 'top_rakes' %>
+        </div>
         <div class="tab-pane <%= @myrakes_collapse %>" id="my-rakes">
           <br>
           <%= render 'my_rakes' %>

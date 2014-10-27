@@ -11,9 +11,14 @@
           <h3>My <%= @master_rakes.first.name %> bookmarks</h3>
           <%= f.hidden_field :name, value: @rake.name %>
           <p>
-            Existing bookmarks will be copied to your personal rake. If you want to start your bookmarking rake from scratch, please uncheck the box below.
+            Exisiting bookmarked inspirations will be copied to your personal rake. If you want to add inspirations from scratch, please uncheck the box below.
           </p>
-          <%= f.check_box :copy_recommendations, label: "Copy Bookmarks", checked: true %>
+          <%= f.check_box :copy_recommendations, label: "Copy bookmarked inspirations", checked: true %>
+          <% if @rakes.where(top_rake: 1).count < 5 %>
+            <%= f.check_box :top_rake, label: "Add to my Top 5", checked: true %>
+          <% else %>
+            <%= f.check_box :top_rake, label: "Add to my Top 5", checked: false, disabled: true %>
+          <% end %>
           <%= f.hidden_field :master_rake_id, label: "Copy existing bookmarks", value: @rake.id %>
           <%= f.hidden_field :user_id, value: current_user.id %>
         </div>

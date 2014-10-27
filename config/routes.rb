@@ -72,6 +72,7 @@ Rakepage2::Application.routes.draw do
       get 'toggle_channel_display'
       get 'news'
       get 'saved'
+      post 'toggle_top_rake'
     end
     collection do
       get 'search'

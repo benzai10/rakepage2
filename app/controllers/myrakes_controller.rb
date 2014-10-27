@@ -8,26 +8,26 @@ class MyrakesController < ApplicationController
       return
     end
     @rakes = Myrake.where("user_id = ?", current_user.id)
-    #if @rakes.empty?
-    #  redirect_to master_rakes_path
-    #  return
-    #end
+    @top_rakes = @rakes.where(top_rake: 1)
     @new_master_rakes = MasterRake.newly_added
     heap_ids = []
     @rakes.each do |r|
       heap_ids << r.heaps.pluck(:id)
     end
     heap_ids = heap_ids.flatten
+    @rakes = @rakes.where(top_rake: 0)
     @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
     @new_leaflets = @recommendations.order(created_at: :desc).limit(50)
     @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
     @scheduled_leaflets = @recommendations.where("reminder_at > ?", Time.now).order(:reminder_at)
     if params[:collapse] == "reminders"
-      @reminders_collapse = "active"
+      @toprakes_collapse = ""
       @myrakes_collapse = ""
+      @reminders_collapse = "active"
     else
+      @toprakes_collapse = "active"
+      @myrakes_collapse = ""
       @reminders_collapse = ""
-      @myrakes_collapse = "active"
     end
   end
 
@@ -39,6 +39,7 @@ class MyrakesController < ApplicationController
       session[:heap] = "no"
     end
     params[:heap_type] ||= "News"
+    @top_rakes_count = Myrake.where("user_id = ? AND top_rake = 1", current_user.id).count
     @rake = Myrake.find(params[:id])
     if user_signed_in?
       if current_user.id == @rake.user_id
@@ -376,6 +377,23 @@ class MyrakesController < ApplicationController
     end
   end
 
+  def toggle_top_rake
+    @rake = Myrake.find(params[:id])
+    if @rake.top_rake == 0 
+      @rake.update_attributes(top_rake: 1)
+      respond_to do |format|
+        format.html { redirect_to myrake_path(@rake) }
+        format.js { render 'add_to_top'}
+      end
+    else
+      @rake.update_attributes(top_rake: 0)
+      respond_to do |format|
+        format.html { redirect_to myrake_path(@rake) }
+        format.js { render 'remove_from_top'}
+      end
+    end
+  end
+
   def get_url_title
     respond_to do |format|
       format.html { render :nothing }
@@ -386,6 +404,6 @@ class MyrakesController < ApplicationController
   protected
 
   def rake_params
-    params.require(:myrake).permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters)
+    params.require(:myrake).permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters, :top_rake)
   end
 end
