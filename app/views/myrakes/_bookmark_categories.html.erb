@@ -238,6 +238,9 @@
                 </span>
                 <br>
                 <span class="leaflet-title">
+                  <%# if !l.reminder_at.nil? %>
+                    <!-- <i class="fa fa-star purple"></i>&nbsp; -->
+                  <%# end %>
                   <% if heap_leaflet != "" %>
                     <% title = heap_leaflet.leaflet_title %>
                     <% if !title.nil? %>
