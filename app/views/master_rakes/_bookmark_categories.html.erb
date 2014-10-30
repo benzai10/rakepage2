@@ -115,7 +115,16 @@
     <div class="tab-pane <%= @heap_collapse if @heap_id == h.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
       <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, '') %>"></a>
       <span class="rake-nav"><%= leaflet_type_desc.upcase %><hr></span>
-      <%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+      <h5>
+        <small>
+          <% if user_signed_in? %>
+            <%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+          <% else %>
+            <%= link_to "Add Bookmark", root_path, class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+          <% end %>
+        </small>
+      </h5>
+      <br>
       <br>
       <div class="add-recommendation-form">
         <% if user_signed_in? && !@custom_rake.nil? %>

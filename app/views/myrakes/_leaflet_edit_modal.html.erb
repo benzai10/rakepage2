@@ -11,9 +11,9 @@
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
-          <%= f.text_area :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
-          <%= f.text_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
-          <%= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
+          <%= f.hidden_field :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
+          <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
+          <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
           <% reminder_period << ["in 1 hour", 1] %>
@@ -22,6 +22,12 @@
           <% reminder_period << ["in 1 week", 4] %>
           <% reminder_period << ["in 1 month", 5] %>
           <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+          <%= f.hidden_field :current_reminder, class: "current-reminder" %>
+          <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+          <%= f.text_area :leaflet_note, { label: "Notes (optional)", class: "leaflet-note" } %>
+          <label class="score-label">Score/Rating</label>
+          <%= f.range_field :current_score, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider3" %>
+          <text class="score centered" id="W3">0<text>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

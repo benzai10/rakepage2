@@ -24,6 +24,10 @@
           <% end %>
         </a>
         <div class="media-body">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: <%= lm.current_score.to_s %>%">
+            </div>
+          </div>
           <span class="feed-timestamp">
             <%#= Channel.find(l.channel_id).name %>
             <%= link_to myrake.name, myrake_path(myrake) %>
@@ -59,6 +63,9 @@
           </p>
           <br>
           <span class="leaflet-metrics">
+            <%= lm.current_score.to_s %>
+            <i class="fa fa-tasks purple"></i>
+            &nbsp|&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
             <i class="fa fa-user purple"></i>
           </span>
@@ -79,7 +86,7 @@
                         :action => :update, 
                         remote: true,
                         class: "btn btn-default btn-xs leaflet-edit" %>
-            <%= link_to "Set", "#",
+            <%= link_to "Edit", "#",
                         data: { toggle: "modal",
                                 target: "#setReminderModal",
                                 id: l.id,
@@ -88,6 +95,8 @@
                                 title: l.title,
                                 content: l.content,
                                 description: description,
+                                goal: lm.leaflet_goal,
+                                note: lm.leaflet_note,
                                 url: l.url,
                                 reminder: reminder_at,
                                 access: "full" },

@@ -39,7 +39,7 @@
         </div>
         <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
           <br>
-          <span class="rake-nav">DUE INSPIRATIONS<hr></span>
+          <span class="rake-nav">CURRENT INSPIRATIONS<hr></span>
           <% if @overdue_leaflets.count > 0 %>
             <%= render 'my_overdue_recommendations' %>
           <% else %>
@@ -63,11 +63,3 @@
     </div>
   </div>
 </div>
-
-<% if user_signed_in? %>
-  <%= render 'master_rakes/new_modal' %>
-  <%#= render 'myrakes/leaflet_move_modal' %>
-  <%= render 'myrakes/leaflet_edit_modal2' %>
-  <%= render 'myrakes/leaflet_edit_restricted_modal2' %>
-  <%= render 'myrakes/leaflet_set_reminder_modal' %>
-<% end %>

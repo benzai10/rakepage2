@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027102134) do
+ActiveRecord::Schema.define(version: 20141030060843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,10 +116,17 @@ ActiveRecord::Schema.define(version: 20141027102134) do
     t.integer  "leaflet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "leaflet_type_id", default: 0
+    t.integer  "leaflet_type_id",   default: 0
     t.text     "leaflet_desc"
     t.text     "leaflet_title"
     t.datetime "reminder_at"
+    t.integer  "motion_counter",    default: 0
+    t.integer  "action_counter",    default: 0
+    t.integer  "scheduled_counter", default: 0
+    t.string   "leaflet_goal",      default: ""
+    t.text     "leaflet_note",      default: ""
+    t.integer  "current_score",     default: 0
+    t.integer  "current_reminder",  default: 0
   end
 
   add_index "heap_leaflet_maps", ["heap_id", "leaflet_id"], name: "index_heap_leaflet_maps_on_heap_id_and_leaflet_id", unique: true, using: :btree
@@ -142,6 +149,8 @@ ActiveRecord::Schema.define(version: 20141027102134) do
     t.string   "history_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "history_int",      default: 0
+    t.string   "history_str",      default: ""
   end
 
   create_table "leaflet_types", force: true do |t|
@@ -154,7 +163,7 @@ ActiveRecord::Schema.define(version: 20141027102134) do
 
   create_table "leaflets", force: true do |t|
     t.integer  "channel_id"
-    t.text     "content",         default: "", null: false
+    t.text     "content",           default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "published_at"
@@ -163,12 +172,15 @@ ActiveRecord::Schema.define(version: 20141027102134) do
     t.text     "url"
     t.text     "author"
     t.text     "image"
-    t.integer  "save_count",      default: 0
-    t.integer  "view_count",      default: 0
-    t.integer  "leaflet_type_id", default: 0
-    t.integer  "like_count",      default: 0
+    t.integer  "save_count",        default: 0
+    t.integer  "view_count",        default: 0
+    t.integer  "leaflet_type_id",   default: 0
+    t.integer  "like_count",        default: 0
     t.integer  "created_by"
-    t.integer  "delete_count",    default: 0
+    t.integer  "delete_count",      default: 0
+    t.integer  "motion_counter",    default: 0
+    t.integer  "action_counter",    default: 0
+    t.integer  "scheduled_counter", default: 0
   end
 
   add_index "leaflets", ["identifier"], name: "index_leaflets_on_identifiers", unique: true, using: :btree

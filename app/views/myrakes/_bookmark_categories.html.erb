@@ -208,18 +208,24 @@
                 <% end %>
               </a>
               <div class="media-body">
+                <% heap_leaflet = "" %>
+                <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
+                  <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
+                    <% heap_leaflet = hl %>
+                  <% end %>
+                <% end %>
+                <% if user_signed_in? %>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success bookmark-metrics <%= "bookmark-metrics-purple" if heap_leaflet.reminder_at.nil? %>" style="width: <%= heap_leaflet.current_score.to_s %>%">
+                    </div>
+                  </div>
+                <% end %>
                 <span class="feed-timestamp">
                   <% channel_name = channel.name %>
                   <% if channel_name == "Title not available." %>
                     <% channel_name = channel.source %>
                   <% end %>
                   Channel: <%= channel_name %>
-                  <% heap_leaflet = "" %>
-                  <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
-                    <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
-                      <% heap_leaflet = hl %>
-                    <% end %>
-                  <% end %>
                   <% if !l.created_by.nil? %>
                     &nbsp;|&nbsp;
                     added by <%= User.find(l.created_by).username %>
@@ -264,6 +270,10 @@
                 <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
                 <p class="feed-body">
                   <% if heap_leaflet != "" %>
+                    <% goal = heap_leaflet.leaflet_goal %>
+                    <% note = heap_leaflet.leaflet_note %>
+                    <% heap_leaflet.motion_counter > 0 ? motioncounter = 1 : motioncounter = 0 %>
+                    <% heap_leaflet.action_counter > 0 ? actioncounter = 1 : actioncounter = 0 %>
                     <% description = heap_leaflet.leaflet_desc %>
                     <% if !description.nil? %>
                       <p><%= description %></p>
@@ -273,12 +283,27 @@
                       <% reminder_at = "no reminder" %>
                     <% else %>
                       <% reminder_at = reminder_at.to_formatted_s(:short) %>
-                    <% end %> 
+                    <% end %>
+                  <% else %>
+                    <% goal = "" %>
+                    <% note = "" %>
+                    <% motioncounter = 0 %>
+                    <% actioncounter = 0 %>
                   <% end %>
                   <p><%= raw l.content unless l.content == description %></p>
                 </p>
                 <br>
                 <span class="leaflet-metrics">
+                  <% if user_signed_in? %>
+                    <%= heap_leaflet.current_score.to_s %>
+                    <% if heap_leaflet.reminder_at.nil? %>
+                      <i class="fa fa-heart purple"></i>
+                      &nbsp;|&nbsp;
+                    <% else %>
+                      <i class="fa fa-tasks purple"></i>
+                      &nbsp|&nbsp;
+                    <% end %>
+                  <% end %>
                   <span class="s_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
                   <i class="fa fa-user purple"></i>
                 </span>
@@ -300,7 +325,11 @@
                                           title: l.title,
                                           content: l.content,
                                           description: description,
+                                          goal: goal,
+                                          note: note,
                                           reminder: reminder_at,
+                                          motioncounter: motioncounter,
+                                          actioncounter: actioncounter,
                                           url: l.url,
                                           access: "full" },
                                   :method => :put, 

@@ -8,6 +8,8 @@ class Myrake < ActiveRecord::Base
   attr_accessor :leaflet_title
   attr_accessor :leaflet_desc
   attr_accessor :leaflet_url
+  attr_accessor :leaflet_goal
+  attr_accessor :leaflet_note
   attr_accessor :reminder_at
   attr_accessor :heap_id
   attr_accessor :category_id
@@ -15,6 +17,8 @@ class Myrake < ActiveRecord::Base
   attr_accessor :leaflet_errors
   attr_accessor :current_user
   attr_accessor :copy_recommendations
+  attr_accessor :current_score
+  attr_accessor :current_reminder
   attr_accessor :collapse
 
   validates :name, presence: true
@@ -109,11 +113,27 @@ class Myrake < ActiveRecord::Base
                     self.master_rake.channels.where(channel_type: 3).pluck(:id) + self.rake_channel_maps.map{ |rc| ((rc.display == true) && (rc.channel_id != rake_channel_id)) ? rc.channel_id : nil}.compact)
   end
 
-  def add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
+  def add_leaflet(leaflet,
+                  leaflet_type_id,
+                  leaflet_title,
+                  leaflet_desc,
+                  leaflet_goal,
+                  leaflet_note,
+                  reminder,
+                  current_score,
+                  current_reminder)
     if self.heaps.where("leaflet_type_id = ?", leaflet_type_id).empty?
       self.add_heap(leaflet_type_id)
     end
-    if self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
+    if self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet,
+                                                                       leaflet_type_id,
+                                                                       leaflet_title,
+                                                                       leaflet_desc,
+                                                                       leaflet_goal,
+                                                                       leaflet_note,
+                                                                       reminder,
+                                                                       current_score,
+                                                                       current_reminder)
       master_heap = MasterHeap.where(master_rake_id: self.master_rake_id, leaflet_type_id: leaflet_type_id).first
       if !master_heap.nil?
         MasterHeapLeafletMap.create(master_heap_id: master_heap.id, leaflet_id: leaflet.id, leaflet_desc: leaflet_desc)
@@ -124,7 +144,16 @@ class Myrake < ActiveRecord::Base
     end
   end
 
-  def create_leaflet(leaflet_type_id, leaflet_title, leaflet_desc, leaflet_url, leaflet_author, reminder)
+  def create_leaflet(leaflet_type_id,
+                     leaflet_title,
+                     leaflet_desc,
+                     leaflet_goal,
+                     leaflet_note,
+                     leaflet_url,
+                     leaflet_author,
+                     reminder,
+                     current_score,
+                     current_reminder)
     channel_id = self.channels.where("channel_type = 3").first.id
     leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
                              title: leaflet_title,
@@ -135,7 +164,15 @@ class Myrake < ActiveRecord::Base
                              created_by: self.user_id,
                              published_at: Time.now)
     if leaflet.valid?
-      self.add_leaflet(leaflet, leaflet_type_id, leaflet_title, leaflet_desc, reminder)
+      self.add_leaflet(leaflet,
+                       leaflet_type_id,
+                       leaflet_title,
+                       leaflet_desc,
+                       leaflet_goal,
+                       leaflet_note,
+                       reminder,
+                       current_score,
+                       current_reminder)
       leaflet.id
     else
       self.leaflet_errors = leaflet.errors

@@ -1,5 +1,35 @@
 $(function() {
 
+    $("#slider1").change(function () {
+        var newValue = $('#slider1').val();
+        $("#W1").html(newValue);
+    });
+
+    $("#slider2").change(function () {
+        var newValue = $('#slider2').val();
+        $("#W2").html(newValue);
+    });
+
+    $("#slider3").change(function () {
+        var newValue = $('#slider3').val();
+        $("#W3").html(newValue);
+    });
+
+    $("#slider4").change(function () {
+        var newValue = $('#slider4').val();
+        $("#W4").html(newValue);
+    });
+
+    $("#slider5").change(function () {
+        var newValue = $('#slider5').val();
+        $("#W5").html(newValue);
+    });
+
+    $("#slider6").change(function () {
+        var newValue = $('#slider6').val();
+        $("#W6").html(newValue);
+    });
+
     $('.add-recommendation-form').hide();
 
     $('.add-recommendation').click(function(){
@@ -89,6 +119,8 @@ $(function() {
         var heapId = $(this).data('heapid');
         var leafletdescription = $(this).data('description');
         var leafleturl = $(this).data('url');
+        var leafletgoal = $(this).data('goal');
+        var leafletnote = $(this).data('note');
         var collapse = $(this).data('collapse');
         var reminderat = $(this).data('reminder');
         $(".leaflet-id").val(leafletid);
@@ -96,6 +128,8 @@ $(function() {
         $(".heap-id").val(heapId);
         $(".leaflet-description").val(leafletdescription)
         $(".leaflet-url").val(leafleturl);
+        $(".leaflet-goal").val(leafletgoal);
+        $(".leaflet-note").val(leafletnote);
         $(".collapse-section").val(collapse);
         $(".reminder-at").val(reminderat);
         ga('send', 'event', 'button', 'click', 'leaflet-edit');
@@ -153,6 +187,26 @@ $(function() {
             $(".category-select").hide();
         }
         ga('send', 'event', 'button', 'click', 'rake-create');
+    });
+
+    $(".reminderat").change(function() {
+        var selected = $(this)[0].value;
+        if (selected == "1") {
+            $(".score-label").hide();
+            $(".score").hide();
+            $(".modal-slider").hide();
+        }
+        else {
+            if (selected == "0") {
+                $(".score-label").html("Rating");
+            }
+            else {
+                $(".score-label").html("Progress/Action/Rating");
+            }
+            $(".score-label").show();
+            $(".score").show();
+            $(".modal-slider").show();
+        };
     });
 
     $(".add-rss-feed").click(function() {

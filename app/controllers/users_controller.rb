@@ -27,8 +27,18 @@ class UsersController < ApplicationController
       else
         reminder_at = nil
       end
-      heap_leaflet.update_attributes(leaflet_title: params[:user][:leaflet_title], leaflet_desc: params[:user][:leaflet_desc], reminder_at: reminder_at)
-      leaflet.update_attributes(title: params[:user][:leaflet_title], content: params[:user][:leaflet_desc], url: params[:user][:leaflet_url])
+      heap_leaflet.update_attributes(leaflet_title: params[:user][:leaflet_title],
+                                     leaflet_desc: params[:user][:leaflet_desc],
+                                     leaflet_goal: params[:user][:leaflet_goal],
+                                     leaflet_note: params[:user][:leaflet_note],
+                                     reminder_at: reminder_at,
+                                     current_score: params[:user][:current_score].to_i,
+                                     current_reminder: params[:user][:current_reminder])
+      History.create(user_id: current_user.id,
+                     leaflet_id: leaflet.id,
+                     history_code: "bookmark",
+                     history_int: params[:user][:current_score].to_i,
+                     history_str: params[:user][:current_reminder])
       redirect_to myrakes_path(collapse: "reminders")
     else
       redirect_to master_rakes_path

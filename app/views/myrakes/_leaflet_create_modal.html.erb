@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">New Bookmark</h4>
+        <h4 class="modal-title" id="myModalLabel">New Inspiration</h4>
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
@@ -21,12 +21,9 @@
           <%# end %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
-          <%= f.text_field :leaflet_url, { label: "Recommended URL", class: "leaflet-url" } %>
-          <%= f.text_field :leaflet_title, { label: "Bookmark Title", placeholder: "Automatically filled if empty*", class: "leaflet-custom-title" } %>
-          <%= f.text_area :leaflet_desc, { label: "Bookmark Description (optional)", placeholder: "Automatically filled if empty*", class: "leaflet-description" } %>
-          <h5>
-            <small>*) You can add or change the title and description any time later as well.
-          </h5>
+          <%= f.hidden_field :leaflet_url, { label: "Recommended URL", class: "leaflet-url" } %>
+          <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", placeholder: "Automatically filled if empty*", class: "leaflet-custom-title" } %>
+          <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", placeholder: "Automatically filled if empty*", class: "leaflet-description" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
           <% reminder_period << ["in 1 hour", 1] %>
@@ -35,6 +32,12 @@
           <% reminder_period << ["in 1 week", 4] %>
           <% reminder_period << ["in 1 month", 5] %>
           <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+          <%= f.hidden_field :current_reminder, class: "current-reminder" %>
+          <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)" } %>
+          <%= f.text_area :leaflet_note, { label: "Notes (optional)" } %>
+          <label class="score-label">Score/Rating</label>
+          <%= f.range_field :current_score, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider6" %>
+          <text class="score centered" id="W6">0<text>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

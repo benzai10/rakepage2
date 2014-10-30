@@ -22,6 +22,8 @@
           <% reminder_period << ["in 1 week", 4] %>
           <% reminder_period << ["in 1 month", 5] %>
           <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+          <%= f.check_box :motion_counter, label: "In Motion", checked: false %>
+          <%= f.check_box :action_counter, label: "Executed Action", checked: false %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

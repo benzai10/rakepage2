@@ -6,7 +6,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">New Personal Rake</h4>
       </div>
-      <%= bootstrap_form_for(current_user) do |f| %>
+      <%= bootstrap_form_for(current_user, layout: :inline) do |f| %>
         <div class="modal-body">
           <h3>My <%= @master_rakes.first.name %> bookmarks</h3>
           <%= f.hidden_field :name, value: @rake.name %>
