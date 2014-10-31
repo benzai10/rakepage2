@@ -26,8 +26,9 @@
           <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
           <%= f.text_area :leaflet_note, { label: "Notes (optional)", class: "leaflet-note" } %>
           <label class="score-label">Score/Rating</label>
+          <text class="score centered" id="W5">0</text>
           <%= f.range_field :current_score, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider5" %>
-          <text class="score centered" id="W5">0<text>
+          <br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
