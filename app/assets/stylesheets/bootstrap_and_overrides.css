@@ -18,12 +18,13 @@ body {
   background-color: #4a2b88 !important;
 }
 */
-.badge {
+/*.badge {
   color: white !important;
   background-color: #D91E18 !important;
   padding-top: 2px !important;
   padding-bottom: 2px !important;
-}
+}*/
+
 #accordion-main {
   padding-top: 6px;
 }
@@ -51,11 +52,6 @@ a.anchor {
 
 .chartkick-barchart {
   height: 100px;
-}
-
-.badge {
-  background-color: white;
-  color: #4a2b88;
 }
 
 .social-share-buttons {

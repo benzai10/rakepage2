@@ -1,0 +1,79 @@
+<ul class="nav nav-tabs nav-thumbnails" role="tablist">
+  <a href="#current-reminders" data-toggle="tab">
+    <li class="col-md-12 col-lg-6">
+      <div class="thumbnail">
+        <div class="media">
+          <span class="pull-left">
+            <%#= image_tag("reminder_image.png", size: "96x54") %>
+            <p class="reminder-month">
+              <%= Date.today.strftime("%B") %>
+            </p>
+            <p class="reminder-day">
+              <%= Time.now.day %>
+            </p>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading">
+              Reminders
+              <span class="badge alert-danger"><%= @overdue_leaflets.count.to_s %></span>
+            </h5>
+            <p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </li>
+  </a>
+  <a href="#scheduled-reminders" data-toggle="tab">
+    <li class="col-md-12 col-lg-6">
+      <div class="thumbnail">
+        <div class="media">
+          <span class="pull-left">
+            <%#= image_tag("reminder_image.png", size: "96x54") %>
+            <p class="reminder-month">
+              Upcoming
+            </p>
+            <p class="reminder-day">
+              >>
+            </p>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading">
+              Scheduled
+              <span class="badge alert-warning"><%= @scheduled_leaflets.count.to_s %></span>
+            </h5>
+            <p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </li>
+  </a>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="current-reminders">
+    <a class="anchor" name="current-reminders"></a>
+    <% if @overdue_leaflets.count > 0 %>
+      <%= render 'my_overdue_recommendations' %>
+    <% else %>
+      <p class="centered">
+        Yay, nothing here. You must be up-to-date with everything!
+      </p>
+      <br>
+      <br>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="scheduled-reminders">
+    <a class="anchor" name="scheduled-reminders"></a>
+    <% if @scheduled_leaflets.count > 0 %>
+      <%= render 'my_scheduled_recommendations' %>
+    <% else %>
+      <p class="centered">
+        Add reminders to your bookmarked inspirations to increase your productivity!
+      </p>
+      <br><br><br><br>
+    <% end %>
+  </div>
+</div>

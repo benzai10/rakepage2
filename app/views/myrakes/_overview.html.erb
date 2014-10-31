@@ -19,8 +19,11 @@
             </li>
             <li class="rake-nav <%= @reminders_collapse %>">
               <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">
-                REMINDERS&nbsp;&nbsp;
-                <span class="badge pull-right"><%= @overdue_leaflets.count.to_s %></span>
+                <% if @overdue_leaflets.count > 0 %>
+                  <span class="new-rec-alert">CHECK</span>
+                <% else %>
+                  CHECK
+                <% end %>
               </a>
             </li>
           </ul>
@@ -39,25 +42,7 @@
         </div>
         <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
           <br>
-          <span class="rake-nav">CURRENT INSPIRATIONS<hr></span>
-          <% if @overdue_leaflets.count > 0 %>
-            <%= render 'my_overdue_recommendations' %>
-          <% else %>
-            <p class="centered">
-              Yay, nothing here. You must be up-to-date with everything!
-            </p>
-            <br>
-            <br>
-          <% end %>
-          <span class="rake-nav">UPCOMING INSPIRATIONS<hr></span>
-          <% if @scheduled_leaflets.count > 0 %>
-            <%= render 'my_scheduled_recommendations' %>
-          <% else %>
-            <p class="centered">
-              Add reminders to your bookmarked inspirations to increase your productivity!
-            </p>
-            <br><br><br><br>
-          <% end %>
+          <%= render 'my_reminders' %>
         </div>
       </div>
     </div>
