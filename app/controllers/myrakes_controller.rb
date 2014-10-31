@@ -271,11 +271,21 @@ class MyrakesController < ApplicationController
           redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
         end
       else
-        flash[:error] = ["You have to select a bookmark category."]
-        if session[:rake_class] == MasterRake
-          redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse])
-        else
-          redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
+        @error = "You have to select a bookmark category"
+        respond_to do |format|
+          if session[:rake_class] == MasterRake
+            format.html { 
+              flash[:error] = ["You have to select a bookmark category."]
+              redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse])
+            }
+            format.js { render 'shared/form_alert' }
+          else
+            format.html {
+              flash[:error] = ["You have to select a bookmark category."]
+              redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
+            }
+            format.js { render 'shared/form_alert' }
+          end
         end
       end
     elsif params[:commit] == "Create Bookmark"

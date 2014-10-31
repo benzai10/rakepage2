@@ -424,6 +424,10 @@ a.menu-link:hover {
   font-size: 12px;
 }
 
+.leaflet-note {
+  font-size: 11px !important;
+}
+
 .menu-list {
   margin-left: -25px;
   list-style-type: none;

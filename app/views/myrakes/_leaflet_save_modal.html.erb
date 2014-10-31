@@ -6,8 +6,17 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Save Bookmark</h4>
       </div>
-      <%= bootstrap_form_for(@rake) do |f| %>
+      <%= bootstrap_form_for(@rake, remote: true) do |f| %>
         <div class="modal-body">
+          <div class='myAlert alert alert-danger hidden'>
+            <%= @error %>
+          </div>
+          <% if flash[:alert] %>
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
           <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
