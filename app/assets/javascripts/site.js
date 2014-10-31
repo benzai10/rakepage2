@@ -191,21 +191,11 @@ $(function() {
 
     $(".reminderat").change(function() {
         var selected = $(this)[0].value;
-        if (selected == "1") {
-            $(".score-label").hide();
-            $(".score").hide();
-            $(".modal-slider").hide();
+        if (selected == "0") {
+            $(".score-label").html("Rating");
         }
         else {
-            if (selected == "0") {
-                $(".score-label").html("Rating");
-            }
-            else {
-                $(".score-label").html("Progress/Action/Rating");
-            }
-            $(".score-label").show();
-            $(".score").show();
-            $(".modal-slider").show();
+            $(".score-label").html("Progress/Action/Rating");
         };
     });
 
