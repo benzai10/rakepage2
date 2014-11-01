@@ -265,10 +265,24 @@ class MyrakesController < ApplicationController
                         reminder_at,
                         params[:myrake][:current_score],
                         params[:myrake][:current_reminder])
-        if session[:rake_class] == MasterRake
-          redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
-        else
-          redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+        respond_to do |format|
+          if session[:rake_class] == MasterRake
+            format.html {
+              redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+            }
+            format.js {
+              @leaflet_id = params[:myrake][:leaflet_id]
+              render 'bookmark_saved'
+            }
+          else
+            format.html {
+              redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+            }
+            format.js {
+              @leaflet_id = params[:myrake][:leaflet_id]
+              render 'bookmark_saved'
+            }
+          end
         end
       else
         @error = "You have to select a bookmark category"
