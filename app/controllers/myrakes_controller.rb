@@ -226,6 +226,8 @@ class MyrakesController < ApplicationController
       end
       heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title],
                                      leaflet_desc: params[:myrake][:leaflet_desc],
+                                     leaflet_goal: params[:myrake][:leaflet_goal],
+                                     leaflet_note: params[:myrake][:leaflet_note],
                                      reminder_at: reminder_at,
                                      current_score: params[:myrake][:current_score].to_i,
                                      current_reminder: params[:myrake][:current_reminder].to_i)
