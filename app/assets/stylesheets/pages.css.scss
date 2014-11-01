@@ -51,6 +51,10 @@
     margin: 30px;
     border: 1px solid #C0C0C0;
   }
+  .landing-screenshot-left {
+    margin: 30px;
+    border: 1px solid #C0C0C0;
+  }
 }
 
 .fb-like {
@@ -267,6 +271,14 @@
       letter-spacing: 0px;
       color: white;
       text-align: center;
+    }
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .landing-page {
+    .landing-screenshot-left {
+      margin-top: 52px !important;
     }
   }
 }
