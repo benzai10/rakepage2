@@ -11,7 +11,7 @@
           <h3>My <%= @master_rakes.first.name %> bookmarks</h3>
           <%= f.hidden_field :name, value: @rake.name %>
           <p>
-            Exisiting bookmarked inspirations will be copied to your personal rake. If you want to add inspirations from scratch, please uncheck the box below.
+            You need a personal rake for this topic to bookmark inspirations. Click save to create your personal rake.
           </p>
           <%= f.check_box :copy_recommendations, label: "Copy bookmarked inspirations", checked: true %>
           <% if @rakes.where(top_rake: 1).count < 5 %>
