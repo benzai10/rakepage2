@@ -7,11 +7,12 @@ class UsersController < ApplicationController
       myrake.add_leaflet(leaflet, params[:user][:leaflet_type_id], leaflet.title, "", nil)
       redirect_to master_rakes_path(collapse: "recommendations", anchor: "leaflet_" + leaflet.id.to_s)
     elsif params[:commit] == "Update Bookmark"
-      leaflet = Leaflet.find(params[:user][:leaflet_id])
+      @leaflet = Leaflet.find(params[:user][:leaflet_id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:user][:heap_id].to_i, 
                                           params[:user][:leaflet_id].to_i).first
-      case params[:user][:reminder_at].to_i
+      @reminder_at = params[:user][:reminder_at].to_i
+      case @reminder_at
       when 0
         reminder_at = nil
       when 1
@@ -35,11 +36,14 @@ class UsersController < ApplicationController
                                      current_score: params[:user][:current_score].to_i,
                                      current_reminder: params[:user][:current_reminder])
       History.create(user_id: current_user.id,
-                     leaflet_id: leaflet.id,
+                     leaflet_id: @leaflet.id,
                      history_code: "bookmark",
                      history_int: params[:user][:current_score].to_i,
                      history_str: params[:user][:current_reminder])
-      redirect_to myrakes_path(collapse: "reminders")
+      respond_to do |format|
+        format.html { redirect_to myrakes_path(collapse: "reminders") }
+        format.js { render 'myrakes/reminder_set' }
+      end
     else
       redirect_to master_rakes_path
     end

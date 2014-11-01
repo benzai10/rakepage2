@@ -1,0 +1,9 @@
+$('#leaflet_<%= @leaflet.id %>').remove();
+$('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
+if ($('.badge-reminders').html() == "0") {
+  $('#empty-reminders').removeClass('hidden');
+}
+if (<%= @reminder_at %> > 0) {
+  $('.badge-scheduled-reminders').html(parseInt($(".badge-scheduled-reminders").html()) + 1);
+} 
+$('#setReminderModal').modal('hide');

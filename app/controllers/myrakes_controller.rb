@@ -24,10 +24,17 @@ class MyrakesController < ApplicationController
       @toprakes_collapse = ""
       @myrakes_collapse = ""
       @reminders_collapse = "active"
+      @scheduled_reminders_collapse = ""
+    elsif params[:collapse] == "scheduled_reminders"
+      @toprakes_collapse = ""
+      @myrakes_collapse = ""
+      @reminders_collapse = ""
+      @scheduled_reminders_collapse = "active"
     else
       @toprakes_collapse = "active"
       @myrakes_collapse = ""
       @reminders_collapse = ""
+      @scheduled_reminders_collapse = ""
     end
   end
 

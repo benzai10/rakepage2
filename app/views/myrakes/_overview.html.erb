@@ -17,7 +17,7 @@
             <li class="rake-nav <%= @myrakes_collapse %>">
               <a href="#my-rakes" id="ga-view-myrakes" role="tab" data-toggle="tab">OTHER</a>
             </li>
-            <li class="rake-nav <%= @reminders_collapse %>">
+            <li class="rake-nav <%= @reminders_collapse %> <%= @scheduled_reminders_collapse %>">
               <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">
                 <% if @overdue_leaflets.count > 0 %>
                   <span class="new-rec-alert">CHECK</span>
@@ -40,7 +40,7 @@
           <br>
           <%= render 'my_rakes' %>
         </div>
-        <div class="tab-pane <%= @reminders_collapse %>" id="my-recommendations">
+        <div class="tab-pane <%= @reminders_collapse %> <%= @scheduled_reminders_collapse %>" id="my-recommendations">
           <br>
           <%= render 'my_reminders' %>
         </div>

@@ -15,7 +15,7 @@
           <div class="media-body">
             <h5 class="media-heading">
               Reminders
-              <span class="badge alert-danger"><%= @overdue_leaflets.count.to_s %></span>
+              <span class="badge badge-reminders alert-danger"><%= @overdue_leaflets.count.to_s %></span>
             </h5>
             <p>
             </p>
@@ -24,7 +24,7 @@
       </div>
     </li>
   </a>
-  <a href="#scheduled-reminders" data-toggle="tab">
+  <%= link_to myrakes_path(collapse: "scheduled_reminders") do %>
     <li class="col-md-6">
       <div class="thumbnail">
         <div class="media">
@@ -40,7 +40,7 @@
           <div class="media-body">
             <h5 class="media-heading">
               Scheduled
-              <span class="badge alert-warning"><%= @scheduled_leaflets.count.to_s %></span>
+              <span class="badge badge-scheduled-reminders alert-warning"><%= @scheduled_leaflets.count.to_s %></span>
             </h5>
             <p>
             </p>
@@ -48,23 +48,21 @@
         </div>
       </div>
     </li>
-  </a>
+  <% end %>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="current-reminders">
+  <div class="tab-pane <%= @reminders_collapse %>" id="current-reminders">
     <a class="anchor" name="current-reminders"></a>
-    <% if @overdue_leaflets.count > 0 %>
-      <%= render 'my_overdue_recommendations' %>
-    <% else %>
-      <p class="centered">
-        Yay, nothing here. You must be up-to-date with everything!
-      </p>
-      <br><br><br><br><br>
-    <% end %>
+    <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
+    <p class="centered <%= empty_list %>" id="empty-reminders">
+      Yay, nothing here. You must be up-to-date with everything!
+    </p>
+    <%= render 'my_overdue_recommendations' %>
+    <br><br><br><br><br>
   </div>
-  <div class="tab-pane" id="scheduled-reminders">
+  <div class="tab-pane <%= @scheduled_reminders_collapse %>" id="scheduled-reminders">
     <a class="anchor" name="scheduled-reminders"></a>
     <% if @scheduled_leaflets.count > 0 %>
       <%= render 'my_scheduled_recommendations' %>
