@@ -4,6 +4,6 @@ if ($('.badge-reminders').html() == "0") {
   $('#empty-reminders').removeClass('hidden');
 }
 if (<%= @reminder_at %> > 0) {
-  $('.badge-scheduled-reminders').html(parseInt($(".badge-scheduled-reminders").html()) + 1);
+  $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) + 1);
 } 
 $('#setReminderModal').modal('hide');
