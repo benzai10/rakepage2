@@ -123,6 +123,7 @@ $(function() {
         var leafletnote = $(this).data('note');
         var collapse = $(this).data('collapse');
         var reminderat = $(this).data('reminder');
+        var origin = $(this).data('origin');
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".heap-id").val(heapId);
@@ -132,6 +133,7 @@ $(function() {
         $(".leaflet-note").val(leafletnote);
         $(".collapse-section").val(collapse);
         $(".reminder-at").val(reminderat);
+        $(".origin").val(origin);
         ga('send', 'event', 'button', 'click', 'leaflet-edit');
     });
 

@@ -42,7 +42,10 @@ class UsersController < ApplicationController
                      history_str: params[:user][:current_reminder])
       respond_to do |format|
         format.html { redirect_to myrakes_path(collapse: "reminders") }
-        format.js { render 'myrakes/reminder_set' }
+        format.js {
+          @origin = params[:user][:origin]
+          render 'myrakes/reminder_set'
+        }
       end
     else
       redirect_to master_rakes_path

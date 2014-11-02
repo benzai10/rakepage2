@@ -99,7 +99,8 @@
                                 note: lm.leaflet_note,
                                 url: l.url,
                                 reminder: reminder_at,
-                                access: "full" },
+                                access: "full",
+                                origin: "scheduled" },
                         class: "btn btn-default btn-xs leaflet-edit" %>
             <%= link_to "Delete", 
                         remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "scheduled"),

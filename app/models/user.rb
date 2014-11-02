@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   attr_accessor :leaflet_goal
   attr_accessor :leaflet_note
   attr_accessor :reminder_at
+  attr_accessor :origin
   attr_accessor :current_score
   attr_accessor :current_reminder
   # Include default devise modules. Others available are:
