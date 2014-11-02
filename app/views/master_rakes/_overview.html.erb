@@ -6,18 +6,6 @@
   </div>
   <div class="panel-collapse collapse in" id="collapse-overview">
     <div class="panel-body">
-      <h5><small>Search for Topics:<small></h5>
-      <%= bootstrap_form_tag url: "/master_rakes/search", method: :get do |f| %>
-        <div class="input-group">
-          <%= f.hidden_field :id, class: "master-rake-id" %>
-          <%= f.text_field :name, hide_label: true,
-            data: { autocomplete: autocomplete_master_rake_name_master_rakes_path }, class: "master-rake-search" %>
-          <span class="input-group-btn">
-            <%= f.submit "Go", class: "btn btn-primary" %>
-          </span>
-        </div>
-      <% end %>
-      <br>
       <div class="row">
         <div class="tab-header">
           <!-- Nav tabs -->

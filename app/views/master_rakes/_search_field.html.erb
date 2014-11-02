@@ -1,0 +1,14 @@
+<div class="col-md-12">
+  <h5><small>Search for Topics:</small></h5>
+  <%= bootstrap_form_tag url: "/master_rakes/search", method: :get do |f| %>
+    <div class="input-group">
+      <%= f.hidden_field :id, class: "master-rake-id" %>
+      <%= f.text_field :name, hide_label: true,
+        data: { autocomplete: autocomplete_master_rake_name_master_rakes_path }, class: "master-rake-search" %>
+      <span class="input-group-btn">
+        <%= f.submit "Go", class: "btn btn-primary" %>
+      </span>
+    </div>
+  <% end %>
+  <br>
+</div>
