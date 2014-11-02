@@ -91,9 +91,12 @@
                         :action => :update, 
                         remote: true,
                         class: "btn btn-default btn-xs leaflet-edit" %>
-            <%= link_to "Delete", remove_leaflet_heap_path(lm.heap, leaflet_id: l.id),
-                  :data => { :confirm => "Are you sure? You will delete the bookmark also from your rake!" },
-                  :method => :get, remote: true, class: "btn btn-default btn-xs" %>
+            <%= link_to "Delete",
+                        remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "overdue"),
+                        data: { confirm: "Are you sure? You will delete the bookmark also from your rake!" },
+                        method: :get,
+                        remote: true, 
+                        class: "btn btn-default btn-xs" %>
           </span>
         </div>
         <hr>

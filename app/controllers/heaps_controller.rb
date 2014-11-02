@@ -28,11 +28,14 @@ class HeapsController < ApplicationController
   def remove_leaflet
     @heap = Heap.find(params[:id])
     @leaflet = Leaflet.find(params[:leaflet_id])
+    @origin = params[:origin]
     begin
       @heap.remove_leaflet(@leaflet)
       respond_to do |format|
         format.html { redirect_to myrake_path(Myrake.find(@heap.myrake_id)), heap: "yes" }
-        format.js { render 'remove_leaflet'}
+        format.js {
+          render 'remove_leaflet'
+        }
       end 
     rescue ActiveRecord::RecordNotUnique
       flash[:error] = "Error while deleting. Try again."

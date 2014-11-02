@@ -40,7 +40,7 @@
           <div class="media-body">
             <h5 class="media-heading">
               Scheduled
-              <span class="badge badge-scheduled-reminders alert-warning"><%= @scheduled_leaflets.count.to_s %></span>
+              <span class="badge badge-scheduled alert-warning"><%= @scheduled_leaflets.count.to_s %></span>
             </h5>
             <p>
             </p>
@@ -64,13 +64,11 @@
   </div>
   <div class="tab-pane <%= @scheduled_reminders_collapse %>" id="scheduled-reminders">
     <a class="anchor" name="scheduled-reminders"></a>
-    <% if @scheduled_leaflets.count > 0 %>
-      <%= render 'my_scheduled_recommendations' %>
-    <% else %>
-      <p class="centered">
-        Add reminders to your bookmarked inspirations to increase your productivity!
-      </p>
-      <br><br><br><br><br>
-    <% end %>
+    <% @scheduled_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
+    <p class="centered <%= empty_list %>" id="empty-scheduled">
+      Add reminders to your bookmarked inspirations to increase your productivity!
+    </p>
+    <%= render 'my_scheduled_recommendations' %>
+    <br><br><br><br><br>
   </div>
 </div>
