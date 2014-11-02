@@ -323,7 +323,7 @@ module FeedHelper
     def create_leaflet(feed)
       if feed.respond_to?(:entries)
         feed.entries.each do |entry|
-          unless Leaflet.where(identifier: entry.entry_id).exists?
+          unless Leaflet.where(identifier: entry.entry_id).exists? && !entry.entry_id.nil?
             content = entry.summary
             if content.blank?
               content = entry.content
