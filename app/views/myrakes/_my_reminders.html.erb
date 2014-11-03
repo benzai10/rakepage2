@@ -14,7 +14,7 @@
           <div class="media-body">
             <h5 class="media-heading">
               Reminders
-              <span class="badge badge-reminders alert-danger"><%= @overdue_leaflets.count.to_s %></span>
+              <span class="badge badge-reminders alert-danger"><%= @other_overdue_leaflets.count.to_s %></span>
             </h5>
             <p>
             </p>
@@ -53,7 +53,7 @@
 <div class="tab-content">
   <div class="tab-pane <%= "active" unless @scheduled_reminders_collapse == "active" %>" id="current-reminders">
     <a class="anchor" name="current-reminders"></a>
-    <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
+    <% @other_overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
     <p class="centered <%= empty_list %>" id="empty-reminders">
       Yay, nothing here. You must be up-to-date with everything!
     </p>

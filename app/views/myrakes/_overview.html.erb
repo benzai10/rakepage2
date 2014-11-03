@@ -19,7 +19,7 @@
             </li>
             <li class="rake-nav <%= @reminders_collapse %> <%= @scheduled_reminders_collapse %>">
               <a href="#my-recommendations" id="ga-view-reminders" role="tab" data-toggle="tab">
-                <% if @overdue_leaflets.count > 0 %>
+                <% if @other_overdue_leaflets.count > 0 %>
                   <span class="new-rec-alert">CHECK</span>
                 <% else %>
                   CHECK
@@ -48,3 +48,4 @@
     </div>
   </div>
 </div>
+

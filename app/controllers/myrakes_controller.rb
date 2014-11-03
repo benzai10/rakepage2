@@ -10,16 +10,24 @@ class MyrakesController < ApplicationController
     @rakes = Myrake.where("user_id = ?", current_user.id)
     @top_rakes = @rakes.where(top_rake: 1)
     @new_master_rakes = MasterRake.newly_added
-    heap_ids = []
-    @rakes.each do |r|
-      heap_ids << r.heaps.pluck(:id)
+    top_heap_ids = []
+    @top_rakes.each do |r|
+      top_heap_ids << r.heaps.pluck(:id)
     end
-    heap_ids = heap_ids.flatten
-    @rakes = @rakes.where(top_rake: 0)
-    @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
-    @new_leaflets = @recommendations.order(created_at: :desc).limit(50)
-    @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
-    @scheduled_leaflets = @recommendations.where("reminder_at > ?", Time.now).order(:reminder_at)
+    top_heap_ids = top_heap_ids.flatten
+    @other_rakes = @rakes.where(top_rake: 0)
+    other_heap_ids = []
+    @other_rakes.each do |r|
+      other_heap_ids << r.heaps.pluck(:id)
+    end
+    other_heap_ids = other_heap_ids.flatten
+    @top_recommendations = HeapLeafletMap.where("heap_id IN (?)", top_heap_ids)
+    @other_recommendations = HeapLeafletMap.where("heap_id IN (?)", other_heap_ids)
+    #@new_leaflets = @other_recommendations.order(created_at: :desc).limit(50)
+    @top_overdue_leaflets = @top_recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+    @other_overdue_leaflets = @other_recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
+    @scheduled_leaflets = @top_recommendations.where("reminder_at > ?", Time.now).order(:reminder_at) +
+                          @other_recommendations.where("reminder_at > ?", Time.now).order(:reminder_at)
     if params[:collapse] == "reminders"
       @toprakes_collapse = ""
       @myrakes_collapse = ""
@@ -237,14 +245,17 @@ class MyrakesController < ApplicationController
                                      leaflet_note: params[:myrake][:leaflet_note],
                                      reminder_at: reminder_at,
                                      current_score: params[:myrake][:current_score].to_i,
+                                     current_rating: params[:myrake][:current_rating].to_i,
                                      current_reminder: params[:myrake][:current_reminder].to_i)
       leaflet.update_attributes(title: params[:myrake][:leaflet_title],
                                 content: params[:myrake][:leaflet_desc],
                                 url: params[:myrake][:leaflet_url])
       History.create(user_id: current_user.id,
+                     rake_id: @rake.id,
                      leaflet_id: leaflet.id,
                      history_code: "bookmark",
                      history_int: params[:myrake][:current_score].to_i,
+                     history_int2: params[:myrake][:current_rating].to_i,
                      history_str: params[:myrake][:current_reminder])
       redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:collapse].scan(/\d+$/).first + "_" + params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Bookmark"
@@ -273,6 +284,7 @@ class MyrakesController < ApplicationController
                         params[:myrake][:leaflet_note],
                         reminder_at,
                         params[:myrake][:current_score],
+                        params[:myrake][:current_rating],
                         params[:myrake][:current_reminder])
         respond_to do |format|
           if session[:rake_class] == MasterRake
@@ -359,6 +371,7 @@ class MyrakesController < ApplicationController
                            leaflet_author,
                            reminder_at,
                            params[:myrake][:current_score],
+                           params[:myrake][:current_rating],
                            params[:myrake][:current_reminder])
       if !leaflet_id.nil?
         redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_type_id] + "_" + leaflet_id.to_s)
@@ -381,6 +394,7 @@ class MyrakesController < ApplicationController
                                  "",
                                  "",
                                  "",
+                                 0,
                                  0,
                                  0)
         redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark copied."]

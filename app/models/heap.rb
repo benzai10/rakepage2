@@ -18,6 +18,7 @@ class Heap < ActiveRecord::Base
                   leaflet_note,
                   reminder,
                   current_score,
+                  current_rating,
                   current_reminder)
     begin 
       self.heap_leaflet_maps.create(leaflet_id: leaflet.id,
@@ -28,6 +29,7 @@ class Heap < ActiveRecord::Base
                                     leaflet_note: leaflet_note,
                                     reminder_at: reminder,
                                     current_score: current_score,
+                                    current_rating: current_rating,
                                     current_reminder: current_reminder)
       Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count+1)
     rescue

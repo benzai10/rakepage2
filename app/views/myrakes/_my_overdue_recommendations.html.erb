@@ -1,6 +1,6 @@
 <ul id="feed-list" class="leaflet-list">
   <% leaflet_duplication_array = [] %>
-  <% @overdue_leaflets.each do |lm| %>
+  <% @other_overdue_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
     <% if !leaflet_duplication_array.include? l.id %>
       <% leaflet_duplication_array << l.id %>
@@ -25,7 +25,7 @@
         </a>
         <div class="media-body">
           <div class="progress">
-            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: <%= lm.current_score.to_s %>%">
+            <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= lm.current_score.to_s %>%">
             </div>
           </div>
           <span class="feed-timestamp">
@@ -86,8 +86,11 @@
                                 note: lm.leaflet_note,
                                 url: l.url,
                                 reminder: reminder_at,
+                                score: lm.current_score,
+                                rating: lm.current_rating,
                                 access: "full",
-                                origin: "overdue" },
+                                origin: "overdue",
+                                slider: "1" },
                         class: "btn btn-default btn-xs leaflet-edit" %>
             <%= link_to "Delete",
                         remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "overdue"),

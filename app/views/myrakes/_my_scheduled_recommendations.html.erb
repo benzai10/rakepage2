@@ -25,7 +25,7 @@
         </a>
         <div class="media-body">
           <div class="progress">
-            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: <%= lm.current_score.to_s %>%">
+            <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= lm.current_score.to_s %>%">
             </div>
           </div>
           <span class="feed-timestamp">
@@ -70,22 +70,6 @@
             <i class="fa fa-user purple"></i>
           </span>
           <span class="pull-right">
-            <%#= link_to "Set", "#",
-                        data: { toggle: "modal",
-                                target: "#setReminderModal",
-                                id: l.id,
-                                heapid: lm.heap.id,
-                                collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
-                                title: l.title,
-                                content: l.content,
-                                description: description,
-                                url: l.url,
-                                reminder: reminder_at,
-                                access: "full" },
-                        :method => :put, 
-                        :action => :update, 
-                        remote: true,
-                        class: "btn btn-default btn-xs leaflet-edit" %>
             <%= link_to "Status", "#",
                         data: { toggle: "modal",
                                 target: "#setReminderModal",
@@ -99,8 +83,11 @@
                                 note: lm.leaflet_note,
                                 url: l.url,
                                 reminder: reminder_at,
+                                score: lm.current_score,
+                                rating: lm.current_rating,
                                 access: "full",
-                                origin: "scheduled" },
+                                origin: "scheduled",
+                                slider: "1" },
                         class: "btn btn-default btn-xs leaflet-edit" %>
             <%= link_to "Delete", 
                         remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "scheduled"),

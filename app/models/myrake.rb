@@ -18,6 +18,7 @@ class Myrake < ActiveRecord::Base
   attr_accessor :current_user
   attr_accessor :copy_recommendations
   attr_accessor :current_score
+  attr_accessor :current_rating
   attr_accessor :current_reminder
   attr_accessor :collapse
 
@@ -121,6 +122,7 @@ class Myrake < ActiveRecord::Base
                   leaflet_note,
                   reminder,
                   current_score,
+                  current_rating,
                   current_reminder)
     if self.heaps.where("leaflet_type_id = ?", leaflet_type_id).empty?
       self.add_heap(leaflet_type_id)
@@ -133,6 +135,7 @@ class Myrake < ActiveRecord::Base
                                                                        leaflet_note,
                                                                        reminder,
                                                                        current_score,
+                                                                       current_rating,
                                                                        current_reminder)
       master_heap = MasterHeap.where(master_rake_id: self.master_rake_id, leaflet_type_id: leaflet_type_id).first
       if !master_heap.nil?
@@ -153,6 +156,7 @@ class Myrake < ActiveRecord::Base
                      leaflet_author,
                      reminder,
                      current_score,
+                     current_rating,
                      current_reminder)
     channel_id = self.channels.where("channel_type = 3").first.id
     leaflet = Leaflet.create(leaflet_type_id: leaflet_type_id,
@@ -172,6 +176,7 @@ class Myrake < ActiveRecord::Base
                        leaflet_note,
                        reminder,
                        current_score,
+                       current_rating,
                        current_reminder)
       leaflet.id
     else

@@ -31,13 +31,28 @@
           <% reminder_period << ["in 3 days", 3] %>
           <% reminder_period << ["in 1 week", 4] %>
           <% reminder_period << ["in 1 month", 5] %>
-          <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
-          <%= f.hidden_field :current_reminder, class: "current-reminder" %>
-          <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)" } %>
-          <%= f.text_area :leaflet_note, { label: "Notes (optional)" } %>
-          <label class="score-label">Score/Rating</label>
-          <text class="score centered" id="W1">0</text>
-          <%= f.range_field :current_score, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider1" %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+              <%= f.hidden_field :current_reminder, class: "current-reminder" %>
+            </div>
+            <div class="col-md-6">
+              <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+            </div>
+          </div>
+          <%= f.text_area :leaflet_note, { label: "Notes (optional)", class: "leaflet-note" } %>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="score-label">Quantify your productivity</label>
+              <text class="score centered" id="W1">0</text>
+              <%= f.range_field :current_score, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider1" %>
+            </div>
+            <div class="col-md-6">
+              <label class="rating-label">Rating</label>
+              <text class="score centered" id="W11">0</text>
+              <%= f.range_field :current_rating, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider11" %>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

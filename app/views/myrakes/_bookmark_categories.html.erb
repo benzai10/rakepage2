@@ -216,7 +216,7 @@
                 <% end %>
                 <% if user_signed_in? %>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-success bookmark-metrics <%= "bookmark-metrics-purple" if heap_leaflet.reminder_at.nil? %>" style="width: <%= heap_leaflet.current_score.to_s %>%">
+                    <div class="progress-bar progress-bar-success bookmark-metrics-green <%= "bookmark-metrics-purple" if heap_leaflet.reminder_at.nil? %>" style="width: <%= heap_leaflet.current_score.to_s %>%">
                     </div>
                   </div>
                 <% end %>
@@ -272,6 +272,8 @@
                   <% if heap_leaflet != "" %>
                     <% goal = heap_leaflet.leaflet_goal %>
                     <% note = heap_leaflet.leaflet_note %>
+                    <% score = heap_leaflet.current_score %>
+                    <% rating = heap_leaflet.current_rating %>
                     <% heap_leaflet.motion_counter > 0 ? motioncounter = 1 : motioncounter = 0 %>
                     <% heap_leaflet.action_counter > 0 ? actioncounter = 1 : actioncounter = 0 %>
                     <% description = heap_leaflet.leaflet_desc %>
@@ -287,6 +289,8 @@
                   <% else %>
                     <% goal = "" %>
                     <% note = "" %>
+                    <% score = 0 %>
+                    <% rating = 0 %>
                     <% motioncounter = 0 %>
                     <% actioncounter = 0 %>
                   <% end %>
@@ -312,10 +316,12 @@
                     <% if @rake.user_id == current_user.id %>
                       <% if l.identifier.nil? %>
                         <% modalType = "#editLeafletModal" %>
+                        <% slider = "3" %>
                       <% else %>
                         <% modalType = "#editRestrictedLeafletModal" %>
+                        <% slider = "4" %>
                       <% end %>
-                      <%= link_to "Edit",
+                      <%= link_to "Status",
                                   "#",
                                   data: { toggle: "modal",
                                           target: "#{modalType}",
@@ -328,10 +334,13 @@
                                           goal: goal,
                                           note: note,
                                           reminder: reminder_at,
+                                          score: score,
+                                          rating: rating,
                                           motioncounter: motioncounter,
                                           actioncounter: actioncounter,
                                           url: l.url,
-                                          access: "full" },
+                                          access: "full",
+                                          slider: slider },
                                   :method => :put, 
                                   :action => :update, 
                                   remote: true,

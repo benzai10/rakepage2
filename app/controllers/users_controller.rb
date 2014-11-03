@@ -34,11 +34,14 @@ class UsersController < ApplicationController
                                      leaflet_note: params[:user][:leaflet_note],
                                      reminder_at: reminder_at,
                                      current_score: params[:user][:current_score].to_i,
+                                     current_rating: params[:user][:current_rating].to_i,
                                      current_reminder: params[:user][:current_reminder])
       History.create(user_id: current_user.id,
+                     rake_id: @rake.id,
                      leaflet_id: @leaflet.id,
                      history_code: "bookmark",
                      history_int: params[:user][:current_score].to_i,
+                     history_int2: params[:user][:current_rating].to_i,
                      history_str: params[:user][:current_reminder])
       respond_to do |format|
         format.html { redirect_to myrakes_path(collapse: "reminders") }
