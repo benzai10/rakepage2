@@ -37,7 +37,7 @@ class UsersController < ApplicationController
                                      current_rating: params[:user][:current_rating].to_i,
                                      current_reminder: params[:user][:current_reminder])
       History.create(user_id: current_user.id,
-                     rake_id: @rake.id,
+                     rake_id: Heap.find(params[:user][:heap_id].to_i).myrake.id,
                      leaflet_id: @leaflet.id,
                      history_code: "bookmark",
                      history_int: params[:user][:current_score].to_i,

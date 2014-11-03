@@ -6,7 +6,7 @@ if ('<%= @origin %>' == 'overdue') {
   }
   if (<%= @reminder_at %> > 0) {
     $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) + 1);
-  } 
+  }
 }
 else {
   if (<%= @reminder_at %> == 0) {
