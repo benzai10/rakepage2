@@ -378,7 +378,11 @@ class MyrakesController < ApplicationController
                                  params[:myrake][:leaflet_type_id].to_i,
                                  heapleaflet.leaflet_title,
                                  heapleaflet.leaflet_desc,
-                                 "")
+                                 "",
+                                 "",
+                                 "",
+                                 0,
+                                 0)
         redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark copied."]
       else
         redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark couln't be copied. It probably exists already."]
