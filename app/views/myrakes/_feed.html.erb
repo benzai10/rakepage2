@@ -65,7 +65,7 @@
             <% else %>
               <% if user_signed_in? %>
                 <% if @rake.user_id == current_user.id %>
-                    <%= link_to "Inspiring!",
+                    <%= link_to "Save",
                                 add_leaflet_myrake_path(@rake),
                                 data: { toggle: "modal",
                                         target: "#myModal",
@@ -76,7 +76,7 @@
                                 class: "btn btn-primary btn-xs leaflet-save" %>
                 <% else %>
                   <% if !@other_user_rake.nil? %>
-                    <%= link_to "Inspiring!",
+                    <%= link_to "Save",
                               add_leaflet_myrake_path(@other_user_rake),
                               data: { toggle: "modal",
                                       target: "#myModal",
@@ -86,7 +86,7 @@
                                       collapse: "feed" },
                               class: "btn btn-primary btn-xs leaflet-save" %>
                   <% else %>
-                    <%= link_to "Inspiring!", new_myrake_path, 
+                    <%= link_to "Save", new_myrake_path, 
                                 data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title },
                                 class: "btn btn-primary btn-xs leaflet-save" %>
                   <% end %>

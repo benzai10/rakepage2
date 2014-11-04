@@ -1,10 +1,8 @@
-if ('<%= @origin %>' != 'scheduled') {
+if ('<%= @origin %>' == 'overdue') {
   $('#leaflet_<%= @leaflet.id %>').remove();
-  if ('<%= @origin %>' == 'overdue') {
-    $('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
-    if ($('.badge-reminders').html() == "0") {
-      $('#empty-reminders').removeClass('hidden');
-    }
+  $('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
+  if ($('.badge-reminders').html() == "0") {
+    $('#empty-reminders').removeClass('hidden');
   }
   if (<%= @reminder_at %> > 0) {
     $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) + 1);

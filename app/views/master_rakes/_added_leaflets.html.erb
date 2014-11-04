@@ -57,7 +57,7 @@
                 &nbsp;<i class="fa fa-bookmark"></i>
               <% else %>
                 <% if user_signed_in? %>
-                  <%= link_to "Inspiring!",
+                  <%= link_to "Save",
                               add_leaflet_myrake_path(@custom_rake), 
                               data: { toggle: "modal", 
                                       target: "#myModal",
@@ -66,19 +66,19 @@
                                       collapse: "feed" },
                                       class: "btn btn-primary btn-xs leaflet-save" %>
                 <% else %>
-                  <%= link_to "Inspiring!", root_path, class: "btn btn-primary btn-xs" %>
+                  <%= link_to "Save", root_path, class: "btn btn-primary btn-xs" %>
                 <% end %>
               <% end %>
             <% else %>
               <% if user_signed_in? %>
-                <%= link_to "Inspiring!",
+                <%= link_to "Save",
                       new_myrake_path(master_rake_id: @rake.id),
                                     data: { toggle: "modal",
                                             target: "#newCustomRakeModal",
                                           },
                                     class: "btn btn-primary btn-xs" %>
               <% else %>
-                <%= link_to "Inspiring!", root_path, class: "btn btn-primary btn-xs" %>
+                <%= link_to "Save", root_path, class: "btn btn-primary btn-xs" %>
               <% end %>
             <% end %>
           </span>
