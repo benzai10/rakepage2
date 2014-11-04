@@ -234,16 +234,6 @@ $(function() {
         $("html, body").animate({ scrollTop: selected - collapseh }, 700);
     });
 
-    $(".reminderat").change(function() {
-        var selected = $(this)[0].value;
-        if (selected == "0") {
-            $(".score-label").html("Rating");
-        }
-        else {
-            $(".score-label").html("Progress/Action/Rating");
-        };
-    });
-
     $(".add-rss-feed").click(function() {
         var rakeId = $(this).data('rakeid');
         var channelType = $(this).data('channeltype');

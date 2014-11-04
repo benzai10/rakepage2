@@ -36,17 +36,23 @@ class UsersController < ApplicationController
                                      current_score: params[:user][:current_score].to_i,
                                      current_rating: params[:user][:current_rating].to_i,
                                      current_reminder: params[:user][:current_reminder])
-      History.create(user_id: current_user.id,
-                     rake_id: Heap.find(params[:user][:heap_id].to_i).myrake.id,
+      current_rake = Heap.find(params[:user][:heap_id].to_i).myrake
+      History.create!(user_id: current_user.id,
+                     rake_id: current_rake.id,
                      leaflet_id: @leaflet.id,
                      history_code: "bookmark",
                      history_int: params[:user][:current_score].to_i,
                      history_int2: params[:user][:current_rating].to_i,
-                     history_str: params[:user][:current_reminder],
+                     history_str: params[:user][:task_comment],
                      history_chain: params[:user][:history_chain].to_i)
       respond_to do |format|
         format.html { redirect_to myrakes_path(collapse: "reminders") }
         format.js {
+          if current_rake.top_rake == 1 && params[:user][:history_chain].to_i == 1
+            @top_rake_id = current_rake.id
+          else
+            @top_rake_id = 0
+          end
           @origin = params[:user][:origin]
           render 'myrakes/reminder_set'
         }

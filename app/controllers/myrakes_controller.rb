@@ -256,9 +256,14 @@ class MyrakesController < ApplicationController
                      history_code: "bookmark",
                      history_int: params[:myrake][:current_score].to_i,
                      history_int2: params[:myrake][:current_rating].to_i,
-                     history_str: params[:myrake][:current_reminder],
+                     history_str: params[:myrake][:task_comment],
                      history_chain: params[:myrake][:history_chain].to_i)
-      redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:collapse].scan(/\d+$/).first + "_" + params[:myrake][:leaflet_id])
+      redirect_to myrake_path(@rake, 
+                              collapse: params[:myrake][:collapse],
+                              anchor: "anchor_leaflet_" +
+                                      params[:myrake][:collapse].scan(/\d+$/).first +
+                                      "_" +
+                                      params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       case params[:myrake][:reminder_at].to_i
@@ -293,12 +298,14 @@ class MyrakesController < ApplicationController
                        history_code: "bookmark",
                        history_int: params[:myrake][:current_score].to_i,
                        history_int2: params[:myrake][:current_rating].to_i,
-                       history_str: params[:myrake][:current_reminder],
+                       history_str: params[:myrake][:task_comment],
                        history_chain: params[:myrake][:history_chain].to_i)
         respond_to do |format|
           if session[:rake_class] == MasterRake
             format.html {
-              redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+              redirect_to master_rake_path(@rake.master_rake_id,
+                                           collapse: params[:myrake][:collapse],
+                                           anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
             }
             format.js {
               @leaflet_id = params[:myrake][:leaflet_id]
@@ -383,7 +390,9 @@ class MyrakesController < ApplicationController
                            params[:myrake][:current_rating],
                            params[:myrake][:current_reminder])
       if !leaflet_id.nil?
-        redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_type_id] + "_" + leaflet_id.to_s)
+        redirect_to myrake_path(@rake,
+                                collapse: params[:myrake][:collapse],
+                                anchor: "anchor_leaflet_" + params[:myrake][:leaflet_type_id] + "_" + leaflet_id.to_s)
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
@@ -408,7 +417,9 @@ class MyrakesController < ApplicationController
                                  0)
         redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark copied."]
       else
-        redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark couln't be copied. It probably exists already."]
+        redirect_to myrake_path(@rake, 
+                                collapse: "heap_#{heapleaflet.leaflet_type_id}"),
+                                :notice => ["Bookmark couln't be copied. It probably exists already."]
       end
     else
       @rake.filters.each do |f|

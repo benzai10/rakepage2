@@ -53,7 +53,14 @@
               <%= f.range_field :current_rating, in: 0..100, step: "1", value: 0, hide_label: true, class: "modal-slider", id: "slider11" %>
             </div>
           </div>
-          <%= f.check_box :history_chain, { label: "Task executed", class: "history-chain" } %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.check_box :history_chain, { checked: false, label: "Task executed", class: "history-chain" } %>
+            </div>
+            <div class="col-md-6">
+              <%= f.text_field :task_comment, { hide_label: true, placeholder: "Task comment" } %>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

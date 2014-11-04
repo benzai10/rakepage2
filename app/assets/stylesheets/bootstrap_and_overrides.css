@@ -213,6 +213,12 @@ a.anchor {
   margin-left: 0px;
 }
 
+hr {
+  height: 2px;
+  color: #4a2b88;
+  background-color: #4a2b88;
+}
+
 p {
   font-family: 'Roboto', sans-serif;
 }
@@ -499,6 +505,8 @@ a.menu-link:hover {
 
 .media-body {
   margin-left: 10px;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .media-heading {
