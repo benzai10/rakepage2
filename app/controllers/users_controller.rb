@@ -42,7 +42,8 @@ class UsersController < ApplicationController
                      history_code: "bookmark",
                      history_int: params[:user][:current_score].to_i,
                      history_int2: params[:user][:current_rating].to_i,
-                     history_str: params[:user][:current_reminder])
+                     history_str: params[:user][:current_reminder],
+                     history_chain: params[:user][:history_chain].to_i)
       respond_to do |format|
         format.html { redirect_to myrakes_path(collapse: "reminders") }
         format.js {

@@ -1,6 +1,6 @@
 <div class="progress">
   <% 30.times do |d| %>
-    <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int > 0",
+    <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_chain = 1",
                         toprake.id,
                         Time.now - (30 - d).day,
                         Time.now - (29 - d).day).count > 0 %>

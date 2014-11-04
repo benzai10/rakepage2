@@ -250,13 +250,14 @@ class MyrakesController < ApplicationController
       leaflet.update_attributes(title: params[:myrake][:leaflet_title],
                                 content: params[:myrake][:leaflet_desc],
                                 url: params[:myrake][:leaflet_url])
-      History.create(user_id: current_user.id,
+      History.create!(user_id: current_user.id,
                      rake_id: @rake.id,
                      leaflet_id: leaflet.id,
                      history_code: "bookmark",
                      history_int: params[:myrake][:current_score].to_i,
                      history_int2: params[:myrake][:current_rating].to_i,
-                     history_str: params[:myrake][:current_reminder])
+                     history_str: params[:myrake][:current_reminder],
+                     history_chain: params[:myrake][:history_chain].to_i)
       redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:collapse].scan(/\d+$/).first + "_" + params[:myrake][:leaflet_id])
     elsif params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
@@ -286,6 +287,14 @@ class MyrakesController < ApplicationController
                         params[:myrake][:current_score],
                         params[:myrake][:current_rating],
                         params[:myrake][:current_reminder])
+        History.create!(user_id: current_user.id,
+                       rake_id: @rake.id,
+                       leaflet_id: leaflet.id,
+                       history_code: "bookmark",
+                       history_int: params[:myrake][:current_score].to_i,
+                       history_int2: params[:myrake][:current_rating].to_i,
+                       history_str: params[:myrake][:current_reminder],
+                       history_chain: params[:myrake][:history_chain].to_i)
         respond_to do |format|
           if session[:rake_class] == MasterRake
             format.html {

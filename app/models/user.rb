@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   attr_accessor :origin
   attr_accessor :current_score
   attr_accessor :current_reminder
+  attr_accessor :history_chain
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
