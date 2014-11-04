@@ -22,53 +22,42 @@
       <br><br><br><br>
     </div>
   <% else %>
-    <div class="panel-group" id="top-rakes-accordion" role="tablist" aria-multiselectable="true">
-    <% @top_rakes.each_with_index do |r, i| %>
-        <div class="panel panel-default panel-top-rake">
-          <div class="panel-heading panel-heading-top-rake" role="tab">
-            <div class="thumbnail thumbnail-top-rake">
-              <%#= link_to myrake_path(r) do %>
-              <a data-toggle="collapse" data-parent="#top-rakes-accordion" href="#toprake<%= i.to_s %>" aria-expanded="false" aria-controls="toprake" + "#{i}">
-                <% master_rake = MasterRake.find(r.master_rake_id) %>
-                <div class="media load-rake" value="<%= r.id %>">
-                  <span class="pull-left">
-                    <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
-                      <%= image_tag("no_image.png", size: "96x54") %>
-                    <% else %>
-                      <%= image_tag(master_rake.image_url, size: "96x54") %>
-                    <% end %>
+    <% @top_rakes.each do |r| %>
+      <div class="col-md-12">
+        <div class="thumbnail">
+          <%= link_to myrake_path(r) do %>
+            <% master_rake = MasterRake.find(r.master_rake_id) %>
+            <div class="media load-rake" value="<%= r.id %>">
+              <span class="pull-left">
+                <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
+                  <%= image_tag("no_image.png", size: "96x54") %>
+                <% else %>
+                  <%= image_tag(master_rake.image_url, size: "96x54") %>
+                <% end %>
+              </span>
+              <div class="media-body">
+                <h5 class="media-heading"><%= r.name %></h5>
+                <p>
+                  <%= render 'top_rake_chain', toprake: r %>
+                </p>
+                <p>
+                  <%= master_rake.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
+                  &nbsp;|&nbsp;
+                  <%= HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count.to_s %>
+                  <% new_count = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", r.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).count %>
+                  <span class="new-rec-alert">
+                    <%= "(" + new_count.to_s + ")" unless new_count == 0 %>
                   </span>
-                  <div class="media-body">
-                    <h5 class="media-heading"><%= r.name %></h5>
-                    <p>
-                      <%= render 'top_rake_chain', toprake: r %>
-                    </p>
-                    <p>
-                      <%= master_rake.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
-                      &nbsp;|&nbsp;
-                      <%= HeapLeafletMap.where("heap_id IN (?)", r.heaps.pluck(:id)).count.to_s %>
-                      <% new_count = MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", r.master_rake.master_heaps.pluck(:id), current_user.last_sign_in_at).count %>
-                      <span class="new-rec-alert">
-                        <%= "(" + new_count.to_s + ")" unless new_count == 0 %>
-                      </span>
-                      <i class="fa fa-bookmark purple"></i>
-                      &nbsp;|&nbsp;
-                      <%= r.channels.where.not(channel_type: 3).count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
-                    </p>
-                  </div>
-                </div>
-              </a>
-              <%# end %>
+                  <i class="fa fa-bookmark purple"></i>
+                  &nbsp;|&nbsp;
+                  <%= r.channels.where.not(channel_type: 3).count.to_s %>&nbsp;<i class="fa fa-rss purple"></i>
+                </p>
+              </div>
             </div>
           </div>
-          <div id="toprake<%= i.to_s %>" class="panel-collapse collapse" role="tabpanel">
-            <div class="panel-body panel-body-top-rake">
-              <%= render 'toprake_overdue_recommendations', current_myrake: r %>
-            </div>
-          </div>
-        </div>
+        <% end %>
+      </div>
     <% end %>
-    </div>
     <% if @top_rakes.count < 5 %>
       <div class="row">
         <div class="col-md-12">

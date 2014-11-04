@@ -1,18 +1,8 @@
-<h5>
-  <small>
-    GET THINGS DONE
-    &nbsp;|&nbsp;
-    <%= link_to "NEWS", myrake_path(current_myrake, collapse: "feed") %>
-    &nbsp;|&nbsp;
-    <%= link_to "BOOKMARKS", myrake_path(current_myrake, collapse: "heap") %>
-  </small>
-</h5>
-<hr>
-<% active_reminders = @top_overdue_leaflets.where("heap_id IN (?)", current_myrake.heaps.pluck(:id)) %>
-<% if active_reminders.count > 0 %>
+<span class="rake-nav">REMINDERS FROM TOP 5 RAKES<hr></span>
+<% if @top_overdue_leaflets.count > 0 %>
   <ul id="feed-list" class="leaflet-list">
     <% leaflet_duplication_array = [] %>
-    <% active_reminders.each do |lm| %>
+    <% @top_overdue_leaflets.each do |lm| %>
       <% l = Leaflet.find(lm.leaflet_id) %>
       <% if !leaflet_duplication_array.include? l.id %>
         <% leaflet_duplication_array << l.id %>
