@@ -2,9 +2,13 @@
   <% 30.times do |d| %>
     <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_chain = 1",
                         toprake.id,
-                        Time.now - (30 - d).day,
-                        Time.now - (29 - d).day).count > 0 %>
-      <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+                        (Time.now.to_date - (29 - d).day).to_date,
+                        (Time.now.to_date - (28 - d).day).to_date).count > 0 %>
+      <% if d == 29 %>
+        <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+      <% else %>
+        <div class="progress-bar progress-bar-success bookmark-metrics-purple" style="width: 3.33%"></div>
+      <% end %>
     <% else %>
       <% if d == 29 %>
         <div class="progress-bar progress-bar-success bookmark-metrics" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
