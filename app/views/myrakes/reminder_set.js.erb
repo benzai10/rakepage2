@@ -1,22 +1,27 @@
-if (<%= @top_rake_id %> > 0) {
-  $('#progress-current-day-toprake-<%= @top_rake_id %>').addClass('bookmark-metrics-purple');
-}
-if ('<%= @origin %>' == 'overdue') {
-  $('#leaflet_<%= @leaflet.id %>').remove();
-  $('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
-  if ($('.badge-reminders').html() == "0") {
-    $('#empty-reminders').removeClass('hidden');
-    $('#top-5-reminders').hide();
-    $('#other-reminders').hide();
-  }
-  if (<%= @reminder_at %> > 0) {
-    $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) + 1);
-  }
+if (<%= @reload_flag %> == 1) {
+  window.location.reload();
 }
 else {
-  if (<%= @reminder_at %> == 0) {
+  if (<%= @top_rake_id %> > 0) {
+    $('#progress-current-day-toprake-<%= @top_rake_id %>').addClass('bookmark-metrics-purple');
+  }
+  if ('<%= @origin %>' == 'overdue') {
     $('#leaflet_<%= @leaflet.id %>').remove();
-    $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) - 1);
-  } 
+    $('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
+    if ($('.badge-reminders').html() == "0") {
+      $('#empty-reminders').removeClass('hidden');
+      $('#top-5-reminders').hide();
+      $('#other-reminders').hide();
+    }
+    if (<%= @reminder_at %> > 0) {
+      $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) + 1);
+    }
+  }
+  else {
+    if (<%= @reminder_at %> == 0) {
+      $('#leaflet_<%= @leaflet.id %>').remove();
+      $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) - 1);
+    } 
+  }
+  $('#setReminderModal').modal('hide');
 }
-$('#setReminderModal').modal('hide');

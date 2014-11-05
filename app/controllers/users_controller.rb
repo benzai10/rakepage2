@@ -46,15 +46,29 @@ class UsersController < ApplicationController
                      history_str: params[:user][:task_comment],
                      history_chain: params[:user][:history_chain].to_i)
       respond_to do |format|
-        format.html { redirect_to myrakes_path(collapse: "reminders") }
+        format.html { 
+          if params[:user][:origin] == "overdue"
+            redirect_to myrakes_path(collapse: "reminders")
+          else
+            redirect_to myrakes_path(collapse: "scheduled_reminders")
+          end
+        }
         format.js {
-          if current_rake.top_rake == 1 && params[:user][:history_chain].to_i == 1
-            @top_rake_id = current_rake.id
+          if params[:user][:origin] == "overdue" || (params[:user][:origin] == "scheduled" && @reminder_at == 0)
+            if current_rake.top_rake == 1 && params[:user][:history_chain].to_i == 1
+              @top_rake_id = current_rake.id
+            else
+              @top_rake_id = 0
+            end
+            @origin = params[:user][:origin]
+            @reload_flag = 0
+            render 'myrakes/reminder_set'
           else
             @top_rake_id = 0
+            @origin = params[:user][:origin]
+            @reload_flag = 1
+            render 'myrakes/reminder_set'
           end
-          @origin = params[:user][:origin]
-          render 'myrakes/reminder_set'
         }
       end
     else
