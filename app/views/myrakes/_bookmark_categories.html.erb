@@ -268,7 +268,7 @@
                   <% end %>
                 </span>
                 <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-                <p class="feed-body">
+                <div class="feed-body">
                   <% if heap_leaflet != "" %>
                     <% goal = heap_leaflet.leaflet_goal %>
                     <% note = heap_leaflet.leaflet_note %>
@@ -295,7 +295,7 @@
                     <% actioncounter = 0 %>
                   <% end %>
                   <p><%= raw l.content unless l.content == description %></p>
-                </p>
+                </div>
                 <br>
                 <span class="leaflet-metrics">
                   <% if user_signed_in? %>

@@ -233,15 +233,15 @@
                     <%= link_to l.title, l.url, class: "external", value: "#{h.leaflet_type_id}_#{l.id}", target: "_blank" %>
                   <% end %>
                 </span>
-                <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-                <p class="feed-body">
+                <!-- <div class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></div> -->
+                <div class="feed-body">
                   <%# description = l.leaflet_desc %>
                   <%# if !description.nil? %>
                     <%#= description %>
                   <%# end %>
                   <%#= raw content unless l.content == description %>
                   <%= raw l.content %>
-                </p>
+                </div>
                 <br>
                 <span class="leaflet-metrics">
                   <span class="s_count_<%= h.leaflet_type_id.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>

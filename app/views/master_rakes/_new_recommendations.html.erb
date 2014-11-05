@@ -39,7 +39,7 @@
           <span class="leaflet-title">
             <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           </span>
-          <p class="feed-body"><%= raw l.content unless l.content == "No content details to display." %></p>
+          <div class="feed-body"><%= raw l.content unless l.content == "No content details to display." %></div>
           <br>
           <span class="leaflet-metrics">
             Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>

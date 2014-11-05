@@ -120,8 +120,8 @@
               <% end %>
             <% end %>
           </span>
-          <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-          <p class="feed-body">
+          <!-- <div class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></div> -->
+          <div class="feed-body">
             <% if heap_leaflet != "" %>
               <% description = heap_leaflet.leaflet_desc %>
               <% if !description.nil? %>
@@ -135,7 +135,7 @@
               <% end %>
             <% end %>
             <%= raw l.content unless l.content == description %>
-          </p>
+          </div>
           Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
           &nbsp;|&nbsp;
           Saved <span class="s_count_<%= l.id %>"><%= l.save_count %></span>

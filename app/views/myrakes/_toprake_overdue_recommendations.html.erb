@@ -52,7 +52,7 @@
               <span class="leaflet-title">
                 <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
               </span>
-              <p class="feed-body">
+              <div class="feed-body">
                 <% description = lm.leaflet_desc %>
                 <% if !description.nil? %>
                   <% if description != l.content && !description.empty? %>
@@ -66,7 +66,7 @@
                   <% reminder_at = reminder_at.to_formatted_s(:short) %>
                 <% end %>
                 <%= raw l.content unless l.content == "No content details to display." %>
-              </p>
+              </div>
               <br>
               <span class="leaflet-metrics">
                 <%= lm.current_score.to_s %>
