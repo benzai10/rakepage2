@@ -4,28 +4,14 @@ Rakepage2::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :registrations => "registrations" }
 
-  #match 'pages/help', to: 'pages#help', via: [:get]
-
   get "sitemap.xml" => "sitemaps#index", as: "sitemap", defaults: { format: "xml" }
 
-  resources :charts do
-    member do
-      get 'recommendation_activity'
-    end
-  end
+  get 'pages/terms_of_service' => 'pages#terms_of_service'
+  get 'pages/privacy_policy' => 'pages#privacy_policy'
 
-  resources :histories
+  resources :users, only: [:update] 
 
-  resources :pages
-
-  resources :users do
-    member do
-      get 'save_leaflet'
-      get 'edit_leaflet'
-    end
-  end
-
-  resources :channels do
+  resources :channels, except: [:edit, :update, :destroy] do
     member do
       get 'refresh_feed'
     end
@@ -34,14 +20,14 @@ Rakepage2::Application.routes.draw do
     end
   end
 
-  resources :heaps do
+  resources :heaps, only: [:update] do
     member do
       get 'add_leaflet'
       get 'remove_leaflet'
     end
   end
 
-  resources :leaflets do
+  resources :leaflets, only: [:new, :create] do
     collection do
       post 'view_add'
       post 'like_add'

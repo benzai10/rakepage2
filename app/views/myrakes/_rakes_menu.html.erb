@@ -47,10 +47,10 @@
               <%#= link_to "Social Accounts", authentications_path %>
             </li>
             <li class="rake-show-list">
-              <%= link_to "Terms of Service", pages_path(section: "terms_of_service"), class: "purple" %>
+              <%= link_to "Terms of Service", pages_terms_of_service_path, class: "purple" %>
             </li>
             <li class="rake-show-list">
-              <%= link_to "Privacy Policy", pages_path(section: "privacy_policy"), class: "purple" %>
+              <%= link_to "Privacy Policy", pages_privacy_policy_path, class: "purple" %>
             </li>
             <li class="rake-show-list">
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>

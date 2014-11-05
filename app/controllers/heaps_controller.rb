@@ -1,9 +1,5 @@
 class HeapsController < ApplicationController
 
-  def show
-    @heap = Heap.find(params[:id])
-  end
-
   def update
     redirect_to add_leaflet_heap_path(id: params[:id], 
                                       leaflet_id: params[:heap][:leaflet_id], 

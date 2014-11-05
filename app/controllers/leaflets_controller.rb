@@ -1,9 +1,5 @@
 class LeafletsController < ApplicationController
 
-  def show
-    @leaflet = Leaflet.find(params[:id])
-  end
-
   def new
     @leaflet = Leaflet.new
     @channel_id = Myrake.find(params[:rake_id]).channels.where("channel_type = 3").first.id

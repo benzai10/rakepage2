@@ -62,6 +62,8 @@ group :development, :test do
   gem 'minitest-focus'
   gem 'fabrication'
   gem 'faker'
+# Traceroute
+  gem 'traceroute'
 end
 
 #### Default
