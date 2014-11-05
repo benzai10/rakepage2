@@ -63,26 +63,31 @@ $(function() {
     $("#setReminderModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.reminderat').val(1);
     });
 
     $("#newLeafletModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.reminderat').val(1);
     });
 
     $("#myModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.reminderat').val(1);
     });
 
     $("#editLeafletModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.reminderat').val(1);
     });
 
     $("#editRestrictedLeafletModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.reminderat').val(1);
     });
 
     $('.add-recommendation-form').hide();
