@@ -47,12 +47,14 @@
         </span>
         <!-- <div class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></div> -->
         <div class="feed-body">
-          <% if !heap_leaflet.nil? %>
-            <% description = heap_leaflet.leaflet_desc %>
-            <% if !description.nil? %>
-              <%= description %>
+          <p>
+            <% if !heap_leaflet.nil? %>
+              <% description = heap_leaflet.leaflet_desc %>
+              <% if !description.nil? %>
+                <%= description %>
+              <% end %>
             <% end %>
-          <% end %>
+          </p>
         </div>
         Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
         &nbsp;|&nbsp;

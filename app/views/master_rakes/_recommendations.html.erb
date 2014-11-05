@@ -62,12 +62,9 @@
                         <%= link_to l.title, l.url, class: "external", value: l.id, target: "_blank" %>
                       <% end %>
                     </span>
-                    <!-- <p class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></p> -->
-                      <%# description = l.leaflet_desc %>
-                      <%# if !description.nil? %>
-                        <%#= description %>
-                      <%# end %>
-                    <div class="feed-body"><%= raw l.content %></div>
+                    <div class="feed-body">
+                      <p><%= raw l.content %></p>
+                    </div>
                     <br>
                     <span class="leaflet-metrics">
                       Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>

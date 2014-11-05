@@ -65,7 +65,7 @@
                 <% else %>
                   <% reminder_at = reminder_at.to_formatted_s(:short) %>
                 <% end %>
-                <%= raw l.content unless l.content == "No content details to display." %>
+                <p><%= raw l.content unless l.content == "No content details to display." %></p>
               </div>
               <br>
               <span class="leaflet-metrics">

@@ -57,7 +57,9 @@
                 <% end %>
               </span>
             </p>
-            <div class="feed-body"><%= l.content.html_safe %></div>
+            <div class="feed-body">
+              <p><%= l.content.html_safe %></p>
+            </div>
             <% if !l.content.downcase.include? "read more" %>
               <p class="leaflet-read-more pull-right"><%= link_to "read more", l.url, class: "external", value: l.id, target: "_blank" %></p>
             <% end %>

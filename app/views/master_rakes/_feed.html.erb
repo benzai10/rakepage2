@@ -64,7 +64,9 @@
         <span class="leaflet-title">
           <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
         </span>
-        <div class="feed-body"><%= raw l.content unless l.content == "No content details to display." %></div>
+        <div class="feed-body">
+          <p><%= raw l.content unless l.content == "No content details to display." %></p>
+        </div>
         <br>
         <span class="leaflet-metrics">
           <span class="s_count_<%= l.id %>"><%= l.save_count %></span>

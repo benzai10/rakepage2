@@ -504,9 +504,22 @@ a.menu-link:hover {
 }
 
 .feed-body {
-  margin-left: 10px;
   max-height: 520px;
   overflow-y: scroll;
+}
+.feed-body > iframe {
+  width: 100% !important;
+  min-height: auto !important;
+}
+
+.feed-body > img {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.feed-body .reddit-thumbnail {
+  height: 39px !important;
+  width: 70px !important;
 }
 
 .media-heading {
@@ -639,21 +652,6 @@ a.menu-link:hover {
 #feed-list table {
   font-family: 'Roboto', sans-serif;
   font-size: 12px !important;
-}
-
-.feed-body > iframe {
-  width: 100% !important;
-  min-height: auto !important;
-}
-
-.feed-body > img {
-  height: 100% !important;
-  width: 100% !important;
-}
-
-.feed-body .reddit-thumbnail {
-  height: 39px !important;
-  width: 70px !important;
 }
 
 input[type=text]:focus {

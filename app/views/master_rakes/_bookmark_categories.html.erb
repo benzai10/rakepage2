@@ -235,12 +235,7 @@
                 </span>
                 <!-- <div class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></div> -->
                 <div class="feed-body">
-                  <%# description = l.leaflet_desc %>
-                  <%# if !description.nil? %>
-                    <%#= description %>
-                  <%# end %>
-                  <%#= raw content unless l.content == description %>
-                  <%= raw l.content %>
+                  <p><%= raw l.content %></p>
                 </div>
                 <br>
                 <span class="leaflet-metrics">
