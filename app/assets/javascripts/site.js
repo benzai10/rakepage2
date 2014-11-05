@@ -60,6 +60,31 @@ $(function() {
         $("#W61").html(newValue);
     });
 
+    $("#setReminderModal").on('shown.bs.modal', function(){
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+    });
+
+    $("#newLeafletModal").on('shown.bs.modal', function(){
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+    });
+
+    $("#myModal").on('shown.bs.modal', function(){
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+    });
+
+    $("#editLeafletModal").on('shown.bs.modal', function(){
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+    });
+
+    $("#editRestrictedLeafletModal").on('shown.bs.modal', function(){
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+    });
+
     $('.add-recommendation-form').hide();
 
     $('.add-recommendation').click(function(){

@@ -45,10 +45,10 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <%= f.check_box :history_chain, { checked: false, label: "Task executed", class: "history-chain" } %>
+              <%= f.check_box :history_chain, { label: "Task executed", class: "history-chain" } %>
             </div>
             <div class="col-md-6">
-              <%= f.text_field :task_comment, { hide_label: true, placeholder: "Task comment" } %>
+              <%= f.text_field :task_comment, { hide_label: true, placeholder: "Task comment", class: "task-comment" } %>
             </div>
           </div>
         </div>
