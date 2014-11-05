@@ -40,15 +40,7 @@
               <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
             </div>
           </div>
-          <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" }
-            <div class="col-md-6">
-              <%= f.check_box :history_chain, { checked: false, label: "Task executed", class: "history-chain" } %>
-            </div>
-            <div class="col-md-6">
-              <%= f.text_field :task_comment, { hide_label: true, placeholder: "Task comment" } %>
-            </div>
-          </div>
- %>
+          <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
           <div class="row">
             <div class="col-md-6">
               <label class="score-label">Quantify your productivity</label>
