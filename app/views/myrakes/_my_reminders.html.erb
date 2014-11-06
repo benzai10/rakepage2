@@ -59,6 +59,7 @@
     </p>
     <% if @top_overdue_leaflets.count > 0 %>
       <%= render 'toprake_overdue_recommendations' %>
+      <br><br><br>
     <% end %>
     <% if @other_overdue_leaflets.count > 0 %>
       <%= render 'my_overdue_recommendations' %>
