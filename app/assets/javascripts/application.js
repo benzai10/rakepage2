@@ -16,6 +16,7 @@
 //= require autocomplete-rails
 //= require bootstrap
 //= require bootstrap-tokenfield
+//= require bootstrap-material-design
 //= require facebook
 //= require social-share-button
 //= require_tree .
