@@ -72,14 +72,6 @@
           <div class="media-body">
             <h5 class="media-heading"><%= leaflet_type_desc %></h5>
             <p><%= heap.leaflets.count.to_s if !heap.nil? %>&nbsp;<i class="fa fa-bookmark purple"></i></p>
-            <p>
-              <%# new_count = MasterHeapLeafletMap.where("master_heap_id = ? AND created_at > ?", 
-                                                        @rake.master_rake.master_heaps.find_by_leaflet_type_id(lt), 
-                                                        current_user.last_sign_in_at).count %>
-              <span class="new-rec-alert">
-                <%#= pluralize(new_count, "New Rec") unless new_count == 0 %>
-              </span>
-            </p>
           </div>
           </div>
         </div>
@@ -244,9 +236,6 @@
                 </span>
                 <br>
                 <span class="leaflet-title">
-                  <%# if !l.reminder_at.nil? %>
-                    <!-- <i class="fa fa-star purple"></i>&nbsp; -->
-                  <%# end %>
                   <% if heap_leaflet != "" %>
                     <% title = heap_leaflet.leaflet_title %>
                     <% if !title.nil? %>
@@ -276,10 +265,6 @@
                     <% rating = heap_leaflet.current_rating %>
                     <% heap_leaflet.motion_counter > 0 ? motioncounter = 1 : motioncounter = 0 %>
                     <% heap_leaflet.action_counter > 0 ? actioncounter = 1 : actioncounter = 0 %>
-                    <% description = heap_leaflet.leaflet_desc %>
-                    <% if !description.nil? %>
-                      <p><%= description %></p>
-                    <% end %>
                     <% reminder_at = heap_leaflet.reminder_at %>
                     <% if reminder_at.nil? %>
                       <% reminder_at = "no reminder" %>
@@ -330,7 +315,7 @@
                                           collapse: "heap_" + "#{heap.leaflet_type_id}",
                                           title: l.title,
                                           content: l.content,
-                                          description: description,
+                                          description: "",
                                           goal: goal,
                                           note: note,
                                           reminder: reminder_at,

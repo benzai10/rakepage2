@@ -123,10 +123,6 @@
           <!-- <div class="feed-body"><%#= highlight(l.content.html_safe, @rake_filter.split(",")) %></div> -->
           <div class="feed-body">
             <% if heap_leaflet != "" %>
-              <% description = heap_leaflet.leaflet_desc %>
-              <% if !description.nil? %>
-                <%= description %><br><br>
-              <% end %>
               <% reminder_at = heap_leaflet.reminder_at %>
               <% if reminder_at.nil? %>
                 <% reminder_at = "no reminder" %>
@@ -134,7 +130,7 @@
                 <% reminder_at = reminder_at.to_formatted_s(:short) %>
               <% end %>
             <% end %>
-            <p><%= raw l.content unless l.content == description %></p>
+            <p><%= raw l.content %></p>
           </div>
           Viewed <span class="v_count_<%= l.id %>"><%= l.view_count %></span>
           &nbsp;|&nbsp;
@@ -160,7 +156,7 @@
                                     collapse: "heap_" + "#{heap.leaflet_type_id}",
                                     title: l.title,
                                     content: l.content,
-                                    description: description,
+                                    description: "",
                                     url: l.url,
                                     reminder: reminder_at,
                                     access: "full" },

@@ -53,12 +53,6 @@
                 <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
               </span>
               <div class="feed-body">
-                <% description = lm.leaflet_desc %>
-                <% if !description.nil? %>
-                  <% if description != l.content && !description.empty? %>
-                    <%= description %><br><br>
-                  <% end %>
-                <% end %>
                 <% reminder_at = lm.reminder_at %>
                 <% if reminder_at.nil? %>
                   <% reminder_at = "no reminder" %>
@@ -84,7 +78,7 @@
                                     collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
                                     title: l.title,
                                     content: l.content,
-                                    description: description,
+                                    description: "",
                                     goal: lm.leaflet_goal,
                                     note: lm.leaflet_note,
                                     url: l.url,
@@ -114,3 +108,4 @@
     </p>
   <% end %>
 </div>
+<br><br>
