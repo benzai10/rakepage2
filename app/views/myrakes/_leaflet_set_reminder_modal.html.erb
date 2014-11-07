@@ -28,7 +28,10 @@
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
             </div>
             <div class="col-md-6">
-              <%= f.number_field :scheduled_counter, { label: "Actions", class: "scheduled-counter" } %>
+              <label class="action-label">Action</span></label>
+              <span class="new-rec-alert new-action pull-right">+1</span>
+              <%= f.hidden_field :action_counter, class: "action-counter" %>
+              <%= f.number_field :scheduled_counter, { hide_label: true, class: "scheduled-counter" } %>
             </div>
           </div>
           <div class="row">

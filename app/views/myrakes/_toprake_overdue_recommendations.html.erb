@@ -27,10 +27,6 @@
               <% end %>
             </a>
             <div class="media-body">
-              <div class="progress">
-                <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= lm.current_score.to_s %>%">
-                </div>
-              </div>
               <span class="feed-timestamp">
                 <%#= Channel.find(l.channel_id).name %>
                 <%= link_to myrake.name, myrake_path(myrake) %>
@@ -62,8 +58,17 @@
                 <p><%= raw l.content unless l.content == "No content details to display." %></p>
               </div>
               <br>
+              <div class="progress">
+                <% if lm.scheduled_counter == 0 %>
+                  <% scheduled_count = 1 %>
+                <% else %>
+                  <% scheduled_count = lm.scheduled_counter %>
+                <% end %>
+                <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= (100.0 * lm.action_counter / scheduled_count).to_s %>%">
+                </div>
+              </div>
               <span class="leaflet-metrics">
-                <%= lm.current_score.to_s %>
+                <%= lm.action_counter.to_s %>/<%= lm.scheduled_counter.to_s %>
                 <i class="fa fa-tasks purple"></i>
                 &nbsp;|&nbsp;
                 <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
@@ -85,6 +90,8 @@
                                     reminder: reminder_at,
                                     score: lm.current_score,
                                     rating: lm.current_rating,
+                                    actioncount: lm.action_counter,
+                                    scheduledcount: lm.scheduled_counter,
                                     access: "full",
                                     origin: "overdue",
                                     slider: "1" },

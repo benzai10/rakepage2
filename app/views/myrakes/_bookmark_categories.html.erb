@@ -206,12 +206,6 @@
                     <% heap_leaflet = hl %>
                   <% end %>
                 <% end %>
-                <% if user_signed_in? %>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success bookmark-metrics-green <%= "bookmark-metrics-purple" if heap_leaflet.reminder_at.nil? %>" style="width: <%= heap_leaflet.current_score.to_s %>%">
-                    </div>
-                  </div>
-                <% end %>
                 <span class="feed-timestamp">
                   <% channel_name = channel.name %>
                   <% if channel_name == "Title not available." %>
@@ -228,10 +222,6 @@
                     <% else %>
                       <%= time_ago_in_words(l.created_at) %> ago 
                     <% end %>
-                    <%#= link_to '<i class="fa fa-trash-o"></i>'.html_safe, 
-                          remove_leaflet_heap_path(heap, leaflet_id: l.id),
-                          :data => { :confirm => "Are you sure?" },
-                          :method => :get, remote: true %>
                   </span>
                 </span>
                 <br>
@@ -282,16 +272,20 @@
                   <p><%= raw l.content unless l.content == description %></p>
                 </div>
                 <br>
+                <div class="progress">
+                  <% if heap_leaflet.scheduled_counter == 0 %>
+                    <% scheduled_count = 1 %>
+                  <% else %>
+                    <% scheduled_count = heap_leaflet.scheduled_counter %>
+                  <% end %>
+                  <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= (100.0 * heap_leaflet.action_counter / scheduled_count).to_s %>%">
+                  </div>
+                </div>
                 <span class="leaflet-metrics">
                   <% if user_signed_in? %>
-                    <%= heap_leaflet.current_score.to_s %>
-                    <% if heap_leaflet.reminder_at.nil? %>
-                      <i class="fa fa-heart purple"></i>
-                      &nbsp;|&nbsp;
-                    <% else %>
-                      <i class="fa fa-tasks purple"></i>
-                      &nbsp|&nbsp;
-                    <% end %>
+                    <%= heap_leaflet.action_counter.to_s %>/<%= heap_leaflet.scheduled_counter.to_s %>
+                    <i class="fa fa-tasks purple"></i>
+                    &nbsp;|&nbsp;
                   <% end %>
                   <span class="s_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
                   <i class="fa fa-user purple"></i>

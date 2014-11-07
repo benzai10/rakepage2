@@ -1,4 +1,4 @@
-<div class="progress">
+<div class="progress progress-chain">
   <% 30.times do |d| %>
     <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 2",
                         toprake.id,

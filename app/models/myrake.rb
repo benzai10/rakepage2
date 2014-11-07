@@ -20,6 +20,8 @@ class Myrake < ActiveRecord::Base
   attr_accessor :current_score
   attr_accessor :current_rating
   attr_accessor :current_reminder
+  attr_accessor :action_counter
+  attr_accessor :scheduled_counter
   attr_accessor :task_comment
   attr_accessor :history_chain
   attr_accessor :collapse

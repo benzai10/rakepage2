@@ -2,14 +2,17 @@ $(function() {
 
     $(".label-score-0").on('click', function() {
         $(".current-score").val(0);
+        $(".new-action").hide();
     });
 
     $(".label-score-1").on('click', function() {
         $(".current-score").val(1);
+        $(".new-action").hide();
     });
 
     $(".label-score-2").on('click', function() {
         $(".current-score").val(2);
+        $(".new-action").show();
     });
 
     $("#setReminderModal").on('shown.bs.modal', function(){
@@ -134,6 +137,8 @@ $(function() {
         var leafletgoal = $(this).data('goal');
         var leafletnote = $(this).data('note');
         var rating = $(this).data('rating');
+        var actioncount = $(this).data('actioncount');
+        var scheduledcount = $(this).data('scheduledcount');
         var collapse = $(this).data('collapse');
         var reminderat = $(this).data('reminder');
         var origin = $(this).data('origin');
@@ -148,6 +153,9 @@ $(function() {
         $(".reminder-at").val(reminderat);
         $(".origin").val(origin);
         $(".rating").val(rating);
+        $(".action-label").html('Total Actions - done: ' + actioncount + ' ');
+        $(".new-action").hide();
+        $(".scheduled-counter").val(scheduledcount);
         var arrayRatingStars = $(".rating-input .fa");
         for (var i = 0; i < arrayRatingStars.length; i++) {
             if (i < parseInt(rating)) {
@@ -159,6 +167,7 @@ $(function() {
                 arrayRatingStars[i].classList.add('fa-star-o');
             }
         }
+        $(".scheduled-counter").attr('min', actioncount);
         $(".label-score-0").addClass("active");
         $(".label-score-1").removeClass("active");
         $(".label-score-2").removeClass("active");
