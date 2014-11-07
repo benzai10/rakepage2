@@ -12,8 +12,6 @@ class Heap < ActiveRecord::Base
 
   def add_leaflet(leaflet, 
                   leaflet_type_id,
-                  leaflet_title,
-                  leaflet_desc,
                   leaflet_goal,
                   leaflet_note,
                   reminder,
@@ -23,8 +21,6 @@ class Heap < ActiveRecord::Base
     begin 
       self.heap_leaflet_maps.create(leaflet_id: leaflet.id,
                                     leaflet_type_id: leaflet_type_id,
-                                    leaflet_title: leaflet_title,
-                                    leaflet_desc: leaflet_desc,
                                     leaflet_goal: leaflet_goal,
                                     leaflet_note: leaflet_note,
                                     reminder_at: reminder,

@@ -104,8 +104,6 @@ class Myrake < ActiveRecord::Base
 
   def add_leaflet(leaflet,
                   leaflet_type_id,
-                  leaflet_title,
-                  leaflet_desc,
                   leaflet_goal,
                   leaflet_note,
                   reminder,
@@ -117,8 +115,6 @@ class Myrake < ActiveRecord::Base
     end
     if self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet,
                                                                        leaflet_type_id,
-                                                                       leaflet_title,
-                                                                       leaflet_desc,
                                                                        leaflet_goal,
                                                                        leaflet_note,
                                                                        reminder,

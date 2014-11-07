@@ -36,10 +36,20 @@
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
             </div>
             <div class="col-md-6">
-              <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+              <label class="action-label">Action</span></label>
+              <span class="new-rec-alert new-action pull-right">+1</span>
+              <%= f.hidden_field :action_counter, class: "action-counter" %>
+              <%= f.number_field :scheduled_counter, { hide_label: true, class: "scheduled-counter" } %>
             </div>
           </div>
-          <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+            </div>
+            <div class="col-md-12">
+              <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-6">
               <label class="score-label">Quantify your productivty</label>
@@ -49,10 +59,10 @@
                   <input type="radio" name="options" id="option1" autocomplete="off" checked> None
                 </label>
                 <label class="btn btn-default label-score-1">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> In Motion
+                  <input type="radio" name="options" id="option2" autocomplete="off"> Motion
                 </label>
                 <label class="btn btn-default label-score-2">
-                  <input type="radio" name="options" id="option3" autocomplete="off"> Took Action
+                  <input type="radio" name="options" id="option3" autocomplete="off"> Action
                 </label>
               </div>
             </div>

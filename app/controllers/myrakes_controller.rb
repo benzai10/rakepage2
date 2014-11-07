@@ -239,21 +239,23 @@ class MyrakesController < ApplicationController
       else
         reminder_at = nil
       end
-      heap_leaflet.update_attributes(leaflet_title: params[:myrake][:leaflet_title],
-                                     leaflet_desc: params[:myrake][:leaflet_desc],
-                                     leaflet_goal: params[:myrake][:leaflet_goal],
+      params[:myrake][:current_score] == "1" ? motion_counter_increment = 1 : motion_counter_increment = 0
+      params[:myrake][:current_score] == "2" ? action_counter_increment = 1 : action_counter_increment = 0
+      heap_leaflet.update_attributes(leaflet_goal: params[:myrake][:leaflet_goal],
                                      leaflet_note: params[:myrake][:leaflet_note],
                                      reminder_at: reminder_at,
                                      current_score: params[:myrake][:current_score].to_i,
                                      current_rating: params[:myrake][:current_rating].to_i,
-                                     current_reminder: params[:myrake][:current_reminder].to_i)
+                                     scheduled_counter: params[:myrake][:scheduled_counter].to_i,
+                                     action_counter: heap_leaflet.action_counter + action_counter_increment,
+                                     motion_counter: heap_leaflet.motion_counter + motion_counter_increment)
       leaflet.update_attributes(title: params[:myrake][:leaflet_title],
                                 content: params[:myrake][:leaflet_desc],
                                 url: params[:myrake][:leaflet_url])
       History.create!(user_id: current_user.id,
                      rake_id: @rake.id,
                      leaflet_id: leaflet.id,
-                     history_code: "bookmark",
+                     history_code: "bm_activity",
                      history_int: params[:myrake][:current_score].to_i,
                      history_int2: params[:myrake][:current_rating].to_i,
                      history_str: params[:myrake][:task_comment],
@@ -282,10 +284,8 @@ class MyrakesController < ApplicationController
       else
         reminder_at = nil
       end
-      if @rake.add_leaflet(leaflet, 
+      if @rake.add_leaflet(leaflet,
                         params[:myrake][:leaflet_type_id],
-                        params[:myrake][:leaflet_title],
-                        params[:myrake][:leaflet_desc],
                         params[:myrake][:leaflet_goal],
                         params[:myrake][:leaflet_note],
                         reminder_at,
@@ -295,7 +295,7 @@ class MyrakesController < ApplicationController
         History.create!(user_id: current_user.id,
                        rake_id: @rake.id,
                        leaflet_id: leaflet.id,
-                       history_code: "bookmark",
+                       history_code: "bm_activity",
                        history_int: params[:myrake][:current_score].to_i,
                        history_int2: params[:myrake][:current_rating].to_i,
                        history_str: params[:myrake][:task_comment],

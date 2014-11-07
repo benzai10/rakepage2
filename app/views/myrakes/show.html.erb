@@ -81,14 +81,9 @@
     </div>
   </div>
 </div>
-
 <% if user_signed_in? %>
+  <%= render 'myrakes/leaflet_edit_modal' %>
   <%= render 'myrakes/leaflet_copy_modal' %>
   <%= render 'myrakes/leaflet_save_modal' %>
   <%= render 'myrakes/leaflet_create_modal' %>
-  <%= render 'myrakes/leaflet_edit_modal' %>
-  <%= render 'myrakes/leaflet_edit_restricted_modal' %>
 <% end %>
-<%= render 'myrakes/heap_add_modal' %>
-<%#= render 'rakes/social_modal' %>
-<%= render 'new_rake_modal' %>

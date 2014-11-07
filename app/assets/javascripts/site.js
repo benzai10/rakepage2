@@ -39,12 +39,6 @@ $(function() {
         $('.reminderat').val(1);
     });
 
-    $("#editRestrictedLeafletModal").on('shown.bs.modal', function(){
-        $('.history-chain').attr('checked', false);
-        $('.task-comment').val('');
-        $('.reminderat').val(1);
-    });
-
     $('.add-recommendation-form').hide();
 
     $('.add-recommendation').click(function(){
@@ -125,6 +119,8 @@ $(function() {
         $(".collapse-section").val(collapse);
         $(".heap-id").val(heapid);
         $(".rake-name").val(rakename);
+        $(".scheduled-counter").val(1);
+        $(".new-action").hide();
         ga('send', 'event', 'button', 'click', 'leaflet-save');
     });
 
@@ -136,12 +132,23 @@ $(function() {
         var leafleturl = $(this).data('url');
         var leafletgoal = $(this).data('goal');
         var leafletnote = $(this).data('note');
-        var rating = $(this).data('rating');
         var actioncount = $(this).data('actioncount');
         var scheduledcount = $(this).data('scheduledcount');
         var collapse = $(this).data('collapse');
         var reminderat = $(this).data('reminder');
         var origin = $(this).data('origin');
+        var rating = $(this).data('rating');
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            if (i < parseInt(rating)) {
+                arrayRatingStars[i].classList.remove('fa-star-o');
+                arrayRatingStars[i].classList.add('fa-star');
+            }
+            else {
+                arrayRatingStars[i].classList.remove('fa-star');
+                arrayRatingStars[i].classList.add('fa-star-o');
+            }
+        }
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".heap-id").val(heapId);
@@ -156,17 +163,6 @@ $(function() {
         $(".action-label").html('Total Actions - done: ' + actioncount + ' ');
         $(".new-action").hide();
         $(".scheduled-counter").val(scheduledcount);
-        var arrayRatingStars = $(".rating-input .fa");
-        for (var i = 0; i < arrayRatingStars.length; i++) {
-            if (i < parseInt(rating)) {
-                arrayRatingStars[i].classList.remove('fa-star-o');
-                arrayRatingStars[i].classList.add('fa-star');
-            }
-            else {
-                arrayRatingStars[i].classList.remove('fa-star');
-                arrayRatingStars[i].classList.add('fa-star-o');
-            }
-        }
         $(".scheduled-counter").attr('min', actioncount);
         $(".label-score-0").addClass("active");
         $(".label-score-1").removeClass("active");
@@ -185,6 +181,13 @@ $(function() {
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
         $(".leaflet-url").val(url);
+        $(".action-label").html('Total Actions - done: 0');
+        $(".new-action").hide();
+        $(".scheduled-counter").attr('min', 0);
+        $(".scheduled-counter").val(1);
+        $(".label-score-0").addClass("active");
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
         ga('send', 'event', 'button', 'click', 'leaflet-create');
     });
 

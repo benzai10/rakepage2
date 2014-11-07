@@ -30,9 +30,7 @@ class UsersController < ApplicationController
       end
       params[:user][:current_score] == "1" ? motion_counter_increment = 1 : motion_counter_increment = 0
       params[:user][:current_score] == "2" ? action_counter_increment = 1 : action_counter_increment = 0
-      heap_leaflet.update_attributes(leaflet_title: params[:user][:leaflet_title],
-                                     leaflet_desc: params[:user][:leaflet_desc],
-                                     leaflet_goal: params[:user][:leaflet_goal],
+      heap_leaflet.update_attributes(leaflet_goal: params[:user][:leaflet_goal],
                                      leaflet_note: params[:user][:leaflet_note],
                                      reminder_at: reminder_at,
                                      current_score: params[:user][:current_score].to_i,
