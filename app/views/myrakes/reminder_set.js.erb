@@ -3,7 +3,12 @@ if (<%= @reload_flag %> == 1) {
 }
 else {
   if (<%= @top_rake_id %> > 0) {
-    $('#progress-current-day-toprake-<%= @top_rake_id %>').addClass('bookmark-metrics-purple');
+    if (<%= @score_int %> == 1) {
+      $('#progress-current-day-toprake-<%= @top_rake_id %>').addClass('bookmark-metrics-orange');
+    }
+    else {
+      $('#progress-current-day-toprake-<%= @top_rake_id %>').addClass('bookmark-metrics-purple');
+    }
   }
   if ('<%= @origin %>' == 'overdue') {
     $('#leaflet_<%= @leaflet.id %>').remove();
