@@ -147,11 +147,16 @@ $(function() {
         $(".collapse-section").val(collapse);
         $(".reminder-at").val(reminderat);
         $(".origin").val(origin);
+        $(".rating").val(rating);
         var arrayRatingStars = $(".rating-input .fa");
         for (var i = 0; i < arrayRatingStars.length; i++) {
             if (i < parseInt(rating)) {
                 arrayRatingStars[i].classList.remove('fa-star-o');
                 arrayRatingStars[i].classList.add('fa-star');
+            }
+            else {
+                arrayRatingStars[i].classList.remove('fa-star');
+                arrayRatingStars[i].classList.add('fa-star-o');
             }
         }
         $(".label-score-0").addClass("active");

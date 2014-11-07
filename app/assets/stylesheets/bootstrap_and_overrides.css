@@ -563,8 +563,10 @@ a.menu-link:hover {
 }
 
 .progress {
+  box-shadow: 0;
+  -webkit-box-shadow: 0 0 0 0;
+  background-color: transparent;
   height: 8px !important;
-  width: 100% !important;
   margin-top: 4px;
   margin-bottom: 4px;
   border-radius: 0;
