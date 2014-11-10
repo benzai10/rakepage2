@@ -390,6 +390,14 @@ class MyrakesController < ApplicationController
                            params[:myrake][:current_rating],
                            params[:myrake][:current_reminder])
       if !leaflet_id.nil?
+        History.create!(user_id: current_user.id,
+                       rake_id: @rake.id,
+                       leaflet_id: leaflet_id,
+                       history_code: "bm_activity",
+                       history_int: params[:myrake][:current_score].to_i,
+                       history_int2: params[:myrake][:current_rating].to_i,
+                       history_str: params[:myrake][:task_comment],
+                       history_chain: params[:myrake][:history_chain].to_i)
         redirect_to myrake_path(@rake,
                                 collapse: params[:myrake][:collapse],
                                 anchor: "anchor_leaflet_" + params[:myrake][:leaflet_type_id] + "_" + leaflet_id.to_s)
