@@ -1,5 +1,10 @@
 $(function() {
 
+    jQuery(function() {
+      var tz = jstz.determine();
+      $.cookie('timezone', tz.name(), { path: '/' });
+    });
+
     $(".label-score-0").on('click', function() {
         $(".current-score").val(0);
         $(".new-action").hide();

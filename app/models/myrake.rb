@@ -104,6 +104,8 @@ class Myrake < ActiveRecord::Base
 
   def add_leaflet(leaflet,
                   leaflet_type_id,
+                  leaflet_title,
+                  leaflet_desc,
                   leaflet_goal,
                   leaflet_note,
                   reminder,
