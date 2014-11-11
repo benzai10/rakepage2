@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
 
+  def show
+    @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
+    @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
+  end
+
   def update
     if params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:user][:leaflet_id])

@@ -35,6 +35,9 @@ class User < ActiveRecord::Base
   has_many :myrakes
   has_many :authentications
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   def import_fb
     hash = get_fb_likes
     webdev = false
@@ -135,4 +138,12 @@ class User < ActiveRecord::Base
     leaflets.map(&:save_count).sum - leaflets.count
   end
 
+  private
+
+  def slug_candidates
+    [
+      :username,
+      [:username, :id],
+    ]
+  end
 end

@@ -1,5 +1,6 @@
 Rakepage2::Application.routes.draw do
   root to: "pages#landing"
+
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :registrations => "registrations" }
@@ -9,7 +10,7 @@ Rakepage2::Application.routes.draw do
   get 'pages/terms_of_service' => 'pages#terms_of_service'
   get 'pages/privacy_policy' => 'pages#privacy_policy'
 
-  resources :users, only: [:update] 
+  resources :users, only: [:update, :show]
 
   resources :channels, except: [:edit, :update, :destroy] do
     member do

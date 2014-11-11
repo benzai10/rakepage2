@@ -48,75 +48,8 @@ class MyrakesController < ApplicationController
 
   def show
     session[:rake_class] = Myrake
-    if params[:heap] == "yes"
-      session[:heap] = "yes"
-    else
-      session[:heap] = "no"
-    end
-    params[:heap_type] ||= "News"
     @rake = Myrake.find(params[:id])
     @top_rakes_count = Myrake.where("user_id = ? AND top_rake = 1", @rake.user_id).count
-    if user_signed_in?
-      if current_user.id == @rake.user_id
-        history_changed_category = History.where(rake_id: @rake.id, history_code: "Master rake category changed").last
-        if !history_changed_category.nil? 
-          flash[:notice] = ["The category of the master rake has changed.
-                          Bookmarks which couldn't matched are in 'Uncategorized'.
-                          You can move your bookmarks from there to new bookmark types!"]
-          history_changed_category.update_attributes(history_code: "Master rake category change notified")
-        end
-      end
-    end
-    # -- This part has to be more refined because it creates duplicates...
-    if user_signed_in?
-      @added_leaflets = Leaflet.where("id IN (?)", 
-                                MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", 
-                                                     @rake.master_rake.master_heaps.pluck(:id), 
-                                                     current_user.last_sign_in_at).pluck(:leaflet_id) -
-                                HeapLeafletMap.where("heap_id IN (?)",
-                                                     @rake.heaps.pluck(:id)).pluck(:leaflet_id))
-    else
-      @added_leaflets = Leaflet.where("id IN (?)", 
-                                MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", 
-                                                     @rake.master_rake.master_heaps.pluck(:id),
-                                                     Time.now - 1.week).pluck(:leaflet_id))
-    end
-    @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
-    @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
-    missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
-    missing_leaflet_types.each do |mlt|
-      @rake.add_heap(mlt)
-    end
-    if user_signed_in? && current_user.admin?
-      @heaps = @rake.heaps
-    else
-      @leaflet_types.delete(15)
-      @heaps = @rake.heaps.where.not(leaflet_type_id: 15)
-    end
-    @heap_ids = @heaps.pluck(:id)
-    @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
-    @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
-    #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
-    @feed_collapse = params[:collapse] == "feed" ? "active" : ""
-    @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
-    @heap_id = params[:collapse].to_s.slice(5..-1)
-    if @heap_collapse != "active"
-      @feed_collapse = "active"
-    else
-      @feed_collapse = ""
-    end
-    if user_signed_in?
-      heap_ids = []
-      current_user.myrakes.each do |r|
-        heap_ids << r.heaps.pluck(:id)
-      end
-      heap_ids = heap_ids.flatten
-      @recommendations = HeapLeafletMap.where("heap_id IN (?)", heap_ids)
-      @overdue_leaflets = @recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
-      @overdue_leaflets_rake = @overdue_leaflets.where("heap_id IN (?)", @heap_ids)
-    else
-      @overdue_leaflets_rake = []
-    end
     parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
     @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
     @children_master_rakes = MasterRake.where("slug IN (?)",
@@ -128,6 +61,60 @@ class MyrakesController < ApplicationController
                                        @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
+    case params[:view]
+    when "tasks"
+      @overdue_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
+                                               @rake.heaps.pluck(:id).flatten,
+                                               Time.now).order(:reminder_at)
+    when "news"
+      if user_signed_in? && current_user.admin?
+        @heaps = @rake.heaps
+      else
+        @leaflet_types.delete(15)
+        @heaps = @rake.heaps.where.not(leaflet_type_id: 15)
+      end
+      @heap_ids = @heaps.pluck(:id)
+      @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
+      @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
+      # -- This part has to be more refined because it creates duplicates...
+      if user_signed_in?
+        @added_leaflets = Leaflet.where("id IN (?)", 
+                                  MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", 
+                                                       @rake.master_rake.master_heaps.pluck(:id), 
+                                                       current_user.last_sign_in_at).pluck(:leaflet_id) -
+                                  HeapLeafletMap.where("heap_id IN (?)",
+                                                       @rake.heaps.pluck(:id)).pluck(:leaflet_id))
+      end
+      @feed_leaflets = @rake.feed_leaflets("news", params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
+      @new_channels = MasterRake.find(@rake.master_rake_id).channels
+                                .where("channel_type <> 3 AND channel_type <> 5")
+                                .order("created_at DESC")
+                                .limit(5)
+    when "bookmarks"
+      @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
+      missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
+      missing_leaflet_types.each do |mlt|
+        @rake.add_heap(mlt)
+      end
+      if user_signed_in? && current_user.admin?
+        @heaps = @rake.heaps
+      else
+        @leaflet_types.delete(15)
+        @heaps = @rake.heaps.where.not(leaflet_type_id: 15)
+      end
+      @heap_ids = @heaps.pluck(:id)
+      @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
+      @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
+      #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
+      @feed_collapse = params[:collapse] == "feed" ? "active" : ""
+      @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
+      @heap_id = params[:collapse].to_s.slice(5..-1)
+      if @heap_collapse != "active"
+        @feed_collapse = "active"
+      else
+        @feed_collapse = ""
+      end
+    end
   end
 
   def search

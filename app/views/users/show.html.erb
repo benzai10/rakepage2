@@ -1,0 +1,51 @@
+<%= render 'shared/title' %>
+<div class="container-fluid">
+  <%= render 'myrakes/rakes_menu' %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <% if !flash.empty? %>
+        <%= render 'shared/flash_message' %>
+      <% end %>
+      <h1><%= current_user.username %></h1>
+      <div class="panel-group" id="accordion-main">
+        <div class="panel panel-default">
+          <div class="panel-heading panel-myrake">
+            <h5 class="panel-title">
+              <%= "Discover the power of less and master your priorities" %>
+            </h5>
+          </div>
+          <div class="panel-collapse collapse in" id="collapse-overview">
+            <div class="panel-body">
+              <!-- Nav tabs -->
+              <div class="row">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="rake-nav active">
+                    <a href="#top-rakes" id="view-top-rakes" data-toggle="tab">
+                      TOP 5
+                    </a>
+                  </li>
+                  <li class="rake-nav">
+                    <a href="#other-rakes" id="view-other-rakes" data-toggle="tab">
+                      OTHER
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane active" id="top-rakes">
+                  <br>
+                  <%= render 'top_rakes' %>
+                </div>
+                <div class="tab-pane" id="other-rakes">
+                  <br>
+                  <%= render 'other_rakes' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,40 +1,49 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
-      Dashboard
+      News
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-news">
     <div class="panel-body">
-      <% if !flash.empty? %>
-        <%= render 'shared/flash_message' %>
-      <% end %>
-      <%#= image_tag MasterRake.find(@rake.master_rake_id).image_url, size: "250x140" %>
-      <h5><small>Most active Co-Rakers</small></h5>
-      <% data = MasterRake.find(@rake.master_rake_id).get_corakers.first(5) %>
-      <% if data.count == 0 %>
-        <% chart_height = "30px" %>
-      <% else %>
-        <% chart_height = (data.count * 40).to_s + "px" %>
-      <% end %>
-      <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Bookmarks", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
-
-      <br>
-      <% if !current_user.nil? %>
-        <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + " Show Master Rake",
-                      master_rake_path(@rake.master_rake_id),
-                      class: "btn btn-xs btn-primary" %>
-      <% end %>
-      <% if user_signed_in? && @rake.user_id == current_user.id %>
-        <%= link_to "Delete Rake", myrake_path(@rake),
-                      :data => { :confirm => "Are you sure?" }, 
-                      :method => :delete,
-                        class: "btn btn-default btn-xs" %>
-      <% end %>
-      <span class="pull-right">
-        <%= social_share_button_tag(@rake.name + " Bookmarks",
-                                    image: MasterRake.find(@rake.master_rake_id).image_url) %>
-      </span>
+      <!-- Nav tabs -->
+      <div class="row">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="rake-nav active">
+            <a href="#feed" id="view-news" data-toggle="tab">
+              FEED
+            </a>
+          </li>
+          <li class="rake-nav">
+            <a href="#channels" id="view-channels" data-toggle="tab">
+              CHANNELS
+            </a>
+          </li>
+          <li class="rake-nav">
+            <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
+              RELATED
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="feed">
+          <ul id="feed-list" class="leaflet-list">
+            <% @feed_leaflets.each do |l| %>
+              <%= render 'shared/leaflet', l: l %>
+            <% end %>
+          </ul>
+        </div>
+        <div class="tab-pane" id="channels">
+          <br>
+          <%= render 'channels' %>
+        </div>
+        <div class="tab-pane active" id="related-rakes">
+          <br>
+          <%= render 'related_rakes' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
