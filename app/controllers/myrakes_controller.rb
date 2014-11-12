@@ -2,12 +2,12 @@ class MyrakesController < ApplicationController
   autocomplete :myrake, :name, :full => true
 
   def index
-    redirect_to master_rakes
+    redirect_to master_rakes_path
   end
 
   def show
     if !user_signed_in?
-      redirect_to master_rakes
+      redirect_to master_rakes_path
       return
     end
     session[:rake_class] = Myrake
