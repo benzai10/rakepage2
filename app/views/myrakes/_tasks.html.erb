@@ -2,6 +2,13 @@
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
       Tasks
+      <span class="pull-right">
+        <small>
+          <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
+          &nbsp;|&nbsp;
+          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks") %>
+        </small>
+      </span>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-news">
@@ -9,13 +16,12 @@
       <!-- Nav tabs -->
       <div class="row">
         <ul class="nav nav-tabs" role="tablist">
-          <li class="rake-nav active">
+          <li class="rake-nav <%= @due_active %>">
             <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
               DUE
-              <span class="badge badge-reminders alert-danger"><%= (@overdue_leaflets.count).to_s %></span>
             </a>
           </li>
-          <li class="rake-nav">
+          <li class="rake-nav <%= @scheduled_active %>">
             <a href="#scheduled-tasks" id="view-scheduled-tasks" data-toggle="tab">
               SCHEDULED
             </a>
@@ -29,7 +35,7 @@
       </div>
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane active" id="due-tasks">
+        <div class="tab-pane <%= @due_active %>" id="due-tasks">
           <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
           <p class="centered <%= empty_list %>" id="empty-reminders">
             Yay, nothing here. You must be up-to-date with everything, check the news for inspirations!
@@ -40,7 +46,11 @@
           <% end %>
           <br><br><br><br><br>
         </div>
-        <div class="tab-pane" id="scheduled-tasks">
+        <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
+          <% if @scheduled_leaflets.count > 0 %>
+            <br>
+            <%= render 'scheduled_tasks' %>
+          <% end %>
           <br><br><br><br><br>
         </div>
         <div class="tab-pane" id="related-rakes">

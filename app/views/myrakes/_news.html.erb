@@ -2,6 +2,13 @@
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
       News
+      <span class="pull-right">
+        <small>
+          <%= link_to "TASKS", myrake_path(@rake, view: "tasks") %>
+          &nbsp;|&nbsp;
+          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks") %>
+        </small>
+      </span>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-news">
@@ -29,6 +36,21 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="feed">
+          <h5>
+            <small>
+              <% if !@rake.refreshed_at.nil? %>
+                updated: <%= time_ago_in_words(@rake.refreshed_at) %> ago
+              <% end %>
+            </small>
+            <span class="pull-right">
+            <% if user_signed_in? %>
+              <small><%= link_to "Refresh", myrake_path(view: "news", refresh: "yes"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %></small>
+            <% else %>
+              <small><%= link_to "Sign in to refresh or save", root_path, id: "ga-my-feed-refresh-sign-in" %></small>
+            <% end %>
+            </span>
+          </h5>
+          <hr>
           <ul id="feed-list" class="leaflet-list">
             <% @feed_leaflets.each do |l| %>
               <%= render 'shared/leaflet', l: l %>

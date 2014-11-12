@@ -5,19 +5,94 @@ $(function() {
       $.cookie('timezone', tz.name(), { path: '/' });
     });
 
-    $(".label-score-0").on('click', function() {
-        $(".current-score").val(0);
-        $(".new-action").hide();
+    $("#label-score-0").on('click', function() {
+        var currentScore = $("#current-score").val();
+        if (currentScore == "1") {
+            $("#current-score").val(0);
+            var newMotionCounter = parseInt($("#motion-counter").html()) - 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+        } else if (currentScore == "2") {
+            $("#current-score").val(0);
+            var newActionCounter = parseInt($("#action-counter").html()) - 1;
+            $("#action-counter").html(newActionCounter.toString());
+        } else {
+            $("#current-score").val(0);
+        }
     });
 
-    $(".label-score-1").on('click', function() {
-        $(".current-score").val(1);
-        $(".new-action").hide();
+    $("#label-score-0-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "1") {
+            $("#current-score-new").val(0);
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+        } else if (currentScore == "2") {
+            $("#current-score-new").val(0);
+            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+        } else {
+            $("#current-score-new").val(0);
+        }
     });
 
-    $(".label-score-2").on('click', function() {
-        $(".current-score").val(2);
-        $(".new-action").show();
+    $("#label-score-1").on('click', function() {
+        var currentScore = $("#current-score").val();
+        if (currentScore == "2") {
+            $("#current-score").val(1);
+            var newActionCounter = parseInt($("#action-counter").html()) - 1;
+            $("#action-counter").html(newActionCounter.toString());
+            var newMotionCounter = parseInt($("#motion-counter").html()) + 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+        } else if (currentScore != "1") {
+            var newMotionCounter = parseInt($("#motion-counter").html()) + 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+            $("#current-score").val(1);
+        }
+    });
+
+    $("#label-score-1-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "2") {
+            $("#current-score-new").val(1);
+            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+        } else if (currentScore != "1") {
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+            $("#current-score-new").val(1);
+        }
+    });
+
+    $("#label-score-2").on('click', function() {
+        var currentScore = $("#current-score").val();
+        if (currentScore == "1") {
+            $("#current-score").val(2);
+            var newMotionCounter = parseInt($("#motion-counter").html()) - 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+            var newActionCounter = parseInt($("#action-counter").html()) + 1;
+            $("#action-counter").html(newActionCounter.toString());
+        } else if (currentScore != "2") {
+            var newActionCounter = parseInt($("#action-counter").html()) + 1;
+            $("#action-counter").html(newActionCounter.toString());
+            $("#current-score").val(2);
+        }
+    });
+
+    $("#label-score-2-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "1") {
+            $("#current-score-new").val(2);
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+        } else if (currentScore != "2") {
+            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+            $("#current-score-new").val(2);
+        }
     });
 
     $("#setReminderModal").on('shown.bs.modal', function(){
@@ -124,8 +199,6 @@ $(function() {
         $(".collapse-section").val(collapse);
         $(".heap-id").val(heapid);
         $(".rake-name").val(rakename);
-        $(".scheduled-counter").val(1);
-        $(".new-action").hide();
         ga('send', 'event', 'button', 'click', 'leaflet-save');
     });
 
@@ -137,6 +210,7 @@ $(function() {
         var leafleturl = $(this).data('url');
         var leafletgoal = $(this).data('goal');
         var leafletnote = $(this).data('note');
+        var motioncount = $(this).data('motioncount');
         var actioncount = $(this).data('actioncount');
         var scheduledcount = $(this).data('scheduledcount');
         var collapse = $(this).data('collapse');
@@ -165,13 +239,11 @@ $(function() {
         $(".reminder-at").val(reminderat);
         $(".origin").val(origin);
         $(".rating").val(rating);
-        $(".action-label").html('Total Actions - done: ' + actioncount + ' ');
-        $(".new-action").hide();
-        $(".scheduled-counter").val(scheduledcount);
-        $(".scheduled-counter").attr('min', actioncount);
         $(".label-score-0").addClass("active");
         $(".label-score-1").removeClass("active");
         $(".label-score-2").removeClass("active");
+        $("#motion-counter").html(motioncount.toString());
+        $("#action-counter").html(actioncount.toString());
         ga('send', 'event', 'button', 'click', 'leaflet-edit');
     });
 
@@ -186,13 +258,15 @@ $(function() {
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
         $(".leaflet-url").val(url);
-        $(".action-label").html('Total Actions - done: 0');
-        $(".new-action").hide();
-        $(".scheduled-counter").attr('min', 0);
-        $(".scheduled-counter").val(1);
-        $(".label-score-0").addClass("active");
-        $(".label-score-1").removeClass("active");
-        $(".label-score-2").removeClass("active");
+        $("#current-score").val(0);
+        $("#label-score-0-new").addClass("active");
+        $("#label-score-1-new").removeClass("active");
+        $("#label-score-2-new").removeClass("active");
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            arrayRatingStars[i].classList.remove('fa-star');
+            arrayRatingStars[i].classList.add('fa-star-o');
+        }
         ga('send', 'event', 'button', 'click', 'leaflet-create');
     });
 

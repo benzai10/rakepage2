@@ -18,10 +18,8 @@
             </div>
           <% end %>
           <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
-          <%= f.hidden_field :collapse, class: "collapse-section" %>
           <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
           <% leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
-          <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose a Bookmark Category" }, class: "heap-id" %>
           <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)" } %>
           <% reminder_period = [] %>
           <% reminder_period << ["no reminder", 0] %>
@@ -32,41 +30,41 @@
           <% reminder_period << ["in 1 month", 5] %>
           <div class="row">
             <div class="col-md-6">
-              <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
-              <%= f.hidden_field :current_reminder, class: "current-reminder" %>
+              <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose Category" }, class: "heap-id" %>
             </div>
             <div class="col-md-6">
-              <label class="action-label">Action</span></label>
-              <span class="new-rec-alert new-action pull-right">+1</span>
-              <%= f.hidden_field :action_counter, class: "action-counter" %>
-              <%= f.number_field :scheduled_counter, { hide_label: true, class: "scheduled-counter" } %>
+              <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+              <%= f.hidden_field :current_reminder, class: "current-reminder" %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+              <%= f.text_field :leaflet_goal, { label: "Define goal or task (optional)", class: "leaflet-goal" } %>
             </div>
             <div class="col-md-12">
               <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <label class="score-label">Quantify your productivty</label>
-              <% f.number_field :current_score, value: 0, class: "current-score" %>
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active label-score-0">
-                  <input type="radio" name="options" id="option1" autocomplete="off" checked> None
+            <div class="col-md-8">
+              <label class="score-label">Quantify your productivity</label>
+              <%= f.hidden_field :current_score, value: 0, id: "current-score" %>
+              <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <label class="btn btn-default active" id="label-score-0">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                  None
                 </label>
-                <label class="btn btn-default label-score-1">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> Motion
+                <label class="btn btn-default btn-metrics" id="label-score-1">
+                  <input type="radio" name="options" id="option2" autocomplete="off">
+                  Motion&nbsp;|&nbsp;<span id="motion-counter">0</span>
                 </label>
-                <label class="btn btn-default label-score-2">
-                  <input type="radio" name="options" id="option3" autocomplete="off"> Action
+                <label class="btn btn-default btn-metrics" id="label-score-2">
+                  <input type="radio" name="options" id="option3" autocomplete="off">
+                  Action&nbsp;|&nbsp;<span id="action-counter">0</span>
                 </label>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <span class="centered">
                 <label class="rating-label">Rating</label>
                 <%= f.number_field :current_rating, { hide_label: true,

@@ -2,6 +2,13 @@
   <div class="panel-heading panel-overview">
     <h5 class="panel-title">
       Bookmarks
+      <span class="pull-right">
+        <small>
+          <%= link_to "TASKS", myrake_path(@rake, view: "tasks") %>
+          &nbsp;|&nbsp;
+          <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
+        </small>
+      </span>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-news">
@@ -204,6 +211,7 @@
                               <% note = heap_leaflet.leaflet_note %>
                               <% score = heap_leaflet.current_score %>
                               <% rating = heap_leaflet.current_rating %>
+                              <% motioncounter = heap_leaflet.motion_counter %>
                               <% actioncounter = heap_leaflet.action_counter %>
                               <% scheduledcounter = heap_leaflet.scheduled_counter %>
                               <% reminder_at = heap_leaflet.reminder_at %>
@@ -218,23 +226,15 @@
                               <% score = 0 %>
                               <% rating = 0 %>
                               <% schedulecounter = 0 %>
+                              <% motioncounter = 0 %>
                               <% actioncounter = 0 %>
                             <% end %>
                             <p><%= raw l.content unless l.content == description %></p>
                           </div>
                           <br>
-                          <div class="progress">
-                            <% if heap_leaflet.scheduled_counter == 0 %>
-                              <% scheduled_count = 1 %>
-                            <% else %>
-                              <% scheduled_count = heap_leaflet.scheduled_counter %>
-                            <% end %>
-                            <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= (100.0 * heap_leaflet.action_counter / scheduled_count).to_s %>%">
-                            </div>
-                          </div>
                           <span class="leaflet-metrics">
                             <% if user_signed_in? %>
-                              <%= heap_leaflet.action_counter.to_s %>/<%= heap_leaflet.scheduled_counter.to_s %>
+                              <%= heap_leaflet.motion_counter.to_s %>/<%= heap_leaflet.action_counter.to_s %>
                               <i class="fa fa-tasks purple"></i>
                               &nbsp;|&nbsp;
                             <% end %>
@@ -256,6 +256,7 @@
                                                     reminder: reminder_at,
                                                     score: score,
                                                     rating: rating,
+                                                    motioncount: motioncounter,
                                                     actioncount: actioncounter,
                                                     scheduledcount: scheduledcounter,
                                                     url: l.url,

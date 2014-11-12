@@ -2,48 +2,7 @@ class MyrakesController < ApplicationController
   autocomplete :myrake, :name, :full => true
 
   def index
-    session[:rake_class] = Myrake
-    if !user_signed_in?
-      redirect_to master_rakes_path
-      return
-    end
-    @rakes = Myrake.where("user_id = ?", current_user.id)
-    @top_rakes = @rakes.where(top_rake: 1)
-    @new_master_rakes = MasterRake.newly_added
-    top_heap_ids = []
-    @top_rakes.each do |r|
-      top_heap_ids << r.heaps.pluck(:id)
-    end
-    top_heap_ids = top_heap_ids.flatten
-    @other_rakes = @rakes.where(top_rake: 0)
-    other_heap_ids = []
-    @other_rakes.each do |r|
-      other_heap_ids << r.heaps.pluck(:id)
-    end
-    other_heap_ids = other_heap_ids.flatten
-    @top_recommendations = HeapLeafletMap.where("heap_id IN (?)", top_heap_ids)
-    @other_recommendations = HeapLeafletMap.where("heap_id IN (?)", other_heap_ids)
-    #@new_leaflets = @other_recommendations.order(created_at: :desc).limit(50)
-    @top_overdue_leaflets = @top_recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
-    @other_overdue_leaflets = @other_recommendations.where("reminder_at < ?", Time.now).order(:reminder_at)
-    @scheduled_leaflets = @top_recommendations.where("reminder_at > ?", Time.now).order(:reminder_at) +
-                          @other_recommendations.where("reminder_at > ?", Time.now).order(:reminder_at)
-    if params[:collapse] == "reminders"
-      @toprakes_collapse = ""
-      @myrakes_collapse = ""
-      @reminders_collapse = "active"
-      @scheduled_reminders_collapse = ""
-    elsif params[:collapse] == "scheduled_reminders"
-      @toprakes_collapse = ""
-      @myrakes_collapse = ""
-      @reminders_collapse = ""
-      @scheduled_reminders_collapse = "active"
-    else
-      @toprakes_collapse = "active"
-      @myrakes_collapse = ""
-      @reminders_collapse = ""
-      @scheduled_reminders_collapse = ""
-    end
+
   end
 
   def show
@@ -66,11 +25,23 @@ class MyrakesController < ApplicationController
       @overdue_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
                                                @rake.heaps.pluck(:id).flatten,
                                                Time.now).order(:reminder_at)
+      @scheduled_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at > ?",
+                                                 @rake.heaps.pluck(:id).flatten,
+                                                 Time.now).order(:reminder_at)
+      if params[:origin] == "due"
+        @due_active = "active"
+        @scheduled_active = ""
+      elsif params[:origin] == "scheduled"
+        @due_active = ""
+        @scheduled_active = "active"
+      else
+        @due_active = "active"
+        @scheduled_active = ""
+      end
     when "news"
       if user_signed_in? && current_user.admin?
         @heaps = @rake.heaps
       else
-        @leaflet_types.delete(15)
         @heaps = @rake.heaps.where.not(leaflet_type_id: 15)
       end
       @heap_ids = @heaps.pluck(:id)
@@ -105,15 +76,8 @@ class MyrakesController < ApplicationController
       @heap_ids = @heaps.pluck(:id)
       @leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", @heap_ids).pluck(:leaflet_id)
       @heap_leaflets = Leaflet.where("id IN (?)", @leaflet_ids)
-      #@rake_filter = @rake.filters.map{ |f| f.keyword }.join(",")
-      @feed_collapse = params[:collapse] == "feed" ? "active" : ""
       @heap_collapse = params[:collapse].to_s.first(4) == "heap" ? "active" : ""
       @heap_id = params[:collapse].to_s.slice(5..-1)
-      if @heap_collapse != "active"
-        @feed_collapse = "active"
-      else
-        @feed_collapse = ""
-      end
     end
   end
 
@@ -124,33 +88,6 @@ class MyrakesController < ApplicationController
       redirect_to rakes_path
     else
       redirect_to :controller => 'myrakes', :action => 'show', :id => @rake
-    end
-  end
-
-
-  def news
-    @rake = Myrake.find(params[:id])
-    @heap_leaflets = @rake.heap.leaflets
-    @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
-    session[:feed_type] = "news"
-    @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
-    session[:rake_class] = @rake.class
-    respond_to do |format|
-      format.html
-      format.json
-    end
-  end
-
-  def saved
-    @rake = Myrake.find(params[:id])
-    @heap_leaflets = @rake.heap.leaflets
-    @channels = @rake.channels.where("channel_type <> 1 AND channel_type <> 3")
-    session[:feed_type] = "saved"
-    @feed_leaflets = @rake.feed_leaflets(session[:feed_type]).page(params[:page]).per(10)
-    session[:rake_class] = @rake.class
-    respond_to do |format|
-      format.html
-      format.json
     end
   end
 
@@ -206,7 +143,7 @@ class MyrakesController < ApplicationController
   def update
     @rake = Myrake.find(params[:id])
     if params[:commit] == "Update Bookmark"
-      leaflet = Leaflet.find(params[:myrake][:leaflet_id])
+      @leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:myrake][:heap_id].to_i, 
                                           params[:myrake][:leaflet_id].to_i).first
@@ -233,26 +170,41 @@ class MyrakesController < ApplicationController
                                      reminder_at: reminder_at,
                                      current_score: params[:myrake][:current_score].to_i,
                                      current_rating: params[:myrake][:current_rating].to_i,
-                                     scheduled_counter: params[:myrake][:scheduled_counter].to_i,
                                      action_counter: heap_leaflet.action_counter + action_counter_increment,
                                      motion_counter: heap_leaflet.motion_counter + motion_counter_increment)
-      leaflet.update_attributes(title: params[:myrake][:leaflet_title],
+      @leaflet.update_attributes(title: params[:myrake][:leaflet_title],
                                 content: params[:myrake][:leaflet_desc],
                                 url: params[:myrake][:leaflet_url])
       History.create!(user_id: current_user.id,
                      rake_id: @rake.id,
-                     leaflet_id: leaflet.id,
+                     leaflet_id: @leaflet.id,
                      history_code: "bm_activity",
                      history_int: params[:myrake][:current_score].to_i,
                      history_int2: params[:myrake][:current_rating].to_i,
                      history_str: params[:myrake][:task_comment],
                      history_chain: params[:myrake][:history_chain].to_i)
-      redirect_to myrake_path(@rake, 
-                              collapse: params[:myrake][:collapse],
-                              anchor: "anchor_leaflet_" +
-                                      params[:myrake][:collapse].scan(/\d+$/).first +
-                                      "_" +
-                                      params[:myrake][:leaflet_id])
+      if params[:myrake][:origin] == "due" || params[:myrake][:origin] == "scheduled"
+        respond_to do |format|
+          format.html { redirect_to myrake_path(@rake, view: "tasks", origin: params[:myrake][:origin]) }
+          format.js {
+            @origin = params[:myrake][:origin]
+            if @origin == "due"
+              @reload_flag = 0
+            else
+              @reload_flag = 1
+            end
+            render 'reminder_set'
+          }
+        end
+      else
+        redirect_to myrake_path(@rake,
+                                view: "bookmarks",
+                                collapse: params[:myrake][:collapse],
+                                anchor: "anchor_leaflet_" +
+                                        params[:myrake][:collapse].scan(/\d+$/).first +
+                                        "_" +
+                                        params[:myrake][:leaflet_id])
+      end
     elsif params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       case params[:myrake][:reminder_at].to_i
@@ -273,6 +225,8 @@ class MyrakesController < ApplicationController
       end
       if @rake.add_leaflet(leaflet,
                         params[:myrake][:leaflet_type_id],
+                        params[:myrake][:leaflet_title],
+                        params[:myrake][:leaflet_desc],
                         params[:myrake][:leaflet_goal],
                         params[:myrake][:leaflet_note],
                         reminder_at,
@@ -300,7 +254,7 @@ class MyrakesController < ApplicationController
             }
           else
             format.html {
-              redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse], anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
+              redirect_to myrake_path(@rake, view: "bookmarks", anchor: "anchor_leaflet_" + params[:myrake][:leaflet_id])
             }
             format.js {
               @leaflet_id = params[:myrake][:leaflet_id]
@@ -386,7 +340,7 @@ class MyrakesController < ApplicationController
                        history_str: params[:myrake][:task_comment],
                        history_chain: params[:myrake][:history_chain].to_i)
         redirect_to myrake_path(@rake,
-                                collapse: params[:myrake][:collapse],
+                                view: "bookmarks",
                                 anchor: "anchor_leaflet_" + params[:myrake][:leaflet_type_id] + "_" + leaflet_id.to_s)
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
@@ -410,11 +364,15 @@ class MyrakesController < ApplicationController
                                  0,
                                  0,
                                  0)
-        redirect_to myrake_path(@rake, collapse: "heap_#{heapleaflet.leaflet_type_id}"), :notice => ["Bookmark copied."]
-      else
-        redirect_to myrake_path(@rake, 
+        redirect_to myrake_path(@rake,
+                                view: "bookmarks",
                                 collapse: "heap_#{heapleaflet.leaflet_type_id}"),
-                                :notice => ["Bookmark couln't be copied. It probably exists already."]
+                                :notice => ["Bookmark copied."]
+      else
+        redirect_to myrake_path(@rake,
+                                view: "bookmarks",
+                                collapse: "heap_#{heapleaflet.leaflet_type_id}"),
+                                :notice => ["Bookmark couldn't be copied. It probably exists already."]
       end
     else
       @rake.filters.each do |f|

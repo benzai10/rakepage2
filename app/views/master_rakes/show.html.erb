@@ -11,21 +11,12 @@
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
           <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index" } %>
           &nbsp;|&nbsp;
           <% if user_signed_in? %>
-            <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "ga-my-bookmark-rakes" } %>
-            &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
-            <% if @overdue_leaflets.nil? %>
-              <span class="new-rec-alert">
-                <%= "0 REMINDERS" %>
-              </span>
-            <% else %>
-              <%= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" %>
-            <% end %>
+            <%= link_to "MY RAKES", user_path(current_user) %>
           <% else %>
             <span class="nav-link">MY RAKES</span>
             &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
@@ -52,7 +43,7 @@
               <span class="pull-right">
                 <% if user_signed_in? %>
                   <% if !@custom_rake.nil? %>
-                    <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + "Show Rake", myrake_path(@custom_rake), class: "white" %>
+                    <%= link_to '<i class="fa fa-long-arrow-right white"></i>'.html_safe + "Show Rake", myrake_path(@custom_rake, view: "news"), class: "white" %>
                   <% else %>
                     <span id="create-rake-info">
                       <%= link_to '<i class="fa fa-plus white"></i>'.html_safe + "Create Rake", "#", { class: "white", id: "create-rake-toggle" } %>

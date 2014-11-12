@@ -11,21 +11,17 @@
   <%= render 'myrakes/rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <!-- <h1>Productive Bookmarking</h1> -->
       <h5>
         <small>
-          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"} %>
-          &nbsp;|&nbsp;
-          <% if !current_user.nil? %>
-            <%= link_to "MY RAKES", user_path(@rake.user) %>
-            &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
-            <%#= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" %>
-          <% end %>
-          <% if !user_signed_in? %>
+          <% if user_signed_in? %>
+            <%= link_to "MY RAKES", user_path(current_user) %>
+          <% else %>
             <span class="nav-link">MY RAKES</span>
             &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in" } %>
           <% end %>
+          &nbsp;|&nbsp;
+          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"} %>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -61,17 +57,22 @@
       <% case params[:view] %>
       <% when "tasks" %>
         <%= render 'tasks' %>
+        <% if user_signed_in? %>
+          <%= render 'leaflet_edit_modal' %>
+        <% end %>
       <% when "news" %>
         <%= render 'news' %>
+        <% if user_signed_in? %>
+          <%= render 'leaflet_save_modal' %>
+        <% end %>
       <% when "bookmarks" %>
-        <%= render 'bookmark_categories' %>
+        <%= render 'bookmarks' %>
+        <% if user_signed_in? %>
+          <%= render 'leaflet_edit_modal' %>
+          <%= render 'leaflet_create_modal' %>
+          <%= render 'leaflet_copy_modal' %>
+        <% end %>
       <% end %>
     </div>
   </div>
 </div>
-<% if user_signed_in? %>
-  <%= render 'myrakes/leaflet_edit_modal' %>
-  <%= render 'myrakes/leaflet_copy_modal' %>
-  <%= render 'myrakes/leaflet_save_modal' %>
-  <%= render 'myrakes/leaflet_create_modal' %>
-<% end %>

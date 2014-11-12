@@ -12,7 +12,7 @@
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
       <% if user_signed_in? %>
         <% if pmr.myrakes.pluck(:user_id).include? current_user.id %>
-          <%= link_to myrake_path(pmr.myrakes.find_by_user_id(current_user.id)) do %>
+          <%= link_to myrake_path(pmr.myrakes.find_by_user_id(current_user.id), view: params[:view]) do %>
             <div class="col-md-12 col-lg-6">
               <div class="thumbnail">
                 <div class="media">
@@ -117,7 +117,7 @@
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
       <% if user_signed_in? %>
         <% if smr.myrakes.pluck(:user_id).include? current_user.id %>
-          <%= link_to myrake_path(smr.myrakes.find_by_user_id(current_user.id)) do %>
+          <%= link_to myrake_path(smr.myrakes.find_by_user_id(current_user.id), view: params[:view]) do %>
             <div class="col-md-12 col-lg-6">
               <div class="thumbnail">
                 <div class="media">
@@ -213,7 +213,7 @@
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
       <% if user_signed_in? %>
         <% if cmr.myrakes.pluck(:user_id).include? current_user.id %>
-          <%= link_to myrake_path(cmr.myrakes.find_by_user_id(current_user.id)) do %>
+          <%= link_to myrake_path(cmr.myrakes.find_by_user_id(current_user.id), view: params[:view]) do %>
             <div class="col-md-12 col-lg-6">
               <div class="thumbnail">
                 <div class="media">

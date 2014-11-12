@@ -1,6 +1,6 @@
 <ul id="feed-list" class="leaflet-list">
   <% leaflet_duplication_array = [] %>
-  <% @overdue_leaflets.each do |lm| %>
+  <% @scheduled_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
     <% if !leaflet_duplication_array.include? l.id %>
       <% leaflet_duplication_array << l.id %>
@@ -27,18 +27,15 @@
           <span class="feed-timestamp">
             <%#= Channel.find(l.channel_id).name %>
             <%= link_to myrake.name, myrake_path(myrake) %>
-            <%# if l.leaflet_type_id != 0 %>
+            &nbsp;|&nbsp;
+            <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
+            <%= link_to leaflet_type_desc, myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
+            <% if !l.created_by.nil? %>
               &nbsp;|&nbsp;
-              <%#= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
-              <%= link_to leaflet_type_desc, myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
-              <% if !l.created_by.nil? %>
-                &nbsp;|&nbsp;
-                added by <%= User.find(l.created_by).username %>
-              <% end %>
-            <%# end %>
-            <span class="pull-right-menu new-rec-alert">
-              <%= time_ago_in_words(lm.reminder_at) %> ago 
+              added by <%= User.find(l.created_by).username %>
+            <% end %>
+            <span class="pull-right-menu">
+              in <%= distance_of_time_in_words(Time.now, lm.reminder_at) %> 
             </span>
           </span>
           <br>
@@ -78,14 +75,14 @@
                                 actioncount: lm.action_counter,
                                 scheduledcount: lm.scheduled_counter,
                                 access: "full",
-                                origin: "due",
+                                origin: "scheduled",
                                 slider: "1" },
                         class: "btn btn-default btn-xs leaflet-edit" %>
-            <%= link_to "Delete",
-                        remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "overdue"),
+            <%= link_to "Delete", 
+                        remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "scheduled"),
                         data: { confirm: "Are you sure? You will delete the bookmark also from your rake!" },
                         method: :get,
-                        remote: true, 
+                        remote: true,
                         class: "btn btn-default btn-xs" %>
           </span>
         </div>

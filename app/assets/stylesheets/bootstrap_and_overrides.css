@@ -1021,6 +1021,11 @@ body.nav-expanded {
     overflow-y: auto;
   }
 
+  .btn-metrics {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
   .fb-like {
     display: none !important;
   }

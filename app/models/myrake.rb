@@ -25,6 +25,7 @@ class Myrake < ActiveRecord::Base
   attr_accessor :task_comment
   attr_accessor :history_chain
   attr_accessor :collapse
+  attr_accessor :origin
 
   validates :name, presence: true
   validates :master_rake_id, presence: true

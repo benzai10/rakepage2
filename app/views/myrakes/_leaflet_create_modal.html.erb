@@ -27,12 +27,6 @@
               <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
             </div>
-            <div class="col-md-6">
-              <label class="action-label">Action</span></label>
-              <span class="new-rec-alert new-action pull-right">+1</span>
-              <%= f.hidden_field :action_counter, class: "action-counter" %>
-              <%= f.number_field :scheduled_counter, { hide_label: true, class: "scheduled-counter" } %>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -45,16 +39,19 @@
           <div class="row">
             <div class="col-md-6">
               <label class="score-label">Quantify your productivity</label>
-              <%= f.hidden_field :current_score, value: 0, class: "current-score" %>
+              <%= f.hidden_field :current_score, value: 0, id: "current-score-new" %>
               <div class="btn-group btn-group-justified" data-toggle="buttons">
-                <label class="btn btn-default label-score-0">
-                  <input type="radio" name="options" id="option1" autocomplete="off" checked> None
+                <label class="btn btn-default" id="label-score-0-new">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                  None
                 </label>
-                <label class="btn btn-default label-score-1">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> Motion
+                <label class="btn btn-default" id="label-score-1-new">
+                  <input type="radio" name="options" id="option2" autocomplete="off">
+                  Motion&nbsp;|&nbsp;<span id="motion-counter-new">0</span>
                 </label>
-                <label class="btn btn-default label-score-2">
-                  <input type="radio" name="options" id="option3" autocomplete="off"> Action
+                <label class="btn btn-default" id="label-score-2-new">
+                  <input type="radio" name="options" id="option3" autocomplete="off">
+                  Action&nbsp;|&nbsp;<span id="action-counter-new">0</span>
                 </label>
               </div>
             </div>
