@@ -36,6 +36,7 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane <%= @due_active %>" id="due-tasks">
+          <br>
           <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
           <p class="centered <%= empty_list %>" id="empty-reminders">
             Yay, nothing here. You must be up-to-date with everything, check the news for inspirations!
