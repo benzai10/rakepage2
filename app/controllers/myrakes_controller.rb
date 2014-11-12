@@ -286,13 +286,15 @@ class MyrakesController < ApplicationController
       end
       if @rake.add_leaflet(leaflet,
                         params[:myrake][:leaflet_type_id],
+                        params[:myrake][:leaflet_title],
+                        params[:myrake][:leaflet_desc],
                         params[:myrake][:leaflet_goal],
                         params[:myrake][:leaflet_note],
                         reminder_at,
                         params[:myrake][:current_score],
                         params[:myrake][:current_rating],
                         params[:myrake][:current_reminder])
-        History.create!(user_id: current_user.id,
+        History.create(user_id: current_user.id,
                        rake_id: @rake.id,
                        leaflet_id: leaflet.id,
                        history_code: "bm_activity",
@@ -322,7 +324,7 @@ class MyrakesController < ApplicationController
           end
         end
       else
-        @error = "You have to select a bookmark category"
+        x@error = "You have to select a bookmark category"
         respond_to do |format|
           if session[:rake_class] == MasterRake
             format.html { 
