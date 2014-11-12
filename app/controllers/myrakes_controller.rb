@@ -2,10 +2,14 @@ class MyrakesController < ApplicationController
   autocomplete :myrake, :name, :full => true
 
   def index
-
+    redirect_to master_rakes
   end
 
   def show
+    if !user_signed_in?
+      redirect_to master_rakes
+      return
+    end
     session[:rake_class] = Myrake
     @rake = Myrake.find(params[:id])
     @top_rakes_count = Myrake.where("user_id = ? AND top_rake = 1", @rake.user_id).count
