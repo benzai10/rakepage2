@@ -393,7 +393,7 @@ class MyrakesController < ApplicationController
   def destroy
     rake = Myrake.find_by_id(params[:id])
     rake.destroy
-    redirect_to myrakes_path, :notice => ["Rake deleted."]
+    redirect_to user_path(current_user), :notice => ["Rake deleted."]
   end
 
   def add_channel

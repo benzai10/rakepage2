@@ -235,7 +235,7 @@ class MasterRakesController < ApplicationController
         m_rake = MasterRake.find(master_rake_id)
         Myrake.create!(name: m_rake.name, master_rake_id: master_rake_id, user_id: current_user.id)
       end
-      redirect_to myrakes_path
+      redirect_to user_path(current_user)
     end
   end
 

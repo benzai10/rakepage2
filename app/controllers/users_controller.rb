@@ -60,9 +60,9 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.html { 
           if params[:user][:origin] == "overdue"
-            redirect_to myrakes_path(collapse: "reminders")
+            redirect_to user_path(current_user, collapse: "reminders")
           else
-            redirect_to myrakes_path(collapse: "scheduled_reminders")
+            redirect_to user_path(current_user, collapse: "scheduled_reminders")
           end
         }
         format.js {
