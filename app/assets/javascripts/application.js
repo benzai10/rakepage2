@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require autocomplete-rails
-//= require bootstrap
 //= require bootstrap-tokenfield
 //= require bootstrap-rating-input.min.js
 //= require facebook
