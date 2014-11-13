@@ -24,8 +24,7 @@ class MyrakesController < ApplicationController
                                        @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
-    case params[:view]
-    when "tasks"
+    if params[:view] == "tasks"
       @overdue_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
                                                @rake.heaps.pluck(:id).flatten,
                                                Time.now).order(:reminder_at)
@@ -42,7 +41,7 @@ class MyrakesController < ApplicationController
         @due_active = "active"
         @scheduled_active = ""
       end
-    when "news"
+    elsif params[:view].nil? || params[:view] == "news"
       if user_signed_in? && current_user.admin?
         @heaps = @rake.heaps
       else
@@ -65,7 +64,7 @@ class MyrakesController < ApplicationController
                                 .where("channel_type <> 3 AND channel_type <> 5")
                                 .order("created_at DESC")
                                 .limit(5)
-    when "bookmarks"
+    elsif params[:view] == "bookmarks"
       @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
       missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
       missing_leaflet_types.each do |mlt|

@@ -29,7 +29,7 @@
             <%= link_to myrake.name, myrake_path(myrake) %>
             &nbsp;|&nbsp;
             <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
-            <%= link_to leaflet_type_desc, myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
+            <%= link_to leaflet_type_desc, myrake_path(myrake, view: "bookmarks", collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
             <% if !l.created_by.nil? %>
               &nbsp;|&nbsp;
               added by <%= User.find(l.created_by).username %>
@@ -72,6 +72,7 @@
                                 reminder: reminder_at,
                                 score: lm.current_score,
                                 rating: lm.current_rating,
+                                motioncount: lm.motion_counter,
                                 actioncount: lm.action_counter,
                                 scheduledcount: lm.scheduled_counter,
                                 access: "full",

@@ -54,18 +54,17 @@
           </small>
         </span>
       </h1>
-      <% case params[:view] %>
-      <% when "tasks" %>
+      <% if params[:view] == "tasks" %>
         <%= render 'tasks' %>
         <% if user_signed_in? %>
           <%= render 'leaflet_edit_modal' %>
         <% end %>
-      <% when "news" %>
+      <% elsif params[:view].nil? || params[:view] == "news" %>
         <%= render 'news' %>
         <% if user_signed_in? %>
           <%= render 'leaflet_save_modal' %>
         <% end %>
-      <% when "bookmarks" %>
+      <% elsif params[:view] == "bookmarks" %>
         <%= render 'bookmarks' %>
         <% if user_signed_in? %>
           <%= render 'leaflet_edit_modal' %>
