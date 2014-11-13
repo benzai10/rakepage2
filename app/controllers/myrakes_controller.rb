@@ -118,13 +118,13 @@ class MyrakesController < ApplicationController
             @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc, nil)
           end
         end
-        redirect_to myrake_path(@rake, refresh: "yes")
+        redirect_to myrake_path(@rake, view: "news", refresh: "yes")
       else
         flash[:error] = @rake.errors.full_messages
         redirect_to :back
       end
     else
-      redirect_to myrake_path(existing_rake)
+      redirect_to myrake_path(existing_rake, view: "news")
     end
   end
 
@@ -386,7 +386,7 @@ class MyrakesController < ApplicationController
       filter_array.each do |f|
         @rake.add_filter(f, 1)
       end
-      redirect_to myrake_path(@rake)
+      redirect_to myrake_path(@rake, view: "news")
     end
   end
 
@@ -399,7 +399,7 @@ class MyrakesController < ApplicationController
   def add_channel
     @rake = Myrake.find(params[:id])
     @rake.add_channel(Channel.find(params[:channel]))
-    redirect_to myrake_path(@rake)
+    redirect_to myrake_path(@rake, view: "news")
   end
 
   def remove_channel
@@ -408,7 +408,7 @@ class MyrakesController < ApplicationController
       @channel = Channel.find(params[:channel])
       @rake.remove_channel(@channel)
       respond_to do |format|
-        format.html { redirect_to myrake_path(@rake) }
+        format.html { redirect_to myrake_path(@rake, view: "news") }
         format.js { render 'remove_channel' }
       end
     end
@@ -420,7 +420,7 @@ class MyrakesController < ApplicationController
     display = params[:display] == "true"
     @rake.toggle_channel_display(@channel, display)
     respond_to do |format|
-      format.html { redirect_to myrake_path(@rake) }
+      format.html { redirect_to myrake_path(@rake, view: "news") }
     end
   end
 
@@ -429,13 +429,13 @@ class MyrakesController < ApplicationController
     if @rake.top_rake == 0 
       @rake.update_attributes(top_rake: 1)
       respond_to do |format|
-        format.html { redirect_to myrake_path(@rake) }
+        format.html { redirect_to myrake_path(@rake, view: "news") }
         format.js { render 'add_to_top'}
       end
     else
       @rake.update_attributes(top_rake: 0)
       respond_to do |format|
-        format.html { redirect_to myrake_path(@rake) }
+        format.html { redirect_to myrake_path(@rake, view: "news") }
         format.js { render 'remove_from_top'}
       end
     end
