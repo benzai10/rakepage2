@@ -2,8 +2,8 @@
   <% 30.times do |d| %>
     <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 2",
                         toprake.id,
-                        (Time.now.to_date - (29 - d).day).to_date,
-                        (Time.now.to_date - (28 - d).day).to_date).count > 0 %>
+                        (Time.now.utc.to_date - (29 - d).day).to_date,
+                        (Time.now.utc.to_date - (28 - d).day).to_date).count > 0 %>
       <% if d == 29 %>
         <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
       <% else %>
@@ -11,8 +11,8 @@
       <% end %>
     <% elsif History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 1",
                         toprake.id,
-                        (Time.now.to_date - (29 - d).day).to_date,
-                        (Time.now.to_date - (28 - d).day).to_date).count > 0 %>
+                        (Time.now.utc.to_date - (29 - d).day).to_date,
+                        (Time.now.utc.to_date - (28 - d).day).to_date).count > 0 %>
       <% if d == 29 %>
         <div class="progress-bar progress-bar-success bookmark-metrics-orange" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
       <% else %>
