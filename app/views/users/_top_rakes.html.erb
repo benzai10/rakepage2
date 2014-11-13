@@ -40,6 +40,7 @@
             </p>
             <p>
               <%= link_to "Tasks", myrake_path(r, view: "tasks") %>
+              <span class="new-rec-alert"><%= r.due_tasks_count unless r.due_tasks_count == 0 %></span>
               &nbsp;|&nbsp;
               <%= link_to "News", myrake_path(r, view: "news") %>
               &nbsp;|&nbsp;

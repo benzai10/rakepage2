@@ -266,7 +266,7 @@ class MyrakesController < ApplicationController
           end
         end
       else
-        x@error = "You have to select a bookmark category"
+        @error = "You have to select a bookmark category"
         respond_to do |format|
           if session[:rake_class] == MasterRake
             format.html { 

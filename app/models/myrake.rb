@@ -70,6 +70,12 @@ class Myrake < ActiveRecord::Base
     current_user
   end
 
+  def due_tasks_count
+    HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
+                         self.heaps.pluck(:id),
+                         Time.now).count
+  end
+
   def add_channel(channel)
     self.rake_channel_maps.create(channel_id: channel.id)
     MasterRake.find(self.master_rake_id).add_channel(channel)

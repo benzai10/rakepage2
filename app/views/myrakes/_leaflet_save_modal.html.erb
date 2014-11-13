@@ -8,12 +8,17 @@
       </div>
       <%= bootstrap_form_for(@rake, remote: true) do |f| %>
         <div class="modal-body">
-          <div class='myAlert alert alert-danger hidden'>
+          <div class="myAlert alert alert-danger alert-dismissable hidden">
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
             <%= @error %>
           </div>
           <% if flash[:alert] %>
             <div class="alert alert-warning alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
               <%= flash[:alert] %>
             </div>
           <% end %>
