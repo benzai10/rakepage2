@@ -117,6 +117,9 @@ $(function() {
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
         $('.reminderat').val(1);
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
+        $(".label-score-0").addClass("active");
     });
 
     $('.add-recommendation-form').hide();
@@ -236,12 +239,8 @@ $(function() {
         $(".leaflet-goal").val(leafletgoal);
         $(".leaflet-note").val(leafletnote);
         $(".collapse-section").val(collapse);
-        $(".reminder-at").val(reminderat);
         $(".origin").val(origin);
         $(".rating").val(rating);
-        $(".label-score-0").addClass("active");
-        $(".label-score-1").removeClass("active");
-        $(".label-score-2").removeClass("active");
         $("#motion-counter").html(motioncount.toString());
         $("#action-counter").html(actioncount.toString());
         ga('send', 'event', 'button', 'click', 'leaflet-edit');
