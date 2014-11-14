@@ -11,12 +11,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.cookie
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require autocomplete-rails
 //= require bootstrap
 //= require bootstrap-tokenfield
-//= require bootstrap-material-design
+//= require bootstrap-rating-input.min.js
 //= require facebook
 //= require social-share-button
 //= require_tree .

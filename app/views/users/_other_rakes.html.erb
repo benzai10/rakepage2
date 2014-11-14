@@ -1,0 +1,55 @@
+<div class="row">
+  <% if @other_rakes.empty? %>
+    <div class="col-md-12">
+      <h3 class="centered">Welcome, <%= current_user.username %></h2>
+      <ul class="info-list">
+        <li class="centered">If you commit to nothing, you’re distracted by everything.</li>
+        <li class="centered">Discover the power of less and master your priorities.</li>
+        <li class="centered">Transform inspirations to motivation and actions.</li>
+        <li class="centered">Set a schedule for your actions.</li>
+        <li class="centered">Measure the change from being in motion to taking action.</li>
+      </ul>
+      <br>
+      <br>
+      <p class="centered">
+      To put a rake in the Top 5 view, choose an existing rake and mark it as Top 5 or choose a new one here:
+      </p>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= link_to "View Topics", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
+        </div>
+      </div>
+      <br><br><br><br>
+    </div>
+  <% else %>
+    <% @other_rakes.each do |r| %>
+      <div class="col-md-12">
+        <% master_rake = MasterRake.find(r.master_rake_id) %>
+        <div class="media load-rake" value="<%= r.id %>">
+          <span class="pull-left">
+            <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
+              <%= image_tag("no_image.png", size: "96x54") %>
+            <% else %>
+              <%= image_tag(master_rake.image_url, size: "96x54") %>
+            <% end %>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading"><%= r.name %></h5>
+            <p>
+              <%= render 'myrakes/top_rake_chain', toprake: r %>
+            </p>
+            <p>
+              <%= link_to "Tasks", myrake_path(r, view: "tasks") %>
+              <span class="new-rec-alert"><%= r.due_tasks_count unless r.due_tasks_count == 0 %></span>
+              &nbsp;|&nbsp;
+              <%= link_to "News", myrake_path(r, view: "news") %>
+              &nbsp;|&nbsp;
+              <%= link_to "Bookmarks", myrake_path(r, view: "bookmarks") %>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    <% end %>
+  <% end %>
+</div>

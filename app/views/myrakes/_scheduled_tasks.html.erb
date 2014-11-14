@@ -24,16 +24,11 @@
           <% end %>
         </a>
         <div class="media-body">
-          <div class="progress">
-            <div class="progress-bar progress-bar-success bookmark-metrics-green" style="width: <%= lm.current_score.to_s %>%">
-            </div>
-          </div>
           <span class="feed-timestamp">
-            <%#= Channel.find(l.channel_id).name %>
-            <%= link_to myrake.name, myrake_path(myrake) %>
+            <%= link_to myrake.name, myrake_path(myrake, view: "bookmarks") %>
             &nbsp;|&nbsp;
             <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
-            <%= link_to leaflet_type_desc, myrake_path(myrake, collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
+            <%= link_to leaflet_type_desc, myrake_path(myrake, view: "bookmarks", collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
             <% if !l.created_by.nil? %>
               &nbsp;|&nbsp;
               added by <%= User.find(l.created_by).username %>
@@ -57,28 +52,28 @@
           </div>
           <br>
           <span class="leaflet-metrics">
-            <%= lm.current_score.to_s %>
+            <%= lm.motion_counter.to_s %>/<%= lm.action_counter.to_s %>
             <i class="fa fa-tasks purple"></i>
-            &nbsp|&nbsp;
+            &nbsp;|&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
             <i class="fa fa-user purple"></i>
           </span>
           <span class="pull-right">
             <%= link_to "Status", "#",
                         data: { toggle: "modal",
-                                target: "#setReminderModal",
+                                target: "#editLeafletModal",
                                 id: l.id,
                                 heapid: lm.heap.id,
                                 collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
-                                title: l.title,
-                                content: l.content,
-                                description: lm.leaflet_desc,
                                 goal: lm.leaflet_goal,
                                 note: lm.leaflet_note,
                                 url: l.url,
                                 reminder: reminder_at,
                                 score: lm.current_score,
                                 rating: lm.current_rating,
+                                motioncount: lm.motion_counter,
+                                actioncount: lm.action_counter,
+                                scheduledcount: lm.scheduled_counter,
                                 access: "full",
                                 origin: "scheduled",
                                 slider: "1" },

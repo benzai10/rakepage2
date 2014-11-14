@@ -21,36 +21,13 @@
                 <h5 class="media-heading">
                   <% if user_signed_in? %>
                     <% if pmr.myrakes.pluck(:user_id).include? current_user.id %>
-                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
                     <% end %>
                   <% end %>
                   <%= pmr.name %>
                 </h5>
                 <p>
-                  <%= pmr.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
-                  &nbsp;|&nbsp;
-                  <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)).count.to_s %>
-                  <i class="fa fa-bookmark purple"></i>
                 </p>
-                <p>
-                  <% if user_signed_in? %>
-                    <span class="new-rec-alert">
-                      <% user_rake = pmr.myrakes.find_by_user_id(current_user.id) %>
-                      <% if !user_rake.nil? %>
-                        <% new_channels = pmr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
-                        <% new_channels -= user_rake.channels %>
-                        <% @new_count = new_channels.count %>
-                        <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
-                        <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                        <% if @new_count > 0 && new_count > 0 %>
-                          &nbsp;|&nbsp;
-                        <% end %>
-                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
-                      <% end %>
-                    </span>
-                  <% end %>
-                </p>
-
               </div>
             </div>
           </div>
@@ -76,34 +53,12 @@
                 <h5 class="media-heading">
                   <% if user_signed_in? %>
                     <% if smr.myrakes.pluck(:user_id).include? current_user.id %>
-                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
                     <% end %>
                   <% end %>
                   <%= smr.name %>
                 </h5>
                 <p>
-                  <%= smr.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
-                  &nbsp;|&nbsp;
-                  <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)).count.to_s %>
-                  <i class="fa fa-bookmark purple"></i>
-                </p>
-                <p>
-                  <% if user_signed_in? %>
-                    <span class="new-rec-alert">
-                      <% user_rake = smr.myrakes.find_by_user_id(current_user.id) %>
-                      <% if !user_rake.nil? %>
-                        <% new_channels = smr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
-                        <% new_channels -= user_rake.channels %>
-                        <% @new_count = new_channels.count %>
-                        <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
-                        <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                        <% if @new_count > 0 && new_count > 0 %>
-                          &nbsp;|&nbsp;
-                        <% end %>
-                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
-                      <% end %>
-                    </span>
-                  <% end %>
                 </p>
               </div>
             </div>
@@ -130,34 +85,12 @@
                 <h5 class="media-heading">
                   <% if user_signed_in? %>
                     <% if cmr.myrakes.pluck(:user_id).include? current_user.id %>
-                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
                     <% end %>
                   <% end %>
                   <%= cmr.name %>
                 </h5>
                 <p>
-                  <%= cmr.myrakes.count.to_s %>&nbsp;<i class="fa fa-user purple"></i>
-                  &nbsp;|&nbsp;
-                  <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)).count.to_s %>
-                  <i class="fa fa-bookmark purple"></i>
-                </p>
-                <p>
-                  <% if user_signed_in? %>
-                    <span class="new-rec-alert">
-                      <% user_rake = cmr.myrakes.find_by_user_id(current_user.id) %>
-                      <% if !user_rake.nil? %>
-                        <% new_channels = cmr.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
-                        <% new_channels -= user_rake.channels %>
-                        <% @new_count = new_channels.count %>
-                        <%= pluralize(@new_count, "New Channel") unless @new_count == 0 %>
-                        <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                        <% if @new_count > 0 && new_count > 0 %>
-                          &nbsp;|&nbsp;
-                        <% end %>
-                        <%= pluralize(new_count, "New Bookmark") unless new_count == 0 %>
-                      <% end %>
-                    </span>
-                  <% end %>
                 </p>
               </div>
             </div>

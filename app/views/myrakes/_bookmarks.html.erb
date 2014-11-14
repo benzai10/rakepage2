@@ -1,0 +1,310 @@
+<div class="panel panel-default">
+  <div class="panel-heading panel-overview">
+    <h5 class="panel-title">
+      Bookmarks
+      <span class="pull-right">
+        <small>
+          <%= link_to "TASKS", myrake_path(@rake, view: "tasks") %>
+          &nbsp;|&nbsp;
+          <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
+        </small>
+      </span>
+    </h5>
+  </div>
+  <div class="panel-collapse collapse in" id="collapse-news">
+    <div class="panel-body">
+      <!-- Nav tabs -->
+      <div class="row">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="rake-nav active">
+            <a href="#bookmarks" id="view-bookmarks" data-toggle="tab">
+              CATEGORIES
+            </a>
+          </li>
+          <li class="rake-nav">
+            <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
+              RELATED
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="bookmarks">
+          <br>
+          <ul class="nav nav-tabs nav-thumbnails" role="tablist">
+            <% @leaflet_types.each do |lt| %>
+              <% if @heaps.pluck(:leaflet_type_id).include? lt %>
+                <% heap = @heaps.find_by_leaflet_type_id(lt) %>
+              <% end %>
+              <% leaflet_type = LeafletType.find_by_leaflet_type(lt) %>
+              <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
+              <a href="#heap_<%= leaflet_type_desc.gsub(/\W/, "") %>" data-toggle="tab">
+                <li class="<%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %> col-md-6">
+                  <div class="thumbnail">
+                    <div class="media">
+                    <span class="pull-left">
+                      <%= image_tag(leaflet_type.image_url, size: "96x54") %>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading"><%= leaflet_type_desc %></h5>
+                      <p><%= heap.leaflets.count.to_s if !heap.nil? %>&nbsp;<i class="fa fa-bookmark purple"></i></p>
+                    </div>
+                    </div>
+                  </div>
+                </li>
+              </a>
+            <% end %>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <% @leaflet_types.each do |lt| %>
+              <% if @heaps.pluck(:leaflet_type_id).include? lt %>
+                <% heap = @heaps.find_by_leaflet_type_id(lt) %>
+              <% end %>
+              <% leaflet_type = LeafletType.find_by_leaflet_type(lt) %>
+              <% leaflet_type_desc = leaflet_type.leaflet_type_desc %>
+              <div class="tab-pane <%= @heap_collapse if @heap_id == heap.leaflet_type_id.to_s %>" id="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>">
+                <a class="anchor" name="heap_<%= leaflet_type_desc.gsub(/\W/, "") %>"></a>
+                <span class="rake-nav"><%= leaflet_type_desc.upcase %><hr></span>
+                <h5>
+                  <small>
+                    <% if user_signed_in? %>
+                      <%= link_to "Add Bookmark", "#", class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+                    <% else %>
+                      <%= link_to "Add Bookmark", root_path, class: "pull-right btn btn-xs btn-primary add-recommendation" %>
+                    <% end %>
+                  </small>
+                </h5>
+                <br>
+                <br>
+                <div class="add-recommendation-form">
+                  <% if user_signed_in? && @rake.user_id == current_user.id %>
+                    <% if lt != 15 %>
+                      <%= form_tag Leaflet.new do %>
+                        <div class="input-group">
+                          <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">
+                          <span class="input-group-btn">
+                            <%= link_to "Go!", "#", 
+                                        data: {
+                                          toggle: "modal",
+                                          target: "#newLeafletModal",
+                                          heapid: heap.id,
+                                          collapse: "heap_" + "#{heap.leaflet_type_id}",
+                                          typeid: lt
+                                        },
+                                        class: "btn btn-primary leaflet-create", id: "js-test", remote: true %>
+                          </span>
+                        </div>
+                      <% end %>
+                      <br><br>
+                    <% else %>
+                      <% if current_user.admin? %>
+                        <%= form_tag Leaflet.new do %>
+                          <div class="input-group">
+                            <input type="text" class="form-control url-input" id="url-<%= lt.to_s %>" placeholder="Enter URL (http://...)">
+                            <span class="input-group-btn">
+                              <%= link_to "Go!", "#", 
+                                          data: {
+                                            toggle: "modal",
+                                            target: "#newLeafletModal",
+                                            heapid: heap.id,
+                                            collapse: "heap_" + "#{heap.leaflet_type_id}",
+                                            typeid: lt
+                                          },
+                                          class: "btn btn-primary leaflet-create inline-group-btn", id: "js-test", remote: true %>
+                            </span>
+                          </div>
+                        <% end %>
+                      <% end %>
+                      <br><br>
+                    <% end %>
+                  <% else %>
+                    <% if user_signed_in? %>
+                      <h5>
+                        <small>
+                          To add bookmarks please switch to your own personal rake!
+                        </small>
+                      </h5>
+                    <% else %>
+                      <h5>
+                        <small>You have to be signed in to add bookmarks:
+                          <%= link_to "Sign in", root_path, id: "ga-my-sign-in-to-bookmark" %>
+                        </small>
+                      </h5>
+                    <% end %>
+                  <% end %>
+                </div>
+
+                <% if @heaps.pluck(:leaflet_type_id).include? lt %>
+                  <ul id="feed-list" class="leaflet-list">
+                    <% heap.leaflets.order("published_at DESC").each do |l| %>
+                      <% channel = Channel.find(l.channel_id) %>
+                      <a class="anchor" id="<%= 'anchor_leaflet_' + lt.to_s + '_' + l.id.to_s %>"></a>
+                      <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
+                        <% if channel.channel_type == 4 %>
+                          <% reddit_link = "http://reddit.com/" + l.identifier %>
+                        <% else %>
+                          <% reddit_link = "#" %>
+                        <% end %>
+                        <a class="pull-left" href=<%= reddit_link %> target="_blank">
+                          <% if channel.channel_type == 4 %>
+                            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
+                          <% elsif channel.channel_type == 3 %>
+                            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
+                          <% else %>
+                            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+                            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
+                          <% end %>
+                        </a>
+                        <div class="media-body">
+                          <% heap_leaflet = "" %>
+                          <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
+                            <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
+                              <% heap_leaflet = hl %>
+                            <% end %>
+                          <% end %>
+                          <span class="feed-timestamp">
+                            <% channel_name = channel.name %>
+                            <% if channel_name == "Title not available." %>
+                              <% channel_name = channel.source %>
+                            <% end %>
+                            Channel: <%= channel_name %>
+                            <% if !l.created_by.nil? %>
+                              &nbsp;|&nbsp;
+                              added by <%= User.find(l.created_by).username %>
+                            <% end %>
+                            <span class="pull-right">
+                              <% if !l.published_at.nil? %>
+                                <%= time_ago_in_words(l.published_at) %> ago 
+                              <% else %>
+                                <%= time_ago_in_words(l.created_at) %> ago 
+                              <% end %>
+                            </span>
+                          </span>
+                          <br>
+                          <span class="leaflet-title">
+                            <% if heap_leaflet != "" %>
+                              <% title = heap_leaflet.leaflet_title %>
+                              <% if !title.nil? %>
+                                <% if title.empty? %>
+                                  <% title = l.title %>
+                                <% end %>
+                                <% if lt == 15 %>
+                                  <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
+                                <% else %>
+                                  <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
+                                <% end %>
+                              <% else %>
+                                <% if lt == 15 %>
+                                  <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
+                                <% else %>
+                                  <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
+                                <% end %>
+                              <% end %>
+                            <% end %>
+                          </span>
+                          <div class="feed-body">
+                            <% if heap_leaflet != "" %>
+                              <% goal = heap_leaflet.leaflet_goal %>
+                              <% note = heap_leaflet.leaflet_note %>
+                              <% score = heap_leaflet.current_score %>
+                              <% rating = heap_leaflet.current_rating %>
+                              <% motioncounter = heap_leaflet.motion_counter %>
+                              <% actioncounter = heap_leaflet.action_counter %>
+                              <% scheduledcounter = heap_leaflet.scheduled_counter %>
+                              <% reminder_at = heap_leaflet.reminder_at %>
+                              <% if reminder_at.nil? %>
+                                <% reminder_at = "no reminder" %>
+                              <% else %>
+                                <% reminder_at = reminder_at.to_formatted_s(:short) %>
+                              <% end %>
+                            <% else %>
+                              <% goal = "" %>
+                              <% note = "" %>
+                              <% score = 0 %>
+                              <% rating = 0 %>
+                              <% schedulecounter = 0 %>
+                              <% motioncounter = 0 %>
+                              <% actioncounter = 0 %>
+                            <% end %>
+                            <p><%= raw l.content unless l.content == description %></p>
+                          </div>
+                          <br>
+                          <span class="leaflet-metrics">
+                            <% if user_signed_in? %>
+                              <%= heap_leaflet.motion_counter.to_s %>/<%= heap_leaflet.action_counter.to_s %>
+                              <i class="fa fa-tasks purple"></i>
+                              &nbsp;|&nbsp;
+                            <% end %>
+                            <span class="s_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
+                            <i class="fa fa-user purple"></i>
+                          </span>
+                          <span class="pull-right">
+                            <% if user_signed_in? %>
+                              <% if @rake.user_id == current_user.id %>
+                                <%= link_to "Status",
+                                            "#",
+                                            data: { toggle: "modal",
+                                                    target: "#editLeafletModal",
+                                                    id: l.id,
+                                                    heapid: heap.id,
+                                                    collapse: "heap_" + "#{heap.leaflet_type_id}",
+                                                    goal: goal,
+                                                    note: note,
+                                                    reminder: reminder_at,
+                                                    score: score,
+                                                    rating: rating,
+                                                    motioncount: motioncounter,
+                                                    actioncount: actioncounter,
+                                                    scheduledcount: scheduledcounter,
+                                                    url: l.url,
+                                                    access: "full"},
+                                            :method => :put, 
+                                            :action => :update, 
+                                            remote: true,
+                                            class: "btn btn-default btn-xs leaflet-edit" %>
+                                <%= link_to "Copy", 
+                                            "#",
+                                            data: { toggle: "modal",
+                                                    target: "#copyLeafletModal", 
+                                                    id: l.id,
+                                                    heapid: heap.id,
+                                                    title: l.title },
+                                            :method => :put,
+                                            :action => :update,
+                                            remote: true,
+                                            class: "btn btn-default btn-xs leaflet-copy" %>
+                                <%= link_to "Delete", 
+                                      remove_leaflet_heap_path(heap, leaflet_id: l.id),
+                                      :data => { :confirm => "Are you sure?" },
+                                      :method => :get, remote: true, class: "btn btn-default btn-xs" %>
+                              <% else %>
+                                <%= link_to "Save", new_myrake_path, 
+                                            data: { toggle: "modal",
+                                                    target: "#newCustomRakeAddLeafletModal",
+                                                    id: l.id,
+                                                    title: l.title },
+                                            class: "btn btn-default btn-xs leaflet-save" %>
+                              <% end %>
+                            <% end %>
+                          </span>
+                        </div>
+                        <hr>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="tab-pane" id="related-rakes">
+          <br>
+          <%= render 'related_rakes' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

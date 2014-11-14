@@ -14,10 +14,10 @@ body {
   font-size: 14px;
 }
 
-/*.modal-slider {
+.modal-slider .slider-selection {
   background-color: #4a2b88 !important;
 }
-*/
+
 /*.badge {
   color: white !important;
   background-color: #D91E18 !important;
@@ -551,6 +551,7 @@ a.menu-link:hover {
 }
 
 .leaflet-metrics {
+  margin-top: 4px !important;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 10px !important;
@@ -564,10 +565,16 @@ a.menu-link:hover {
 
 .progress {
   height: 8px !important;
-  width: 100% !important;
   margin-top: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   border-radius: 0;
+}
+
+.progress-chain {
+  box-shadow: 0;
+  -webkit-box-shadow: 0 0 0 0;
+  background-color: transparent;
+  margin-bottom: 4px !important;
 }
 
 .bookmark-metrics {
@@ -582,8 +589,8 @@ a.menu-link:hover {
   border-right: 1px solid white;
 }
 
-.bookmark-metrics-green {
-  background-color: #00B16A !important;
+.bookmark-metrics-orange {
+  background-color: #f39c12 !important;
   font-size: 8px !important;
   border-right: 1px solid white;
 }
@@ -657,9 +664,6 @@ a.menu-link:hover {
 input[type=text]:focus {
   border-color: #4a2b88;
   box-shadow: 0 0 10px #4a2b88;
-}
-
-input[type=range] {
 }
 
 #W1 {
@@ -1015,6 +1019,11 @@ body.nav-expanded {
   #showTutorialNewMasterRakeModal .modal-body {
     max-height: 200px;
     overflow-y: auto;
+  }
+
+  .btn-metrics {
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .fb-like {

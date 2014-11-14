@@ -1,4 +1,28 @@
 <span class="rake-nav">BLOGS & SUBREDDITS<hr></span>
+<h5>
+  <span class="pull-right">
+    <% if user_signed_in? && @rake.user_id == current_user.id %>
+      <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
+                  data: { toggle: "modal",
+                          target: "#addRssModal",
+                          rakeid: @rake.id,
+                          channeltype: 0 },
+                  class: "btn btn-xs btn-primary add-rss-feed" %>
+      <%= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                  data: { toggle: "modal",
+                          target: "#addSubredditModal",
+                          rakeid: @rake.id,
+                          channeltype: 4 },
+                  class: "btn btn-xs btn-primary add-subreddit-feed" %>
+    <% else %>
+      <%= link_to "Add Blog", root_path, 
+                  class: "btn btn-xs btn-primary add-rss-feed" %>
+      <%= link_to "Add Subreddit", root_path,
+                  class: "btn btn-xs btn-primary add-subreddit-feed" %>
+    <% end %>
+  </span>
+</h5>
+<br><br>
 <span class="channel-title">Recently added Blogs/Subreddits:</span>
 <br>
 <ul class="leaflet-list">
@@ -18,7 +42,17 @@
           </span>
           <div class="media-body">
             <h5 class="media-heading channel-heading">
-              <%= c.name %>
+              <% channel_name = c.name %>
+              <% if channel_name == "Title not available." %>
+                <% channel_name = c.source %>
+              <% end %>
+              <% if c.channel_type == 0 %> 
+                <%= link_to channel_name, c.source.match(/^http:\/\/[^\/]*/).to_s, class: "external", target: "_blank" %>
+              <% elsif c.channel_type == 4 %>
+                <%= link_to channel_name, "http://www.reddit.com" + c.name, class: "external", target: "_blank" %>
+              <% else %>
+                <%= channel_name %>
+              <% end %>
               <% if user_signed_in? && @rake.user_id == current_user.id %>
                 <span class="pull-right">
                 <%= link_to "Add",
@@ -57,13 +91,6 @@
         </span>
         <div class="media-body">
           <h5 class="media-heading channel-heading">
-            <%# if c.rake_channel_maps.find_by_myrake_id(@rake.id).display %>
-              <%#= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                          toggle_channel_display_myrake_path(@rake, channel: c.id, display: false) %>
-            <%# else %>
-              <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                          toggle_channel_display_myrake_path(@rake, channel: c.id, display: true) %>
-            <%# end %>
             <% channel_name = c.name %>
             <% if channel_name == "Title not available." %>
               <% channel_name = c.source %>

@@ -20,9 +20,12 @@ class Myrake < ActiveRecord::Base
   attr_accessor :current_score
   attr_accessor :current_rating
   attr_accessor :current_reminder
+  attr_accessor :action_counter
+  attr_accessor :scheduled_counter
   attr_accessor :task_comment
   attr_accessor :history_chain
   attr_accessor :collapse
+  attr_accessor :origin
 
   validates :name, presence: true
   validates :master_rake_id, presence: true
@@ -65,6 +68,12 @@ class Myrake < ActiveRecord::Base
 
   def is_current_user?
     current_user
+  end
+
+  def due_tasks_count
+    HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
+                         self.heaps.pluck(:id),
+                         Time.now).count
   end
 
   def add_channel(channel)
@@ -115,8 +124,6 @@ class Myrake < ActiveRecord::Base
     end
     if self.heaps.find_by_leaflet_type_id(leaflet_type_id).add_leaflet(leaflet,
                                                                        leaflet_type_id,
-                                                                       leaflet_title,
-                                                                       leaflet_desc,
                                                                        leaflet_goal,
                                                                        leaflet_note,
                                                                        reminder,

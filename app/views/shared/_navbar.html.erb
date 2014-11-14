@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <!--Include your brand here-->
   <% if user_signed_in? %>
-    <%= link_to image_tag("rakepage_logo_small.jpg"), myrakes_path, class: "navbar-brand" %>
+    <%= link_to image_tag("rakepage_logo_small.jpg"), user_path(current_user), class: "navbar-brand" %>
   <% else %>
     <%= link_to image_tag("rakepage_logo_small.jpg"), root_path, class: "navbar-brand" %>
   <% end %>

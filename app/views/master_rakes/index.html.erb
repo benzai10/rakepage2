@@ -8,9 +8,7 @@
           <span class="nav-link"><strong>ALL TOPICS</strong></span>
           &nbsp;|&nbsp;
           <% if user_signed_in? %>
-            <%= link_to "MY RAKES", myrakes_path, { class: "nav-link", id: "my-bookmarking-rakes" }%>
-            &nbsp;|&nbsp;
-            <%= link_to pluralize(@overdue_leaflets.count, "REMINDER").upcase, myrakes_path(collapse: "reminders"), class: "new-rec-alert" unless @overdue_leaflets.nil? %>
+            <%= link_to "MY RAKES", user_path(current_user) %>
           <% else %>
             <span class="nav-link">MY RAKES</span>
             &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;

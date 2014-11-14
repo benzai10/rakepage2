@@ -1,5 +1,15 @@
 class UsersController < ApplicationController
 
+  def show
+    if user_signed_in?
+      @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
+      @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
+    else
+      redirect_to master_rakes_path
+      return
+    end
+  end
+
   def update
     if params[:commit] == "Save Bookmark"
       leaflet = Leaflet.find(params[:user][:leaflet_id])
@@ -28,19 +38,21 @@ class UsersController < ApplicationController
       else
         reminder_at = nil
       end
-      heap_leaflet.update_attributes(leaflet_title: params[:user][:leaflet_title],
-                                     leaflet_desc: params[:user][:leaflet_desc],
-                                     leaflet_goal: params[:user][:leaflet_goal],
+      params[:user][:current_score] == "1" ? motion_counter_increment = 1 : motion_counter_increment = 0
+      params[:user][:current_score] == "2" ? action_counter_increment = 1 : action_counter_increment = 0
+      heap_leaflet.update_attributes(leaflet_goal: params[:user][:leaflet_goal],
                                      leaflet_note: params[:user][:leaflet_note],
                                      reminder_at: reminder_at,
                                      current_score: params[:user][:current_score].to_i,
                                      current_rating: params[:user][:current_rating].to_i,
-                                     current_reminder: params[:user][:current_reminder])
+                                     scheduled_counter: params[:user][:scheduled_counter].to_i,
+                                     action_counter: heap_leaflet.action_counter + action_counter_increment,
+                                     motion_counter: heap_leaflet.motion_counter + motion_counter_increment)
       current_rake = Heap.find(params[:user][:heap_id].to_i).myrake
       History.create!(user_id: current_user.id,
                      rake_id: current_rake.id,
                      leaflet_id: @leaflet.id,
-                     history_code: "bookmark",
+                     history_code: "bm_activity",
                      history_int: params[:user][:current_score].to_i,
                      history_int2: params[:user][:current_rating].to_i,
                      history_str: params[:user][:task_comment],
@@ -48,23 +60,30 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.html { 
           if params[:user][:origin] == "overdue"
-            redirect_to myrakes_path(collapse: "reminders")
+            redirect_to user_path(current_user, collapse: "reminders")
           else
-            redirect_to myrakes_path(collapse: "scheduled_reminders")
+            redirect_to user_path(current_user, collapse: "scheduled_reminders")
           end
         }
         format.js {
           if params[:user][:origin] == "overdue" || (params[:user][:origin] == "scheduled" && @reminder_at == 0)
-            if current_rake.top_rake == 1 && params[:user][:history_chain].to_i == 1
+            if current_rake.top_rake == 1 && params[:user][:current_score].to_i > 0
               @top_rake_id = current_rake.id
+              if params[:user][:current_score] == "1"
+                @score_int = 1
+              else
+                @score_int = 2
+              end
             else
               @top_rake_id = 0
+              @score_int = 0
             end
             @origin = params[:user][:origin]
             @reload_flag = 0
             render 'myrakes/reminder_set'
           else
             @top_rake_id = 0
+            @score_int = 0
             @origin = params[:user][:origin]
             @reload_flag = 1
             render 'myrakes/reminder_set'

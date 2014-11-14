@@ -12,24 +12,32 @@ class Heap < ActiveRecord::Base
 
   def add_leaflet(leaflet, 
                   leaflet_type_id,
-                  leaflet_title,
-                  leaflet_desc,
                   leaflet_goal,
                   leaflet_note,
                   reminder,
                   current_score,
                   current_rating,
                   current_reminder)
-    begin 
+    begin
+      if current_score == 1
+        motion_count = 1
+        action_count = 0
+      elsif current_score == 2
+        motion_count = 0
+        action_count = 1
+      else
+        motion_count = 0
+        action_count = 0
+      end
       self.heap_leaflet_maps.create(leaflet_id: leaflet.id,
                                     leaflet_type_id: leaflet_type_id,
-                                    leaflet_title: leaflet_title,
-                                    leaflet_desc: leaflet_desc,
                                     leaflet_goal: leaflet_goal,
                                     leaflet_note: leaflet_note,
                                     reminder_at: reminder,
                                     current_score: current_score,
                                     current_rating: current_rating,
+                                    motion_counter: motion_count,
+                                    action_counter: action_count,
                                     current_reminder: current_reminder)
       Leaflet.find(leaflet.id).update!(save_count: leaflet.save_count+1)
     rescue

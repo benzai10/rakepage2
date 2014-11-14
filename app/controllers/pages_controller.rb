@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   def landing
     if user_signed_in?
-      redirect_to myrakes_path
+      redirect_to user_path(current_user)
       return
     end
   end

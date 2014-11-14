@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   attr_accessor :current_score
   attr_accessor :current_rating
   attr_accessor :current_reminder
+  attr_accessor :action_counter
+  attr_accessor :scheduled_counter
   attr_accessor :task_comment
   attr_accessor :history_chain
   # Include default devise modules. Others available are:
@@ -32,6 +34,9 @@ class User < ActiveRecord::Base
 
   has_many :myrakes
   has_many :authentications
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
 
   def import_fb
     hash = get_fb_likes
@@ -133,4 +138,12 @@ class User < ActiveRecord::Base
     leaflets.map(&:save_count).sum - leaflets.count
   end
 
+  private
+
+  def slug_candidates
+    [
+      :username,
+      [:username, :id],
+    ]
+  end
 end

@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+  <div class="panel-heading panel-overview">
+    <h5 class="panel-title">
+      Tasks
+      <span class="pull-right">
+        <small>
+          <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
+          &nbsp;|&nbsp;
+          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks") %>
+        </small>
+      </span>
+    </h5>
+  </div>
+  <div class="panel-collapse collapse in" id="collapse-news">
+    <div class="panel-body">
+      <!-- Nav tabs -->
+      <div class="row">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="rake-nav <%= @due_active %>">
+            <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
+              DUE
+            </a>
+          </li>
+          <li class="rake-nav <%= @scheduled_active %>">
+            <a href="#scheduled-tasks" id="view-scheduled-tasks" data-toggle="tab">
+              SCHEDULED
+            </a>
+          </li>
+          <li class="rake-nav">
+            <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
+              RELATED
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane <%= @due_active %>" id="due-tasks">
+          <br>
+          <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
+          <p class="centered <%= empty_list %>" id="empty-reminders">
+            Yay, nothing here. You must be up-to-date with everything, check the news for inspirations!
+          </p>
+          <% if @overdue_leaflets.count > 0 %>
+            <br>
+            <%= render 'due_tasks' %>
+          <% end %>
+          <br><br><br><br><br>
+        </div>
+        <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
+          <% if @scheduled_leaflets.count > 0 %>
+            <br>
+            <%= render 'scheduled_tasks' %>
+          <% end %>
+          <br><br><br><br><br>
+        </div>
+        <div class="tab-pane" id="related-rakes">
+          <br>
+          <%= render 'related_rakes' %>
+          <br><br><br><br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

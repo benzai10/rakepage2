@@ -5,9 +5,11 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  around_filter :with_timezone
+
   def after_sign_in_path_for(resource)
     if resource.is_a?(User)
-      myrakes_path
+      user_path(current_user)
     else
       super
     end
@@ -39,6 +41,13 @@ class ApplicationController < ActionController::Base
                                                             :password,
                                                             :password_confirmation,
                                                             :current_password) }
+  end
+
+  private
+
+  def with_timezone
+    timezone = Time.find_zone(cookies[:timezone])
+    Time.use_zone(timezone) { yield }
   end
 
 end

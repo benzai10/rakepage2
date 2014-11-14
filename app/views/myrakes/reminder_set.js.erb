@@ -1,27 +1,10 @@
 if (<%= @reload_flag %> == 1) {
-  window.location.reload();
+  document.location.href += "&origin=scheduled";
+  // window.location.reload();
 }
 else {
-  if (<%= @top_rake_id %> > 0) {
-    $('#progress-current-day-toprake-<%= @top_rake_id %>').addClass('bookmark-metrics-purple');
-  }
-  if ('<%= @origin %>' == 'overdue') {
+  if ('<%= @origin %>' == 'due') {
     $('#leaflet_<%= @leaflet.id %>').remove();
-    $('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
-    if ($('.badge-reminders').html() == "0") {
-      $('#empty-reminders').removeClass('hidden');
-      $('#top-5-reminders').hide();
-      $('#other-reminders').hide();
-    }
-    if (<%= @reminder_at %> > 0) {
-      $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) + 1);
-    }
+    $('#editLeafletModal').modal('hide');
   }
-  else {
-    if (<%= @reminder_at %> == 0) {
-      $('#leaflet_<%= @leaflet.id %>').remove();
-      $('.badge-scheduled').html(parseInt($(".badge-scheduled").html()) - 1);
-    } 
-  }
-  $('#setReminderModal').modal('hide');
 }

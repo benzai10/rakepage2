@@ -89,7 +89,7 @@ class Channel < ActiveRecord::Base
         #end
         #end
       elsif channel_type == 4
-        self.name = FeedHelper::Reddit.new(source).get_title
+        self.name = FeedHelper::Reddit.new(source.scan(/[^\/]+$/).first).get_title
       end
     rescue FeedHelper::FeedNotFoundError
       self.errors.add(:base, "Could not retrieve data")

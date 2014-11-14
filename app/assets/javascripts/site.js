@@ -1,63 +1,98 @@
 $(function() {
 
-    $("#slider1").change(function () {
-        var newValue = $('#slider1').val();
-        $("#W1").html(newValue);
+    jQuery(function() {
+      var tz = jstz.determine();
+      $.cookie('timezone', tz.name(), { path: '/' });
     });
 
-    $("#slider11").change(function () {
-        var newValue = $('#slider11').val();
-        $("#W11").html(newValue);
+    $("#label-score-0").on('click', function() {
+        var currentScore = $("#current-score").val();
+        if (currentScore == "1") {
+            $("#current-score").val(0);
+            var newMotionCounter = parseInt($("#motion-counter").html()) - 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+        } else if (currentScore == "2") {
+            $("#current-score").val(0);
+            var newActionCounter = parseInt($("#action-counter").html()) - 1;
+            $("#action-counter").html(newActionCounter.toString());
+        } else {
+            $("#current-score").val(0);
+        }
     });
 
-    $("#slider2").change(function () {
-        var newValue = $('#slider2').val();
-        $("#W2").html(newValue);
+    $("#label-score-0-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "1") {
+            $("#current-score-new").val(0);
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+        } else if (currentScore == "2") {
+            $("#current-score-new").val(0);
+            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+        } else {
+            $("#current-score-new").val(0);
+        }
     });
 
-    $("#slider21").change(function () {
-        var newValue = $('#slider21').val();
-        $("#W21").html(newValue);
+    $("#label-score-1").on('click', function() {
+        var currentScore = $("#current-score").val();
+        if (currentScore == "2") {
+            $("#current-score").val(1);
+            var newActionCounter = parseInt($("#action-counter").html()) - 1;
+            $("#action-counter").html(newActionCounter.toString());
+            var newMotionCounter = parseInt($("#motion-counter").html()) + 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+        } else if (currentScore != "1") {
+            var newMotionCounter = parseInt($("#motion-counter").html()) + 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+            $("#current-score").val(1);
+        }
     });
 
-    $("#slider3").change(function () {
-        var newValue = $('#slider3').val();
-        $("#W3").html(newValue);
+    $("#label-score-1-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "2") {
+            $("#current-score-new").val(1);
+            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+        } else if (currentScore != "1") {
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+            $("#current-score-new").val(1);
+        }
     });
 
-    $("#slider31").change(function () {
-        var newValue = $('#slider31').val();
-        $("#W31").html(newValue);
+    $("#label-score-2").on('click', function() {
+        var currentScore = $("#current-score").val();
+        if (currentScore == "1") {
+            $("#current-score").val(2);
+            var newMotionCounter = parseInt($("#motion-counter").html()) - 1;
+            $("#motion-counter").html(newMotionCounter.toString());
+            var newActionCounter = parseInt($("#action-counter").html()) + 1;
+            $("#action-counter").html(newActionCounter.toString());
+        } else if (currentScore != "2") {
+            var newActionCounter = parseInt($("#action-counter").html()) + 1;
+            $("#action-counter").html(newActionCounter.toString());
+            $("#current-score").val(2);
+        }
     });
 
-    $("#slider4").change(function () {
-        var newValue = $('#slider4').val();
-        $("#W4").html(newValue);
-    });
-
-    $("#slider41").change(function () {
-        var newValue = $('#slider41').val();
-        $("#W41").html(newValue);
-    });
-
-    $("#slider5").change(function () {
-        var newValue = $('#slider5').val();
-        $("#W5").html(newValue);
-    });
-
-    $("#slider51").change(function () {
-        var newValue = $('#slider51').val();
-        $("#W51").html(newValue);
-    });
-
-    $("#slider6").change(function () {
-        var newValue = $('#slider6').val();
-        $("#W6").html(newValue);
-    });
-
-    $("#slider61").change(function () {
-        var newValue = $('#slider61').val();
-        $("#W61").html(newValue);
+    $("#label-score-2-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "1") {
+            $("#current-score-new").val(2);
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+        } else if (currentScore != "2") {
+            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+            $("#current-score-new").val(2);
+        }
     });
 
     $("#setReminderModal").on('shown.bs.modal', function(){
@@ -82,12 +117,9 @@ $(function() {
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
         $('.reminderat').val(1);
-    });
-
-    $("#editRestrictedLeafletModal").on('shown.bs.modal', function(){
-        $('.history-chain').attr('checked', false);
-        $('.task-comment').val('');
-        $('.reminderat').val(1);
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
+        $(".label-score-0").addClass("active");
     });
 
     $('.add-recommendation-form').hide();
@@ -181,12 +213,24 @@ $(function() {
         var leafleturl = $(this).data('url');
         var leafletgoal = $(this).data('goal');
         var leafletnote = $(this).data('note');
-        var score = $(this).data('score');
-        var rating = $(this).data('rating');
+        var motioncount = $(this).data('motioncount');
+        var actioncount = $(this).data('actioncount');
+        var scheduledcount = $(this).data('scheduledcount');
         var collapse = $(this).data('collapse');
         var reminderat = $(this).data('reminder');
         var origin = $(this).data('origin');
-        var slider = $(this).data('slider');
+        var rating = $(this).data('rating');
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            if (i < parseInt(rating)) {
+                arrayRatingStars[i].classList.remove('fa-star-o');
+                arrayRatingStars[i].classList.add('fa-star');
+            }
+            else {
+                arrayRatingStars[i].classList.remove('fa-star');
+                arrayRatingStars[i].classList.add('fa-star-o');
+            }
+        }
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".heap-id").val(heapId);
@@ -195,12 +239,10 @@ $(function() {
         $(".leaflet-goal").val(leafletgoal);
         $(".leaflet-note").val(leafletnote);
         $(".collapse-section").val(collapse);
-        $(".reminder-at").val(reminderat);
         $(".origin").val(origin);
-        $("#W" + slider).html(score);
-        $("#slider" + slider).val(score);
-        $("#W" + slider + "1").html(rating);
-        $("#slider" + slider + "1").val(rating);
+        $(".rating").val(rating);
+        $("#motion-counter").html(motioncount.toString());
+        $("#action-counter").html(actioncount.toString());
         ga('send', 'event', 'button', 'click', 'leaflet-edit');
     });
 
@@ -215,6 +257,15 @@ $(function() {
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
         $(".leaflet-url").val(url);
+        $("#current-score").val(0);
+        $("#label-score-0-new").addClass("active");
+        $("#label-score-1-new").removeClass("active");
+        $("#label-score-2-new").removeClass("active");
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            arrayRatingStars[i].classList.remove('fa-star');
+            arrayRatingStars[i].classList.add('fa-star-o');
+        }
         ga('send', 'event', 'button', 'click', 'leaflet-create');
     });
 
