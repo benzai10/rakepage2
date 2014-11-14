@@ -5,18 +5,18 @@ $(function() {
       $.cookie('timezone', tz.name(), { path: '/' });
     });
 
-    $("#label-score-0").on('click', function() {
-        var currentScore = $("#current-score").val();
+    $(".label-score-0").on('click', function() {
+        var currentScore = $(".current-score").val();
         if (currentScore == "1") {
-            $("#current-score").val(0);
-            var newMotionCounter = parseInt($("#motion-counter").html()) - 1;
-            $("#motion-counter").html(newMotionCounter.toString());
+            $(".current-score").val(0);
+            var newMotionCounter = parseInt($(".motion-counter").html()) - 1;
+            $(".motion-counter").html(newMotionCounter.toString());
         } else if (currentScore == "2") {
-            $("#current-score").val(0);
-            var newActionCounter = parseInt($("#action-counter").html()) - 1;
-            $("#action-counter").html(newActionCounter.toString());
+            $(".current-score").val(0);
+            var newActionCounter = parseInt($(".action-counter").html()) - 1;
+            $(".action-counter").html(newActionCounter.toString());
         } else {
-            $("#current-score").val(0);
+            $(".current-score").val(0);
         }
     });
 
@@ -35,18 +35,18 @@ $(function() {
         }
     });
 
-    $("#label-score-1").on('click', function() {
-        var currentScore = $("#current-score").val();
+    $(".label-score-1").on('click', function() {
+        var currentScore = $(".current-score").val();
         if (currentScore == "2") {
-            $("#current-score").val(1);
-            var newActionCounter = parseInt($("#action-counter").html()) - 1;
-            $("#action-counter").html(newActionCounter.toString());
-            var newMotionCounter = parseInt($("#motion-counter").html()) + 1;
-            $("#motion-counter").html(newMotionCounter.toString());
+            $(".current-score").val(1);
+            var newActionCounter = parseInt($(".action-counter").html()) - 1;
+            $(".action-counter").html(newActionCounter.toString());
+            var newMotionCounter = parseInt($(".motion-counter").html()) + 1;
+            $(".motion-counter").html(newMotionCounter.toString());
         } else if (currentScore != "1") {
-            var newMotionCounter = parseInt($("#motion-counter").html()) + 1;
-            $("#motion-counter").html(newMotionCounter.toString());
-            $("#current-score").val(1);
+            var newMotionCounter = parseInt($(".motion-counter").html()) + 1;
+            $(".motion-counter").html(newMotionCounter.toString());
+            $(".current-score").val(1);
         }
     });
 
@@ -65,18 +65,18 @@ $(function() {
         }
     });
 
-    $("#label-score-2").on('click', function() {
-        var currentScore = $("#current-score").val();
+    $(".label-score-2").on('click', function() {
+        var currentScore = $(".current-score").val();
         if (currentScore == "1") {
-            $("#current-score").val(2);
-            var newMotionCounter = parseInt($("#motion-counter").html()) - 1;
-            $("#motion-counter").html(newMotionCounter.toString());
-            var newActionCounter = parseInt($("#action-counter").html()) + 1;
-            $("#action-counter").html(newActionCounter.toString());
+            $(".current-score").val(2);
+            var newMotionCounter = parseInt($(".motion-counter").html()) - 1;
+            $(".motion-counter").html(newMotionCounter.toString());
+            var newActionCounter = parseInt($(".action-counter").html()) + 1;
+            $(".action-counter").html(newActionCounter.toString());
         } else if (currentScore != "2") {
-            var newActionCounter = parseInt($("#action-counter").html()) + 1;
-            $("#action-counter").html(newActionCounter.toString());
-            $("#current-score").val(2);
+            var newActionCounter = parseInt($(".action-counter").html()) + 1;
+            $(".action-counter").html(newActionCounter.toString());
+            $(".current-score").val(2);
         }
     });
 
@@ -117,6 +117,7 @@ $(function() {
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
         $('.reminderat').val(1);
+        $('.current-score').val(0);
         $(".label-score-1").removeClass("active");
         $(".label-score-2").removeClass("active");
         $(".label-score-0").addClass("active");
@@ -241,8 +242,8 @@ $(function() {
         $(".collapse-section").val(collapse);
         $(".origin").val(origin);
         $(".rating").val(rating);
-        $("#motion-counter").html(motioncount.toString());
-        $("#action-counter").html(actioncount.toString());
+        $(".motion-counter").html(motioncount.toString());
+        $(".action-counter").html(actioncount.toString());
         ga('send', 'event', 'button', 'click', 'leaflet-edit');
     });
 
