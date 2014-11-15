@@ -5,6 +5,10 @@ $(function() {
       $.cookie('timezone', tz.name(), { path: '/' });
     });
 
+    $(".rake-settings").on('click', function() {
+        $(".rake-settings-show").toggleClass("hidden");
+    });
+
     $(".label-score-0").on('click', function() {
         var currentScore = $(".current-score").val();
         if (currentScore == "1") {

@@ -7,12 +7,15 @@
           <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
           &nbsp;|&nbsp;
           <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks") %>
+          &nbsp;|&nbsp;
+          <i class="fa fa-cog rake-settings"></i>
         </small>
       </span>
     </h5>
   </div>
   <div class="panel-collapse collapse in" id="collapse-news">
     <div class="panel-body">
+      <%= render 'rake_settings' %>
       <!-- Nav tabs -->
       <div class="row">
         <ul class="nav nav-tabs" role="tablist">
