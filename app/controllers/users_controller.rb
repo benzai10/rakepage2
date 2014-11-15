@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def show
     if user_signed_in?
+      @adjusted_local_time = Time.now.getutc + Time.find_zone(cookies[:timezone]).utc_offset
       @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
       @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
     else

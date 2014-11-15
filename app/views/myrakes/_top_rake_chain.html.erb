@@ -1,10 +1,9 @@
 <div class="progress progress-chain">
-  <% adjusted_local_time = Time.now.getutc + Time.find_zone(cookies[:timezone]).utc_offset %>
   <% 30.times do |d| %>
     <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 2",
                         toprake.id,
-                        adjusted_local_time - (30 - d).day,
-                        adjusted_local_time - (29 - d).day).count > 0 %>
+                        @adjusted_local_time.midnight - (30 - d).day,
+                        @adjusted_local_time.midnight - (29 - d).day).count > 0 %>
       <% if d == 29 %>
         <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
       <% else %>
@@ -12,8 +11,8 @@
       <% end %>
     <% elsif History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 1",
                         toprake.id,
-                        adjusted_local_time - (30 - d).day,
-                        adjusted_local_time - (29 - d).day).count > 0 %>
+                        @adjusted_local_time.midnight - (30 - d).day,
+                        @adjusted_local_time.midnight - (29 - d).day).count > 0 %>
       <% if d == 29 %>
         <div class="progress-bar progress-bar-success bookmark-metrics-orange" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
       <% else %>
