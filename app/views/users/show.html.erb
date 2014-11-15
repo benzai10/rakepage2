@@ -5,7 +5,7 @@
     <div class="col-md-6 col-md-offset-3">
       <h5>
         <small>
-          <%= Time.now %>
+          <%= Time.use_zone(Time.find_zone(cookies[:timezone])) { Time.now } %>
           &nbsp;|&nbsp;
           <% if !current_user.nil? %>
             MY RAKES
