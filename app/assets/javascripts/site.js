@@ -50,22 +50,28 @@ $(function() {
         }
     });
 
-    $("#setReminderModal").on('shown.bs.modal', function(){
-        $('.history-chain').attr('checked', false);
-        $('.task-comment').val('');
-        $('.reminderat').val(1);
-    });
-
     $("#newLeafletModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
         $('.reminderat').val(1);
+        $('.current-score').val(0);
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
+        $(".label-score-0").addClass("active");
+        $(".motion-counter").html('0');
+        $(".action-counter").html('0');
     });
 
     $("#myModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
         $('.reminderat').val(1);
+        $('.current-score').val(0);
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
+        $(".label-score-0").addClass("active");
+        $(".motion-counter").html('0');
+        $(".action-counter").html('0');
     });
 
     $("#editLeafletModal").on('shown.bs.modal', function(){
@@ -87,18 +93,6 @@ $(function() {
     });
 
     $('.create-rake-info').hide();
-
-    $('#create-rake-info').click(function(){
-        if ($('#create-rake-toggle').html().indexOf("Create Rake") > 0) {
-            $('.master-rake-content').hide();
-            $('.create-rake-info').show();
-            $('#create-rake-toggle').html('<i class="fa fa-long-arrow-right white"></i>' + 'Back');
-        } else {
-            $('.create-rake-info').hide();
-            $('.master-rake-content').show();
-            $('#create-rake-toggle').html('<i class="fa fa-plus white"></i>' + 'Create Rake');
-        }
-    });
 
     $(window).scroll(function(){
         // add navbar opacity on scroll
@@ -213,10 +207,7 @@ $(function() {
         $(".heap-id").val(heapId);
         $(".collapse-section").val(collapse);
         $(".leaflet-url").val(url);
-        $("#current-score").val(0);
-        $("#label-score-0-new").addClass("active");
-        $("#label-score-1-new").removeClass("active");
-        $("#label-score-2-new").removeClass("active");
+        $(".current-score").val(0);
         var arrayRatingStars = $(".rating-input .fa");
         for (var i = 0; i < arrayRatingStars.length; i++) {
             arrayRatingStars[i].classList.remove('fa-star');
