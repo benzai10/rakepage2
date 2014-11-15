@@ -12,7 +12,13 @@
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
       <% if user_signed_in? %>
         <% if pmr.myrakes.pluck(:user_id).include? current_user.id %>
-          <%= link_to myrake_path(pmr.myrakes.find_by_user_id(current_user.id), view: params[:view]) do %>
+          <% due_tasks = pmr.myrakes.find_by_user_id(current_user.id).due_tasks_count %>
+          <% if due_tasks > 0 %>
+            <% next_view = "tasks" %>
+          <% else %>
+            <% next_view = params[:view] %>
+          <% end %>
+          <%= link_to myrake_path(pmr.myrakes.find_by_user_id(current_user.id), view: next_view) do %>
             <div class="col-md-12 col-lg-6">
               <div class="thumbnail">
                 <div class="media">
@@ -25,9 +31,9 @@
                       <%= pmr.name %>
                     </h5>
                     <p>
-                      <% if params[:view] == "tasks" %>
+                      <% if due_tasks > 0 %>
                         Tasks&nbsp;
-                        <span class="new-rec-alert"><%= pmr.myrakes.find_by_user_id(current_user.id).due_tasks_count unless pmr.myrakes.find_by_user_id(current_user.id).due_tasks_count == 0 %></span>
+                        <span class="new-rec-alert"><%= due_tasks %></span>
                       <% end %>
                     </p>
                   </div>
@@ -86,7 +92,13 @@
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
       <% if user_signed_in? %>
         <% if smr.myrakes.pluck(:user_id).include? current_user.id %>
-          <%= link_to myrake_path(smr.myrakes.find_by_user_id(current_user.id), view: params[:view]) do %>
+          <% due_tasks = smr.myrakes.find_by_user_id(current_user.id).due_tasks_count %>
+          <% if due_tasks > 0 %>
+            <% next_view = "tasks" %>
+          <% else %>
+            <% next_view = params[:view] %>
+          <% end %>
+          <%= link_to myrake_path(smr.myrakes.find_by_user_id(current_user.id), view: next_view) do %>
             <div class="col-md-12 col-lg-6">
               <div class="thumbnail">
                 <div class="media">
@@ -99,9 +111,9 @@
                       <%= smr.name %>
                     </h5>
                     <p>
-                      <% if params[:view] == "tasks" %>
+                      <% if due_tasks > 0 %>
                         Tasks&nbsp;
-                        <span class="new-rec-alert"><%= smr.myrakes.find_by_user_id(current_user.id).due_tasks_count unless smr.myrakes.find_by_user_id(current_user.id).due_tasks_count == 0 %></span>
+                        <span class="new-rec-alert"><%= due_tasks %></span>
                       <% end %>
                     </p>
                   </div>
@@ -160,7 +172,13 @@
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
       <% if user_signed_in? %>
         <% if cmr.myrakes.pluck(:user_id).include? current_user.id %>
-          <%= link_to myrake_path(cmr.myrakes.find_by_user_id(current_user.id), view: params[:view]) do %>
+          <% due_tasks = cmr.myrakes.find_by_user_id(current_user.id).due_tasks_count %>
+          <% if due_tasks > 0 %>
+            <% next_view = "tasks" %>
+          <% else %>
+            <% next_view = params[:view] %>
+          <% end %>
+          <%= link_to myrake_path(cmr.myrakes.find_by_user_id(current_user.id), view: next_view) do %>
             <div class="col-md-12 col-lg-6">
               <div class="thumbnail">
                 <div class="media">
@@ -173,9 +191,9 @@
                       <%= cmr.name %>
                     </h5>
                     <p>
-                      <% if params[:view] == "tasks" %>
+                      <% if due_tasks > 0 %>
                         Tasks&nbsp;
-                        <span class="new-rec-alert"><%= cmr.myrakes.find_by_user_id(current_user.id).due_tasks_count unless cmr.myrakes.find_by_user_id(current_user.id).due_tasks_count == 0 %></span>
+                        <span class="new-rec-alert"><%= due_tasks %></span>
                       <% end %>
                     </p>
                     <p>

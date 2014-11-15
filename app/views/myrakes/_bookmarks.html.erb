@@ -6,6 +6,9 @@
         <small>
           <%= link_to "TASKS", myrake_path(@rake, view: "tasks") %>
           &nbsp;|&nbsp;
+          <span class="new-rec-alert">
+            <%= " " + @rake.due_tasks_count.to_s unless @rake.due_tasks_count == 0 %>
+          </span>
           <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
         </small>
       </span>
