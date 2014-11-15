@@ -20,21 +20,6 @@ $(function() {
         }
     });
 
-    $("#label-score-0-new").on('click', function() {
-        var currentScore = $("#current-score-new").val();
-        if (currentScore == "1") {
-            $("#current-score-new").val(0);
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-        } else if (currentScore == "2") {
-            $("#current-score-new").val(0);
-            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-        } else {
-            $("#current-score-new").val(0);
-        }
-    });
-
     $(".label-score-1").on('click', function() {
         var currentScore = $(".current-score").val();
         if (currentScore == "2") {
@@ -50,21 +35,6 @@ $(function() {
         }
     });
 
-    $("#label-score-1-new").on('click', function() {
-        var currentScore = $("#current-score-new").val();
-        if (currentScore == "2") {
-            $("#current-score-new").val(1);
-            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-        } else if (currentScore != "1") {
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-            $("#current-score-new").val(1);
-        }
-    });
-
     $(".label-score-2").on('click', function() {
         var currentScore = $(".current-score").val();
         if (currentScore == "1") {
@@ -77,21 +47,6 @@ $(function() {
             var newActionCounter = parseInt($(".action-counter").html()) + 1;
             $(".action-counter").html(newActionCounter.toString());
             $(".current-score").val(2);
-        }
-    });
-
-    $("#label-score-2-new").on('click', function() {
-        var currentScore = $("#current-score-new").val();
-        if (currentScore == "1") {
-            $("#current-score-new").val(2);
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-        } else if (currentScore != "2") {
-            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-            $("#current-score-new").val(2);
         }
     });
 

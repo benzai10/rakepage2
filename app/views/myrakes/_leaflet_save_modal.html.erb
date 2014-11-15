@@ -53,19 +53,19 @@
           <div class="row">
             <div class="col-md-8">
               <label class="score-label">Quantify your productivity</label>
-              <%= f.hidden_field :current_score, value: 0, id: "current-score" %>
+              <%= f.hidden_field :current_score, value: 0, class: "current-score" %>
               <div class="btn-group btn-group-justified" data-toggle="buttons">
-                <label class="btn btn-default active" id="label-score-0">
+                <label class="btn btn-default active label-score-0">
                   <input type="radio" name="options" id="option1" autocomplete="off" checked>
                   None
                 </label>
-                <label class="btn btn-default btn-metrics" id="label-score-1">
+                <label class="btn btn-default btn-metrics label-score-1">
                   <input type="radio" name="options" id="option2" autocomplete="off">
-                  Motion&nbsp;|&nbsp;<span id="motion-counter">0</span>
+                  Motion&nbsp;|&nbsp;<span class="motion-counter">0</span>
                 </label>
-                <label class="btn btn-default btn-metrics" id="label-score-2">
+                <label class="btn btn-default btn-metrics label-score-2">
                   <input type="radio" name="options" id="option3" autocomplete="off">
-                  Action&nbsp;|&nbsp;<span id="action-counter">0</span>
+                  Action&nbsp;|&nbsp;<span class="action-counter">0</span>
                 </label>
               </div>
             </div>
