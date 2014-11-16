@@ -57,6 +57,8 @@ $(function() {
     $("#newLeafletModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.leaflet-goal').val('');
+        $('.leaflet-note').val('');
         $('.reminderat').val(1);
         $('.current-score').val(0);
         $(".label-score-1").removeClass("active");
@@ -69,6 +71,8 @@ $(function() {
     $("#myModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
+        $('.leaflet-goal').val('');
+        $('.leaflet-note').val('');
         $('.reminderat').val(1);
         $('.current-score').val(0);
         $(".label-score-1").removeClass("active");
