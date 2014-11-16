@@ -57,6 +57,9 @@ GEM
       thor
     buftok (0.2.0)
     builder (3.1.4)
+    bullet (4.14.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (>= 1.6.0)
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
@@ -334,6 +337,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.6.2)
     warden (1.2.3)
       rack (>= 1.0)
     webrobots (0.1.1)
@@ -348,6 +352,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap_form
   bootstrap_tokenfield_rails
+  bullet
   chartkick (~> 1.2.4)
   coffee-rails (~> 4.0.0)
   devise

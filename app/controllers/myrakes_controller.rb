@@ -25,10 +25,10 @@ class MyrakesController < ApplicationController
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
     if params[:view] == "tasks"
-      @overdue_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
+      @overdue_leaflets = HeapLeafletMap.includes(:heap).where("heap_id IN (?) AND reminder_at < ?",
                                                @rake.heaps.pluck(:id).flatten,
                                                Time.now).order(:reminder_at)
-      @scheduled_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at > ?",
+      @scheduled_leaflets = HeapLeafletMap.includes(:heap).where("heap_id IN (?) AND reminder_at > ?",
                                                  @rake.heaps.pluck(:id).flatten,
                                                  Time.now).order(:reminder_at)
       if params[:origin] == "due"

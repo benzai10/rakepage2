@@ -64,6 +64,7 @@ group :development, :test do
   gem 'faker'
 # Traceroute
   gem 'traceroute'
+  gem 'bullet'
 end
 
 #### Default
