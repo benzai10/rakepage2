@@ -46,7 +46,7 @@
             <% if reminder_at.nil? %>
               <% reminder_at = "no reminder" %>
             <% else %>
-              <% reminder_at = reminder_at.to_formatted_s(:short) %>
+              in <%= distance_of_time_in_words(Time.now, lm.reminder_at) %>
             <% end %>
             <p><%= raw l.content unless l.content == "No content details to display." %></p>
           </div>
