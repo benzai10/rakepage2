@@ -188,7 +188,8 @@ $(function() {
         $(".leaflet-id").val(leafletid);
         $(".leaflet-custom-title").val(leaflettitle);
         $(".heap-id").val(heapId);
-        $(".leaflet-description").val(leafletdescription)
+        $(".leaflet-description").val(leafletdescription);
+        $(".current-reminder").val(reminderat);
         $(".leaflet-url").val(leafleturl);
         $(".leaflet-goal").val(leafletgoal);
         $(".leaflet-note").val(leafletnote);

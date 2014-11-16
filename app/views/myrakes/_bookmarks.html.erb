@@ -224,7 +224,7 @@
                               <% if reminder_at.nil? %>
                                 <% reminder_at = "no reminder" %>
                               <% else %>
-                                <% reminder_at = reminder_at.to_formatted_s(:short) %>
+                                <% reminder_at = "in " + distance_of_time_in_words(Time.now, reminder_at) %>
                               <% end %>
                             <% else %>
                               <% goal = "" %>
@@ -250,6 +250,11 @@
                           <span class="pull-right">
                             <% if user_signed_in? %>
                               <% if @rake.user_id == current_user.id %>
+                                <% if reminder_at != "no reminder" %>
+                                  <% status_button = "btn-primary" %>
+                                <% else %>
+                                  <% status_button = "btn-default" %>
+                                <% end %>
                                 <%= link_to "Status",
                                             "#",
                                             data: { toggle: "modal",
@@ -270,7 +275,7 @@
                                             :method => :put, 
                                             :action => :update, 
                                             remote: true,
-                                            class: "btn btn-default btn-xs leaflet-edit" %>
+                                            class: "btn #{status_button} btn-xs leaflet-edit" %>
                                 <%= link_to "Copy", 
                                             "#",
                                             data: { toggle: "modal",

@@ -28,6 +28,10 @@
               <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
             </div>
+            <div class="col-md-6">
+              <label>Current Reminder</label>
+              <%= f.text_field :reminder_at, { hide_label: true, disabled: true, class: "current-reminder" } %>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
