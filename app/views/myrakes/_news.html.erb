@@ -44,8 +44,10 @@
         <div class="tab-pane active" id="feed">
           <h5>
             <small>
-              <% if !@rake.refreshed_at.nil? %>
-                updated: <%= time_ago_in_words(@rake.refreshed_at) %> ago
+              <% if !@rake.master_rake.refreshed_at.nil? %>
+                updated: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago
+              <% else %>
+                Click the Refresh button to update the feed
               <% end %>
             </small>
             <span class="pull-right">

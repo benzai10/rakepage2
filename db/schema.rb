@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104024917) do
+ActiveRecord::Schema.define(version: 20141116014955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20141104024917) do
     t.string   "history_str",      default: ""
     t.integer  "history_int2",     default: 0
     t.integer  "history_chain",    default: 0
+    t.text     "history_text",     default: ""
   end
 
   create_table "leaflet_types", force: true do |t|

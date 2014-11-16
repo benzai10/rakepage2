@@ -184,7 +184,7 @@ class MyrakesController < ApplicationController
                      history_code: "bm_activity",
                      history_int: params[:myrake][:current_score].to_i,
                      history_int2: params[:myrake][:current_rating].to_i,
-                     history_str: params[:myrake][:task_comment],
+                     history_text: params[:myrake][:task_comment],
                      history_chain: params[:myrake][:history_chain].to_i)
       if params[:myrake][:origin] == "due" || params[:myrake][:origin] == "scheduled"
         respond_to do |format|
@@ -242,7 +242,7 @@ class MyrakesController < ApplicationController
                        history_code: "bm_activity",
                        history_int: params[:myrake][:current_score].to_i,
                        history_int2: params[:myrake][:current_rating].to_i,
-                       history_str: params[:myrake][:task_comment],
+                       history_text: params[:myrake][:task_comment],
                        history_chain: params[:myrake][:history_chain].to_i)
         respond_to do |format|
           if session[:rake_class] == MasterRake
@@ -340,7 +340,7 @@ class MyrakesController < ApplicationController
                        history_code: "bm_activity",
                        history_int: params[:myrake][:current_score].to_i,
                        history_int2: params[:myrake][:current_rating].to_i,
-                       history_str: params[:myrake][:task_comment],
+                       history_text: params[:myrake][:task_comment],
                        history_chain: params[:myrake][:history_chain].to_i)
         redirect_to myrake_path(@rake,
                                 view: "bookmarks",

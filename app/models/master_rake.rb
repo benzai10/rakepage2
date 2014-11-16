@@ -36,22 +36,8 @@ class MasterRake < ActiveRecord::Base
   end
 
   def feed_leaflets(refresh)
-    if refresh == "yes"
-    #if self.refreshed_at.nil? || self.refreshed_at < Time.now - 1200
-      self.channels.each do |c|
-        #if c.last_pull_at < Time.now - 1200 
-          begin
-            c.pull_source
-          rescue
-          end
-        #end
-      end
-      self.update_attribute(:refreshed_at, Time.now)
-    #end
-    end
     feed_leaflets = Leaflet.where("channel_id IN (?)",
                             self.channels_master_rakes.map{ |rc| (rc.display == true) ? rc.channel_id : nil}.compact)
-
   end
 
   def add_master_heap(leaflet_type_id)

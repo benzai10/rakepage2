@@ -96,7 +96,7 @@ class Myrake < ActiveRecord::Base
       self.channels.each do |c|
         #if c.last_pull_at < Time.now - 00 || c.channel_type == 3 
           begin
-            self.update_attributes(refreshed_at: Time.now)
+            self.master_rake.update_attributes(refreshed_at: Time.now)
             c.pull_source
           rescue
           end
