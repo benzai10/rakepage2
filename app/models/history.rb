@@ -4,6 +4,17 @@ class History < ActiveRecord::Base
   validates :history_str, length: { maximum: 300 }
   validates :history_text, length: { maximum: 600 }
 
-  scope :liked, -> { where(history_code: "liked") }
-
+  def self.get_chain(rake_id, time_zone)
+    motion_chain = self.where(rake_id: rake_id, history_int: 1)
+                       .group_by_day(:created_at,
+                                     range: Time.now - 29.day..Time.now,
+                                     time_zone: time_zone)
+                       .count.map{ |x| x[1] > 0 }
+    action_chain = self.where(rake_id: rake_id, history_int: 2)
+                       .group_by_day(:created_at,
+                                     range: Time.now - 29.day..Time.now,
+                                     time_zone: time_zone)
+                       .count.map{ |x| x[1] > 0 }
+    motion_chain.zip(action_chain)
+  end
 end

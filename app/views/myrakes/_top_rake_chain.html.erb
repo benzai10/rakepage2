@@ -1,29 +1,20 @@
 <div class="progress progress-chain">
-  <% 30.times do |d| %>
-    <% if History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 2",
-                        toprake.id,
-                        Time.now.midnight.getutc - (29 - d).day,
-                        Time.now.midnight.getutc - (28 - d).day).count > 0 %>
-      <% if d == 29 %>
-        <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
-      <% else %>
-        <div class="progress-bar progress-bar-success bookmark-metrics-purple" style="width: 3.33%"></div>
-      <% end %>
-    <% elsif History.where("rake_id = ? AND created_at > ? AND created_at < ? AND history_int = 1",
-                        toprake.id,
-                        Time.now.midnight.getutc - (29 - d).day,
-                        Time.now.midnight.getutc - (28 - d).day).count > 0 %>
-      <% if d == 29 %>
-        <div class="progress-bar progress-bar-success bookmark-metrics-orange" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
-      <% else %>
-        <div class="progress-bar progress-bar-success bookmark-metrics-orange" style="width: 3.33%"></div>
-      <% end %>
+  <% chain_array = History.get_chain(toprake.id, Time.find_zone(cookies[:timezone])) %>
+  <% last_chain = chain_array.pop %>
+  <% chain_array.each do |chain_element| %>
+    <% if chain_element[1] == true %>
+      <div class="progress-bar progress-bar-success bookmark-metrics-purple" style="width: 3.33%"></div>
+    <% elsif chain_element[0] == true %>
+      <div class="progress-bar progress-bar-success bookmark-metrics-orange" style="width: 3.33%"></div>
     <% else %>
-      <% if d == 29 %>
-        <div class="progress-bar progress-bar-success bookmark-metrics" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
-      <% else %>
-        <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
-      <% end %>
+      <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
     <% end %>
+  <% end %>
+  <% if last_chain[1] == true %>
+    <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+  <% elsif last_chain[0] == true %>
+    <div class="progress-bar progress-bar-success bookmark-metrics-orange" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+  <% else %>
+  <div class="progress-bar progress-bar-success bookmark-metrics" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% end %>
 </div>
