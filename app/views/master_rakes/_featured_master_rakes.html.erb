@@ -1,5 +1,40 @@
 <div class="row">
   <%= render 'search_field' %>
+  <% @new_master_rakes.where(featured: true).find_each do |m| %>
+     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
+    <div class="col-md-12 col-lg-6">
+      <div class="thumbnail">
+        <%= link_to master_rake_path(m) do %>
+          <div class="media load-rake" value="<%= m.id %>">
+            <span class="pull-left">
+              <% if m.image_url.nil? || m.image_url.empty? %>
+                <%= image_tag("no_image.png", size: "96x54") %>
+              <% else %>
+                <%= image_tag(m.image_url, size: "96x54") %>
+              <% end %>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">
+                <% if user_signed_in? %>
+                  <% if m.myrakes.pluck(:user_id).include? current_user.id %>
+                    <i class="fa fa-star-o"></i>
+                  <% end %>
+                <% end %>
+                <%= m.name %>
+              </h5>
+              <p>
+                Tasks
+                &nbsp;|&nbsp;
+                News
+                &nbsp;|&nbsp;
+                Bookmarks
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <!-- Create new Master Rake (check if duplicated code in Myrakes view) -->
   <div class="col-md-12 col-lg-6">
     <% if user_signed_in? %>
@@ -39,65 +74,4 @@
       </div>
     <% end %>
   </div>
-
-  <% @new_master_rakes.where(featured: true).find_each do |m| %>
-     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
-    <div class="col-md-12 col-lg-6">
-      <div class="thumbnail">
-        <%= link_to master_rake_path(m) do %>
-          <div class="media load-rake" value="<%= m.id %>">
-            <span class="pull-left">
-              <% if m.image_url.nil? || m.image_url.empty? %>
-                <%= image_tag("no_image.png", size: "96x54") %>
-              <% else %>
-                <%= image_tag(m.image_url, size: "96x54") %>
-              <% end %>
-            </span>
-            <div class="media-body">
-              <h5 class="media-heading">
-                <% if user_signed_in? %>
-                  <% if m.myrakes.pluck(:user_id).include? current_user.id %>
-                    <i class="fa fa-star-o"></i>
-                  <% end %>
-                <% end %>
-                <%= m.name %>
-              </h5>
-              <p>
-                <%= m.myrakes.count.to_s %>
-                <i class="fa fa-user purple"></i>
-                &nbsp;|&nbsp;
-                <%= MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)).count.to_s %>
-                <% if user_signed_in? %>
-                  <span class="new-rec-alert">
-                    <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
-                    <% if !user_rake.nil? %>
-                      <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                      <%= "(" + new_count.to_s + ")" unless new_count == 0 %>
-                    <% end %>
-                  </span>
-                <% end %>
-                <i class="fa fa-bookmark purple"></i>
-                &nbsp;|&nbsp;
-                <%= m.channels.count.to_s %>
-                <% if user_signed_in? %>
-                  <span class="new-rec-alert">
-                    <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
-                    <% if !user_rake.nil? %>
-                      <% new_channels = m.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
-                      <% new_channels -= user_rake.channels %>
-                      <% @new_count = new_channels.count %>
-                      <%= "(" + @new_count.to_s + ")" unless @new_count == 0 %>
-                    <% end %>
-                  </span>
-                <% end %>
-                <i class="fa fa-rss purple"></i>
-              </p>
-              <p>
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
 </div>

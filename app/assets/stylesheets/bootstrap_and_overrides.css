@@ -222,8 +222,8 @@ p {
 h1 {
   margin-top: 20px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500; 
-  font-size: 20px;
+  font-weight: 300; 
+  font-size: 30px;
 }
 
 h2 {
@@ -446,6 +446,10 @@ a.menu-link:hover {
 }
 
 .leaflet-note {
+  font-size: 12px !important;
+}
+
+.task-comment {
   font-size: 12px !important;
 }
 
@@ -1039,7 +1043,7 @@ body.nav-expanded {
   }
 
   h1 {   
-    font-size: 17px !important;
+    font-size: 20px !important;
   }
 
   h2 {

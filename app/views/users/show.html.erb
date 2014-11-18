@@ -3,7 +3,7 @@
   <%= render 'myrakes/rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h5>
+      <h5 class="centered">
         <small>
           <% if !current_user.nil? %>
             MY RAKES
@@ -20,12 +20,12 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1><%= current_user.username %></h1>
+      <h1 class="centered"><%= current_user.username %></h1>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-myrake">
-            <h5 class="panel-title">
-              <%= "Discover the power of less and master your priorities" %>
+            <h5 class="panel-title centered">
+              Discover the power of less and master your priorities
             </h5>
           </div>
           <div class="panel-collapse collapse in" id="collapse-overview">

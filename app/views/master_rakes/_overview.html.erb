@@ -1,33 +1,25 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-master-rakes-overview">
-    <h5 class="panel-title">
-      <%= "#{@master_rakes.count} Topics with #{@saved_leaflets.count} Bookmarks" %>
-    </h5>
+<div>
+  <span class="rake-nav">DISCOVER TOPICS<hr></span>
+</div>
+<div class="row">
+  <div class="tab-header">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="rake-nav active">
+        <a href="#featured-rakes" id="view-featured-master-rakes" role="tab" data-toggle="tab">FEATURED</a>
+      </li>
+      <li class="rake-nav">
+        <a href="#new-rakes" id="view-new-master-rakes" role="tab" data-toggle="tab">NEW</a>
+      </li>
+    </ul>
   </div>
-  <div class="panel-collapse collapse in" id="collapse-overview">
-    <div class="panel-body">
-      <div class="row">
-        <div class="tab-header">
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="rake-nav active">
-              <a href="#featured-rakes" id="view-featured-master-rakes" role="tab" data-toggle="tab">DISCOVER</a>
-            </li>
-            <li class="rake-nav">
-              <a href="#new-rakes" id="view-new-master-rakes" role="tab" data-toggle="tab">NEW</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane active" id="featured-rakes">
-          <%= render 'featured_master_rakes' %>
-        </div>
-        <div class="tab-pane" id="new-rakes">
-          <%= render 'new_master_rakes' %>
-        </div>
-      </div>
-    </div>
+</div>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="featured-rakes">
+    <%= render 'featured_master_rakes' %>
+  </div>
+  <div class="tab-pane" id="new-rakes">
+    <%= render 'new_master_rakes' %>
   </div>
 </div>

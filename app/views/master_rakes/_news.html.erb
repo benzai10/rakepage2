@@ -1,53 +1,52 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-overview">
-    <h5 class="panel-title">
-      Overview
+<div>
+  <span class="rake-nav">NEWS<hr></span>
+</div>
+<!-- Nav tabs -->
+<div class="row">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="rake-nav active">
+      <a href="#feed" id="view-news" data-toggle="tab">
+        FEED
+      </a>
+    </li>
+    <li class="rake-nav">
+      <a href="#channels" id="view-channels" data-toggle="tab">
+        CHANNELS
+      </a>
+    </li>
+    <li class="rake-nav">
+      <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
+        RELATED
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="feed">
+    <h5>
+      <small>
+        Sign in to refresh the feed
+      </small>
     </h5>
+    <hr>
+    <% if @added_leaflets.count > 0 %>
+      <%= render 'added_leaflets' %>
+    <% end %>
+    <%= render 'feed' %>
   </div>
-  <div class="panel-collapse collapse in" id="collapse-overview">
-    <div class="panel-body">
-      <% if !flash.empty? %>
-        <%= render 'shared/flash_message' %>
-      <% end %>
-      <h5><small>Most active Co-Rakers</small></h5>
-      <% data = @rake.get_corakers.first(5) %>
-      <% if data.count == 0 %>
-        <% chart_height = "30px" %>
-      <% else %>
-        <% chart_height = (data.count * 40).to_s + "px" %>
-      <% end %>
-      <%= bar_chart data, { height: "#{chart_height}", library: { colors: ['#6e2384'], title: "# of Bookmarks", chartArea: { top: 20, bottom: 10, left: 100 }, vAxis: { format: "#" }}} %>
-      <br>
-      <% if user_signed_in? %>
-        <% if !@custom_rake.nil? && !@custom_rake.empty? %>
-          <%= link_to "<i class='fa fa-leaf white'></i>".html_safe + " Show my Rake",
-                      myrake_path(@custom_rake.first),
-                      class: "btn btn-xs btn-primary" %>
-        <% else %>
-          <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personal Rake",
-                      new_myrake_path(master_rake_id: @rake.id),
-                                    data: { toggle: "modal",
-                                            target: "#newCustomRakeModal",
-                                          },
-                      class: "btn btn-xs btn-primary" %>
-        <% end %>
-      <% else %>
-        <%= link_to "<i class='fa fa-plus white'></i>".html_safe + " Create Personal Rake",
-                    new_user_session_path,
-                    class: "btn btn-xs btn-primary" %>
-      <% end %>
-      <% if user_signed_in? %>
-        <% if @rake.created_by == current_user.id && @rake.myrakes.count == 0 %>
-          <%= link_to "Delete Master Rake", master_rake_path(@rake),
-                        :data => { :confirm => "Are you sure?" }, 
-                        :method => :delete,
-                        class: "btn btn-default btn-xs" %>
-        <% end %>
-      <% end %>
-      <span class="pull-right">
-        <%= social_share_button_tag(@rake.name + " Bookmarks", 
-                                    image: @rake.image_url) %>
-      </span>
-    </div>
+  <div class="tab-pane" id="channels">
+    <h5>
+      <small>
+        Sign in to customize your feed by adding and removing channels
+      </small>
+    </h5>
+    <br>
+    <%= render 'channels' %>
+  </div>
+  <div class="tab-pane" id="related-rakes">
+    <br>
+    <%= render 'related_rakes' %>
   </div>
 </div>
+

@@ -23,34 +23,11 @@
                 <%= m.name %>
               </h5>
               <p>
-                <%= m.myrakes.count.to_s %>
-                <i class="fa fa-user purple"></i>
+                Tasks
                 &nbsp;|&nbsp;
-                <%= master_leaflets.count.to_s %>
-                <% if user_signed_in? %>
-                  <span class="new-rec-alert">
-                    <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
-                    <% if !user_rake.nil? %>
-                      <% new_count = master_leaflets.where("created_at > ?", current_user.last_sign_in_at).count %>
-                      <%= "(" + new_count.to_s + ")" unless new_count == 0 %>
-                    <% end %>
-                  </span>
-                <% end %>
-                <i class="fa fa-bookmark purple"></i>
+                News
                 &nbsp;|&nbsp;
-                <%= m.channels.count.to_s %>
-                <% if user_signed_in? %>
-                  <span class="new-rec-alert">
-                    <% user_rake = m.myrakes.find_by_user_id(current_user.id) %>
-                    <% if !user_rake.nil? %>
-                      <% new_channels = m.channels.where("channel_type <> 3 AND channel_type <> 5 AND created_at > ?", current_user.last_sign_in_at ) %>
-                      <% new_channels -= user_rake.channels %>
-                      <% @new_count = new_channels.count %>
-                      <%= "(" + @new_count.to_s + ")" unless @new_count == 0 %>
-                    <% end %>
-                  </span>
-                <% end %>
-                <i class="fa fa-rss purple"></i>
+                Bookmarks
               </p>
               <p>
               </p>

@@ -1,0 +1,40 @@
+<div>
+  <span class="rake-nav">INFO<hr></span>
+</div>
+<% if @custom_rake.nil? %>
+  <h3>
+    A personal rake allows you to do the following:
+  </h3>
+  <ul class="info-list">
+    <li>Add and remove channels to customize your news feed.</li>
+    <li>Save bookmarks and set reminders.</li>
+    <li>Increase your productivity with tasks.</li>
+  </ul>
+  <% if !user_signed_in? %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <p class="info-text centered">
+          You need an account to create a rake.
+        </p>
+        <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+        <br><br>
+        <p class="info-text centered">
+          or <%= link_to "sign in", new_user_session_path %>.
+        </p>
+      </div>
+    </div>
+  <% else %>
+    <br><br>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          }, class: "btn btn-primary btn-lg centered" %>
+      </div>
+    </div>
+    <br><br><br>
+  <% end %>
+<% else %>
+  <h3 class="centered">You already created a personal rake.</h3>
+<% end %>

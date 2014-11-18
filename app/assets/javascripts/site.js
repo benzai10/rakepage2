@@ -5,6 +5,44 @@ $(function() {
       $.cookie('timezone', tz.name(), { path: '/' });
     });
 
+    $("#show-general").on('click', function() {
+        $(".master-rake-general").removeClass('hidden');
+        $(".master-rake-overview").addClass('hidden');
+    });
+
+    $("#show-overview").on('click', function() {
+        $(".master-rake-general").addClass('hidden');
+        $(".master-rake-overview").removeClass('hidden');
+    });
+
+    $("#show-info").on('click', function() {
+        $(".master-rake-info").removeClass('hidden');
+        $(".master-rake-news").addClass('hidden');
+        $(".master-rake-bookmarks").addClass('hidden');
+        $(".master-rake-tasks").addClass('hidden');
+    });
+
+    $("#show-news").on('click', function() {
+        $(".master-rake-info").addClass('hidden');
+        $(".master-rake-news").removeClass('hidden');
+        $(".master-rake-bookmarks").addClass('hidden');
+        $(".master-rake-tasks").addClass('hidden');
+    });
+
+    $("#show-bookmarks").on('click', function() {
+        $(".master-rake-info").addClass('hidden');
+        $(".master-rake-news").addClass('hidden');
+        $(".master-rake-bookmarks").removeClass('hidden');
+        $(".master-rake-tasks").addClass('hidden');
+    });
+
+    $("#show-tasks").on('click', function() {
+        $(".master-rake-info").addClass('hidden');
+        $(".master-rake-news").addClass('hidden');
+        $(".master-rake-bookmarks").addClass('hidden');
+        $(".master-rake-tasks").removeClass('hidden');
+    });
+
     $(".rake-settings").on('click', function() {
         $(".rake-settings-show").toggleClass("hidden");
     });

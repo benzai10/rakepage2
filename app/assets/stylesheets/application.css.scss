@@ -27,19 +27,34 @@
   vertical-align: bottom !important;
 }
 
-#reminder-pic {
-  background: red;
+#motion-pic {
+  background: #f39c12;
+  height: 54px;
+  width: 96px;
 }
+
+#action-pic {
+  background: #4a2b88;
+  height: 54px;
+  width: 96px;
+}
+
+#chainbreak-pic {
+  background: lightgray;
+  height: 54px;
+  width: 96px;
+}
+
 
 .reminder-month {
   text-align: center;
   color: white;
-  background-color: red;
+  background-color: #2ccf73;
   height: 18px;
   width: 96px;
   margin-top: 0px;
   margin-bottom: 0px;
-  padding-top: 1px;
+  padding-top: 0px;
 }
 
 .reminder-day {

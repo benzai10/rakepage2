@@ -1,0 +1,128 @@
+<div>
+  <span class="rake-nav">TASKS<hr></span>
+</div>
+<h3>
+  Get productive based on bookmarks
+</h3>
+<ul class="info-list">
+  <li>Set reminders for your inspirations to schedule your actions.</li>
+  <li>Never again forget to get back to bookmarks.</li>
+  <li>Journal and track your actions to check how productive you are.</li>
+</ul>
+<h4>
+  Here's an example showing the last 30 days:
+</h4>
+<div class="media">
+  <span class="pull-left">
+    <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+      <%= image_tag("no_image.png", size: "96x54") %>
+    <% else %>
+      <%= image_tag(@rake.image_url, size: "96x54") %>
+    <% end %>
+  </span>
+  <div class="media-body">
+    <h5 class="media-heading">
+      <%= @rake.name %>
+    </h5>
+    <p>
+      <div class="progress progress-chain">
+        <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
+                          [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
+                          [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
+                          [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
+                          [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+        <% chain_array.each do |chain_element| %>
+          <% if chain_element[1] == true %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-purple" style="width: 3.33%"></div>
+          <% elsif chain_element[0] == true %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-orange" style="width: 3.33%"></div>
+          <% else %>
+            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+          <% end %>
+        <% end %>
+      </div>
+    </p>
+    <p>
+      Tasks
+      <span class="new-rec-alert">5</span>
+      &nbsp;|&nbsp;
+      News
+      &nbsp;|&nbsp;
+      Bookmarks
+    </p>
+  </div>
+</div>
+<br>
+<h4>
+  Never mistake motion for action.<small>&nbsp;&mdash;by Ernest Hemingway</small>
+</h4>
+<div class="media">
+  <span class="pull-left">
+    <div id="motion-pic"></div>
+  </span>
+  <div class="media-body">
+    <h5 class="media-heading">
+      Being in Motion
+    </h5>
+    <p>
+       Motion is when you’re busy doing something, but that task will never produce an outcome by itself. The day will be colored orange.
+    </p>
+  </div>
+</div>
+<div class="media">
+  <span class="pull-left">
+    <div id="action-pic"></div>
+  </span>
+  <div class="media-body">
+    <h5 class="media-heading">
+      Taking Action
+    </h5>
+    <p>
+      Action, on the other hand, is the type of behavior that will get you a result. Congratulations! The day will be colored purple.
+    </p>
+  </div>
+</div>
+<div class="media">
+  <span class="pull-left">
+    <div id="chainbreak-pic"></div>
+  </span>
+  <div class="media-body">
+    <h5 class="media-heading">
+      Don't break the chain
+    </h5>
+    <p>
+      Based on the productivity tip of Jerry Seinfeld. Read more about 
+      <a href="http://lifehacker.com/281626/jerry-seinfelds-productivity-secret" target="_blank">
+        "Don't break the chain" here
+      </a>. A grey-colored day interrupts a chain.
+    </p>
+  </div>
+</div>
+<br><br><br>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="info-text centered">
+        You need  an account to create tasks.
+      </p>
+      <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+      <br><br>
+      <p class="info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
+<% else %>
+  <% if !@customer_rake.nil? %>
+    <br><br>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          }, class: "btn btn-primary btn-lg centered" %>
+      </div>
+    </div>
+    <br><br><br>
+  <% end %>
+<% end %>

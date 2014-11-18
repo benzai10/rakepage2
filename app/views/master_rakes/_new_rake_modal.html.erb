@@ -10,14 +10,11 @@
         <div class="modal-body">
           <h3>My <%= @rake.name %> Rake</h3>
           <%= f.hidden_field :name, value: @rake.name %>
-          <p>
-            You need a personal rake for this topic to bookmark inspirations. Click save to create your personal rake.
-          </p>
           <%= f.check_box :copy_recommendations, label: "Copy bookmarked inspirations", checked: true %>
           <% if @rakes.where(top_rake: 1).count < 5 %>
             <%= f.check_box :top_rake, label: "Add to my Top 5", checked: true %>
           <% else %>
-            <%= f.check_box :top_rake, label: "Add to my Top 5", checked: false, disabled: true %>
+            <%= f.check_box :top_rake, label: "Add to my Top 5 (filled)", checked: false, disabled: true %>
           <% end %>
           <%= f.hidden_field :master_rake_id, label: "Copy existing bookmarks", value: @rake.id %>
           <%= f.hidden_field :user_id, value: current_user.id %>

@@ -1,21 +1,4 @@
 <span class="rake-nav">BLOGS & SUBREDDITS<hr></span>
-<% if !current_user.nil? %>
-  <%#= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
-              data: { toggle: "modal",
-                      target: "#addRssModal",
-                      rakeid: @rake.id,
-                      channeltype: 0 },
-              class: "btn btn-xs btn-primary" %>
-  <%#= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
-              data: { toggle: "modal",
-                      target: "#addSubredditModal",
-                      rakeid: @rake.id,
-                      channeltype: 4 },
-              class: "btn btn-xs btn-primary" %>
-<% else %>
-  <%#= link_to "Add Blog", new_user_session_path, class: "btn btn-xs btn-primary" %>
-  <%#= link_to "Add Subreddit", new_user_session_path, class: "btn btn-xs btn-primary" %>
-<% end %>
 <ul class="leaflet-list">
   <% @rake.channels.where("channel_type <> 3 AND channel_type <> 5").each do |c| %>
     <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
@@ -74,7 +57,7 @@
           <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
         </p>
       </div>
+      <br>
     </li>
-    <hr>
   <% end %>
 </ul>

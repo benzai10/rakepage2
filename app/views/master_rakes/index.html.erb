@@ -3,7 +3,7 @@
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h5>
+      <h5 class="centered">
         <small>
           <span class="nav-link"><strong>ALL TOPICS</strong></span>
           &nbsp;|&nbsp;
@@ -19,14 +19,69 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1>Inspirations to get productive</h1>
+      <h1 class="centered">Be More Productive, Less Distracted</h1>
       <div class="panel-group" id="accordion-main">
-        <%= render 'overview' %>
+        <div class="panel panel-default">
+          <div class="panel-heading panel-master-rakes-overview">
+            <h5 class="panel-title centered">
+              Maximize Your Focus
+            </h5>
+          </div>
+          <div class="col-md-12">
+            <br>
+            <div class="thumbnail" id="show-overview">
+              <div class="media">
+                <span class="pull-left">
+                  <p class="reminder-month">
+                    Committed
+                  </p>
+                  <p class="reminder-day">
+                    <i class="fa fa-bullseye"></i>
+                  </p>
+                </span>
+                <div class="media-body">
+                  <h5 class="media-heading">Choose a topic</h5>
+                  <p>
+                    If you commit to nothing, you’re distracted by everything.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="thumbnail" id="show-general">
+              <div class="media">
+                <span class="pull-left">
+                  <p class="reminder-month">
+                    Benefit
+                  </p>
+                  <p class="reminder-day">
+                    <i class="fa fa-star-o"></i>
+                  </p>
+                </span>
+                <div class="media-body">
+                  <h5 class="media-heading">Create Your Personal Rake</h5>
+                  <p>
+                    Customize your news feed and create tasks for saved bookmarks.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="panel-collapse collapse in" id="collapse-overview">
+            <div class="panel-body">
+              <div class="master-rake-general">
+                <%= render 'general' %>
+              </div>
+              <div class="master-rake-overview hidden">
+                <%= render 'overview' %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <% if user_signed_in? %>
   <%= render 'new_modal' %>
-  <%= render 'leaflet_save_modal2' %>
 <% end %>
