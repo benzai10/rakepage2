@@ -43,6 +43,7 @@
           <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
           <p class="centered <%= empty_list %>" id="empty-reminders">
             Yay, nothing here. You must be up-to-date with everything, check the news for inspirations!
+            <br><br><br><br><br><br><br><br><br><br>
           </p>
           <% if @overdue_leaflets.count > 0 %>
             <br>
