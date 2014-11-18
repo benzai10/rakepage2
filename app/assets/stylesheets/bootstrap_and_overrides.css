@@ -156,7 +156,6 @@ a.anchor {
 .centered {
   display: block;
   text-align: center;
-  cursor: pointer;
 }
 
 .fa {
@@ -294,6 +293,7 @@ h5 {
 }
 
 .thumbnail:hover {
+  cursor: pointer;
   outline: none;
   border-color: #4a2b88;
   box-shadow: 0 0 10px #4a2b88;
