@@ -53,45 +53,5 @@
         <br>
       </div>
     <% end %>
-    <% if @top_rakes.count < 5 %>
-      <div class="row">
-        <div class="col-md-12">
-          <br><br><br>
-          <p class="centered">
-            Get more productive for other topics you are interested in.
-          </p>
-          <p class="centered">
-            Discover some more topics by clicking on the button below.
-          </p>
-          <p class="centered">
-            If you don't find your topic, you can create a new one.
-          </p>
-          <p class="centered">
-            REMINDER: Discover the power of less and master your priorities!
-          </p>
-          <br>
-        </div>
-        <div class="col-md-6 col-md-offset-3">
-          <%= link_to "View Topics", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
-          <br><br><br>
-        </div>
-      </div>
-    <% else %>
-      <div class="row">
-        <div class="col-md-12">
-          <br><br>
-          <p class="centered">
-            These are your Top 5 priority rakes.
-          </p>
-          <p class="centered">
-            Remove a rake to add another one. This helps you to focus what's really important to you.
-          </p>
-          <p class="centered">
-            REMINDER: Discover the power of less and master your priorities!
-          </p>
-          <br><br><br>
-        </div>
-      </div>
-    <% end %>
   <% end %>
 </div>
