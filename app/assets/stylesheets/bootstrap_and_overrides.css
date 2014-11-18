@@ -507,13 +507,14 @@ a.menu-link:hover {
   max-height: 520px;
   overflow-y: scroll;
 }
-.feed-body > iframe {
+.feed-body > p > iframe {
   width: 100% !important;
   min-height: auto !important;
 }
 
-.feed-body > img {
-  width: 100% !important;
+.feed-body > p > img {
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 .feed-body .reddit-thumbnail {
