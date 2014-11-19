@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  respond_to :html, :json
 
   def show
     if user_signed_in?

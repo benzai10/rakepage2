@@ -1,0 +1,1 @@
+alert(gon.top_rakes)

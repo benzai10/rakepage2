@@ -95,8 +95,8 @@ gem 'jquery-cookie-rails'
 # gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-gem 'rabl'
+gem 'gon'
+gem 'rabl-rails'
 
 # Provides Holder.js to render image placeholders entirely on the client side
 gem 'holder_rails'
