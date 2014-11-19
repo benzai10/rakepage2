@@ -128,27 +128,30 @@
               <br>
             <% else %>
               <div class="thumbnail" id="show-info">
-                <div class="media">
-                  <span class="pull-left">
-                    <% if @rake.image_url.nil? || @rake.image_url.empty? %>
-                      <%= image_tag("no_image.png", size: "96x54") %>
-                    <% else %>
-                      <%= image_tag(@rake.image_url, size: "96x54") %>
-                    <% end %>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">Create Your Personal Rake</h5>
-                    <p>
-                      Customize your news feed and create tasks.
-                    </p>
+                <a href="#anchor-master-rake-info">
+                  <div class="media">
+                    <span class="pull-left">
+                      <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+                        <%= image_tag("no_image.png", size: "96x54") %>
+                      <% else %>
+                        <%= image_tag(@rake.image_url, size: "96x54") %>
+                      <% end %>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">Customize this Topic</h5>
+                      <p>
+                        Customize your news feed and create tasks for this topic.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
             <% end %>
           </div>
           <br>
           <div class="panel-collapse collapse in" id="collapse-feed">
             <div class="panel-body">
+              <a class="anchor" name="anchor-master-rake-info"></a>
               <div class="master-rake-info <%= 'hidden' if params[:view] == 'news' %>">
                 <%= render 'info' %>
               </div>

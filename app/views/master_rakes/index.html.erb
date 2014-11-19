@@ -41,7 +41,7 @@
                     </p>
                   </span>
                   <div class="media-body">
-                    <h5 class="media-heading">Discover & choose topic</h5>
+                    <h5 class="media-heading">Choose a topic</h5>
                     <p>
                       If you commit to nothing, you’re distracted by everything.
                     </p>
@@ -49,33 +49,49 @@
                 </div>
               </a>
             </div>
-            <div class="thumbnail" id="show-general">
-              <div class="media">
-                <span class="pull-left">
-                  <p class="reminder-month">
-                    Benefit
-                  </p>
-                  <p class="reminder-day">
-                    <i class="fa fa-star-o"></i>
-                  </p>
-                </span>
-                <div class="media-body">
-                  <% if user_signed_in? %>
-                    <h5 class="media-heading"><%= current_user.username %></h5>
-                    <p>
-                      Rakes in Top 5: <%= @rakes.where(top_rake: 1).count.to_s %>
-                      &nbsp;|&nbsp;
-                      Other: <%= @rakes.where(top_rake: 0).count.to_s %>
+            <% if user_signed_in? %>
+              <div class="thumbnail" id="show-general">
+                <%= link_to user_path(current_user) do %>
+                  <div class="media">
+                    <span class="pull-left">
+                      <p class="reminder-month">
+                        Productive
+                      </p>
+                      <p class="reminder-day">
+                        <i class="fa fa-star-o"></i>
+                      </p>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading"><%= current_user.username %></h5>
+                      <p>
+                        Rakes in Top 5: <%= @rakes.where(top_rake: 1).count.to_s %>
+                        &nbsp;|&nbsp;
+                        Other: <%= @rakes.where(top_rake: 0).count.to_s %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="thumbnail" id="show-general">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Productive
                     </p>
-                  <% else %>
-                    <h5 class="media-heading">Create Your Personal Rake</h5>
-                    <p>
-                      Customize your news feed and create tasks for saved bookmarks.
+                    <p class="reminder-day">
+                      <i class="fa fa-star-o"></i>
                     </p>
-                  <% end %>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Customize a Topic</h5>
+                    <p>
+                     Create a "Rake" to get more productive on a topic.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            <% end %>
           </div>
           <br>
           <div class="panel-collapse collapse in" id="collapse-overview">
