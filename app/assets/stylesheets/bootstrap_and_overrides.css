@@ -307,7 +307,7 @@ h5 {
 }
 
 .thumbnail a:link {
-  text-decoration: none;
+  text-decoration: none !important;
   color: black !important;
 }
 
@@ -1011,6 +1011,26 @@ body.nav-expanded {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+  .col-md-12 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .col-md-6 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .row {
+    padding-left: 2px;
+    padding-left: 2px;
+  }
+
+  .panel-body {
+    margin-left: 0px;
+    padding-left: 12px;
+  }
+
   #showTutorialModal .modal-body {
     max-height: 200px;
     overflow-y: auto;

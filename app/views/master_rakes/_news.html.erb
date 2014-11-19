@@ -26,7 +26,20 @@
   <div class="tab-pane active" id="feed">
     <h5>
       <small>
-        Sign in to refresh the feed
+        <% if user_signed_in? %>
+          <% if !@rake.refreshed_at.nil? %>
+            updated: <%= time_ago_in_words(@rake.refreshed_at) %> ago
+          <% else %>
+            Click the Refresh button to update the feed
+          <% end %>
+        <% else %>
+          Sign in to refresh the feed
+        <% end %>
+        <span class="pull-right">
+        <% if user_signed_in? %>
+          <%= link_to "Refresh", master_rake_path(view: "news", refresh: "yes", anchor: "anchor-master-rake-news"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %>
+        <% end %>
+        </span>
       </small>
     </h5>
     <hr>

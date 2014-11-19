@@ -64,7 +64,10 @@ group :development, :test do
   gem 'faker'
 # Traceroute
   gem 'traceroute'
+# Bullet
   gem 'bullet'
+# Rack Mini Profiler
+  gem 'rack-mini-profiler'
 end
 
 #### Default

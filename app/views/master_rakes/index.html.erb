@@ -5,15 +5,15 @@
     <div class="col-md-6 col-md-offset-3">
       <h5 class="centered">
         <small>
-          <span class="nav-link"><strong>ALL TOPICS</strong></span>
-          &nbsp;|&nbsp;
           <% if user_signed_in? %>
             <%= link_to "MY RAKES", user_path(current_user) %>
           <% else %>
-            <span class="nav-link">MY RAKES</span>
-            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rakes-sign-in" } %>
+            &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
+            <span class="nav-link">MY RAKES</span>
           <% end %>
+          &nbsp;|&nbsp;
+          <span class="nav-link"><strong>ALL TOPICS</strong></span>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -30,22 +30,24 @@
           <div class="col-md-12">
             <br>
             <div class="thumbnail" id="show-overview">
-              <div class="media">
-                <span class="pull-left">
-                  <p class="reminder-month">
-                    Committed
-                  </p>
-                  <p class="reminder-day">
-                    <i class="fa fa-bullseye"></i>
-                  </p>
-                </span>
-                <div class="media-body">
-                  <h5 class="media-heading">Choose a topic</h5>
-                  <p>
-                    If you commit to nothing, you’re distracted by everything.
-                  </p>
+              <a href="#anchor-master-rake-overview">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Committed
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-bullseye"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Discover & choose topic</h5>
+                    <p>
+                      If you commit to nothing, you’re distracted by everything.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
             <div class="thumbnail" id="show-general">
               <div class="media">
@@ -58,10 +60,19 @@
                   </p>
                 </span>
                 <div class="media-body">
-                  <h5 class="media-heading">Create Your Personal Rake</h5>
-                  <p>
-                    Customize your news feed and create tasks for saved bookmarks.
-                  </p>
+                  <% if user_signed_in? %>
+                    <h5 class="media-heading"><%= current_user.username %></h5>
+                    <p>
+                      Rakes in Top 5: <%= @rakes.where(top_rake: 1).count.to_s %>
+                      &nbsp;|&nbsp;
+                      Other: <%= @rakes.where(top_rake: 0).count.to_s %>
+                    </p>
+                  <% else %>
+                    <h5 class="media-heading">Create Your Personal Rake</h5>
+                    <p>
+                      Customize your news feed and create tasks for saved bookmarks.
+                    </p>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -69,6 +80,7 @@
           <br>
           <div class="panel-collapse collapse in" id="collapse-overview">
             <div class="panel-body">
+              <a class="anchor" name="anchor-master-rake-overview"></a>
               <div class="master-rake-general">
                 <%= render 'general' %>
               </div>
