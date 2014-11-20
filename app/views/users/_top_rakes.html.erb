@@ -1,27 +1,26 @@
-<div class="row">
-  <% if @top_rakes.empty? %>
-    <div class="col-md-12">
-      <h3 class="centered">Welcome, <%= current_user.username %></h2>
-      <ul class="info-list">
-        <li class="centered">If you commit to nothing, you’re distracted by everything.</li>
-        <li class="centered">Discover the power of less and master your priorities.</li>
-        <li class="centered">Transform inspirations to motivation and actions.</li>
-        <li class="centered">Set a schedule for your actions.</li>
-        <li class="centered">Measure the change from being in motion to taking action.</li>
-      </ul>
-      <br>
-      <br>
-      <p class="centered">
-      To put a rake in the Top 5 view, choose an existing rake and mark it as Top 5 or choose a new one here:
-      </p>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <%= link_to "View Topics", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
+<% if @top_rakes.count == 0 %>
+  <div class="thumbnail" id="show-overview">
+    <a href="#anchor-master-rake-overview">
+      <div class="media">
+        <span class="pull-left">
+          <p class="reminder-month">
+            Committed
+          </p>
+          <p class="reminder-day">
+            <i class="fa fa-bullseye"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading">Choose a topic</h5>
+          <p>
+            If you commit to nothing, you’re distracted by everything.
+          </p>
         </div>
       </div>
-      <br><br><br><br>
-    </div>
-  <% else %>
+    </a>
+  </div>
+<% else %>
+  <div class="row">
     <% @top_rakes.each do |r| %>
       <div class="col-md-12">
         <% master_rake = MasterRake.find(r.master_rake_id) %>
@@ -53,5 +52,5 @@
         <br>
       </div>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

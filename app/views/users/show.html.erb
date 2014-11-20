@@ -25,11 +25,81 @@
         <div class="panel panel-default">
           <div class="panel-heading panel-myrake">
             <h5 class="panel-title centered">
-              Discover the power of less and master your priorities
+              Get updated, inspired and productive.
             </h5>
           </div>
+          <% if @top_rakes.count == 0 %>
+            <div class="col-md-12">
+              <br>
+              <div class="thumbnail" id="show-news">
+                <a href="#anchor-master-rake-news">
+                  <div class="media">
+                    <span class="pull-left">
+                      <p class="reminder-month">
+                        Updated
+                      </p>
+                      <p class="reminder-day">
+                        <i class="fa fa-rss"></i>
+                      </p>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">News</h5>
+                      <p>
+                        Get updated based on your own news feed for this topic.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="thumbnail" id="show-bookmarks">
+                <a href="#anchor-master-rake-bookmarks">
+                  <div class="media">
+                    <span class="pull-left">
+                      <p class="reminder-month">
+                        Inspired
+                      </p>
+                      <p class="reminder-day">
+                        <i class="fa fa-bookmark"></i>
+                      </p>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">Bookmarks</h5>
+                      <p>
+                        Get inspired based on crowdsourced bookmarks.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="thumbnail" id="show-tasks">
+                <a href="#anchor-master-rake-tasks">
+                  <div class="media">
+                    <span class="pull-left">
+                      <p class="reminder-month">
+                        Productive
+                      </p>
+                      <p class="reminder-day">
+                        <i class="fa fa-tasks"></i>
+                      </p>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">Tasks</h5>
+                      <p>
+                        Turn your bookmarks into tasks with reminders.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <br>
+            <br>
+          <% end %>
           <div class="panel-collapse collapse in" id="collapse-overview">
             <div class="panel-body">
+              <div>
+                <span class="rake-nav">YOUR RAKES<hr></span>
+              </div>
               <!-- Nav tabs -->
               <div class="row">
                 <ul class="nav nav-tabs" role="tablist">
