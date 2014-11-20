@@ -1,6 +1,7 @@
 <% if @top_rakes.count == 0 %>
   <div class="thumbnail" id="show-overview">
-    <a href="#anchor-master-rake-overview">
+    <!-- <a href="#anchor-master-rake-overview"> -->
+    <%= link_to master_rakes_path do %>
       <div class="media">
         <span class="pull-left">
           <p class="reminder-month">
@@ -17,7 +18,8 @@
           </p>
         </div>
       </div>
-    </a>
+    <% end %>
+    <!-- </a> -->
   </div>
 <% else %>
   <div class="row">
