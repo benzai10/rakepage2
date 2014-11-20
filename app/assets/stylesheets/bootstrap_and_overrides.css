@@ -661,81 +661,29 @@ a.menu-link:hover {
   font-size: 12px !important;
 }
 
+.btn {
+  border-radius: 0;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.form-control {
+  border-radius: 0 !important;
+}
+
 input[type=text]:focus {
   border-color: #4a2b88;
   box-shadow: 0 0 10px #4a2b88;
 }
 
-#W1 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
+input[type=select] {
+  -webkit-appearance: none;
 }
 
-#W11 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W2 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W21 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W3 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W31 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W4 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W41 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W5 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W51 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W6 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-}
-
-#W61 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
+/*input[type=text] {
+  border-radius: 0 !important;
 }
 
 input[type=radio] {
@@ -744,13 +692,12 @@ input[type=radio] {
   font-weight: 300 !important;
 }
 
-/*
 input[type=email] {
-  height: 2.2em;
+  border-radius: 0;
 }
 
 input[type=password] {
-  height: 2.2em;
+  border-radius: 0;
 }*/
 
 .title-rake-show {
