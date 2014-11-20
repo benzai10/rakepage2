@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  respond_to :html, :json
 
   def show
     if params[:id] == current_user.id || params[:id] == current_user.slug
