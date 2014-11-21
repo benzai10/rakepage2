@@ -43,6 +43,13 @@ $(function() {
         $(".master-rake-tasks").removeClass('hidden');
     });
 
+    $("#show-channels").on('click', function() {
+        $("#feed-tab").removeClass('active');
+        $("#feed").removeClass('active');
+        $("#channels-tab").addClass('active');
+        $("#channels").addClass('active');
+    });
+
     $(".rake-settings").on('click', function() {
         $(".rake-settings-show").toggleClass("hidden");
     });

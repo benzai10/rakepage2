@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Edit Bookmark</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Bookmark/Task</h4>
       </div>
       <% params[:view] == "tasks" ? remote_flag = true : remote_flag = false %>
       <%= bootstrap_form_for(@rake, remote: remote_flag) do |f| %>

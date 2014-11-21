@@ -22,12 +22,12 @@
       <!-- Nav tabs -->
       <div class="row">
         <ul class="nav nav-tabs" role="tablist">
-          <li class="rake-nav active">
+          <li class="rake-nav active" id="feed-tab">
             <a href="#feed" id="view-news" data-toggle="tab">
               FEED
             </a>
           </li>
-          <li class="rake-nav">
+          <li class="rake-nav" id="channels-tab">
             <a href="#channels" id="view-channels" data-toggle="tab">
               CHANNELS
             </a>
@@ -42,32 +42,60 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="feed">
-          <h5>
-            <small>
-              <% if !@rake.master_rake.refreshed_at.nil? %>
-                updated: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago
+          <% if @rake.channels.where(channel_type: [0, 4]).count > 0 %>
+            <h5>
+              <small>
+                <% if !@rake.master_rake.refreshed_at.nil? %>
+                  updated: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago
+                <% else %>
+                  Click the Refresh button to update the feed
+                <% end %>
+              </small>
+              <span class="pull-right">
+              <% if user_signed_in? %>
+                <small><%= link_to "Refresh", myrake_path(view: "news", refresh: "yes"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %></small>
               <% else %>
-                Click the Refresh button to update the feed
+                <small><%= link_to "Sign in to refresh or save", root_path, id: "ga-my-feed-refresh-sign-in" %></small>
               <% end %>
-            </small>
-            <span class="pull-right">
-            <% if user_signed_in? %>
-              <small><%= link_to "Refresh", myrake_path(view: "news", refresh: "yes"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %></small>
-            <% else %>
-              <small><%= link_to "Sign in to refresh or save", root_path, id: "ga-my-feed-refresh-sign-in" %></small>
-            <% end %>
-            </span>
-          </h5>
-          <hr>
-          <ul id="feed-list" class="leaflet-list">
-            <% @feed_leaflets.each do |l| %>
-              <%= render 'shared/leaflet', l: l %>
-            <% end %>
-          </ul>
+              </span>
+            </h5>
+            <hr>
+            <ul id="feed-list" class="leaflet-list">
+              <% @feed_leaflets.each do |l| %>
+                <%= render 'shared/leaflet', l: l %>
+              <% end %>
+            </ul>
+          <% else %>
+            <br>
+            <div class="thumbnail" id="show-channels">
+              <!-- <a href="#anchor-master-rake-news"> -->
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Updated
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-rss"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Add a Channel</h5>
+                    <p>
+                      Add a blog (RSS feed) or subreddit to get a customized news feed.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <br><br><br><br><br><br><br><br><br>
+          <% end %>
         </div>
         <div class="tab-pane" id="channels">
           <br>
           <%= render 'channels' %>
+          <% if @rake.channels.where(channel_type: [0, 4]).count == 0 %>
+            <br><br><br><br><br>
+          <% end %>
         </div>
         <div class="tab-pane" id="related-rakes">
           <br>
