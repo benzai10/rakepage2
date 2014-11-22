@@ -122,7 +122,7 @@ class MasterRakesController < ApplicationController
         @rake.user_id = current_user.id
         @rake.name = @master_rake.name
         if @rake.save
-          redirect_to myrake_path(@rake, refresh: "no")
+          redirect_to myrake_path(@rake, view: "news")
         else
           flash[:error] = @rake.errors.full_messages
           redirect_to :back
