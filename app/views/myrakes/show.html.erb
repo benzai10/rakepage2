@@ -18,10 +18,10 @@
           <% else %>
             <span class="nav-link">MY RAKES</span>
             &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
-            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in" }, data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
           <% end %>
           &nbsp;|&nbsp;
-          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes"}, data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
         </small>
       </h5>
       <% if !flash.empty? %>
