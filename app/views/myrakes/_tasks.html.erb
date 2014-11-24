@@ -4,9 +4,9 @@
       Tasks
       <span class="pull-right">
         <small>
-          <%= link_to "NEWS", myrake_path(@rake, view: "news") %>
+          <%= link_to "NEWS", myrake_path(@rake, view: "news"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           &nbsp;|&nbsp;
-          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks") %>
+          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           &nbsp;|&nbsp;
           <i class="fa fa-cog rake-settings"></i>
         </small>

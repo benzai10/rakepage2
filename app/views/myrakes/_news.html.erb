@@ -4,12 +4,12 @@
       News
       <span class="pull-right">
         <small>
-          <%= link_to "TASKS", myrake_path(@rake, view: "tasks") %>
+          <%= link_to "TASKS", myrake_path(@rake, view: "tasks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           <span class="new-rec-alert">
             <%= " " + @rake.due_tasks_count.to_s unless @rake.due_tasks_count == 0 %>
           </span>
           &nbsp;|&nbsp;
-          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks") %>
+          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           &nbsp;|&nbsp;
           <i class="fa fa-cog rake-settings"></i>
         </small>
@@ -53,7 +53,13 @@
               </small>
               <span class="pull-right">
               <% if user_signed_in? %>
-                <small><%= link_to "Refresh", myrake_path(view: "news", refresh: "yes"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %></small>
+                <small>
+                  <%= link_to "Refresh", 
+                              myrake_path(view: "news", refresh: "yes"),
+                              { class: "btn btn-xs btn-primary",
+                                id: "ga-my-feed-refresh",
+                                data: {disable_with: "<i class='fa fa-spinner fa-spin white'></i> Refreshing..."} } %>
+                </small>
               <% else %>
                 <small><%= link_to "Sign in to refresh or save", root_path, id: "ga-my-feed-refresh-sign-in" %></small>
               <% end %>

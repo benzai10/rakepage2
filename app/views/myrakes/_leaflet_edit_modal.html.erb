@@ -83,7 +83,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Update Bookmark", class: "btn btn-primary" %>
+          <%= f.button "Update Bookmark",
+                        class: "btn btn-primary",
+                        name: "commit",
+                        value: "Update Bookmark",
+                        data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
         </div>
       <% end %>
     </div>

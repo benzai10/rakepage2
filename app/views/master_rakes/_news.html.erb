@@ -37,7 +37,11 @@
         <% end %>
         <span class="pull-right">
         <% if user_signed_in? %>
-          <%= link_to "Refresh", master_rake_path(view: "news", refresh: "yes", anchor: "anchor-master-rake-news"), { class: "btn btn-xs btn-primary", id: "ga-my-feed-refresh" } %>
+          <%= link_to "Refresh", 
+                      master_rake_path(view: "news", refresh: "yes", anchor: "anchor-master-rake-news"),
+                      { class: "btn btn-xs btn-primary",
+                        id: "ga-my-feed-refresh",
+                        data: {disable_with: "<i class='fa fa-spinner fa-spin white'></i> Refreshing..."} } %>
         <% end %>
         </span>
       </small>

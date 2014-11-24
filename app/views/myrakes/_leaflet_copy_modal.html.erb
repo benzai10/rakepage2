@@ -21,7 +21,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Copy Bookmark", class: "btn btn-primary" %>
+          <%= f.button "Copy Bookmark",
+                        class: "btn btn-primary",
+                        name: "commit",
+                        value: "Copy Bookmark",
+                        data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Copying..." } %>
         </div>
       <% end %>
     </div>

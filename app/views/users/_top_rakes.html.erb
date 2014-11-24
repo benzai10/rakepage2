@@ -42,12 +42,12 @@
               <%= render 'myrakes/top_rake_chain', toprake: r %>
             </p>
             <p>
-              <%= link_to "Tasks", myrake_path(r, view: "tasks") %>
+              <%= link_to "Tasks", myrake_path(r, view: "tasks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
               <span class="new-rec-alert"><%= r.due_tasks_count unless r.due_tasks_count == 0 %></span>
               &nbsp;|&nbsp;
-              <%= link_to "News", myrake_path(r, view: "news") %>
+              <%= link_to "News", myrake_path(r, view: "news"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
               &nbsp;|&nbsp;
-              <%= link_to "Bookmarks", myrake_path(r, view: "bookmarks") %>
+              <%= link_to "Bookmarks", myrake_path(r, view: "bookmarks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
             </p>
           </div>
         </div>
