@@ -28,7 +28,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit "Save", class: "btn btn-primary" %>
+          <%= f.button "Save",
+                        class: "btn btn-primary",
+                        name: "commit",
+                        value: "Save",
+                        data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Adding subreddit..." } %>
         </div>
       <% end %>
     </div>
