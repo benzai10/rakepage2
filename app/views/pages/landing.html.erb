@@ -8,14 +8,21 @@
                 class: "sign-in-icon" %> 
   </span>
   <%= render 'shared/share_buttons' %>
-  <h1>Productive Bookmarking</h1>
+  <h1>Eliminate Distractions - Increase Productivity</h1>
   <br>
   <br>
-  <h2>Maximize your focus. Stay motivated. Get things done.</h2>
-  <br>
-  <br>
-  <br>
+  <div class="col-md-6 col-md-offset-3">
+    <blockquote>
+      <p class="pull-right">
+        <%= image_tag("Hemingway_portrait_120x120.jpg", size: "50x50", alt: "Never mistake motion for action.") %>
+      </p>
+      <h3>Never mistake motion for action</h3>
+      <br>
+      <span class="pull-right"><small>by <cite>Ernest Hemingway</cite></small></span>
+    </blockquote>
+  </div>
   <div class="col-md-4 col-md-offset-4">
+    <br><br><br><br>
     <%= link_to "Start Now", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
   </div>
 </div>
