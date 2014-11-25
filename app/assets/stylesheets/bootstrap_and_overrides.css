@@ -26,12 +26,6 @@ body {
 }
 
 .loading-spinner {
-  color: grey !important;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -20px;
-  margin-left: -25px;
 }
 
 a.anchor {
