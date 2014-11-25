@@ -39,71 +39,11 @@
         <div class="panel panel-default">
           <div class="panel-heading panel-new-master-rakes">
             <h2 class="panel-title centered">
-              Get updated, inspired and productive.
+              Get updated, stay motivated, take action.
             </h2>
           </div>
+          <br>
           <div class="col-md-12">
-            <br>
-            <div class="thumbnail" id="show-news">
-              <a href="#anchor-master-rake-news">
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Updated
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-rss"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">News</h5>
-                    <p>
-                      Get updated based on your own news feed for this topic.
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="thumbnail" id="show-bookmarks">
-              <a href="#anchor-master-rake-bookmarks">
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Inspired
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-bookmark"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">Bookmarks</h5>
-                    <p>
-                      Get inspired based on crowdsourced bookmarks.
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="thumbnail" id="show-tasks">
-              <a href="#anchor-master-rake-tasks">
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Productive
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-tasks"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">Tasks</h5>
-                    <p>
-                      Turn your bookmarks into tasks with reminders.
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </div>
             <% if user_signed_in? && !@custom_rake.nil? %>
               <div class="media">
                 <span class="pull-left">
@@ -138,15 +78,75 @@
                       <% end %>
                     </span>
                     <div class="media-body">
-                      <h5 class="media-heading">Customize this Topic</h5>
+                      <h5 class="media-heading">Start Now</h5>
                       <p>
-                        Customize your news feed and create tasks for this topic.
+                        Focus and increase your productivity on this topic.
                       </p>
                     </div>
                   </div>
                 </a>
               </div>
             <% end %>
+            <div class="thumbnail" id="show-news">
+              <a href="#anchor-master-rake-news">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Updated
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-rss"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">News</h5>
+                    <p>
+                      Get updated and don't miss out on this topic.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="thumbnail" id="show-bookmarks">
+              <a href="#anchor-master-rake-bookmarks">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Motivated
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-bookmark"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Bookmarks</h5>
+                    <p>
+                      Get motivated based on crowdsourced inspirations.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="thumbnail" id="show-tasks">
+              <a href="#anchor-master-rake-tasks">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Productive
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-tasks"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Tasks</h5>
+                    <p>
+                      Turn your bookmarks into actionable tasks.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
           <br>
           <div class="panel-collapse collapse in" id="collapse-feed">

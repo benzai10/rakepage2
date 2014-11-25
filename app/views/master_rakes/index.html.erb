@@ -19,7 +19,7 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered">Be More Productive, Less Distracted</h1>
+      <h1 class="centered long-h1">Eliminate Distractions - Increase Productivity</h1>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-master-rakes-overview">
@@ -49,58 +49,11 @@
                 </div>
               </a>
             </div>
-            <% if user_signed_in? %>
-              <div class="thumbnail" id="show-general">
-                <%= link_to user_path(current_user) do %>
-                  <div class="media">
-                    <span class="pull-left">
-                      <p class="reminder-month">
-                        Productive
-                      </p>
-                      <p class="reminder-day">
-                        <i class="fa fa-star-o"></i>
-                      </p>
-                    </span>
-                    <div class="media-body">
-                      <h5 class="media-heading"><%= current_user.username %></h5>
-                      <p>
-                        Rakes in Top 5: <%= @rakes.where(top_rake: 1).count.to_s %>
-                        &nbsp;|&nbsp;
-                        Other: <%= @rakes.where(top_rake: 0).count.to_s %>
-                      </p>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            <% else %>
-              <div class="thumbnail" id="show-general">
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Productive
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-star-o"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">Customize a Topic</h5>
-                    <p>
-                     Create a "Rake" to get more productive on a topic.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            <% end %>
           </div>
           <br>
           <div class="panel-collapse collapse in" id="collapse-overview">
             <div class="panel-body">
-              <a class="anchor" name="anchor-master-rake-overview"></a>
-              <div class="master-rake-general">
-                <%= render 'general' %>
-              </div>
-              <div class="master-rake-overview hidden">
+              <div class="master-rake-overview">
                 <%= render 'overview' %>
               </div>
             </div>

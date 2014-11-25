@@ -23,6 +23,7 @@ $(function() {
     });
 
     $("#show-news").on('click', function() {
+        $("#anchor-master-rake-news").removeClass('hidden');
         $(".master-rake-info").addClass('hidden');
         $(".master-rake-news").removeClass('hidden');
         $(".master-rake-bookmarks").addClass('hidden');

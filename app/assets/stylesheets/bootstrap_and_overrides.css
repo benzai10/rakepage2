@@ -2,6 +2,10 @@ body {
   margin-top: 50px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .modal-body {
   font-size: 14px;
 }
@@ -33,7 +37,6 @@ a.anchor {
   position: relative;
   top: 0px;
   padding-top: 15px;
-  visibility: hidden;
 }
 
 .social-share-button {
@@ -962,14 +965,18 @@ body.nav-expanded {
     padding-right: 2px;
   }
 
-  .row {
-    padding-left: 2px;
-    padding-left: 2px;
+  .panel-body {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
   }
 
-  .panel-body {
-    margin-left: 0px;
+  .panel-title {
+    font-size: 14px !important;
+  }
+
+  .tab-pane {
     padding-left: 12px;
+    padding-right: 12px;
   }
 
   #showTutorialModal .modal-body {
@@ -1005,6 +1012,11 @@ body.nav-expanded {
 
   h1 {   
     font-size: 20px !important;
+  }
+
+  .long-h1 {
+    font-size: 14px !important;
+    font-weight: 700 !important;
   }
 
   h2 {
