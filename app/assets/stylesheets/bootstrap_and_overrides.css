@@ -238,6 +238,8 @@ a.anchor {
   padding-top: 15px;
   padding-left: 4px;
   padding-right: 4px;
+  font-weight: 300;
+  color: #4a2b88;
 }
 
 .feed-button {
