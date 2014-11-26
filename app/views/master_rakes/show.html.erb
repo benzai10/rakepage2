@@ -10,7 +10,7 @@
 <div class="container-fluid">
   <%= render 'master_rakes/master_rakes_menu' %>
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-centered">
       <h5 class="centered">
         <small>
           <% if user_signed_in? %>
@@ -45,7 +45,7 @@
           <br>
           <div class="col-md-12">
             <% if user_signed_in? && !@custom_rake.nil? %>
-              <div class="media">
+              <div class="media rake-index-view">
                 <span class="pull-left">
                   <% if @rake.image_url.nil? || @rake.image_url.empty? %>
                     <%= image_tag("no_image.png", size: "96x54") %>
