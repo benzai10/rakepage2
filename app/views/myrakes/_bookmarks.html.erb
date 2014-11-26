@@ -5,9 +5,11 @@
       <span class="pull-right">
         <small class="white">
           <%= link_to "TASKS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-          <span class="new-rec-alert-bright">
-            <%= " " + @rake.due_tasks_count.to_s unless @rake.due_tasks_count == 0 %>
-          </span>
+          <% if @rake.due_tasks_count > 0 %>
+            <span class="new-rec-alert-bright">
+              <%= @rake.due_tasks_count.to_s %>
+            </span>
+          <% end %>
           &nbsp;|&nbsp;
           <%= link_to "NEWS", myrake_path(@rake, view: "news"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
           &nbsp;|&nbsp;

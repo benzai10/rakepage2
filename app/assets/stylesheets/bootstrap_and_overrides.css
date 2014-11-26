@@ -72,6 +72,10 @@ a.anchor {
   box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
 }
 
+.rake-links {
+  font-weight: 500 !important;
+}
+
 .thumbnail-top-rake {
   margin-bottom: 0 !important;
 }
@@ -316,7 +320,8 @@ a.anchor {
 .new-rec-alert-bright {
   margin-left: 2px;
   margin-right: 4px;
-  padding-left: 3px;
+  padding-left: 2px;
+  padding-right: 1px;
   font-weight: 500;
   background-color: white !important;
   color: #e74c3c !important;

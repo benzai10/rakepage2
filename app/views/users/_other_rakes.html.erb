@@ -94,7 +94,7 @@
             <p>
               <%= render 'myrakes/top_rake_chain', toprake: r %>
             </p>
-            <p>
+            <p class="rake-links">
               <%= link_to "Tasks", myrake_path(r, view: "tasks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
               <span class="new-rec-alert"><%= r.due_tasks_count unless r.due_tasks_count == 0 %></span>
               &nbsp;|&nbsp;
