@@ -81,7 +81,7 @@
     <% @top_rakes.each do |r| %>
       <div class="col-md-12">
         <% master_rake = MasterRake.find(r.master_rake_id) %>
-        <div class="media load-rake" value="<%= r.id %>">
+        <div class="media rake-index-view" value="<%= r.id %>">
           <span class="pull-left">
             <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
               <%= image_tag("no_image.png", size: "96x54") %>
