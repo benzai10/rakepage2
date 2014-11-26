@@ -51,6 +51,11 @@
           <br><br><br><br><br>
         </div>
         <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
+          <% @scheduled_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
+          <p class="centered <%= empty_list %>" id="empty-reminders">
+            You don't have any scheduled tasks. Check the news or bookmarks for inspirations!
+            <br><br><br><br><br><br><br><br><br><br>
+          </p>
           <% if @scheduled_leaflets.count > 0 %>
             <%= render 'scheduled_tasks' %>
           <% end %>

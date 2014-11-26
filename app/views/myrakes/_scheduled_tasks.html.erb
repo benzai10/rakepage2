@@ -15,7 +15,7 @@
           <span class="card-icon">
             <% channel = Channel.find(l.channel_id) %>
             <% if channel.channel_type == 4 %>
-              <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
+              <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'" %>
             <% else %>
               <% reddit_link = "" %>
             <% end %>
