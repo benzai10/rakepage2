@@ -1,0 +1,102 @@
+<% channel = Channel.find(l.channel_id) %>
+
+<a class="anchor" id="<%= 'anchor_leaflet_' + l.id.to_s %>"></a>
+
+<li class="card">
+
+  <div class="card-header">
+
+    <span class="card-icon">
+      <% if channel.channel_type == 4 %>
+        <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
+      <% else %>
+        <% reddit_link = "" %>
+      <% end %>
+      <a <%= reddit_link %>>
+        <% if channel.channel_type == 4 %>
+          <%= image_tag "reddit-32.png", size: "16x16" %>
+        <% elsif channel.channel_type == 3 %>
+          <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+        <% else %>
+          <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+          <img src=<%= "#{favicon_path}" %>>
+        <% end %>
+      </a>
+    </span>
+
+    <span class="card-label">
+      <% channel_name = channel.name %>
+      <% if channel_name == "Title not available." %>
+        <% channel_name = channel.source %>
+      <% end %>
+      Channel: <%= channel_name %>
+      <% if l.leaflet_type_id != 0 %>
+        &nbsp;|&nbsp;
+        <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+        &nbsp;|&nbsp;
+        <% if !l.created_by.nil? %>
+          added by <%= User.find(l.created_by).username %>
+        <% end %>
+      <% end %>
+    </span>
+
+    <span class="pull-right card-timestamp">
+      <% if !l.published_at.nil? %>
+        <%= time_ago_in_words(l.published_at) %> ago 
+      <% else %>
+        <%= time_ago_in_words(l.created_at) %> ago 
+      <% end %>
+    </span>
+
+  </div>
+
+  <div class="card-title">
+    <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+  </div>
+
+  <div class="card-content">
+    <p><%= l.content.html_safe unless l.content == "No content details to display." %></p>
+  </div>
+
+  <div class="card-footer">
+    <span class="card-metrics">
+      <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
+      <i class="fa fa-user purple"></i>
+    </span>
+
+    <span class="card-buttons pull-right">
+      <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
+        <% if !@heap_leaflets.nil? %>
+          <% if @heap_leaflets.include? l %>
+            &nbsp;<i class="fa fa-bookmark"></i>
+          <% else %>
+            <% if user_signed_in? %>
+              <%= link_to "Save",
+                          add_leaflet_myrake_path(@custom_rake), 
+                          data: { toggle: "modal", 
+                                  target: "#myModal",
+                                  id: l.id,
+                                  title: l.title,
+                                  collapse: "feed" },
+                                  class: "btn btn-primary btn-xs leaflet-save" %>
+            <% else %>
+              <%= link_to "Save", root_path, class: "btn btn-primary btn-xs" %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% if user_signed_in? %>
+            <%= link_to "Save",
+                  new_myrake_path(master_rake_id: @rake.id),
+                                data: { toggle: "modal",
+                                        target: "#newCustomRakeModal",
+                                      },
+                                class: "btn btn-primary btn-xs" %>
+          <% else %>
+            <%= link_to "Save", root_path, class: "btn btn-primary btn-xs" %>
+          <% end %>
+        <% end %>
+      </span>
+    </span>
+  </div>
+
+</li>

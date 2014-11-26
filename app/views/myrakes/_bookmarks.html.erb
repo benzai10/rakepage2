@@ -148,30 +148,35 @@
                     <% heap.leaflets.order("published_at DESC").each do |l| %>
                       <% channel = Channel.find(l.channel_id) %>
                       <a class="anchor" id="<%= 'anchor_leaflet_' + lt.to_s + '_' + l.id.to_s %>"></a>
-                      <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
-                        <% if channel.channel_type == 4 %>
-                          <% reddit_link = "http://reddit.com/" + l.identifier %>
-                        <% else %>
-                          <% reddit_link = "#" %>
-                        <% end %>
-                        <a class="pull-left" href=<%= reddit_link %> target="_blank">
-                          <% if channel.channel_type == 4 %>
-                            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-                          <% elsif channel.channel_type == 3 %>
-                            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-                          <% else %>
-                            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
-                            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-                          <% end %>
-                        </a>
-                        <div class="media-body">
-                          <% heap_leaflet = "" %>
-                          <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
-                            <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
-                              <% heap_leaflet = hl %>
+                      <li class="card" id="<%= "leaflet_" + l.id.to_s %>">
+
+                        <div class="card-header">
+
+                          <span class="card-icon">
+                            <% if channel.channel_type == 4 %>
+                              <% reddit_link = "http://reddit.com/" + l.identifier + "target='_blank'" %>
+                            <% else %>
+                              <% reddit_link = "#" %>
                             <% end %>
-                          <% end %>
-                          <span class="feed-timestamp">
+                            <a <%= reddit_link %>>
+                              <% if channel.channel_type == 4 %>
+                                <%= image_tag "reddit-32.png", size: "16x16" %>
+                              <% elsif channel.channel_type == 3 %>
+                                <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+                              <% else %>
+                                <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+                                <img src=<%= "#{favicon_path}" %>>
+                              <% end %>
+                            </a>
+                          </span>
+
+                          <span class="card-label">
+                            <% heap_leaflet = "" %>
+                            <% HeapLeafletMap.where("leaflet_id = ?", l.id).each do |hl| %>
+                              <% if hl.heap.myrake.user_id == @rake.user_id && hl.heap.leaflet_type_id == lt %>
+                                <% heap_leaflet = hl %>
+                              <% end %>
+                            <% end %>
                             <% channel_name = channel.name %>
                             <% if channel_name == "Title not available." %>
                               <% channel_name = channel.source %>
@@ -181,68 +186,74 @@
                               &nbsp;|&nbsp;
                               added by <%= User.find(l.created_by).username %>
                             <% end %>
-                            <span class="pull-right">
-                              <% if !l.published_at.nil? %>
-                                <%= time_ago_in_words(l.published_at) %> ago 
-                              <% else %>
-                                <%= time_ago_in_words(l.created_at) %> ago 
-                              <% end %>
-                            </span>
                           </span>
-                          <br>
-                          <span class="leaflet-title">
-                            <% if heap_leaflet != "" %>
-                              <% title = heap_leaflet.leaflet_title %>
-                              <% if !title.nil? %>
-                                <% if title.empty? %>
-                                  <% title = l.title %>
-                                <% end %>
-                                <% if lt == 15 %>
-                                  <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
-                                <% else %>
-                                  <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
-                                <% end %>
-                              <% else %>
-                                <% if lt == 15 %>
-                                  <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
-                                <% else %>
-                                  <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
-                                <% end %>
-                              <% end %>
+
+                          <span class="pull-right card-timestamp">
+                            <% if !l.published_at.nil? %>
+                              <%= time_ago_in_words(l.published_at) %> ago 
+                            <% else %>
+                              <%= time_ago_in_words(l.created_at) %> ago 
                             <% end %>
                           </span>
-                          <div class="feed-body">
-                            <% if heap_leaflet != "" %>
-                              <% goal = heap_leaflet.leaflet_goal %>
-                              <% note = heap_leaflet.leaflet_note %>
-                              <% score = heap_leaflet.current_score %>
-                              <% rating = heap_leaflet.current_rating %>
-                              <% motioncounter = heap_leaflet.motion_counter %>
-                              <% actioncounter = heap_leaflet.action_counter %>
-                              <% scheduledcounter = heap_leaflet.scheduled_counter %>
-                              <% reminder_at = heap_leaflet.reminder_at %>
-                              <% if reminder_at.nil? %>
-                                <% reminder_at = "no reminder" %>
+
+                        </div>
+
+                        <div class="card-title">
+                          <% if heap_leaflet != "" %>
+                            <% title = heap_leaflet.leaflet_title %>
+                            <% if !title.nil? %>
+                              <% if title.empty? %>
+                                <% title = l.title %>
+                              <% end %>
+                              <% if lt == 15 %>
+                                <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
                               <% else %>
-                                <% if reminder_at > Time.now %>
-                                  <% reminder_at = "in " + distance_of_time_in_words(Time.now, reminder_at) %>
-                                <% else %>
-                                  <% reminder_at = distance_of_time_in_words(Time.now, reminder_at) + " ago" %>
-                                <% end %>
+                                <%= link_to title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
                               <% end %>
                             <% else %>
-                              <% goal = "" %>
-                              <% note = "" %>
-                              <% score = 0 %>
-                              <% rating = 0 %>
-                              <% schedulecounter = 0 %>
-                              <% motioncounter = 0 %>
-                              <% actioncounter = 0 %>
+                              <% if lt == 15 %>
+                                <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}" %>
+                              <% else %>
+                                <%= link_to l.title, l.url, class: "external", value: "#{lt}_#{l.id}", target: "_blank" %>
+                              <% end %>
                             <% end %>
-                            <p><%= raw l.content unless l.content == description %></p>
-                          </div>
-                          <br>
-                          <span class="leaflet-metrics">
+                          <% end %>
+                        </div>
+
+                        <div class="card-content">
+                          <% if heap_leaflet != "" %>
+                            <% goal = heap_leaflet.leaflet_goal %>
+                            <% note = heap_leaflet.leaflet_note %>
+                            <% score = heap_leaflet.current_score %>
+                            <% rating = heap_leaflet.current_rating %>
+                            <% motioncounter = heap_leaflet.motion_counter %>
+                            <% actioncounter = heap_leaflet.action_counter %>
+                            <% scheduledcounter = heap_leaflet.scheduled_counter %>
+                            <% reminder_at = heap_leaflet.reminder_at %>
+                            <% if reminder_at.nil? %>
+                              <% reminder_at = "no reminder" %>
+                            <% else %>
+                              <% if reminder_at > Time.now %>
+                                <% reminder_at = "in " + distance_of_time_in_words(Time.now, reminder_at) %>
+                              <% else %>
+                                <% reminder_at = distance_of_time_in_words(Time.now, reminder_at) + " ago" %>
+                              <% end %>
+                            <% end %>
+                          <% else %>
+                            <% goal = "" %>
+                            <% note = "" %>
+                            <% score = 0 %>
+                            <% rating = 0 %>
+                            <% schedulecounter = 0 %>
+                            <% motioncounter = 0 %>
+                            <% actioncounter = 0 %>
+                          <% end %>
+                          <p><%= raw l.content unless l.content == description %></p>
+                        </div>
+
+                        <div class="card-footer">
+
+                          <span class="card-metrics">
                             <% if user_signed_in? %>
                               <%= heap_leaflet.motion_counter.to_s %>/<%= heap_leaflet.action_counter.to_s %>
                               <i class="fa fa-tasks purple"></i>
@@ -251,7 +262,8 @@
                             <span class="s_count_<%= lt.to_s + "_" + l.id.to_s %>"><%= l.save_count %></span>
                             <i class="fa fa-user purple"></i>
                           </span>
-                          <span class="pull-right">
+
+                          <span class="card-buttons pull-right">
                             <% if user_signed_in? %>
                               <% if @rake.user_id == current_user.id %>
                                 <% if reminder_at != "no reminder" %>
@@ -305,8 +317,8 @@
                               <% end %>
                             <% end %>
                           </span>
+
                         </div>
-                        <hr>
                       </li>
                     <% end %>
                   </ul>

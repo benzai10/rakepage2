@@ -65,10 +65,9 @@
               <% end %>
               </span>
             </h5>
-            <hr>
             <ul id="feed-list" class="leaflet-list">
               <% @feed_leaflets.each do |l| %>
-                <%= render 'shared/leaflet', l: l %>
+                <%= render 'shared/card_news', l: l %>
               <% end %>
             </ul>
           <% else %>

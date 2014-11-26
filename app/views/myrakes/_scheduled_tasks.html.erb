@@ -6,25 +6,32 @@
       <% leaflet_duplication_array << l.id %>
       <% myrake = lm.heap.myrake %>
 
-      <li class="rake-show-list" id="<%= "leaflet_" + l.id.to_s %>">
-        <% channel = Channel.find(l.channel_id) %>
-        <% if channel.channel_type == 4 %>
-          <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
-        <% else %>
-          <% reddit_link = "" %>
-        <% end %>
-        <a class="pull-left" <%= reddit_link %>>
-          <% if channel.channel_type == 4 %>
-            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-          <% elsif channel.channel_type == 3 %>
-            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-          <% else %>
-            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
-            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-          <% end %>
-        </a>
-        <div class="media-body">
-          <span class="feed-timestamp">
+      <a class="anchor" id="<%= 'anchor_leaflet_' + l.id.to_s %>"></a>
+
+      <li class="card" id="<%= "leaflet_" + l.id.to_s %>">
+
+        <div class="card-header">
+
+          <span class="card-icon">
+            <% channel = Channel.find(l.channel_id) %>
+            <% if channel.channel_type == 4 %>
+              <% reddit_link = "href=" + "http://reddit.com/" + l.identifier + " target='_blank'"%>
+            <% else %>
+              <% reddit_link = "" %>
+            <% end %>
+            <a <%= reddit_link %>>
+              <% if channel.channel_type == 4 %>
+                <%= image_tag "reddit-32.png", size: "16x16" %>
+              <% elsif channel.channel_type == 3 %>
+                <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+              <% else %>
+                <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
+                <img src=<%= "#{favicon_path}" %>>
+              <% end %>
+            </a>
+          </span>
+
+          <span class="card-label">
             <%= link_to myrake.name, myrake_path(myrake, view: "bookmarks") %>
             &nbsp;|&nbsp;
             <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
@@ -33,32 +40,39 @@
               &nbsp;|&nbsp;
               added by <%= User.find(l.created_by).username %>
             <% end %>
-            <span class="pull-right-menu">
-              in <%= distance_of_time_in_words(Time.now, lm.reminder_at) %> 
-            </span>
           </span>
-          <br>
-          <span class="leaflet-title">
-            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+
+          <span class="pull-right card-timestamp">
+            in <%= distance_of_time_in_words(Time.now, lm.reminder_at) %> 
           </span>
-          <div class="feed-body">
-            <% reminder_at = lm.reminder_at %>
-            <% if reminder_at.nil? %>
-              <% reminder_at = "no reminder" %>
-            <% else %>
-              <% reminder_at = "in " + distance_of_time_in_words(Time.now, reminder_at) %>
-            <% end %>
-            <p><%= raw l.content unless l.content == "No content details to display." %></p>
-          </div>
-          <br>
-          <span class="leaflet-metrics">
+
+        </div>
+
+        <div class="card-title">
+          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+        </div>
+
+        <% reminder_at = lm.reminder_at %>
+        <% if reminder_at.nil? %>
+          <% reminder_at = "no reminder" %>
+        <% else %>
+          <% reminder_at = "in " + distance_of_time_in_words(Time.now, reminder_at) %>
+        <% end %>
+
+        <div class="card-content">
+          <p><%= raw l.content unless l.content == "No content details to display." %></p>
+        </div>
+
+        <div class="card-footer">
+          <span class="card-metrics">
             <%= lm.motion_counter.to_s %>/<%= lm.action_counter.to_s %>
             <i class="fa fa-tasks purple"></i>
             &nbsp;|&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
             <i class="fa fa-user purple"></i>
           </span>
-          <span class="pull-right">
+
+          <span class="card-buttons pull-right">
             <%= link_to "Status", "#",
                         data: { toggle: "modal",
                                 target: "#editLeafletModal",
@@ -85,8 +99,8 @@
                         remote: true,
                         class: "btn btn-default btn-xs" %>
           </span>
+
         </div>
-        <hr>
       </li>
     <% end %>
   <% end %>

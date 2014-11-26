@@ -46,14 +46,12 @@
             <br><br><br><br><br><br><br><br><br><br>
           </p>
           <% if @overdue_leaflets.count > 0 %>
-            <br>
             <%= render 'due_tasks' %>
           <% end %>
           <br><br><br><br><br>
         </div>
         <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
           <% if @scheduled_leaflets.count > 0 %>
-            <br>
             <%= render 'scheduled_tasks' %>
           <% end %>
           <br><br><br><br><br>

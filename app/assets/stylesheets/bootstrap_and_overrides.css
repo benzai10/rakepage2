@@ -64,6 +64,11 @@ a.anchor {
   margin-bottom: 0 !important;
 }
 
+.panel {
+  background-color: #F8F8F8;
+  border: none;
+}
+
 .panel-top-rake {
   border: none !important;
   margin-bottom: 20px !important;
@@ -122,6 +127,65 @@ a.anchor {
 .panel-recommendations {
   color: black !important;
   background-color: #5FE79A !important;
+}
+
+.card {
+  list-style-type: none !important;
+  background-color: white;
+  border: 1px solid lightgrey;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card .card-header {
+  color: grey;
+  padding-bottom: 4px;
+}
+
+.card .card-icon {
+  padding-left: 4px;
+}
+
+.card .card-timestamp {
+  padding-right: 4px;
+}
+
+.card .card-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px !important;
+  padding: 4px;
+}
+
+.card .card-title a {
+  color: #4a2b88;
+}
+
+.card .card-content {
+  padding: 4px;
+  max-height: 520px;
+  overflow-y: scroll;
+}
+
+.card .card-content > p > iframe {
+  width: 100% !important;
+  min-height: auto !important;
+}
+
+.card .card-content > p > img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.card .card-content .reddit-thumbnail {
+  height: 39px !important;
+  width: 70px !important;
+}
+
+.card .card-footer {
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .feed-button {
@@ -437,7 +501,7 @@ a.menu-link:hover {
 }
 
 .leaflet-list {
-  margin-left: -40px;
+  padding-left: 0px;
   list-style-type: none;
   font-size: 12px;
 }
@@ -541,6 +605,11 @@ a.menu-link:hover {
   margin-left: 15px;
   margin-right: 15px;
 }
+
+.nav-tabs > li.active > a {
+  background-color: #F8F8F8 !important;
+}
+
 
 .nav-thumbnails {
   margin-left: -15px !important;
