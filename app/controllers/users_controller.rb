@@ -2,13 +2,17 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def show
-    if params[:id] == current_user.id || params[:id] == current_user.slug
-      @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
-      @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
-      @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
+    if user_signed_in?
+      if params[:id] == current_user.id || params[:id] == current_user.slug
+        @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
+        @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
+        @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
+      else
+        redirect_to master_rakes_path
+        return
+      end
     else
       redirect_to master_rakes_path
-      return
     end
   end
 
