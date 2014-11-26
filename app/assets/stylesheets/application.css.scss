@@ -47,11 +47,8 @@
 
 
 .reminder-month {
-  font-family: "Roboto";
-  font-size: 12px;
-  font-weight: 300;
   text-align: center;
-  color: white;
+  color: white !important;
   background-color: #2ccf73;
   height: 18px;
   width: 96px;
@@ -61,11 +58,8 @@
 }
 
 .reminder-month-purple {
-  font-family: "Roboto";
-  font-size: 12px;
-  font-weight: 300;
   text-align: center;
-  color: white;
+  color: white !important;
   background-color: #4a2b88;
   height: 18px;
   width: 96px;
@@ -76,8 +70,7 @@
 
 .reminder-day {
   text-align: center;
-  color: black;
-  font-size: 20px;
+  font-size: 20px !important;
   font-weight: 500;
   height: 36px;
   width: 96px;

@@ -1,4 +1,6 @@
 $('#leaflet_<%= @leaflet.id %>').remove();
+$('#anchor_leaflet_<%= @leaflet.id %>').remove();
+$('#anchor_leaflet_<%= @heap.leaflet_type_id %>_<%= @leaflet.id %>').remove();
 if ('<%= @origin %>' == "overdue") {
   $('.badge-reminders').html(parseInt($(".badge-reminders").html()) - 1);
   if ($('.badge-reminders').html() == "0") {

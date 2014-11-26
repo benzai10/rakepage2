@@ -21,7 +21,7 @@ a:hover {
   font-weight: 300;
   background-color: #2ccf73 !important;
   border-color: #2ccf73 !important;
-  border-bottom: 2px solid #44916B !important;
+  border-bottom: 1px solid #44916B !important;
 }
 
 .btn-primary:hover {
@@ -114,6 +114,21 @@ a.anchor {
   background-color: #2ccf73 !important;
 }
 
+.panel-tasks {
+  color: white !important;
+  background-color: #354973 !important;
+}
+
+.panel-news {
+  color: white !important;
+  background-color: #306989 !important;
+}
+
+.panel-bookmarks {
+  color: white !important;
+  background-color: #3E355C !important;
+}
+
 .panel-new-master-rakes {
   color: white !important;
   background-color: #4a2b88 !important;
@@ -160,7 +175,7 @@ a.anchor {
 .card .card-header {
   color: grey;
   padding-bottom: 4px;
-  font-weight: 400;
+  font-weight: 300;
   opacity: 0.88;
 }
 
@@ -170,11 +185,9 @@ a.anchor {
 }
 
 .card .card-label {
-  padding-top: 2px !important;
 }
 
 .card .card-timestamp {
-  padding-top: 2px !important;
   padding-right: 4px;
 }
 
@@ -195,6 +208,15 @@ a.anchor {
   padding: 4px;
   max-height: 480px;
   overflow-y: scroll;
+}
+
+.card .card-content p {
+  color: black !important;
+  font-weight: 300 !important;
+}
+
+.card .card-content li {
+  font-weight: 300 !important;
 }
 
 .card .card-content > p > iframe {
@@ -273,8 +295,28 @@ a.anchor {
   color: black !important;
 }
 
+.in-form-edit {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid lightgrey;
+  background-color: white;
+  -webkit-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+  -moz-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+  box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+}
+
 .new-rec-alert {
   font-weight: 700;
+  color: #e74c3c !important;
+}
+
+.new-rec-alert-bright {
+  margin-left: 2px;
+  margin-right: 4px;
+  padding-left: 3px;
+  font-weight: 500;
+  background-color: white !important;
   color: #e74c3c !important;
 }
 
@@ -299,7 +341,11 @@ hr {
 }
 
 p {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 12px !important;
+  color: #4a2b88 !important;
+  opacity: 0.88;
+  font-weight: 300 !important;
 }
 
 h1 {
@@ -307,6 +353,7 @@ h1 {
   font-family: 'Roboto', sans-serif;
   font-weight: 300; 
   font-size: 30px;
+  color: #4a2b88;
 }
 
 h2 {

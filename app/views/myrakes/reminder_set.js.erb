@@ -5,6 +5,7 @@ if (<%= @reload_flag %> == 1) {
 else {
   if ('<%= @origin %>' == 'due') {
     $('#leaflet_<%= @leaflet.id %>').remove();
+    $('#anchor_leaflet_<%= @leaflet.id %>').remove();
     $('#editLeafletModal').modal('hide');
   }
 }

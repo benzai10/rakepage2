@@ -1,29 +1,27 @@
 <div class="row rake-settings-show hidden">
   <div class="col-md-12">
-    <span class="pull-right">
+    <span class="pull-right in-form-edit">
       <p>
-        <small>
-          <% if user_signed_in? && @rake.user_id == current_user.id %>
-            <% if @rake.top_rake == 0 %>
-              <% if @top_rakes_count < 5 %>
-                <%= link_to "Add to Top 5", toggle_top_rake_myrake_path(@rake),
-                            method: :post,
-                            remote: true,
-                            id: "top-toggle" %>
-                &nbsp;|&nbsp;
-              <% end %>
-            <% else %>
-              <%= link_to "Remove from Top 5", toggle_top_rake_myrake_path(@rake),
+        <% if user_signed_in? && @rake.user_id == current_user.id %>
+          <% if @rake.top_rake == 0 %>
+            <% if @top_rakes_count < 5 %>
+              <%= link_to "Add to Top 5", toggle_top_rake_myrake_path(@rake),
                           method: :post,
                           remote: true,
                           id: "top-toggle" %>
               &nbsp;|&nbsp;
             <% end %>
-            <%= link_to "Delete", myrake_path(@rake),
-                          :data => { :confirm => "Are you sure?" }, 
-                          :method => :delete %>
+          <% else %>
+            <%= link_to "Remove from Top 5", toggle_top_rake_myrake_path(@rake),
+                        method: :post,
+                        remote: true,
+                        id: "top-toggle" %>
+            &nbsp;|&nbsp;
           <% end %>
-        </small>
+          <%= link_to "Delete Rake", myrake_path(@rake),
+                        :data => { :confirm => "Are you sure?" }, 
+                        :method => :delete %>
+        <% end %>
       </p>
     </span>
   </div>

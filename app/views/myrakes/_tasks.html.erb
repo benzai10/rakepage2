@@ -1,14 +1,14 @@
 <div class="panel panel-default">
-  <div class="panel-heading panel-overview">
+  <div class="panel-heading panel-tasks">
     <h5 class="panel-title">
       Tasks
       <span class="pull-right">
-        <small>
-          <%= link_to "NEWS", myrake_path(@rake, view: "news"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+        <small class="white">
+          <%= link_to "NEWS", myrake_path(@rake, view: "news"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
           &nbsp;|&nbsp;
-          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
           &nbsp;|&nbsp;
-          <i class="fa fa-cog rake-settings"></i>
+          <i class="fa fa-cog rake-settings white"></i>
         </small>
       </span>
     </h5>
