@@ -160,6 +160,8 @@ a.anchor {
 .card .card-header {
   color: grey;
   padding-bottom: 4px;
+  font-weight: 400;
+  opacity: 0.88;
 }
 
 .card .card-icon {
@@ -168,18 +170,19 @@ a.anchor {
 }
 
 .card .card-label {
+  padding-top: 2px !important;
 }
 
 .card .card-timestamp {
+  padding-top: 2px !important;
   padding-right: 4px;
 }
 
 .card .card-title {
   font-family: 'Roboto', sans-serif;
-  font-weight: 300 !important;
+  font-weight: 500 !important;
   font-size: 16px !important;
   color: #4a2b88 !important;
-  opacity: 0.88;
   padding: 4px;
 }
 
