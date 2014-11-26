@@ -143,7 +143,11 @@ a.anchor {
 }
 
 .card .card-icon {
+  display: inline-block;
   padding-left: 4px;
+}
+
+.card .card-label {
 }
 
 .card .card-timestamp {
@@ -1024,14 +1028,14 @@ body.nav-expanded {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-  .col-md-12 {
-    padding-left: 2px;
-    padding-right: 2px;
+
+  .panel {
+    padding: 0 !important;
   }
 
-  .col-md-6 {
-    padding-left: 2px;
-    padding-right: 2px;
+  .panel-heading {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
   }
 
   .panel-body {

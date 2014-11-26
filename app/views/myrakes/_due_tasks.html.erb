@@ -60,7 +60,13 @@
         <% end %>
 
         <div class="card-content">
-          <p><%= l.content.html_safe unless l.content == "No content details to display." %></p>
+          <p>
+            <% if !lm.leaflet_goal.empty? %>
+              <%= lm.leaflet_goal %>
+            <% else %>
+              You didn't set a goal for this task.
+            <% end %>
+          </p>
         </div>
 
         <div class="card-footer">
