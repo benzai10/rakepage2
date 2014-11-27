@@ -71,9 +71,9 @@
                           [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
         <% chain_array.each do |chain_element| %>
           <% if chain_element[1] == true %>
-            <div class="progress-bar progress-bar-success bookmark-metrics-purple" style="width: 3.33%"></div>
+            <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
           <% elsif chain_element[0] == true %>
-            <div class="progress-bar progress-bar-success bookmark-metrics-orange" style="width: 3.33%"></div>
+            <div class="progress-bar progress-bar-success bookmark-metrics-motion" style="width: 3.33%"></div>
           <% else %>
             <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
           <% end %>

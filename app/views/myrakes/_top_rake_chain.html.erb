@@ -3,17 +3,17 @@
   <% last_chain = chain_array.pop %>
   <% chain_array.each do |chain_element| %>
     <% if chain_element[1] == true %>
-      <div class="progress-bar progress-bar-success bookmark-metrics-purple" style="width: 3.33%"></div>
+      <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
     <% elsif chain_element[0] == true %>
-      <div class="progress-bar progress-bar-success bookmark-metrics-orange" style="width: 3.33%"></div>
+      <div class="progress-bar progress-bar-success bookmark-metrics-motion" style="width: 3.33%"></div>
     <% else %>
       <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
     <% end %>
   <% end %>
   <% if last_chain[1] == true %>
-    <div class="progress-bar progress-bar-success bookmark-metrics-purple" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+    <div class="progress-bar progress-bar-success bookmark-metrics-action" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% elsif last_chain[0] == true %>
-    <div class="progress-bar progress-bar-success bookmark-metrics-orange" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+    <div class="progress-bar progress-bar-success bookmark-metrics-motion" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% else %>
   <div class="progress-bar progress-bar-success bookmark-metrics" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% end %>

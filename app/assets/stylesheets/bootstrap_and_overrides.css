@@ -730,19 +730,19 @@ a.menu-link:hover {
 }
 
 .bookmark-metrics {
-  background-color: lightgrey !important;
+  background-color: #F1EDEE !important;
   font-size: 8px !important;
   border-right: 1px solid white;
 }
 
-.bookmark-metrics-purple {
-  background-color: #4a2b88 !important;
+.bookmark-metrics-action {
+  background-color: #354973 !important;
   font-size: 8px !important;
   border-right: 1px solid white;
 }
 
-.bookmark-metrics-orange {
-  background-color: #f39c12 !important;
+.bookmark-metrics-motion {
+  background-color: #A3A08F !important;
   font-size: 8px !important;
   border-right: 1px solid white;
 }
@@ -1057,7 +1057,7 @@ body.nav-expanded {
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-  .feed-body iframe {
+  .card-content iframe {
     width: 100%;
     max-height: 240px;
   }
@@ -1065,7 +1065,7 @@ body.nav-expanded {
 
 /* iPad landscape */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation : landscape ) {
-  .feed-body iframe {
+  .card-content iframe {
     width: 100%;
     max-height: 240px;
   }
@@ -1080,7 +1080,7 @@ body.nav-expanded {
 
 /* iPad portrait */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation : portrait ) {
-  .feed-body iframe {
+  .card-content iframe {
     width: 100%;
     max-height: 240px;
   }
@@ -1097,7 +1097,7 @@ body.nav-expanded {
     display: none;
   }
 
-  .feed-body iframe {
+  .card-content iframe {
     width: 100%;
     max-height: 240px;
   }
@@ -1125,6 +1125,11 @@ body.nav-expanded {
     padding-right: 2px;
   }
 
+  .card-content iframe {
+    width: 100%;
+    max-height: 160px;
+  }
+
   .btn-metrics {
     padding-left: 2px;
     padding-right: 2px;
@@ -1135,11 +1140,6 @@ body.nav-expanded {
   }
   .twitter-follow-button {
     display: none;
-  }
-
-  .feed-body iframe {
-    width: 100%;
-    max-height: 160px;
   }
 
   .rake-nav-primary-btn {
