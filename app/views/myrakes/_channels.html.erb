@@ -23,8 +23,6 @@
   </span>
 </h5>
 <br><br>
-<span class="channel-title">Recently added Blogs/Subreddits:</span>
-<br>
 <ul class="leaflet-list">
   <% if (@new_channels - @rake.channels).count > 0 %>
     <% @new_channels.each do |c| %>
@@ -62,19 +60,19 @@
               <% end %>
             </h5>
             <p class="channel-info">
-              <i class="fa fa-bookmark" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-              <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-              <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+              <%= c.count_subscribers %>&nbsp;<i class="fa fa-user" title="Count of channel users"></i>
             </p>
           </div>
         </li>
       <% end %>
     <% end %>
   <% else %>
-    None
+    <span class="rake-nav">INACTIVE<hr></span>
+    <p class="centered">None</p>
   <% end %>
 </ul>
-<hr>
+<br>
+<span class="rake-nav">ACTIVATED<hr></span>
 <ul class="leaflet-list">
   <% @rake.channels.each do |c| %>
     <% if c.channel_type != 3 %>
@@ -112,9 +110,7 @@
             <% end %>
           </h5>
           <p class="channel-info">
-            <i class="fa fa-bookmark" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-            <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-            <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+            <%= c.count_subscribers %>&nbsp;<i class="fa fa-user" title="Count of channel users"></i>
           </p>
         </div>
         <br>

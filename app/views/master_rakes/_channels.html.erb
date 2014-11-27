@@ -14,14 +14,6 @@
       </span>
       <div class="media-body">
         <h5 class="media-heading channel-heading">
-          <!-- <i class="fa fa-check-square-o"></i> -->
-          <%# if c.rake_channel_maps.find_by_rake_id(@rake.id).display %>
-            <%#= link_to '<i class="fa fa-check-square-o"></i>'.html_safe,
-                        toggle_channel_display_myrake_path(@rake, channel: c.id, display: false) %>
-          <%# else %>
-            <%#= link_to '<i class="fa fa-square-o"></i>'.html_safe,
-                        toggle_channel_display_myrake_path(@rake, channel: c.id, display: true) %>
-          <%# end %>
           <% channel_name = c.name %>
           <% if channel_name == "Title not available." %>
             <% channel_name = c.source %>
@@ -50,11 +42,7 @@
           </span>
         </h5>
         <p class="channel-info">
-          <i class="fa fa-user" title="Count of channel users"></i> <%= c.count_subscribers %>
-          &nbsp;|&nbsp;
-          <i class="fa fa-bookmark" title="Saved count from this channel"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
-          &nbsp;|&nbsp;
-          <i class="fa fa-tasks" title="Count of current posts"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
+          <%= c.count_subscribers %>&nbsp;<i class="fa fa-user" title="Count of channel users"></i>
         </p>
       </div>
       <br>
