@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Request</h4>
+      </div>
+      <%= bootstrap_form_for(History.new, remote: true) do |f| %>
+        <div class="modal-body">
+          <%= f.text_area :history_text, { label: "Specify your request", rows: 5 } %>
+          <% if !user_signed_in? %>
+            <%= f.text_field :history_str, { label: "Enter your email address" } %>
+          <% else %>
+            <%= f.hidden_field :master_rake_id, class: "master-rake-id" %>
+            <%= f.hidden_field :rake_id, class: "rake-id" %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.button "Send Request",
+                        class: "btn btn-primary",
+                        name: "commit",
+                        value: "Send Request",
+                        data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Sending..." } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

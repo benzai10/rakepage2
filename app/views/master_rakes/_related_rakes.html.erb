@@ -1,8 +1,30 @@
 <% if @parent_master_rakes.count + @sibling_master_rakes.count + @children_master_rakes.count == 0 %>
-  <span class="info-text centered">
-    <br>
-    No related topics available yet.
-  </span>
+  <div class="thumbnail" id="request">
+    <%= link_to histories_path, 
+                data: { toggle: "modal",
+                        target: "#requestModal",
+                        masterrakeid: @rake.id },
+                class: "add-request" do %>
+      <div class="media">
+        <span class="pull-left">
+          <p class="reminder-month">
+            Discover
+          </p>
+          <p class="reminder-day">
+            <i class="fa fa-sitemap"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading">
+            No related topics yet
+          </h5>
+          <p>
+            Click to request topics.
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
 <% if @parent_master_rakes.count > 0 %>

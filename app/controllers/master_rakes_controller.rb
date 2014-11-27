@@ -98,7 +98,7 @@ class MasterRakesController < ApplicationController
   def search
     @rake = MasterRake.find_by_name(params[:name])
     if @rake.nil?
-      flash[:error] = "Couldn't find it, make sure you select a rake or add a new one!"
+      flash[:error] = "Couldn't find it, make sure you select a topic or request a new one!"
       redirect_to master_rakes_path(collapse: "search")
     else
       redirect_to :controller => 'master_rakes', :action => 'show', :id => @rake

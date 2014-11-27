@@ -50,6 +50,33 @@
               </a>
             </div>
           </div>
+          <div class="col-md-12">
+            <div class="thumbnail" id="request">
+              <%= link_to histories_path, 
+                          data: { toggle: "modal",
+                                  target: "#requestModal"},
+                          class: "add-request" do %>
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month">
+                      Request
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-sitemap"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">
+                      Couldn't find a topic?
+                    </h5>
+                    <p>
+                      Click to request a new topic.
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            </div>
           <br>
           <div class="panel-collapse collapse in" id="collapse-overview">
             <div class="panel-body">
@@ -66,3 +93,5 @@
 <% if user_signed_in? %>
   <%= render 'new_modal' %>
 <% end %>
+<%= render 'shared/request_modal' %>
+<%= render 'shared/thanks_modal' %>

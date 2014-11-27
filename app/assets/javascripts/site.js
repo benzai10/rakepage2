@@ -138,6 +138,10 @@ $(function() {
         $(".label-score-0").addClass("active");
     });
 
+    $("#requestModal").on('hidden.bs.modal', function(){
+        $('#thanksModal').modal('show');
+    });
+
     $('.add-recommendation-form').hide();
 
     $('.add-recommendation').click(function(){
@@ -205,6 +209,13 @@ $(function() {
         var anchorname = eth.substring(eth.indexOf('#') + 1, eth.length);
         scrollToAnchor(anchorname);
         $('.add-recommendation-form').hide();
+    });
+
+    $(".add-request").click(function() {
+        var rakeid = $(this).data('rakeid');
+        var masterrakeid = $(this).data('masterrakeid');
+        $(".rake-id").val(rakeid);
+        $(".master-rake-id").val(masterrakeid);
     });
 
     $(".leaflet-save").click(function() {

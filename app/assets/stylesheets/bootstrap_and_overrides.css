@@ -817,6 +817,11 @@ a.menu-link:hover {
   border-radius: 0;
 }
 
+.thank-you {
+  font-size: 18px !important;
+  color: black !important;
+}
+
 .form-control {
   border-radius: 0 !important;
 }
@@ -824,6 +829,16 @@ a.menu-link:hover {
 input[type=text]:focus {
   border-color: #4a2b88;
   box-shadow: 0 0 10px #4a2b88;
+}
+
+textarea:focus {
+  border-color: #4a2b88 !important;
+  box-shadow: 0 0 10px #4a2b88 !important;
+}
+
+select:focus {
+  border-color: #4a2b88 !important;
+  box-shadow: 0 0 10px #4a2b88 !important;
 }
 
 input[type=select] {

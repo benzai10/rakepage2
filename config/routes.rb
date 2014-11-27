@@ -10,6 +10,8 @@ Rakepage2::Application.routes.draw do
   get 'pages/terms_of_service' => 'pages#terms_of_service'
   get 'pages/privacy_policy' => 'pages#privacy_policy'
 
+  resources :histories, only: [:create]
+
   resources :users, only: [:update, :show]
 
   resources :channels, except: [:edit, :update, :destroy] do
