@@ -320,8 +320,8 @@ a.anchor {
 .new-rec-alert-bright {
   margin-left: 2px;
   margin-right: 4px;
-  padding-left: 2px;
-  padding-right: 1px;
+  padding-left: 2px !important;
+  padding-right: 1px !important;
   font-weight: 500;
   background-color: white !important;
   color: #e74c3c !important;
@@ -836,13 +836,14 @@ textarea:focus {
   box-shadow: 0 0 10px #4a2b88 !important;
 }
 
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px !important;
+}
+
 select:focus {
   border-color: #4a2b88 !important;
   box-shadow: 0 0 10px #4a2b88 !important;
-}
-
-input[type=select] {
-  -webkit-appearance: none;
 }
 
 /*input[type=text] {
@@ -1138,6 +1139,10 @@ body.nav-expanded {
   .card {
     padding-left: 2px;
     padding-right: 2px;
+  }
+
+  .card .card-content {
+    max-height: 250px !important;
   }
 
   .card-content iframe {
