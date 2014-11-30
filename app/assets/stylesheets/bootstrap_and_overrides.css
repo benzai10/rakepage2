@@ -184,7 +184,7 @@ a.anchor {
   color: grey;
   padding-bottom: 4px;
   font-weight: 300;
-  opacity: 0.88;
+  opacity: 0.95;
 }
 
 .card .card-icon {
@@ -209,7 +209,7 @@ a.anchor {
 
 .card .card-title a {
   color: #4a2b88;
-  opacity: 0.88;
+  opacity: 0.95;
 }
 
 .card .card-content {
@@ -219,7 +219,7 @@ a.anchor {
 }
 
 .card .card-content p {
-  color: black !important;
+  color: dimgrey !important;
   font-weight: 300 !important;
 }
 
@@ -324,8 +324,7 @@ a.anchor {
 .new-rec-alert-bright {
   margin-left: 2px;
   margin-right: 4px;
-  padding-left: 2px !important;
-  padding-right: 1px !important;
+  padding-left: 1px !important;
   font-weight: 500;
   background-color: white !important;
   color: #e74c3c !important;
