@@ -60,12 +60,10 @@
                 </p>
               </div>
             </div>
-            <br><br><br><br><br><br><br><br><br><br>
           </div>
           <% if @overdue_leaflets.count > 0 %>
             <%= render 'due_tasks' %>
           <% end %>
-          <br><br><br><br><br>
         </div>
         <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
           <% @scheduled_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
@@ -89,17 +87,14 @@
                 </p>
               </div>
             </div>
-            <br><br><br><br><br><br><br><br><br><br>
           </div>
           <% if @scheduled_leaflets.count > 0 %>
             <%= render 'scheduled_tasks' %>
           <% end %>
-          <br><br><br><br><br>
         </div>
         <div class="tab-pane" id="related-rakes">
           <br>
           <%= render 'related_rakes' %>
-          <br><br><br><br><br>
         </div>
       </div>
     </div>

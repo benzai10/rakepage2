@@ -163,6 +163,10 @@ a.anchor {
   background-color: #5FE79A !important;
 }
 
+.tab-pane {
+  min-height: 420px;
+}
+
 .card {
   list-style-type: none !important;
   background-color: white;
