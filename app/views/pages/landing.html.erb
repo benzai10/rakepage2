@@ -9,76 +9,64 @@
   </span>
   <%= render 'shared/share_buttons' %>
   <br>
-  <h1>Eliminate Distractions</h1>
-  <h1>Increase Productivity</h1>
-  <br>
-  <br>
-  <br>
+  <h1>Stop Wasting Your Time Online</h1>
+  <h2>Less Distractions &mdash; More Productivity</h2>
   <div class="col-md-6 col-md-offset-3">
     <blockquote>
       <p class="pull-right">
         <%= image_tag("Hemingway_portrait_120x120.jpg", size: "50x50", alt: "Never mistake motion for action.") %>
       </p>
-      <h3>Never mistake motion for action</h3>
+      <h3>Never mistake motion for action.</h3>
       <br>
-      <span class="pull-right"><small>by <cite>Ernest Hemingway</cite></small></span>
+      <span class="pull-right"><small><cite>by Ernest Hemingway</cite></small></span>
     </blockquote>
   </div>
   <div class="col-md-4 col-md-offset-4">
-    <br><br><br>
-    <%= link_to "Start Now", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+    <br><br>
+    <%= link_to "Start Today", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
   </div>
 </div>
 <div class="container landing-page" id="learnmore">
   <br><br>
   <div class="row">
-    <h3>Maximize Your Focus</h3>
+    <h2>Maximize Your Focus</h2>
     <div class="col-md-12">
-      <p class="landing-feature-text mobile-gap">
-        <strong>Why?</strong>
-      </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
         If you commit to nothing, you’re distracted by everything.
       </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
         Discover the power of less and master your priorities.
       </p>
     </div>
   </div>
-  <br><br><hr><br><br>
+  <br>
   <div class="row">
     <div class="col-md-6">
+      <h3>Top 5 Topics</h3>
       <p class="landing-feature-text">
-        <strong>How?<strong>
+        <i class="fa fa-bullseye purple"></i>&nbsp;
+        Commit to your most important topics.
       </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Choose your most important topics on Rakepage.
-      </p>
-      <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Focusing on these topics develops productive knowledge.
+        <i class="fa fa-rocket purple"></i>&nbsp;
+        Stop aimless browsing, be online with a purpose.
       </p>
       <div class="landing-screenshot-left">
-        <%= image_tag("screenshot_master_rakes_640x360.jpg", class: "img-responsive") %>
+        <%= image_tag("screenshot_choose_topic.jpg", class: "img-responsive") %>
       </div>
     </div>
     <div class="col-md-6">
+      <h3>Stay Focused</h3>
       <p class="landing-feature-text">
-        <strong>What?<strong>
+        <i class="fa fa-star purple"></i>&nbsp;
+        News, bookmarks and tasks - all in one place.
       </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Everything on Rakepage is topic-specific.
-      </p>
-      <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Get and keep relevant inspirations and know-how in one place.
+        <i class="fa fa-bolt purple"></i>&nbsp;
+        Get updated, motivated and take action.
       </p>
       <div class="landing-screenshot">
-        <%= image_tag("screenshot_myrake_640x360.jpg", class: "img-responsive") %>
+        <%= image_tag("screenshot_news_bookmarks_tasks.jpg", class: "img-responsive") %>
       </div>
     </div>
   </div>
@@ -86,72 +74,48 @@
   <br><br><hr><br><br><br>
 
   <div class="row">
-    <h3>Being in Motion vs. Taking Action</h3>
+    <h2>Build New Habits</h2>
     <div class="col-md-12">
-      <p class="landing-feature-text mobile-gap">
-        <strong>Why?</strong>
-      </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
         Motion is when you’re busy doing something, but that task will never produce an outcome by itself.
       </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
         Action, on the other hand, is the type of behavior that will get you a result.
       </p>
     </div>
   </div>
-  <br><br><hr><br><br>
+  <br>
   <div class="row">
     <div class="col-md-6">
+      <h3>Take Action</h3>
       <p class="landing-feature-text">
-        <strong>How?<strong>
+        <i class="fa fa-tasks purple"></i>&nbsp;
+        Transform news and bookmarks to tasks.
       </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Transform inspirations to motivation and actions.
-      </p>
-      <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
+        <i class="fa fa-calendar purple"></i>&nbsp;
         Set a schedule for your actions.
       </p>
       <div class="landing-screenshot-left">
-        <%= image_tag("screenshot_task_640x360.jpg", class: "img-responsive") %>
+        <%= image_tag("screenshot_task.jpg", class: "img-responsive") %>
       </div>
     </div>
     <div class="col-md-6">
+      <h3>Accountability</h3>
       <p class="landing-feature-text">
-        <strong>What?<strong>
+        <i class="fa fa-line-chart purple"></i>&nbsp;
+        Track your productivity and stay motivated.
       </p>
       <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Use Rakepage to set reminders for inspiring content.
-      </p>
-      <p class="landing-feature-text">
-        <i class="fa fa-bookmark-o purple"></i>&nbsp;
-        Measure the change from being in motion to taking action.
+        <i class="fa fa-flag-checkered purple"></i>&nbsp;
+        Achieve your goals faster because you're focused.
       </p>
       <div class="landing-screenshot">
-        <%= image_tag("screenshot_chains_640x360.jpg", class: "img-responsive") %>
+        <%= image_tag("screenshot_chains.jpg", class: "img-responsive") %>
       </div>
     </div>
   </div>
   <br><br><hr><br>
-
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <blockquote>
-        <p class="pull-right">
-          <%= image_tag("Hemingway_portrait_120x120.jpg", size: "50x50", alt: "Never mistake motion for action.") %>
-        </p>
-        <p>
-          Never mistake motion for action.
-        </p>
-        <br><br>
-        <span class="pull-right"><small>by <cite>Ernest Hemingway</cite></small></span>
-      </blockquote>
-    </div>
-  </div>
   <br><br>
   <div class="row">
     <div class="col-md-4 col-md-offset-4">

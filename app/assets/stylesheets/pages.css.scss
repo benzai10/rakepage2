@@ -4,14 +4,6 @@
 
 .landing-page {
   h2 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-align: center;
-    margin-top: 40px;
-  }
-  h3 {
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 50px !important;
@@ -19,12 +11,20 @@
     letter-spacing: 1.5px !important;
     margin-bottom: 50px;
   }
+  h3 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px !important;
+    font-weight: 200 !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 30px;
+  }
   p {
     color: grey;
     margin-bottom: 8px;
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 20px;
+    font-weight: 200;
     letter-spacing: 0.5px;
   }
   label {
@@ -42,6 +42,10 @@
   }
   .landing-feature-text {
     text-align: center;
+    color: black !important;
+    font-size: 18px !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
   }
   .landing-page-icon {
     margin-top: 20px;
@@ -85,21 +89,21 @@
     letter-spacing: 2px !important;
     color: white;
     text-align: center;
-    margin-top: 30px !important;
+    margin-top: 70px !important;
   }
   h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: 30px !important;
-    font-weight: 300 !important;
+    font-size: 40px !important;
+    font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
     text-align: center;
-    margin-top: 30px !important;
-    margin-bottom: 30px !important;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
   }
   h3 {
     font-family: 'Roboto', sans-serif;
-    font-size: 28px !important;
+    font-size: 20px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
