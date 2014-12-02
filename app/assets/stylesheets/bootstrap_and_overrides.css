@@ -224,6 +224,7 @@ a.anchor {
 }
 
 .card .card-content li {
+  color: dimgrey !important;
   font-weight: 300 !important;
 }
 
