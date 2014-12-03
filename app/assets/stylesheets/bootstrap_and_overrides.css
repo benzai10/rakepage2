@@ -215,7 +215,7 @@ a.anchor {
 .card .card-content {
   padding: 4px;
   max-height: 480px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .card .card-content p {
