@@ -94,6 +94,9 @@ class Myrake < ActiveRecord::Base
       self.channels.each do |c|
         begin
           self.master_rake.update_attributes(refreshed_at: Time.now)
+          History.create!(user_id: self.user_id,
+                          rake_id: self.id,
+                          history_code: "feed_refresh")
           c.pull_source
         rescue
         end
