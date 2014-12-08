@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show
     if user_signed_in?
       if params[:id] == current_user.id || params[:id] == current_user.slug
-        @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
+        # @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
         @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
         @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
       else
