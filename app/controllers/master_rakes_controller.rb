@@ -54,6 +54,11 @@ class MasterRakesController < ApplicationController
        @added_leaflets = Leaflet.where("id IN (?)", MasterHeapLeafletMap.where("master_heap_id IN (?) AND created_at > ?", @rake.master_heaps.pluck(:id), Time.now - 1.week).pluck(:leaflet_id))
      end
     @feed_leaflets = @rake.feed_leaflets(params[:refresh]).order("published_at DESC").page(params[:page]).per(50)
+    if user_signed_in? && params[:refresh] == "yes"
+      History.create!(user_id: current_user.id,
+                      master_rake_id: @rake.id,
+                      history_code: "feed_refresh")
+    end
     @feed_leaflets -= @added_leaflets
     @heaps = @rake.master_heaps.where.not(leaflet_type_id: 15)
     @feed_collapse = params[:collapse] == "feed" ? "active" : ""

@@ -37,9 +37,9 @@ class MasterRake < ActiveRecord::Base
 
   def feed_leaflets(refresh)
     if refresh == "yes"
+      self.update_attributes(refreshed_at: Time.now)
       self.channels.each do |c|
         begin
-          self.update_attributes(refreshed_at: Time.now)
           c.pull_source
         rescue
         end
