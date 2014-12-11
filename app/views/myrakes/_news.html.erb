@@ -4,16 +4,20 @@
       News
       <span class="pull-right">
         <small class="white">
-          <%= link_to "TASKS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-          <% if @rake.due_tasks_count > 0 %>
-            <span class="new-rec-alert-bright">
-              <%= @rake.due_tasks_count.to_s %>
-            </span>
+          <% if @rake.user_id == current_user.id %>
+            <%= link_to "TASKS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
+            <% if @rake.due_tasks_count > 0 %>
+              <span class="new-rec-alert-bright">
+                <%= @rake.due_tasks_count.to_s %>
+              </span>
+            <% end %>
+            &nbsp;|&nbsp;
           <% end %>
-          &nbsp;|&nbsp;
           <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-          &nbsp;|&nbsp;
-          <i class="fa fa-cog rake-settings white"></i>
+          <% if @rake.user_id == current_user.id %>
+            &nbsp;|&nbsp;
+            <i class="fa fa-cog rake-settings white"></i>
+          <% end %>
         </small>
       </span>
     </h5>
@@ -50,11 +54,15 @@
                 <% if !@rake.master_rake.refreshed_at.nil? %>
                   updated: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago
                 <% else %>
-                  Click the Refresh button to update the feed
+                  <% if @rake.user_id == current_user.id %>
+                    Click the Refresh button to update the feed
+                  <% else %>
+                    You can refresh the feed for your own rake only.
+                  <% end %>
                 <% end %>
               </small>
               <span class="pull-right">
-              <% if user_signed_in? %>
+              <% if user_signed_in? && @rake.user_id == current_user.id %>
                 <small>
                   <%= link_to "Refresh", 
                               myrake_path(view: "news", refresh: "yes"),

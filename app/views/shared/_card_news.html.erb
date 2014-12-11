@@ -79,21 +79,6 @@
                                     heapid: l.leaflet_type_id,
                                     title: l.title},
                             class: "btn btn-primary btn-xs leaflet-save" %>
-            <% else %>
-              <% if !@other_user_rake.nil? %>
-                <%= link_to "Save",
-                          add_leaflet_myrake_path(@other_user_rake),
-                          data: { toggle: "modal",
-                                  target: "#myModal",
-                                  id: l.id,
-                                  heapid: l.leaflet_type_id,
-                                  title: l.title},
-                          class: "btn btn-primary btn-xs leaflet-save" %>
-              <% else %>
-                <%= link_to "Save", new_myrake_path, 
-                            data: { toggle: "modal", target: "#newCustomRakeAddLeafletModal", id: l.id, title: l.title },
-                            class: "btn btn-primary btn-xs leaflet-save" %>
-              <% end %>
             <% end %>
           <% end %>
         <% end %>

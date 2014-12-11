@@ -25,6 +25,10 @@ class MyrakesController < ApplicationController
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
     if params[:view] == "tasks"
+      if @rake.user_id != current_user.id
+        redirect_to user_path(current_user)
+        return
+      end
       @overdue_leaflets = HeapLeafletMap.includes(:heap).where("heap_id IN (?) AND reminder_at < ?",
                                                @rake.heaps.pluck(:id).flatten,
                                                Time.now).order(:reminder_at)
