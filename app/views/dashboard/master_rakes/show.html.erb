@@ -17,7 +17,11 @@
         <tbody>
           <% @master_rake.myrakes.each do |myrake| %>
             <tr>
-              <td><%= link_to User.find(myrake.user_id).username, dashboard_user_path(User.find(myrake.user_id)) %></td>
+              <% if User.where(id: myrake.user_id).empty? %>
+                <td>User N/A</td>
+              <% else %>
+                <td><%= link_to User.find(myrake.user_id).username, dashboard_user_path(User.find(myrake.user_id)) %></td>
+              <% end %>
               <td><%= myrake.due_tasks_count.to_s %></td>
               <td><%= myrake.scheduled_tasks_count.to_s %></td>
               <% last_refreshed_at_history_rec = History.where(rake_id: myrake.id, history_code: "feed_refresh") %>
