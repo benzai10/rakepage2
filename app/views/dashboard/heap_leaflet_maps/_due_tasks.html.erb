@@ -1,0 +1,21 @@
+<h1>Due Tasks</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Task</th>
+      <th>Goal</th>
+      <th>Reminder at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= User.find(task.heap.myrake.user_id).username %></td>
+        <td><%= task.leaflet_title %></td>
+        <td><%= task.leaflet_goal %></td>
+        <td><%= time_ago_in_words(task.reminder_at) %> ago</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

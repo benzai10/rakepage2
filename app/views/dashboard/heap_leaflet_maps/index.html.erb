@@ -1,0 +1,27 @@
+<%= render 'dashboard/dashboard_menu' %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'dashboard/dashboard_nav' %>
+    <div class="col-md-10">
+      <% if params[:view] == "due_tasks" %>
+        <%= render 'due_tasks' %>
+      <% else %>
+        <h1>Tasks</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Task</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tasks.each do |task| %>
+              <tr>
+                <td><%= task.leaflet_title %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

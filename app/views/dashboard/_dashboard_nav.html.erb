@@ -43,5 +43,19 @@
         </div>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingTasks">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parents="#accordion" href="#collapseTasks" aria-expanded="true" aria-controls="collapseTasks">
+            Tasks
+          </a>
+        </h4>
+      </div>
+      <div id="collapseTasks" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTasks">
+        <div class="panel-body">
+          <%= link_to "Due Tasks", dashboard_tasks_path(view: "due_tasks") %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

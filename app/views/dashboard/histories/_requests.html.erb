@@ -11,8 +11,8 @@
     <% @histories.each do |history| %>
       <tr>
         <td><%= User.find(history.user_id).username %></td>
-        <td><%= history.history_text %>
-        <td><%= history.created_at %>
+        <td><%= history.history_text %></td>
+        <td><%= history.created_at %></td>
       </tr>
     <% end %>
   </tbody>

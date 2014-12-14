@@ -54,7 +54,7 @@
             </li>
             <% if user_signed_in? && current_user.admin? %>
               <li class="rake-show-list">
-                Dashboard
+                <%= link_to "Dashboard", dashboard_users_path, class: "purple" %>
               </li>
             <% end %>
             <li class="rake-show-list">

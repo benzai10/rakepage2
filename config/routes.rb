@@ -20,6 +20,7 @@ Rakepage2::Application.routes.draw do
     resources :users, only: [:index, :show]
     resources :myrakes, only: [:index]
     resources :histories, only: [:index]
+    resources :heap_leaflet_maps, only: [:index], as: "tasks"
   end
 
   resources :histories, only: [:create]
