@@ -3,7 +3,7 @@
   <div class="row">
     <%= render 'dashboard/dashboard_nav' %>
     <div class="col-md-10">
-      <h1>Users (<%= @users.count.to_s %>)</h1>
+      <h1>Users (<%= User.all.count.to_s %>)</h1>
       <table class="table">
         <thead>
           <tr>
