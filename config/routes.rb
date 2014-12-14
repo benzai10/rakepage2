@@ -18,6 +18,7 @@ Rakepage2::Application.routes.draw do
 
   namespace :dashboard do
     resources :users, only: [:index, :show]
+    resources :master_rakes, only: [:index, :show]
     resources :myrakes, only: [:index]
     resources :histories, only: [:index]
     resources :heap_leaflet_maps, only: [:index], as: "tasks"

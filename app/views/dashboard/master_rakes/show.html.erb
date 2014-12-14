@@ -3,21 +3,21 @@
   <div class="row">
     <%= render 'dashboard/dashboard_nav' %>
     <div class="col-md-10">
-      <h1>User <%= @user.username %></h1>
-      <h4>Myrakes (<%= @user.myrakes.count.to_s %>)</h4>
+      <h1>Topic <%= @master_rake.name %></h1>
+      <h4>Users (<%= @master_rake.myrakes.count.to_s %>)</h4>
       <table class="table">
         <thead>
           <tr>
-            <th>Rake</th>
+            <th>User</th>
             <th>Due Tasks</th>
             <th>Scheduled Tasks</th>
-            <th>Last Feed Refresh</th>
+            <th>Refreshed at</th>
           </tr>
         </thead>
         <tbody>
-          <% @user.myrakes.each do |myrake| %>
+          <% @master_rake.myrakes.each do |myrake| %>
             <tr>
-              <td><%= myrake.name %></td>
+              <td><%= link_to User.find(myrake.user_id).username, dashboard_user_path(User.find(myrake.user_id)) %></td>
               <td><%= myrake.due_tasks_count.to_s %></td>
               <td><%= myrake.scheduled_tasks_count.to_s %></td>
               <% last_refreshed_at_history_rec = History.where(rake_id: myrake.id, history_code: "feed_refresh") %>
