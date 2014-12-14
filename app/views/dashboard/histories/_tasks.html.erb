@@ -1,0 +1,32 @@
+<h1>Task Activities</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Leaflet</th>
+      <th>Goal</th>
+      <th>Task Comment</th>
+      <th>Productivity</th>
+      <th>Rating</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @histories.each do |history| %>
+      <tr>
+        <td><%= User.find(history.user_id).username %></td>
+        <td><%= Leaflet.find(history.leaflet_id).title %></td>
+        <% leaflets = HeapLeafletMap.where(leaflet_id: history.leaflet_id) %>
+        <% if leaflets.empty? %>
+          <td>No leaflet</td>
+        <% else %>
+          <td><%= leaflets.last.leaflet_goal %></td>
+        <% end %>
+        <td><%= history.history_text %>
+        <td><%= history.history_int %></td>
+        <td><%= history.history_int2 %></td>
+        <td><%= history.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

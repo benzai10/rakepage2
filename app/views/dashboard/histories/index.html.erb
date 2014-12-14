@@ -5,6 +5,10 @@
     <div class="col-md-10">
       <% if params[:view] == "requests" %>
         <%= render 'requests' %>
+      <% elsif params[:view] == "feed_refreshes" %>
+        <%= render 'feed_refreshes' %>
+      <% elsif params[:view] == "tasks" %>
+        <%= render 'tasks' %>
       <% else %>
         <h1>Histories</h1>
         <table class="table">

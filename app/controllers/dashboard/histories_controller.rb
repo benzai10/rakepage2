@@ -3,9 +3,13 @@ class Dashboard::HistoriesController < ApplicationController
 
   def index
     if params[:view] == "requests"
-      @histories = History.where(history_code: "request").order(created_at: :desc).page(params[:page]).per(20)
+      @histories = History.where(history_code: "request").order(created_at: :desc).page(params[:page]).per(100)
+    elsif params[:view] == "feed_refreshes"
+      @histories = History.where(history_code: "feed_refresh").order(created_at: :desc).page(params[:page]).per(100)
+    elsif params[:view] == "tasks"
+      @histories = History.where(history_code: "bm_activity").order(created_at: :desc).page(params[:page]).per(100)
     else
-      @histories = History.order(created_at: :desc).page(params[:page]).per(20)
+      @histories = History.order(created_at: :desc).page(params[:page]).per(100)
     end
   end
 

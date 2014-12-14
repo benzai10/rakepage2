@@ -1,0 +1,19 @@
+<h1>Feed Refreshes</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Feed Refreshed</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @histories.each do |history| %>
+      <tr>
+        <td><%= User.find(history.user_id).username %></td>
+        <td><%= Myrake.find(history.rake_id).name %></td>
+        <td><%= history.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
