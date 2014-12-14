@@ -10,6 +10,18 @@ Rakepage2::Application.routes.draw do
   get 'pages/terms_of_service' => 'pages#terms_of_service'
   get 'pages/privacy_policy' => 'pages#privacy_policy'
 
+  # get 'dashboard/index' => 'dashboard#index'
+  # get 'dashboard/users' => 'dashboard#users'
+  # get 'dashboard/users/:id', to: 'dashboard#user'
+  # get 'dashboard/myrakes' => 'dashboard#myrakes'
+  # get 'dashboard/histories' => 'dashboard#histories'
+
+  namespace :dashboard do
+    resources :users, only: [:index, :show]
+    resources :myrakes, only: [:index]
+    resources :histories, only: [:index]
+  end
+
   resources :histories, only: [:create]
 
   resources :users, only: [:update, :show]

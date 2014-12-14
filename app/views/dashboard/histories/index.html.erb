@@ -1,0 +1,14 @@
+<%= render 'dashboard/dashboard_menu' %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'dashboard/dashboard_nav' %>
+    <div class="col-md-9">
+      <h1>Histories Dashboard</h1>
+      <ul>
+        <% @histories.each do |history| %>
+          <li><%= history.history_code %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<%= render 'dashboard/dashboard_menu' %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'dashboard/dashboard_nav' %>
+    <div class="col-md-9">
+      <h1>Myrakes Dashboard</h1>
+      <ul>
+        <% @myrakes.each do |myrake| %>
+          <li><%= myrake.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

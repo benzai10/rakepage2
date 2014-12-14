@@ -46,6 +46,11 @@
             <li class="rake-show-list">
               <%= link_to "Privacy Policy", pages_privacy_policy_path, class: "purple" %>
             </li>
+            <% if user_signed_in? && current_user.admin? %>
+              <li class="rake-show-list">
+                Dashboard
+              </li>
+            <% end %>
             <li class="rake-show-list">
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
             </li>

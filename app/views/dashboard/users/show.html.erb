@@ -1,0 +1,24 @@
+<%= render 'dashboard/dashboard_menu' %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'dashboard/dashboard_nav' %>
+    <div class="col-md-9">
+      <h1>User <%= @user.username %> Dashboard</h1>
+      <h4>Myrakes (<%= @user.myrakes.count.to_s %>)</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Rake</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.myrakes.each do |myrakes| %>
+            <tr>
+              <td><%= myrakes.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,9 @@
   <ul class="nav-close-x">
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
+
   <div class="panel-group" id="accordion">
+
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
@@ -17,14 +19,6 @@
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <%= link_to "<i class='fa fa-question white'></i>".html_safe + "  Tutorial / Help", "http://blog.rakepage.com/?page_id=191", target: "_blank", class: "menu-link" %>
-        </h5>
-      </div>
-    </div>
-
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + "  All Topics", master_rakes_path, class: "rake_title menu-link" %>
         </h5>
       </div>
     </div>
@@ -64,11 +58,19 @@
         </div>
       </div>
         <% else %>
-          <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign in", new_user_session_path, class: "menu-link" %>
+          <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  Sign in", new_user_session_path, class: "menu-link white" %>
         <% end %>
     </div>
-  </div>
 
+    <% if user_signed_in? %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "<i class='fa fa-th-list white'></i>".html_safe + " My Rakes", user_path(current_user), class: "menu-link" %>
+          </h5>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
 </nav>
-<%= render 'master_rakes/add_rss_modal' %>
-<%= render 'master_rakes/add_subreddit_modal' %>
