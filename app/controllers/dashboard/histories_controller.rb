@@ -2,7 +2,11 @@ class Dashboard::HistoriesController < ApplicationController
   before_filter :authorize
 
   def index
-    @histories = History.first(10)
+    if params[:view] == "requests"
+      @histories = History.where(history_code: "request").order(created_at: :desc).page(params[:page]).per(20)
+    else
+      @histories = History.order(created_at: :desc).page(params[:page]).per(20)
+    end
   end
 
   def authorize

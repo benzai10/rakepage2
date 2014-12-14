@@ -2,13 +2,26 @@
 <div class="container-fluid">
   <div class="row">
     <%= render 'dashboard/dashboard_nav' %>
-    <div class="col-md-9">
-      <h1>Histories Dashboard</h1>
-      <ul>
-        <% @histories.each do |history| %>
-          <li><%= history.history_code %></li>
-        <% end %>
-      </ul>
+    <div class="col-md-10">
+      <% if params[:view] == "requests" %>
+        <%= render 'requests' %>
+      <% else %>
+        <h1>Histories</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>History</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @histories.each do |history| %>
+              <tr>
+                <td><%= history.history_code %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>

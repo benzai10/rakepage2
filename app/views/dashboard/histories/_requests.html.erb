@@ -1,0 +1,19 @@
+<h1>Requests</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Request</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @histories.each do |history| %>
+      <tr>
+        <td><%= User.find(history.user_id).username %></td>
+        <td><%= history.history_text %>
+        <td><%= history.created_at %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

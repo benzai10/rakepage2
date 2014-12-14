@@ -1,7 +1,47 @@
-<div class="col-md-1">
-  <br><br><br>
-  <%= link_to "Users", dashboard_users_path %>
-  <%= link_to "Myrakes", dashboard_myrakes_path %>
-  <%= link_to "Histories", dashboard_histories_path %>
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="col-md-2">
+  <h1>Dashboard</h1>
+  <div class="panel-group" id="accordion" role="tablist">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingUsers">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parents="#accordion" href="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+            Users
+          </a>
+        </h4>
+      </div>
+      <div id="collapseUsers" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingUsers">
+        <div class="panel-body">
+          <%= link_to "Users", dashboard_users_path %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingRakes">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parents="#accordion" href="#collapseRakes" aria-expanded="true" aria-controls="collapseRakes">
+            Rakes
+          </a>
+        </h4>
+      </div>
+      <div id="collapseRakes" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRakes">
+        <div class="panel-body">
+          <%= link_to "Myrakes", dashboard_myrakes_path %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingHistories">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parents="#accordion" href="#collapseHistories" aria-expanded="true" aria-controls="collapseHistories">
+            Histories
+          </a>
+        </h4>
+      </div>
+      <div id="collapseHistories" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingHistories">
+        <div class="panel-body">
+          <%= link_to "Requests", dashboard_histories_path(view: "requests") %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
