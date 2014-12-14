@@ -2,7 +2,7 @@ class Dashboard::MasterRakesController < ApplicationController
     before_filter :authorize
 
   def index
-    @master_rakes = MasterRake.page(params[:page]).per(50)
+    @master_rakes = MasterRake.order('refreshed_at DESC NULLS LAST').page(params[:page]).per(50)
   end
 
   def show

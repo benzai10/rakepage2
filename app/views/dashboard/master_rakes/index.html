@@ -9,13 +9,15 @@
           <tr>
             <th>Topic</th>
             <th># of rakes</th>
+            <th>Refreshed at</th>
           <tr>
         <thead>
         <tbody>
           <% @master_rakes.each do |master_rake| %>
             <tr>
               <td><%= link_to master_rake.name, dashboard_master_rake_path(master_rake) %></td>
-              <td><%= master_rake.myrakes.count.to_s %>
+              <td><%= master_rake.myrakes.count.to_s %></td>
+              <td><%= master_rake.refreshed_at %></td>
             </tr>
           <% end %>
         </tbody>
