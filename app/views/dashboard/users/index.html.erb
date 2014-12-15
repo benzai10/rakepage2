@@ -10,14 +10,16 @@
             <th>User name</th>
             <th># of rakes</th>
             <th>Last sign in</th>
+            <th>Created at</th>
           <tr>
         <thead>
         <tbody>
           <% @users.each do |user| %>
             <tr>
               <td><%= link_to user.username, dashboard_user_path(user) %></td>
-              <td><%= user.myrakes.count.to_s %>
-              <td><%= user.last_sign_in_at %>
+              <td><%= user.myrakes.count.to_s %></td>
+              <td><%= user.last_sign_in_at %></td>
+              <td><%= user.created_at %></td>
             </tr>
           <% end %>
         </tbody>
