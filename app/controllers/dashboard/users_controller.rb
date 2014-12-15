@@ -2,7 +2,7 @@ class Dashboard::UsersController < ApplicationController
   before_filter :authorize
 
   def index
-    @users = User.order('last_sign_in_at DESC NULLS LAST').page(params[:page]).per(20)
+    @users = User.order('last_sign_in_at DESC NULLS LAST').page(params[:page]).per(50)
   end
 
   def show
