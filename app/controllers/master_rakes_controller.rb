@@ -33,6 +33,11 @@ class MasterRakesController < ApplicationController
   end
 
   def show
+    if params[:refresh] == "yes" && !user_signed_in?
+      flash[:error] = "Please sign in to refresh the news feed"
+      redirect_to master_rake_path(MasterRake.find(params[:id]))
+      return
+    end
     session[:displayed_channels] = []
     @master_rakes = MasterRake.all
     session[:rake_class] = MasterRake
