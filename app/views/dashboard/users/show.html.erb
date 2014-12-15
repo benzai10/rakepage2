@@ -4,7 +4,7 @@
     <%= render 'dashboard/dashboard_nav' %>
     <div class="col-md-10">
       <h1>User <%= @user.username %></h1>
-      <h4>Myrakes (<%= @user.myrakes.count.to_s %>)</h4>
+      <h4>Myrakes (<%= @user.myrakes.count.to_s %>) - Email: <%= @user.email %></h4>
       <table class="table">
         <thead>
           <tr>
