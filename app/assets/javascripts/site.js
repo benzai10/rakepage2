@@ -459,14 +459,6 @@ $(function() {
         };
     });
 
-    $('.sign-in-label').click(function() {
-        ga('send', 'event', 'landing-page', 'sign-in-label', 'sign-in');
-    });
-
-    $('.sign-in-icon').click(function() {
-        ga('send', 'event', 'landing-page', 'sign-in-icon', 'sign-in');
-    });
-
     $('#sign-up').click(function() {
         ga('send', 'event', 'landing-page', 'sign-up-button', 'sign-up');
     });
