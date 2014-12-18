@@ -10,7 +10,7 @@
         <div class="modal-body">
           <h3>My <%= @rake.name %> Rake</h3>
           <%= f.hidden_field :name, value: @rake.name %>
-          <%= f.check_box :copy_recommendations, label: "Copy bookmarked inspirations", checked: true %>
+          <%= f.check_box :copy_recommendations, label: "Copy existing bookmarks", checked: true %>
           <% if @rakes.where(top_rake: 1).count < 5 %>
             <%= f.check_box :top_rake, label: "Add to my Top 5", checked: true %>
           <% else %>
