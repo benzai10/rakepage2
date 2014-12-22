@@ -11,7 +11,11 @@
     <% @histories.each do |history| %>
       <tr>
         <td><%= User.find(history.user_id).username %></td>
-        <td><%= Myrake.find(history.rake_id).name %></td>
+        <% if !history.rake_id.nil? %>
+          <td><%= Myrake.find(history.rake_id).name %></td>
+        <% else %>
+          <td><%= MasterRake.find(history.master_rake_id).name %></td>
+        <% end %>
         <td><%= history.created_at %></td>
       </tr>
     <% end %>
