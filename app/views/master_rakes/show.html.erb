@@ -3,8 +3,8 @@
 <% else %>
   <% seo_title = @rake.seo_title %>
 <% end %>
-<% title @rake.name + " " + seo_title %>
-<% meta title: @rake.name + " " + seo_title,
+<% title seo_title %>
+<% meta title: seo_title,
         description: @rake.description,
         keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
 <div class="container-fluid">

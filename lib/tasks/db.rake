@@ -1,5 +1,12 @@
 namespace :rakepage_migration do
 
+  desc "Change page titles"
+  task :change_page_titles => :environment do
+    MasterRake.all.each do |mr|
+      mr.update_attributes(seo_title: "Mastering #{mr.name} And Achieve Your Goals")
+    end
+  end
+
   desc "Create heaps for each master rake"
   task :create_master_rake_heaps => :environment do
     master_rake_count = 0
