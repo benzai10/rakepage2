@@ -3,7 +3,7 @@ namespace :rakepage_migration do
   desc "Change page titles"
   task :change_page_titles => :environment do
     MasterRake.all.each do |mr|
-      mr.update_attributes(seo_title: "Mastering #{mr.name} And Achieve Your Goals")
+      mr.update_attributes(seo_title: "Mastering #{mr.name} - Get updated, stay motivated and take action")
     end
   end
 
