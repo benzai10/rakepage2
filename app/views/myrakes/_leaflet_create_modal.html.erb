@@ -30,7 +30,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+              <%= f.text_field :leaflet_goal, { label: "Define your next action (optional)", class: "leaflet-goal" } %>
             </div>
             <div class="col-md-12">
               <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
@@ -38,7 +38,7 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <label class="score-label">Quantify your productivity</label>
+              <label class="score-label">Qualify your productivity</label>
               <%= f.hidden_field :current_score, value: 0, class: "current-score" %>
               <div class="btn-group btn-group-justified" data-toggle="buttons">
                 <label class="btn btn-default label-score-0">
@@ -73,7 +73,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <%= f.text_area :task_comment, { label: "Task Comment", class: "task-comment" } %>
+              <%= f.text_area :task_comment, { label: "Journal (optional)", class: "task-comment" } %>
             </div>
           </div>
         </div>

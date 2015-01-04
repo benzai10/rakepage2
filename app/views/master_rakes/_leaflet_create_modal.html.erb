@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">New Bookmark</h4>
+        <h4 class="modal-title" id="myModalLabel">New Bookmark/Task</h4>
       </div>
       <%= bootstrap_form_for(@custom_rake) do |f| %>
         <div class="modal-body">
@@ -37,13 +37,13 @@
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
             </div>
             <div class="col-md-6">
-              <%= f.text_field :leaflet_goal, { label: "Define a goal or task (optional)", class: "leaflet-goal" } %>
+              <%= f.text_field :leaflet_goal, { label: "Define your next action (optional)", class: "leaflet-goal" } %>
             </div>
           </div>
           <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
           <div class="row">
             <div class="col-md-6">
-              <label class="score-label">Quantify your productivity</label>
+              <label class="score-label">Qualify your productivity</label>
               <% f.number_field :current_score, value: 0, class: "current-score" %>
               <div class="btn-group btn-group-justified" data-toggle="buttons">
                 <label class="btn btn-default active label-score-0">
@@ -77,7 +77,7 @@
               <%= f.check_box :history_chain, { label: "Task executed", class: "history-chain" } %>
             </div>
             <div class="col-md-6">
-              <%= f.text_field :task_comment, { hide_label: true, placeholder: "Task comment", class: "task-comment" } %>
+              <%= f.text_field :task_comment, { hide_label: true, placeholder: "Journal (optional)", class: "task-comment" } %>
             </div>
           </div>
         </div>
