@@ -16,7 +16,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= link_to user.username, dashboard_user_path(user) %></td>
+              <td><%= link_to user.username, dashboard_user_path(user) %> (<%= user.id.to_s %>)</td>
               <td><%= user.myrakes.count.to_s %></td>
               <td><%= user.last_sign_in_at %></td>
               <td><%= user.created_at %></td>
