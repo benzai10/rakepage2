@@ -9,6 +9,9 @@
           <tr>
             <th>User name</th>
             <th># of rakes</th>
+            <th>Due tasks</th>
+            <th>Scheduled tasks</th>
+            <th>No date tasks</th>
             <th>Last sign in</th>
             <th>Created at</th>
           <tr>
@@ -18,6 +21,9 @@
             <tr>
               <td><%= link_to user.username, dashboard_user_path(user) %> (<%= user.id.to_s %>)</td>
               <td><%= user.myrakes.count.to_s %></td>
+              <td><%= user.due_tasks_count.to_s %></td>
+              <td><%= user.scheduled_tasks_count.to_s %></td>
+              <td><%= user.no_reminder_tasks_count.to_s %></td>
               <td><%= user.last_sign_in_at %></td>
               <td><%= user.created_at %></td>
             </tr>

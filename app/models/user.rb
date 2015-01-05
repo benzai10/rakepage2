@@ -38,6 +38,30 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
+  def due_tasks_count
+    due_tasks_count = 0
+    self.myrakes.each do |myrake|
+      due_tasks_count += myrake.due_tasks_count
+    end
+    return due_tasks_count
+  end
+
+  def scheduled_tasks_count
+    scheduled_tasks_count = 0
+    self.myrakes.each do |myrake|
+      scheduled_tasks_count += myrake.scheduled_tasks_count
+    end
+    return scheduled_tasks_count
+  end
+
+  def no_reminder_tasks_count
+    no_reminder_tasks_count = 0
+    self.myrakes.each do |myrake|
+      no_reminder_tasks_count += myrake.no_reminder_tasks_count
+    end
+    return no_reminder_tasks_count
+  end
+
   def import_fb
     hash = get_fb_likes
     webdev = false
