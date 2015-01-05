@@ -3,10 +3,10 @@ class UserMailer < ActionMailer::Base
   def welcome_email
     @user = User.find(11)
     @url = "http://rakepage.com"
-    headers['X-MC-Track'] = "opens, clicks"
     mail(to: "steiner.mischa@gmail.com",
          subject: "Test mail",
          template_path: "user_mailer",
          template_name: "welcome_email")
+    headers['X-MC-Track'] = "opens, clicks"
   end
 end
