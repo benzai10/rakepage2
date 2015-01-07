@@ -84,7 +84,7 @@ class Myrake < ActiveRecord::Base
 
   def no_reminder_tasks_count
     HeapLeafletMap.where("heap_id IN (?) AND reminder_at IS NULL",
-                         self.heaps.pluck(:id)).count
+                         self.heaps.pluck(:id)).uniq.pluck(:leaflet_id).count
   end
 
   def add_channel(channel)
