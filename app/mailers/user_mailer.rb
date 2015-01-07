@@ -40,4 +40,14 @@ class UserMailer < ActionMailer::Base
     headers['X-MC-Track'] = "opens, clicks"
   end
 
+  def active_tasks_email(user)
+    @user = user
+    @url = "http://rakepage.com"
+    mail(to: @user.email,
+         subject: "Hi #{@user.username}, master your priorities using Rakepage",
+         template_path: "user_mailer",
+         template_name: "active_tasks_email")
+    headers['X-MC-Track'] = "opens, clicks"
+  end
+
 end
