@@ -58,7 +58,7 @@
             <!-- Here comes the rake list -->
             <ul>
               <% @user.myrakes.each do |myrake| %>
-                <li><%= myrake.name %> (due tasks: <%= myrake.due_tasks.count.to_s %> | scheduled tasks: <%= myrake.scheduled_tasks.count.to_s %>)</li>
+                <li><%= myrake.name %> (due tasks: <%= myrake.due_tasks_count.to_s %> | scheduled tasks: <%= myrake.scheduled_tasks_count.to_s %>)</li>
               <% end %>
             </ul>
 
