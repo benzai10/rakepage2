@@ -1,10 +1,9 @@
 class UserMailer < ActionMailer::Base
-  default from: "rakepage@rakepage.com"
+  default from: "Rakepage <rakepage@rakepage.com>"
   def welcome_email_no_rake(user)
     @user = user
     @url = "http://rakepage.com"
-    mail(from_name: "Rakepage",
-         to: @user.email,
+    mail(to: @user.email,
          subject: "Hi #{@user.username}, master your priorities using Rakepage",
          template_path: "user_mailer",
          template_name: "welcome_email_no_rake")
