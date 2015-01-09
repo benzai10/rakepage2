@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "rakepage@rakepage.com"
+  default from: "Rakepage"
   def welcome_email_no_rake(user)
     @user = user
     @url = "http://rakepage.com"
