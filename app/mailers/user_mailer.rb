@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = "http://rakepage.com"
     mail(to: @user.email,
-         subject: "Hi #{@user.username}, xxx",
+         subject: "Hi #{@user.username}, your account is ready for confirmation",
          template_path: "user_mailer",
          template_name: "no_confirmed_email")
     headers['X-MC-Track'] = "opens, clicks"
