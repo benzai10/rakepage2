@@ -1,5 +1,15 @@
 class UserMailer < ActionMailer::Base
   default from: "Rakepage <rakepage@rakepage.com>"
+  def no_confirmed_email(user)
+    @user = user
+    @url = "http://rakepage.com"
+    mail(to: @user.email,
+         subject: "Hi #{@user.username}, xxx",
+         template_path: "user_mailer",
+         template_name: "no_confirmed_email")
+    headers['X-MC-Track'] = "opens, clicks"
+  end
+
   def welcome_email_no_rake(user)
     @user = user
     @url = "http://rakepage.com"
