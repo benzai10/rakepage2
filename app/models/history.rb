@@ -17,4 +17,9 @@ class History < ActiveRecord::Base
                        .count.map{ |x| x[1] > 0 }
     motion_chain.zip(action_chain)
   end
+
+  def self.get_last_motion_or_action(rake_id)
+    last_motion_or_action = self.where("rake_id = ? AND (history_int = 1 OR history_int = 2)", rake_id).last
+    return last_motion_or_action
+  end
 end
