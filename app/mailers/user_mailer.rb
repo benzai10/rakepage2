@@ -60,4 +60,13 @@ class UserMailer < ActionMailer::Base
     headers['X-MC-Track'] = "opens, clicks"
   end
 
+  def status_overview_email(user)
+    @user = user
+    @url = "http://rakepage.com"
+    mail(to: @user.email,
+         subject: "#{@user.username} - Here's Your Rakepage Overview",
+         template_path: "user_mailer",
+         template_name: "status_overview_email")
+    headers['X-MC-Track'] = "opens, clicks"
+  end
 end
