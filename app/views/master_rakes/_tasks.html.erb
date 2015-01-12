@@ -1,6 +1,79 @@
 <div>
   <span class="rake-nav">TASKS<hr></span>
 </div>
+<p class="black">
+  Whenever you save a bookmark on Rakepage, you can turn it into a task. You can set a reminder, define a next step, take notes and give a personal rating.
+</p>
+<p class="black">
+  You can track yourself by marking a task with "Motion" or "Action" to generate a streak of days you've been productive (see an example below):
+</p>
+<div class="media">
+  <span class="pull-left">
+    <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+      <%= image_tag("no_image.png", size: "96x54") %>
+    <% else %>
+      <%= image_tag(@rake.image_url, size: "96x54") %>
+    <% end %>
+  </span>
+  <div class="media-body">
+    <h5 class="media-heading">
+      <%= @rake.name %>
+    </h5>
+    <p>
+      <div class="progress progress-chain">
+        <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
+                          [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
+                          [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
+                          [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
+                          [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+        <% chain_array.each do |chain_element| %>
+          <% if chain_element[1] == true %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+          <% elsif chain_element[0] == true %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-motion" style="width: 3.33%"></div>
+          <% else %>
+            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+          <% end %>
+        <% end %>
+      </div>
+    </p>
+    <p>
+      Tasks
+      <span class="new-rec-alert">5</span>
+      &nbsp;|&nbsp;
+      News
+      &nbsp;|&nbsp;
+      Bookmarks
+    </p>
+  </div>
+</div>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="info-text centered">
+        You need  an account to create tasks.
+      </p>
+      <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+      <br><br>
+      <p class="info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
+<% else %>
+  <% if !@customer_rake.nil? %>
+    <br><br>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          }, class: "btn btn-primary btn-lg centered" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<br>
 <h4>
   Never mistake motion for action.<small>&nbsp;&mdash;by Ernest Hemingway</small>
 </h4>
@@ -47,74 +120,3 @@
   </div>
 </div>
 <br>
-<h4>
-  Example how tracking your productivity could look like for the last 30 days:
-</h4>
-<div class="media">
-  <span class="pull-left">
-    <% if @rake.image_url.nil? || @rake.image_url.empty? %>
-      <%= image_tag("no_image.png", size: "96x54") %>
-    <% else %>
-      <%= image_tag(@rake.image_url, size: "96x54") %>
-    <% end %>
-  </span>
-  <div class="media-body">
-    <h5 class="media-heading">
-      <%= @rake.name %>
-    </h5>
-    <p>
-      <div class="progress progress-chain">
-        <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
-                          [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
-                          [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
-                          [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
-                          [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
-        <% chain_array.each do |chain_element| %>
-          <% if chain_element[1] == true %>
-            <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
-          <% elsif chain_element[0] == true %>
-            <div class="progress-bar progress-bar-success bookmark-metrics-motion" style="width: 3.33%"></div>
-          <% else %>
-            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
-          <% end %>
-        <% end %>
-      </div>
-    </p>
-    <p>
-      Tasks
-      <span class="new-rec-alert">5</span>
-      &nbsp;|&nbsp;
-      News
-      &nbsp;|&nbsp;
-      Bookmarks
-    </p>
-  </div>
-</div>
-<br><br><br>
-<% if !user_signed_in? %>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <p class="info-text centered">
-        You need  an account to create tasks.
-      </p>
-      <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
-      <br><br>
-      <p class="info-text centered">
-        or <%= link_to "sign in", new_user_session_path %>.
-      </p>
-    </div>
-  </div>
-<% else %>
-  <% if !@customer_rake.nil? %>
-    <br><br>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
-                                    data: { toggle: "modal",
-                                            target: "#newCustomRakeModal",
-                                          }, class: "btn btn-primary btn-lg centered" %>
-      </div>
-    </div>
-    <br><br><br>
-  <% end %>
-<% end %>
