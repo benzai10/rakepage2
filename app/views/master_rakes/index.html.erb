@@ -27,6 +27,15 @@
               Commit to your priorities and take action
             </h5>
           </div>
+          <% if (user_signed_in? && current_user.myrakes.count == 0) || (!user_signed_in?) %>
+            <div class="centered">
+              <br>
+              <span class="rake-nav">GETTING STARTED VIDEO<hr></span>
+              <iframe width="560" height="315" src="//www.youtube.com/embed/-cSR7pw2n4k" frameborder="0" allowfullscreen></iframe>
+              <br>
+              <hr>
+            </div>
+          <% end %>
           <div class="col-md-12">
             <br>
             <div class="thumbnail" id="show-overview">
