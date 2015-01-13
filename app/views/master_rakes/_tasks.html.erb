@@ -2,10 +2,10 @@
   <span class="rake-nav">TASKS<hr></span>
 </div>
 <p class="black">
-  Whenever you save a bookmark on Rakepage, you can turn it into a task. You can set a reminder, define a next step, take notes and give a personal rating.
+  Whenever you find something on Rakepage, you can turn it into a task. You can set a reminder, define a next step, take notes and give a personal rating.
 </p>
 <p class="black">
-  You can track yourself by marking a task with "Motion" or "Action" to generate a streak of days you've been productive (see an example below):
+  Execute on a task and mark it with "Motion" or "Action" to generate a streak of days you've been productive (see an example below):
 </p>
 <div class="media">
   <span class="pull-left">
@@ -47,32 +47,6 @@
     </p>
   </div>
 </div>
-<% if !user_signed_in? %>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <p class="info-text centered">
-        You need  an account to create tasks.
-      </p>
-      <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
-      <br><br>
-      <p class="info-text centered">
-        or <%= link_to "sign in", new_user_session_path %>.
-      </p>
-    </div>
-  </div>
-<% else %>
-  <% if !@customer_rake.nil? %>
-    <br><br>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
-                                    data: { toggle: "modal",
-                                            target: "#newCustomRakeModal",
-                                          }, class: "btn btn-primary btn-lg centered" %>
-      </div>
-    </div>
-  <% end %>
-<% end %>
 <br>
 <h4>
   Never mistake motion for action.<small>&nbsp;&mdash;by Ernest Hemingway</small>
@@ -120,3 +94,30 @@
   </div>
 </div>
 <br>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="info-text centered">
+        You need  an account to create tasks.
+      </p>
+      <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+      <br><br>
+      <p class="info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
+<% else %>
+  <% if !@customer_rake.nil? %>
+    <br><br>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
+                                    data: { toggle: "modal",
+                                            target: "#newCustomRakeModal",
+                                          }, class: "btn btn-primary btn-lg centered" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+

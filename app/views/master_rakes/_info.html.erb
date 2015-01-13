@@ -12,11 +12,17 @@
     </span>
     <div class="media-body">
       <h5 class="media-heading">
-        Creating a Rake allows you to do the following:
+        <% if user_signed_in? %>
+          Commit to the topic by creating a Rake
+        <% else %>
+          Commit to the topic by creating a Rake
+        <% end %>
       </h5>
       <p>
-        <% if !user_signed_in? %>
-          Please sign up or sign in.
+        <% if user_signed_in? %>
+          Click the button below
+        <% else %>
+          You have to sign up or sign in first
         <% end %>
       </p>
     </div>
@@ -42,25 +48,25 @@
   <div class="media">
     <span class="pull-left">
       <p class="reminder-month">
-        Motivated
+        Productive
       </p>
       <p class="reminder-day">
-        <i class="fa fa-bookmark"></i>
+        <i class="fa fa-rocket"></i>
       </p>
     </span>
     <div class="media-body">
       <h5 class="media-heading">
-        Save Bookmarks/Create Tasks
+        Take Action
       </h5>
       <p>
-         Turn bookmarks into tasks with goals, notes and reminders.
+         Turn your findings into actionable tasks.
       </p>
     </div>
   </div>
   <div class="media">
     <span class="pull-left">
       <p class="reminder-month">
-        Productive
+        Motivated
       </p>
       <p class="reminder-day">
         <i class="fa fa-tasks"></i>
@@ -68,10 +74,10 @@
     </span>
     <div class="media-body">
       <h5 class="media-heading">
-        Execute on Tasks
+        Accountability System
       </h5>
       <p>
-         Rate and track your productivity.
+         Stay motivated and don't break the chain.
       </p>
     </div>
   </div>
