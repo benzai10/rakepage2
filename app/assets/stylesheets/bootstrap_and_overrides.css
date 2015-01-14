@@ -167,6 +167,11 @@ a.anchor {
   min-height: 420px;
 }
 
+.getting-started-video > iframe {
+  width: 100% !important;
+  min-height: auto !important;
+}
+
 .card {
   list-style-type: none !important;
   background-color: white;
