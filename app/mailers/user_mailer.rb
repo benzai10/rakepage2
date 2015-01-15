@@ -34,7 +34,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = "http://rakepage.com"
     mail(to: @user.email,
-         subject: "Hi #{@user.username}, master your priorities using Rakepage",
+         subject: "Hi #{@user.username}, stay focused and be awesome with Rakepage",
          template_path: "user_mailer",
          template_name: "reminder_email_no_rake")
     headers['X-MC-Track'] = "opens, clicks"
@@ -44,7 +44,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = "http://rakepage.com"
     mail(to: @user.email,
-         subject: "Hi #{@user.username}, master your priorities using Rakepage",
+         subject: "Hi #{@user.username}, stay focused and be awesome with Rakepage",
          template_path: "user_mailer",
          template_name: "create_task_email")
     headers['X-MC-Track'] = "opens, clicks"
@@ -54,7 +54,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = "http://rakepage.com"
     mail(to: @user.email,
-         subject: "Hi #{@user.username}, master your priorities using Rakepage",
+         subject: "Hi #{@user.username}, stay focused and be awesome with Rakepage",
          template_path: "user_mailer",
          template_name: "active_tasks_email")
     headers['X-MC-Track'] = "opens, clicks"
@@ -64,7 +64,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = "http://rakepage.com"
     mail(to: @user.email,
-         subject: "#{@user.username} - Today's Overview of Your Rakepage",
+         subject: "#{@user.username} - stay focused and be awesome with Rakepage",
          template_path: "user_mailer",
          template_name: "status_overview_email")
     headers['X-MC-Track'] = "opens, clicks"
