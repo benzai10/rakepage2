@@ -13,16 +13,6 @@
     Stay Focused &mdash; Be Awesome
   </h1>
   <h2>Commit to your priorities and take action</h2>
-<!--   <div class="col-md-6 col-md-offset-3">
-    <blockquote>
-      <p class="pull-right">
-        <%#= image_tag("Hemingway_portrait_120x120.jpg", size: "50x50", alt: "Never mistake motion for action.") %>
-      </p>
-      <h3>Never mistake motion for action.</h3>
-      <br>
-      <span class="pull-right"><small><cite>by Ernest Hemingway</cite></small></span>
-    </blockquote>
-  </div> -->
   <div class="sign-up-button col-md-4 col-md-offset-4">
     <br><br>
     <%= link_to "Start Today", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
@@ -140,7 +130,23 @@
       <iframe width="560" height="315" src="//www.youtube.com/embed/LN7jb1opVYE" frameborder="0" allowfullscreen></iframe>
     </div>
   </div> -->
-  <br><br><hr><br><br><br>
+  <br><br><hr><br><br>
+  <div class="col-md-6 col-md-offset-3">
+    <blockquote>
+      <p class="pull-right">
+        <%= image_tag("Hemingway_portrait_120x120.jpg", size: "50x50", alt: "Never mistake motion for action.") %>
+      </p>
+      <p class="landing-feature-text pull-left">Never mistake motion for action.</p>
+      <br>
+      <br>
+      <br>
+      <p>
+        <span class="black pull-right"><cite>by Ernest Hemingway</cite></span>
+      </p>
+    </blockquote>
+    <br><br>
+  </div>
+  <br><br>
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
       <%= link_to "Take a look", master_rakes_path, { class: "btn btn-primary btn-lg centered", id: "take-a-look" } %>
