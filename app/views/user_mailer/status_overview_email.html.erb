@@ -46,7 +46,7 @@
               Hi&nbsp;<%= @user.username %>,
             </p>
             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
-              This is an overview of your Top 5 rakes on Rakepage.
+              Here's your current overview of your Top 5 rakes. Refresh your customized news feed to read some updates about your favorite topics and get things done based on your tasks. Maybe you find some inspirations today!
             </p>
 
             <!-- Here comes the rake list -->
@@ -70,7 +70,7 @@
                     <td style="margin: 0;text-align: right;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
                       <% if last_motion_or_action.nil? %>
-                        None yet
+                        No journal entries yet
                       <% else %>
                         <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
                       <% end %>
@@ -97,7 +97,7 @@
               <% end %>
             <% else %>
               <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
-                You have no top 5 rakes but one or more other rakes. You have to sign in to add rakes to the Top 5 (click on the cog icon).
+                You have no "Top 5" rakes but one or more other rakes. You have to sign in to add rakes to the Top 5 (click on the cog icon).
               </p>
             <% end %>
             <br>
