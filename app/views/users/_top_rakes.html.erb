@@ -77,33 +77,39 @@
   <div class="row">
     <% @top_rakes.each do |r| %>
       <div class="col-md-12">
-        <% master_rake = MasterRake.find(r.master_rake_id) %>
-        <div class="media rake-index-view" value="<%= r.id %>">
-          <span class="pull-left">
-            <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
-              <%= image_tag("no_image.png", size: "96x54") %>
-            <% else %>
-              <%= image_tag(master_rake.image_url, size: "96x54") %>
-            <% end %>
-          </span>
-          <div class="media-body">
-            <h5 class="media-heading">
-              <%= r.name %>
-            </h5>
-            <p>
-              <%= render 'myrakes/top_rake_chain', toprake: r %>
-            </p>
-            <p class="rake-links">
-              <%= link_to "Tasks", myrake_path(r, view: "tasks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
-              <span class="new-rec-alert"><%= r.due_tasks_count unless r.due_tasks_count == 0 %></span>
-              &nbsp;|&nbsp;
-              <%= link_to "News", myrake_path(r, view: "news"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." }  %>
-              &nbsp;|&nbsp;
-              <%= link_to "Bookmarks", myrake_path(r, view: "bookmarks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." }  %>
-            </p>
-          </div>
+        <div class="thumbnail">
+          <%= link_to myrake_path(r, view: "tasks") do %>
+            <% master_rake = MasterRake.find(r.master_rake_id) %>
+            <div class="media rake-index-view" value="<%= r.id %>">
+              <span class="pull-left">
+                <% if master_rake.image_url.nil? || master_rake.image_url.empty? %>
+                  <%= image_tag("no_image.png", size: "96x54") %>
+                <% else %>
+                  <%= image_tag(master_rake.image_url, size: "96x54") %>
+                <% end %>
+              </span>
+              <div class="media-body">
+                <h5 class="media-heading">
+                  <%= r.name %>
+                </h5>
+                <p>
+                  <%= render 'myrakes/top_rake_chain', toprake: r %>
+                  <p class="rake-links">
+                    Due Actions: 
+                    <span class="new-rec-alert"><%= r.due_tasks_count %></span>
+<!--                     &nbsp;|&nbsp;
+                    News update:
+                    <%# if !r.master_rake.refreshed_at.nil? %>
+                      <%#= time_ago_in_words(r.master_rake.refreshed_at) %> ago
+                    <%# else %>
+                      Not updated yet
+                    <%# end %> -->
+                  </p>
+                </p>
+              </div>
+            </div>
+          <% end %>
         </div>
-        <br>
       </div>
     <% end %>
   </div>

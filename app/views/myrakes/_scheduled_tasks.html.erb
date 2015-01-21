@@ -1,4 +1,31 @@
+<br>
+<div class="thumbnail">
+  <%= link_to "#", data: 
+                        { toggle: "modal",
+                          target: "#addLeafletModal" } do %>
+    <div class="media">
+      <span class="pull-left">
+        <p class="reminder-month">
+          Action
+        </p>
+        <p class="reminder-day">
+          <i class="fa fa-bookmark"></i>
+        </p>
+      </span>
+      <div class="media-body">
+        <h5 class="media-heading">
+          Add a weblink (URL) and define a new action
+        </h5>
+        <p>
+          Click to add an action. The URL is your contribution to show others useful web content.
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <ul id="feed-list" class="leaflet-list">
+  <span class="rake-nav">PLANNED ACTIONS (<%= @scheduled_leaflets.count.to_s %>)<hr></span>
   <% leaflet_duplication_array = [] %>
   <% @scheduled_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
@@ -32,13 +59,18 @@
           </span>
 
           <span class="card-label">
-            <%= link_to myrake.name, myrake_path(myrake, view: "bookmarks") %>
-            &nbsp;|&nbsp;
-            <% leaflet_type_desc = LeafletType.find_by_leaflet_type(lm.heap.leaflet_type_id).leaflet_type_desc %>
-            <%= link_to leaflet_type_desc, myrake_path(myrake, view: "bookmarks", collapse: "heap_" + lm.leaflet_type_id.to_s, anchor: "heap_" + leaflet_type_desc.gsub(/\W/, "")) %>
-            <% if !l.created_by.nil? %>
+            <% channel_name = channel.name %>
+            <% if channel_name == "Title not available." %>
+              <% channel_name = channel.source %>
+            <% end %>
+            Channel: <%= channel_name %>
+            <% if l.leaflet_type_id != 0 %>
               &nbsp;|&nbsp;
-              added by <%= User.find(l.created_by).username %>
+              <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+              &nbsp;|&nbsp;
+              <% if !l.created_by.nil? %>
+                added by <%= User.find(l.created_by).username %>
+              <% end %>
             <% end %>
           </span>
 
@@ -49,7 +81,11 @@
         </div>
 
         <div class="card-title">
-          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+          <% if !lm.leaflet_goal.empty? %>
+            <%= lm.leaflet_goal %>
+          <% else %>
+            No specific action defined.
+          <% end %>
         </div>
 
         <% reminder_at = lm.reminder_at %>
@@ -60,13 +96,7 @@
         <% end %>
 
         <div class="card-content">
-          <p class="black">
-            <% if !lm.leaflet_goal.empty? %>
-              <%= lm.leaflet_goal %>
-            <% else %>
-              You didn't set a goal for this task.
-            <% end %>
-          </p>
+          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
         </div>
 
         <div class="card-footer">
@@ -79,7 +109,7 @@
           </span>
 
           <span class="card-buttons pull-right">
-            <%= link_to "Status", "#",
+            <%= link_to "Action", "#",
                         data: { toggle: "modal",
                                 target: "#editLeafletModal",
                                 id: l.id,

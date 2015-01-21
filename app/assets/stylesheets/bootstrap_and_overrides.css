@@ -45,6 +45,15 @@ a:hover {
   display: none !important;
 }
 
+.rake-chain-label-left {
+  font-size: 0.8em;
+  padding-top: 0px !important;
+}
+
+.rake-chain-label {
+  font-size: 0.8em;
+}
+
 .modal-body {
   font-size: 14px;
 }
@@ -1132,10 +1141,10 @@ body.nav-expanded {
 /* Landscape phones and down */
 @media (max-width: 480px) {
 
-  html, body {
+/*  html, body {
     width: auto !important;
     overflow-x: hidden !important;
-  }
+  }*/
 
   .container-fluid {
     padding: 0 !important;
@@ -1167,6 +1176,7 @@ body.nav-expanded {
   .fb-like {
     display: none !important;
   }
+
   .twitter-follow-button {
     display: none;
   }
@@ -1175,7 +1185,7 @@ body.nav-expanded {
     margin-bottom: 20px !important;
   }
 
-  h1 {   
+  h1 {
     font-size: 20px !important;
   }
 

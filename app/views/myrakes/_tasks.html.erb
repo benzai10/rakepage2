@@ -1,13 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-tasks">
     <h5 class="panel-title">
-      Tasks
+      Stay focused and take action
       <span class="pull-right">
         <small class="white">
-          <%= link_to "NEWS", myrake_path(@rake, view: "news"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-          &nbsp;|&nbsp;
-          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-          &nbsp;|&nbsp;
           <i class="fa fa-cog rake-settings white"></i>
         </small>
       </span>
@@ -21,12 +17,12 @@
         <ul class="nav nav-tabs" role="tablist">
           <li class="rake-nav <%= @due_active %>">
             <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
-              DUE
+              NOW
             </a>
           </li>
           <li class="rake-nav <%= @scheduled_active %>">
             <a href="#scheduled-tasks" id="view-scheduled-tasks" data-toggle="tab">
-              SCHEDULED
+              PLANNED
             </a>
           </li>
           <li class="rake-nav">
@@ -39,58 +35,10 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane <%= @due_active %>" id="due-tasks">
-          <% @overdue_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
-          <div class="<%= empty_list %>" id="empty-reminders">
-            <br>
-            <div class="media">
-              <span class="pull-left">
-                <p class="reminder-month">
-                  Productive
-                </p>
-                <p class="reminder-day">
-                  <i class="fa fa-tasks"></i>
-                </p>
-              </span>
-              <div class="media-body">
-                <h5 class="media-heading">
-                  No due tasks!
-                </h5>
-                <p>
-                  Check your scheduled tasks or create a new one from the news or bookmarks.
-                </p>
-              </div>
-            </div>
-          </div>
-          <% if @overdue_leaflets.count > 0 %>
-            <%= render 'due_tasks' %>
-          <% end %>
+          <%= render 'due_tasks' %>
         </div>
         <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
-          <% @scheduled_leaflets.count > 0 ? empty_list = "hidden" : emtpy_list = "" %>
-          <div class="<%= empty_list %>" id="empty-reminders">
-            <br>
-            <div class="media">
-              <span class="pull-left">
-                <p class="reminder-month">
-                  Productive
-                </p>
-                <p class="reminder-day">
-                  <i class="fa fa-tasks"></i>
-                </p>
-              </span>
-              <div class="media-body">
-                <h5 class="media-heading">
-                  No scheduled tasks!
-                </h5>
-                <p>
-                  You might have to refresh the page to see the latest changes.
-                </p>
-              </div>
-            </div>
-          </div>
-          <% if @scheduled_leaflets.count > 0 %>
-            <%= render 'scheduled_tasks' %>
-          <% end %>
+          <%= render 'scheduled_tasks' %>
         </div>
         <div class="tab-pane" id="related-rakes">
           <br>

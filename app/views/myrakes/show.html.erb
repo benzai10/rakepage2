@@ -21,7 +21,7 @@
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
           <% end %>
           &nbsp;|&nbsp;
-          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+          <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -30,10 +30,21 @@
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-      <% if params[:view] == "tasks" %>
+<!--       <span class="rake-chain-label">
+        <span>
+          <i class="fa fa-angle-down"></i> 30 days ago
+        </span>
+        <span class="pull-right">
+        Today <i class="fa fa-angle-down"></i>
+        </span>
+      </span>
+      <%#= render 'myrakes/top_rake_chain', toprake: @rake %>
+ -->
+      <% if params[:view].nil? || params[:view] == "tasks" %>
         <%= render 'tasks' %>
         <%= render 'leaflet_edit_modal' %>
-      <% elsif params[:view].nil? || params[:view] == "news" %>
+        <%= render 'leaflet_add_modal' %>
+      <% elsif params[:view] == "news" %>
         <%= render 'news' %>
         <%= render 'leaflet_save_modal' %>
       <% elsif params[:view] == "bookmarks" %>

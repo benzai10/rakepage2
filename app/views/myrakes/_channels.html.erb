@@ -1,24 +1,61 @@
-<span class="rake-nav">BLOGS & SUBREDDITS<hr></span>
-<h5>
-  <span class="pull-right">
-    <% if user_signed_in? && @rake.user_id == current_user.id %>
-      <%= link_to "Add Blog", new_channel_path(rake_id: @rake.id, channel_type: 0),
+<% if user_signed_in? && @rake.user_id == current_user.id %>
+  <div class="thumbnail">
+    <%= link_to new_channel_path(rake_id: @rake.id, channel_type: 0),
                   data: { toggle: "modal",
                           target: "#addRssModal",
                           rakeid: @rake.id,
                           channeltype: 0 },
-                  class: "btn btn-xs btn-primary add-rss-feed" %>
-      <%= link_to "Add Subreddit", new_channel_path(rake_id: @rake.id, channel_type: 4),
+                  class: "add-rss-feed" do %>
+      <div class="media">
+        <span class="pull-left">
+          <p class="reminder-month">
+            RSS
+          </p>
+          <p class="reminder-day">
+            <i class="fa fa-rss"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading">
+            Add your favorite blog (RSS feed).
+          </h5>
+          <p>
+            Make sure it's related to this topic. Click to add the URL.
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="thumbnail">
+    <%= link_to new_channel_path(rake_id: @rake.id, channel_type: 4),
                   data: { toggle: "modal",
                           target: "#addSubredditModal",
                           rakeid: @rake.id,
                           channeltype: 4 },
-                  class: "btn btn-xs btn-primary add-subreddit-feed" %>
+                  class: "add-subreddit-feed" do %>
+      <div class="media">
+        <span class="pull-left">
+          <p class="reminder-month">
+            Subreddit
+          </p>
+          <p class="reminder-day">
+            <i class="fa fa-reddit"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading">
+            Add your favorite subreddit from Reddit.com
+          </h5>
+          <p>
+            Please enter only the name of the subreddit (without /r/)
+          </p>
+        </div>
+      </div>
     <% end %>
-  </span>
-</h5>
-<br><br>
+  </div>
+<% end %>
 <% if @rake.user_id == current_user.id %>
+  <span class="rake-nav">INACTIVE CHANNELS<hr></span>
   <ul class="leaflet-list">
     <% if (@new_channels - @rake.channels).count > 0 %>
       <% @new_channels.each do |c| %>
@@ -63,13 +100,13 @@
         <% end %>
       <% end %>
     <% else %>
-      <span class="rake-nav">INACTIVE<hr></span>
+      <span class="rake-nav">INACTIVE CHANNELS<hr></span>
       <p class="centered">None</p>
     <% end %>
   </ul>
 <% end %>
 <br>
-<span class="rake-nav">ACTIVATED<hr></span>
+<span class="rake-nav">ACTIVATED CHANNELS<hr></span>
 <ul class="leaflet-list">
   <% @rake.channels.each do |c| %>
     <% if c.channel_type != 3 %>

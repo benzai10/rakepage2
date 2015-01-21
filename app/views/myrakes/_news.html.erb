@@ -1,11 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-news">
     <h5 class="panel-title">
-      News
+      Get updated
       <span class="pull-right">
         <small class="white">
           <% if @rake.user_id == current_user.id %>
-            <%= link_to "TASKS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
+            <%= link_to "VIEW ACTIONS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
             <% if @rake.due_tasks_count > 0 %>
               <span class="new-rec-alert-bright">
                 <%= @rake.due_tasks_count.to_s %>
@@ -13,11 +13,7 @@
             <% end %>
             &nbsp;|&nbsp;
           <% end %>
-          <%= link_to "BOOKMARKS", myrake_path(@rake, view: "bookmarks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-          <% if @rake.user_id == current_user.id %>
-            &nbsp;|&nbsp;
-            <i class="fa fa-cog rake-settings white"></i>
-          <% end %>
+          <i class="fa fa-cog rake-settings white"></i>
         </small>
       </span>
     </h5>
@@ -30,7 +26,7 @@
         <ul class="nav nav-tabs" role="tablist">
           <li class="rake-nav active" id="feed-tab">
             <a href="#feed" id="view-news" data-toggle="tab">
-              FEED
+              NEWS
             </a>
           </li>
           <li class="rake-nav" id="channels-tab">
@@ -48,33 +44,37 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="feed">
+          <br>
           <% if @rake.channels.where(channel_type: [0, 4]).count > 0 %>
-            <h5>
-              <small>
-                <% if !@rake.master_rake.refreshed_at.nil? %>
-                  updated: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago
-                <% else %>
-                  <% if @rake.user_id == current_user.id %>
-                    Click the Refresh button to update the feed
-                  <% else %>
-                    You can refresh the feed for your own rake only.
-                  <% end %>
+            <% if user_signed_in? && @rake.user_id == current_user.id %>
+              <div class="thumbnail">
+                <%= link_to myrake_path(view: "news", refresh: "yes"),
+                            data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Informed</p><p class='reminder-day'><i class='fa fa-rss'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Refreshing... all blogs and subreddits get aggregated.</h5></div></div>"} do %>
+                  <div class="media">
+                    <span class="pull-left">
+                      <p class="reminder-month">
+                        Informed
+                      </p>
+                      <p class="reminder-day">
+                        <i class="fa fa-rss"></i>
+                      </p>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">
+                        Read your blogs and subreddits in one place.
+                      </h5>
+                      <p>
+                        Click to refresh the news feed.
+                        <% if !@rake.master_rake.refreshed_at.nil? %>
+                          &nbsp;You updated <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago.
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
                 <% end %>
-              </small>
-              <span class="pull-right">
-              <% if user_signed_in? && @rake.user_id == current_user.id %>
-                <small>
-                  <%= link_to "Refresh", 
-                              myrake_path(view: "news", refresh: "yes"),
-                              { class: "btn btn-xs btn-primary",
-                                id: "ga-my-feed-refresh",
-                                data: {disable_with: "<i class='fa fa-spinner fa-spin white'></i> Refreshing..."} } %>
-                </small>
-              <% else %>
-                <small><%= link_to "Sign in to refresh or save", root_path, id: "ga-my-feed-refresh-sign-in" %></small>
-              <% end %>
-              </span>
-            </h5>
+              </div>
+            <% end %>
+            <span class="rake-nav">FEED<hr></span>
             <ul id="feed-list" class="leaflet-list">
               <% @feed_leaflets.each do |l| %>
                 <%= render 'shared/card_news', l: l %>

@@ -1,0 +1,94 @@
+<!-- Modal -->
+<div class="modal fade" id="addLeafletModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New Action</h4>
+      </div>
+      <%= bootstrap_form_for(@rake) do |f| %>
+        <div class="modal-body">
+          <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
+          <%= f.hidden_field :heap_id, class: "heap-id" %>
+          <%= f.hidden_field :collapse, class: "collapse-section" %>
+          <%= f.hidden_field :leaflet_title, class: "leaflet-custom-title" %>
+          <% leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
+          <%= f.text_field :leaflet_url, { label: "Recommended URL", placeholder: "Enter with http://", class: "leaflet-url" } %>
+          <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", placeholder: "Automatically filled if empty*", class: "leaflet-custom-title" } %>
+          <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", placeholder: "Automatically filled if empty*", class: "leaflet-description" } %>
+          <% reminder_period = [] %>
+          <% reminder_period << ["in 1 hour", 1] %>
+          <% reminder_period << ["in 1 day", 2] %>
+          <% reminder_period << ["in 3 days", 3] %>
+          <% reminder_period << ["in 1 week", 4] %>
+          <% reminder_period << ["in 1 month", 5] %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, :heap_id), { label: "Choose Category" }, class: "heap-id" %>
+            </div>
+            <div class="col-md-6">
+              <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
+              <%= f.hidden_field :current_reminder, class: "current-reminder" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_field :leaflet_goal, { label: "Define your next action", class: "leaflet-goal" } %>
+            </div>
+            <div class="col-md-12">
+              <%= f.text_area :leaflet_note, { label: "Notes", rows: 5, class: "leaflet-note" } %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="score-label">Qualify your productivity</label>
+              <%= f.hidden_field :current_score, value: 0, class: "current-score" %>
+              <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <label class="btn btn-default label-score-0">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                  None
+                </label>
+                <label class="btn btn-default label-score-1">
+                  <input type="radio" name="options" id="option2" autocomplete="off">
+                  Motion&nbsp;|&nbsp;<span class="motion-counter">0</span>
+                </label>
+                <label class="btn btn-default label-score-2">
+                  <input type="radio" name="options" id="option3" autocomplete="off">
+                  Action&nbsp;|&nbsp;<span class="action-counter">0</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <span class="centered">
+                <label class="rating-label">Rating</label>
+                <%= f.number_field :current_rating, { hide_label: true,
+                                                      data: { min: "1", 
+                                                              max: "5", 
+                                                              clearable: " ",
+                                                              'icon-lib' =>"fa",
+                                                              'active-icon' => "fa-star fa-2x",
+                                                              'inactive-icon' => "fa-star-o fa-2x",
+                                                              'clearable-icon' => "fa-times" },
+                                                      id: "rating-1",
+                                                      class: "rating" } %>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_area :task_comment, { label: "Journal (optional)", class: "task-comment" } %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.button "Create Action",
+                        class: "btn btn-primary",
+                        name: "commit",
+                        value: "Create Action",
+                        data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Creating..." } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

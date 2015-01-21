@@ -24,7 +24,7 @@ class MyrakesController < ApplicationController
                                        @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
     @children_master_rakes -= @sibling_master_rakes
     @sibling_master_rakes -= @parent_master_rakes
-    if params[:view] == "tasks"
+    if params[:view].nil? || params[:view] == "tasks"
       if @rake.user_id != current_user.id
         redirect_to user_path(current_user)
         return
@@ -45,7 +45,7 @@ class MyrakesController < ApplicationController
         @due_active = "active"
         @scheduled_active = ""
       end
-    elsif params[:view].nil? || params[:view] == "news"
+    elsif params[:view] == "news"
       if user_signed_in? && current_user.admin?
         @heaps = @rake.heaps
       else
@@ -352,6 +352,70 @@ class MyrakesController < ApplicationController
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
+      end
+    elsif params[:commit] == "Create Action"
+      if params[:myrake][:leaflet_title].empty? || params[:myrake][:leaflet_desc].empty?
+        url_data = @rake.url_data(params[:myrake][:leaflet_url])
+      end
+      if params[:myrake][:leaflet_title].empty?
+        title = url_data[:leaflet_title]
+      else
+        title = params[:myrake][:leaflet_title]
+      end
+      if title.nil? || title.empty?
+        title = params[:myrake][:leaflet_url]
+      end
+      if params[:myrake][:leaflet_desc].empty?
+        description = url_data[:leaflet_desc]
+      else
+        description = params[:myrake][:leaflet_desc]
+      end
+      if description.empty?
+        description = ""
+      end
+      if params[:myrake][:leaflet_type_id].to_i == 15
+        leaflet_author = @rake.master_rake_id.to_s
+      end
+      case params[:myrake][:reminder_at].to_i
+      when 0
+        reminder_at = nil
+      when 1
+        reminder_at = Time.now + 1.hour
+      when 2
+        reminder_at = Time.now + 1.day
+      when 3
+        reminder_at = Time.now + 3.day
+      when 4
+        reminder_at = Time.now + 1.week
+      when 5
+        reminder_at = Time.now + 1.month
+      else
+        reminder_at = nil
+      end
+      leaflet_id = @rake.create_leaflet(params[:myrake][:leaflet_type_id],
+                           title,
+                           description,
+                           params[:myrake][:leaflet_goal],
+                           params[:myrake][:leaflet_note],
+                           params[:myrake][:leaflet_url],
+                           leaflet_author,
+                           reminder_at,
+                           params[:myrake][:current_score],
+                           params[:myrake][:current_rating],
+                           params[:myrake][:current_reminder])
+      if !leaflet_id.nil?
+        History.create!(user_id: current_user.id,
+                       rake_id: @rake.id,
+                       leaflet_id: leaflet_id,
+                       history_code: "bm_activity",
+                       history_int: params[:myrake][:current_score].to_i,
+                       history_int2: params[:myrake][:current_rating].to_i,
+                       history_text: params[:myrake][:task_comment],
+                       history_chain: params[:myrake][:history_chain].to_i)
+        redirect_to myrake_path(@rake, view: "tasks", origin: "scheduled")
+      else
+        flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
+        redirect_to myrake_path(@rake, view: "tasks", origin: "scheduled")
       end
     elsif params[:commit] == "Add Bookmark Category"
       @rake.add_heap(params[:myrake][:leaflet_type_id])
