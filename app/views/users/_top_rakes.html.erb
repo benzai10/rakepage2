@@ -79,7 +79,7 @@
       <div class="col-md-12">
         <div class="thumbnail">
           <%= link_to myrake_path(r, view: "tasks"), 
-                                  data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'></p><p class='reminder-day'><i class='fa fa-spinner'></i></p></span><div class='media-body'><h5 class='media-heading'>Loading all actions and the existing news feed </h5></div></div>"} do %>
+                                  data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'></p><p class='reminder-day'><i class='fa fa-spinner'></i></p></span><div class='media-body'><h5 class='media-heading'>Loading... checking for actions.</h5></div></div>"} do %>
             <% master_rake = MasterRake.find(r.master_rake_id) %>
             <div class="media rake-index-view" value="<%= r.id %>">
               <span class="pull-left">

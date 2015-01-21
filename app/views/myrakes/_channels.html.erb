@@ -55,9 +55,9 @@
   </div>
 <% end %>
 <% if @rake.user_id == current_user.id %>
-  <span class="rake-nav">INACTIVE CHANNELS<hr></span>
   <ul class="leaflet-list">
     <% if (@new_channels - @rake.channels).count > 0 %>
+      <span class="rake-nav">INACTIVE CHANNELS<hr></span>
       <% @new_channels.each do |c| %>
         <% if !@rake.channels.include? c %>
           <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
