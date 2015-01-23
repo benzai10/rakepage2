@@ -1,0 +1,23 @@
+<span class="rake-nav">NOTIFICATIONS<hr></span>
+<div class="row">
+  <% @notifications.each do |n| %>
+    <div class="col-md-12">
+      <div class="media notifications">
+        <span class="pull-left">
+          <p class="reminder-month">
+            <%= n.published_at %>
+          </p>
+          <p class="reminder-day">
+            <i class="fa <%= n.icon %>"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading"><%= n.title %></h5>
+          <p>
+            <%= simple_format(auto_link(n.body, html: { target: '_blank' }), class: "black") %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

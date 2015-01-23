@@ -5,6 +5,12 @@ $(function() {
       $.cookie('timezone', tz.name(), { path: '/' });
     });
 
+    $("#notifications-nav").on('click', function() {
+        $("#notifications").removeClass('hidden');
+        $("html, body").animate({ scrollTop: $("#notifications").offset().top }, 700);
+        return false;
+    });
+
     $("#show-general").on('click', function() {
         $(".master-rake-general").removeClass('hidden');
         $(".master-rake-overview").addClass('hidden');
@@ -188,6 +194,7 @@ $(function() {
         //(alert(section);
         //var top = section.offset().top;
         $("html, body").animate({ scrollTop: 0 }, 700);
+        $("#notifications").addClass('hidden');
         return false;
     });
 

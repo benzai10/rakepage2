@@ -58,6 +58,10 @@ a:hover {
   font-size: 14px;
 }
 
+.media .notifications {
+  background-color: white !important;
+}
+
 .rake-settings {
   cursor: pointer;
 }
@@ -306,6 +310,10 @@ a.anchor {
 
 .white {
   color: white !important;
+}
+
+.grey {
+  color: darkgrey !important;
 }
 
 .purple {
@@ -740,11 +748,38 @@ a.menu-link:hover {
   border-radius: 0;
 }
 
+.progress-top-5 {
+  height: 8px !important;
+  margin-right: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 0;
+}
+
+.progress-top-5 .progress-bar {
+  background-color: #4a2b88 !important;
+}
+
+
 .progress-chain {
   box-shadow: 0;
   -webkit-box-shadow: 0 0 0 0;
   background-color: transparent;
   margin-bottom: 4px !important;
+}
+
+.progress-count {
+  margin-top: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 28px !important;
+}
+
+.progress-count-label {
+  margin-bottom: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 12px !important;
 }
 
 .bookmark-metrics {

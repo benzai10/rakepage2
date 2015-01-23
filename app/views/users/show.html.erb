@@ -15,7 +15,7 @@
             </span>
           <% end %>
           &nbsp;|&nbsp;
-          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+          <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -34,7 +34,12 @@
               <!-- Nav tabs -->
               <div class="row">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li class="rake-nav active">
+                  <li class="rake-nav <%= @status_active %>">
+                    <a href="#status" id="view-status" data-toggle="tab">
+                      STATUS
+                    </a>
+                  </li>
+                  <li class="rake-nav <%= @top5_active %>">
                     <a href="#top-rakes" id="view-top-rakes" data-toggle="tab">
                       TOP 5
                     </a>
@@ -48,7 +53,11 @@
               </div>
               <!-- Tab panes -->
               <div class="tab-content">
-                <div class="tab-pane active" id="top-rakes">
+                <div class="tab-pane <%= @status_active %>" id="status">
+                  <br>
+                  <%= render 'status' %>
+                </div>
+                <div class="tab-pane <%= @top5_active %>" id="top-rakes">
                   <br>
                   <%= render 'top_rakes' %>
                 </div>

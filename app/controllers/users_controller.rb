@@ -4,9 +4,21 @@ class UsersController < ApplicationController
   def show
     if user_signed_in?
       if params[:id] == current_user.id || params[:id] == current_user.slug
+        History.create!(user_id: current_user.id,
+                        history_code: "user_show")
         # @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
         @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
         @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
+        @committed_action_steps_count = History.where(user_id: current_user.id, history_int2: 1).count
+        @committed_action_goals_count = History.where(user_id: current_user.id, history_int2: 2).count
+        @notifications = Notification.all.order(published_at: :desc)
+        if params[:view] == "top5"
+          @top5_active = "active"
+          @status_active = ""
+        else
+          @top5_active = ""
+          @status_active = "active"
+        end
       else
         redirect_to master_rakes_path
         return

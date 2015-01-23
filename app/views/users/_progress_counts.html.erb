@@ -1,0 +1,21 @@
+<span class="rake-nav">PROGRESS COUNTS<hr></span>
+<div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <span class="progress-count centered purple"><%= (@committed_action_steps_count + @committed_action_goals_count).to_s %></span>
+      <span class="progress-count-label centered purple">Total Committed Actions</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <span class="progress-count centered grey"><%= @committed_action_steps_count.to_s %></span>
+      <span class="progress-count-label centered purple">Committed Action Steps</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <span class="progress-count centered green"><%= @committed_action_goals_count.to_s %></span>
+      <span class="progress-count-label centered purple">Committed Action Goals</span>
+    </div>
+  </div>
+</div>
