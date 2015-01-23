@@ -58,7 +58,10 @@
     <p><%= l.content.html_safe unless l.content == "No content details to display." %></p>
   </div>
 
-  <div class="card-footer">
+  <div class="form-save-action" id="form_save_action_<%= l.id %>">
+  </div>
+
+  <div class="card-footer" id="card_footer_<%= l.id %>">
     <span class="card-metrics">
       <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
       <i class="fa fa-user purple"></i>
@@ -67,11 +70,11 @@
     <span class="card-buttons pull-right">
       <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
         <% if (@heap_leaflets.include? l) && user_signed_in? && (@rake.user_id == current_user.id) %>
-          &nbsp;<i class="fa fa-bookmark"></i>
+          &nbsp;<i class="fa fa-tasks"></i>
         <% else %>
           <% if user_signed_in? %>
             <% if @rake.user_id == current_user.id %>
-                <%= link_to "Save",
+                <%#= link_to "Save",
                             add_leaflet_myrake_path(@rake),
                             data: { toggle: "modal",
                                     target: "#myModal",
@@ -79,6 +82,13 @@
                                     heapid: l.leaflet_type_id,
                                     title: l.title},
                             class: "btn btn-primary btn-xs leaflet-save" %>
+                <%= button_tag "Save Action",
+                            data: { target: "#save-action",
+                                    id: l.id,
+                                    heapid: l.leaflet_type_id,
+                                    title: l.title },
+                                    class: "save-action-button btn btn-primary btn-xs leaflet-save",
+                                    id: "save_action_#{l.id}" %>
             <% end %>
           <% end %>
         <% end %>

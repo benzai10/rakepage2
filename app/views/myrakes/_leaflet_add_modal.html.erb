@@ -8,6 +8,14 @@
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_field :leaflet_goal, { label: "Define your next action", class: "leaflet-goal" } %>
+            </div>
+            <div class="col-md-12">
+              <%= f.text_area :leaflet_note, { label: "Notes", rows: 5, class: "leaflet-note" } %>
+            </div>
+          </div>
           <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
@@ -29,14 +37,6 @@
             <div class="col-md-6">
               <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_field :leaflet_goal, { label: "Define your next action", class: "leaflet-goal" } %>
-            </div>
-            <div class="col-md-12">
-              <%= f.text_area :leaflet_note, { label: "Notes", rows: 5, class: "leaflet-note" } %>
             </div>
           </div>
           <div class="row">

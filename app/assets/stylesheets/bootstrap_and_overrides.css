@@ -54,6 +54,22 @@ a:hover {
   font-size: 0.8em;
 }
 
+#edit-action {
+  padding-left: 4px;
+  padding-right: 4px !important;
+}
+
+.new-action {
+  margin-right: 8px;
+}
+
+.rakepage-form-label {
+  font-family: 'Roboto', sans-serif;
+  color: slategray;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+
 .modal-body {
   font-size: 14px;
 }
@@ -322,6 +338,10 @@ a.anchor {
 
 .green {
   color: #2ccf73 !important;
+}
+
+.midnightblue {
+  color: #354973 !important;
 }
 
 .black {

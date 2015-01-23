@@ -4,7 +4,7 @@ class Leaflet < ActiveRecord::Base
   attr_accessor :leaflet_desc
 
   validates :channel_id, presence: true
-  validates :url, :format => URI::regexp(%w(http https))
+  validates :url, :format => URI::regexp(%w(http https)), unless: :url_empty?
   validates :leaflet_type_id, presence: true
   validates :title, length: { minimum: 3 }
 
@@ -39,5 +39,13 @@ class Leaflet < ActiveRecord::Base
       content = ""
     end
     self.content = content
+  end
+
+  def url_empty?
+    if self.url.nil? || self.url.empty?
+      return true
+    else
+      return false
+    end
   end
 end

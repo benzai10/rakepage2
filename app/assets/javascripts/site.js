@@ -11,6 +11,116 @@ $(function() {
         return false;
     });
 
+    $("#add-new-action").on('click', function() {
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+        $('.leaflet-goal').val('');
+        $('.leaflet-note').val('');
+        $('.leaflet-url').val('');
+        $('.reminderat').val(1);
+        $('.current-score-new').val(0);
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            arrayRatingStars[i].classList.remove('fa-star');
+            arrayRatingStars[i].classList.add('fa-star-o');
+        }
+        $(".label-score-1-new").removeClass("active");
+        $(".label-score-2-new").removeClass("active");
+        $(".label-score-0-new").addClass("active");
+        $(".motion-counter-new").html('0');
+        $(".action-counter-new").html('0');
+        $("#edit-action").addClass('hidden');
+        var leafletid = $(".leaflet-id").val();
+        $('#card_footer_' + leafletid).removeClass('hidden');
+        $("#new-action").removeClass('hidden');
+    });
+
+    $("#abort-new-action").on('mousedown', function() {
+        $("#new-action").addClass('hidden');
+        $("html, body").animate({ scrollTop: 0 }, 700);
+    });
+
+    $("#new-action-button").on('click', function() {
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+        $('.leaflet-goal').val('');
+        $('.leaflet-note').val('');
+        $('.leaflet-url').val('');
+        $('.reminderat').val(1);
+        $('.current-score-new').val(0);
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            arrayRatingStars[i].classList.remove('fa-star');
+            arrayRatingStars[i].classList.add('fa-star-o');
+        }
+        $(".label-score-1-new").removeClass("active");
+        $(".label-score-2-new").removeClass("active");
+        $(".label-score-0-new").addClass("active");
+        $(".motion-counter-new").html('0');
+        $(".action-counter-new").html('0');
+        $("#edit-action").addClass('hidden');
+        var leafletid = $(".leaflet-id").val();
+        $('#card_footer_' + leafletid).removeClass('hidden');
+        $("#new-action").removeClass('hidden');
+    });
+
+    $("#abort-edit-action").on('mousedown', function() {
+        var leafletid = $(".leaflet-id").val();
+        $('#card_footer_' + leafletid).removeClass('hidden');
+        $("#edit-action").addClass('hidden');
+        $("#add-new-action").removeClass('hidden');
+    });
+
+    $(".edit-action-button").on('click', function() {
+        $("#add-new-action").addClass('hidden');
+        var leafletid = $(".leaflet-id").val();
+        $('#card_footer_' + leafletid).removeClass('hidden');
+        var leafletid = $(this).data('id');
+        $('#card_footer_' + leafletid).addClass('hidden');
+        $('#edit-action').insertAfter($('#form_edit_action_' + leafletid));
+        $('#edit-action').removeClass('hidden');
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+        $('.reminderat').val(1);
+        $('.current-score').val(0);
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
+        $(".label-score-0").addClass("active");
+    });
+
+    $("#abort-save-action").on('mousedown', function() {
+        var leafletid = $(".leaflet-id").val();
+        $('#card_footer_' + leafletid).removeClass('hidden');
+        $("#save-action").addClass('hidden');
+    });
+
+    $(".save-action-button").on('click', function() {
+        $('.history-chain').attr('checked', false);
+        $('.task-comment').val('');
+        $('.leaflet-goal').val('');
+        $('.leaflet-note').val('');
+        var arrayRatingStars = $(".rating-input .fa");
+        for (var i = 0; i < arrayRatingStars.length; i++) {
+            arrayRatingStars[i].classList.remove('fa-star');
+            arrayRatingStars[i].classList.add('fa-star-o');
+        }
+        var leafletid = $(".leaflet-id").val();
+        $('#card_footer_' + leafletid).removeClass('hidden');
+        var leafletid = $(this).data('id');
+        $('#card_footer_' + leafletid).addClass('hidden');
+        $('#save-action').insertAfter($('#form_save_action_' + leafletid));
+        $('#save-action').removeClass('hidden');
+        $('.reminderat').val(1);
+        $('.current-score').val(0);
+        $(".label-score-1").removeClass("active");
+        $(".label-score-2").removeClass("active");
+        $(".label-score-0").addClass("active");
+        $(".motion-counter").html('0');
+        $(".action-counter").html('0');
+    });
+
+
+
     $("#show-general").on('click', function() {
         $(".master-rake-general").removeClass('hidden');
         $(".master-rake-overview").addClass('hidden');
@@ -59,6 +169,51 @@ $(function() {
 
     $(".rake-settings").on('click', function() {
         $(".rake-settings-show").toggleClass("hidden");
+    });
+
+    $(".label-score-0-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "1") {
+            $("#current-score-new").val(0);
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+        } else if (currentScore == "2") {
+            $("#current-score-new").val(0);
+            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+        } else {
+            $("#current-score-new").val(0);
+        }
+    });
+
+    $(".label-score-1-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "2") {
+            $("#current-score-new").val(1);
+            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+        } else if (currentScore != "1") {
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+            $("#current-score-new").val(1);
+        }
+    });
+
+    $(".label-score-2-new").on('click', function() {
+        var currentScore = $("#current-score-new").val();
+        if (currentScore == "1") {
+            $("#current-score-new").val(2);
+            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+            $("#motion-counter-new").html(newMotionCounter.toString());
+            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+        } else if (currentScore != "2") {
+            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+            $("#action-counter-new").html(newActionCounter.toString());
+            $("#current-score-new").val(2);
+        }
     });
 
     $(".label-score-0").on('click', function() {

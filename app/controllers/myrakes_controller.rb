@@ -149,7 +149,7 @@ class MyrakesController < ApplicationController
 
   def update
     @rake = Myrake.find(params[:id])
-    if params[:commit] == "Update Bookmark"
+    if params[:commit] == "Commit Action"
       @leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       heap_leaflet = HeapLeafletMap.where("heap_id = ? AND leaflet_id = ?", 
                                           params[:myrake][:heap_id].to_i, 
@@ -212,7 +212,7 @@ class MyrakesController < ApplicationController
                                         "_" +
                                         params[:myrake][:leaflet_id])
       end
-    elsif params[:commit] == "Save Bookmark"
+    elsif params[:commit] == "Save Action"
       leaflet = Leaflet.find(params[:myrake][:leaflet_id])
       case params[:myrake][:reminder_at].to_i
       when 0
@@ -270,17 +270,17 @@ class MyrakesController < ApplicationController
           end
         end
       else
-        @error = "You have to select a bookmark category"
+        @error = "You have to select a category"
         respond_to do |format|
           if session[:rake_class] == MasterRake
             format.html { 
-              flash[:error] = ["You have to select a bookmark category."]
+              flash[:error] = ["You have to select a category."]
               redirect_to master_rake_path(@rake.master_rake_id, collapse: params[:myrake][:collapse])
             }
             format.js { render 'shared/form_alert' }
           else
             format.html {
-              flash[:error] = ["You have to select a bookmark category."]
+              flash[:error] = ["You have to select a category."]
               redirect_to myrake_path(@rake, collapse: params[:myrake][:collapse])
             }
             format.js { render 'shared/form_alert' }
@@ -354,26 +354,19 @@ class MyrakesController < ApplicationController
         redirect_to myrake_path(@rake, heap_type: params[:myrake][:leaflet_type_id])
       end
     elsif params[:commit] == "Create Action"
-      if params[:myrake][:leaflet_title].empty? || params[:myrake][:leaflet_desc].empty?
-        url_data = @rake.url_data(params[:myrake][:leaflet_url])
-      end
-      if params[:myrake][:leaflet_title].empty?
+      if params[:myrake][:leaflet_url].nil? || params[:myrake][:leaflet_url].empty?
+        url = ""
+        title = "None"
+        description = "None"
+        leaflet_type_id = "1"
+      else
+        url = params[:myrake][:leaflet_url]
+        url_data = @rake.url_data(url)
         title = url_data[:leaflet_title]
-      else
-        title = params[:myrake][:leaflet_title]
-      end
-      if title.nil? || title.empty?
-        title = params[:myrake][:leaflet_url]
-      end
-      if params[:myrake][:leaflet_desc].empty?
         description = url_data[:leaflet_desc]
-      else
-        description = params[:myrake][:leaflet_desc]
+        leaflet_type_id = params[:myrake][:leaflet_type_id]
       end
-      if description.empty?
-        description = ""
-      end
-      if params[:myrake][:leaflet_type_id].to_i == 15
+      if leaflet_type_id.to_i == 15
         leaflet_author = @rake.master_rake_id.to_s
       end
       case params[:myrake][:reminder_at].to_i
@@ -392,12 +385,12 @@ class MyrakesController < ApplicationController
       else
         reminder_at = nil
       end
-      leaflet_id = @rake.create_leaflet(params[:myrake][:leaflet_type_id],
+      leaflet_id = @rake.create_leaflet(leaflet_type_id,
                            title,
                            description,
                            params[:myrake][:leaflet_goal],
                            params[:myrake][:leaflet_note],
-                           params[:myrake][:leaflet_url],
+                           url,
                            leaflet_author,
                            reminder_at,
                            params[:myrake][:current_score],

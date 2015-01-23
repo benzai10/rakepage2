@@ -42,8 +42,8 @@
  -->
       <% if params[:view].nil? || params[:view] == "tasks" %>
         <%= render 'tasks' %>
-        <%= render 'leaflet_edit_modal' %>
-        <%= render 'leaflet_add_modal' %>
+        <%#= render 'leaflet_edit_modal' %>
+        <%#= render 'leaflet_add_modal' %>
       <% elsif params[:view] == "news" %>
         <%= render 'news' %>
         <%= render 'leaflet_save_modal' %>

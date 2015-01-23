@@ -21,7 +21,7 @@
             <span class="nav-link">MY RAKES</span>
           <% end %>
           &nbsp;|&nbsp;
-          <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+          <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -45,27 +45,33 @@
           <br>
           <div class="col-md-12">
             <% if user_signed_in? && !@custom_rake.nil? %>
-              <div class="media rake-index-view">
-                <span class="pull-left">
-                  <% if @rake.image_url.nil? || @rake.image_url.empty? %>
-                    <%= image_tag("no_image.png", size: "96x54") %>
-                  <% else %>
-                    <%= image_tag(@rake.image_url, size: "96x54") %>
-                  <% end %>
-                </span>
-                <div class="media-body">
-                  <h5 class="media-heading">Switch to Your Personal Rake</h5>
-                  <p>
-                    <%= link_to "Tasks", myrake_path(@custom_rake, view: "tasks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." }%>
-                    <span class="new-rec-alert"><%= @custom_rake.due_tasks_count unless @custom_rake.due_tasks_count == 0 %></span>
-                    &nbsp;|&nbsp;
-                    <%= link_to "News", myrake_path(@custom_rake, view: "news"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
-                    &nbsp;|&nbsp;
-                    <%= link_to "Bookmarks", myrake_path(@custom_rake, view: "bookmarks"), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
-                  </p>
-                </div>
+
+              <div class="thumbnail">
+                <%= link_to myrake_path(@custom_rake, view: "tasks"), 
+                                        data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'></p><p class='reminder-day'><i class='fa fa-spinner'></i></p></span><div class='media-body'><h5 class='media-heading'>Loading... checking for actions.</h5></div></div>"} do %>
+                  <div class="media rake-index-view">
+                    <span class="pull-left">
+                      <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+                        <%= image_tag("no_image.png", size: "96x54") %>
+                      <% else %>
+                        <%= image_tag(@rake.image_url, size: "96x54") %>
+                      <% end %>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">
+                        Switch to your personal rake
+                      </h5>
+                      <p>
+                        <%= render 'myrakes/top_rake_chain', toprake: @custom_rake %>
+                        <p class="rake-links">
+                          Due Actions: 
+                          <span class="new-rec-alert"><%= @custom_rake.due_tasks_count %></span>
+                        </p>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
               </div>
-              <br>
             <% else %>
               <div class="thumbnail" id="show-info">
                 <a href="#anchor-master-rake-info">
@@ -107,7 +113,7 @@
                 </div>
               </a>
             </div>
-            <div class="thumbnail" id="show-bookmarks">
+<!--             <div class="thumbnail" id="show-bookmarks">
               <a href="#anchor-master-rake-bookmarks">
                 <div class="media">
                   <span class="pull-left">
@@ -126,7 +132,7 @@
                   </div>
                 </div>
               </a>
-            </div>
+            </div> -->
             <div class="thumbnail" id="show-tasks">
               <a href="#anchor-master-rake-tasks">
                 <div class="media">
@@ -139,9 +145,9 @@
                     </p>
                   </span>
                   <div class="media-body">
-                    <h5 class="media-heading">Tasks</h5>
+                    <h5 class="media-heading">Actions</h5>
                     <p>
-                      Turn your findings into actionable tasks.
+                      Turn your findings into actions to track your productivity.
                     </p>
                   </div>
                 </div>
@@ -159,9 +165,9 @@
               <div class="master-rake-news <%= 'hidden' if params[:view] != 'news' %>">
                 <%= render 'news' %>
               </div>
-              <a class="anchor" name="anchor-master-rake-bookmarks"></a>
+<!--               <a class="anchor" name="anchor-master-rake-bookmarks"></a>
               <div class="master-rake-bookmarks hidden">
-                <%= render 'bookmarks' %>
+                <%#= render 'bookmarks' %> -->
               </div>
               <a class="anchor" name="anchor-master-rake-tasks"></a>
               <div class="master-rake-tasks hidden">

@@ -1,0 +1,73 @@
+<div class="hidden" id="save-action">
+  <br>
+  <%= bootstrap_form_for(@rake, remote: true) do |f| %>
+    <%= f.hidden_field :leaflet_id, class: "leaflet-id" %>
+    <%= f.hidden_field :heap_id, class: "heap-id" %>
+    <%= f.hidden_field :collapse, class: "collapse-section" %>
+    <%= f.hidden_field :origin, class: "origin" %>
+    <%= f.hidden_field :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
+    <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
+    <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
+    <%= f.label "Describe your next action", class: "rakepage-form-label" %>
+    <%= f.text_field :leaflet_goal, { hide_label: true, class: "leaflet-goal" } %>
+    <% reminder_period = [] %>
+    <% reminder_period << ["in 1 hour", 1] %>
+    <% reminder_period << ["in 1 day", 2] %>
+    <% reminder_period << ["in 3 days", 3] %>
+    <% reminder_period << ["in 1 week", 4] %>
+    <% reminder_period << ["in 1 month", 5] %>
+    <%= f.label "Set a reminder", class: "rakepage-form-label" %>
+    <%= f.select :reminder_at, options_for_select(reminder_period), { hide_label: true }, id: "reminder_at", class: "reminderat" %>
+    <% leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label "Choose a category", class: "rakepage-form-label" %>
+        <%= f.select :leaflet_type_id, options_for_select(leaflet_types_array, 1), { hide_label: true } %>
+      </div>
+      <div class="col-md-6">
+        <span class="centered">
+          <%= f.label "Rating", class: "rating-label rakepage-form-label" %>
+          <%= f.number_field :current_rating, { hide_label: true,
+                                                data: { min: "1", 
+                                                        max: "5", 
+                                                        clearable: " ",
+                                                        'icon-lib' =>"fa",
+                                                        'active-icon' => "fa-star fa-2x",
+                                                        'inactive-icon' => "fa-star-o fa-2x",
+                                                        'clearable-icon' => "fa-times" },
+                                                class: "rating" } %>
+        </span>
+      </div>
+    </div>
+    <%= f.label "Notes", class: "rakepage-form-label" %>
+    <%= f.text_area :leaflet_note, { hide_label: true, rows: 5, class: "leaflet-note" } %>
+    <%= f.label "Qualify your action", class: "score-label rakepage-form-label" %>
+    <%= f.hidden_field :current_score, value: 0, class: "current-score" %>
+    <div class="btn-group btn-group-justified" data-toggle="buttons">
+      <label class="btn btn-default label-score-0">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked>
+        None
+      </label>
+      <label class="btn btn-default label-score-1">
+        <input type="radio" name="options" id="option2" autocomplete="off">
+        Motion&nbsp;|&nbsp;<span class="motion-counter">0</span>
+      </label>
+      <label class="btn btn-default label-score-2">
+        <input type="radio" name="options" id="option3" autocomplete="off">
+        Action&nbsp;|&nbsp;<span class="action-counter">0</span>
+      </label>
+    </div>
+    <br>
+    <%= f.label "Journal entry", class: "rakepage-form-label" %>
+    <%= f.text_area :task_comment, { hide_label: true, class: "task-comment" } %>
+    <span class="pull-right">
+      <button type="button" class="btn btn-default btn-xs" id="abort-save-action">Abort</button>
+      <%= f.button "Save Action",
+                    class: "btn btn-primary btn-xs",
+                    name: "commit",
+                    value: "Save Action",
+                    data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Saving..." } %>
+    </span>
+  <% end %>
+  <br><br>
+</div>

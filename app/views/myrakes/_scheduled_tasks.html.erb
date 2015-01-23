@@ -1,27 +1,21 @@
 <br>
-<div class="thumbnail">
-  <%= link_to "#", data: 
-                        { toggle: "modal",
-                          target: "#addLeafletModal" } do %>
-    <div class="media">
-      <span class="pull-left">
-        <p class="reminder-month">
-          Action
-        </p>
-        <p class="reminder-day">
-          <i class="fa fa-bookmark"></i>
-        </p>
-      </span>
-      <div class="media-body">
-        <h5 class="media-heading">
-          Add a weblink (URL) and define a new action
-        </h5>
-        <p>
-          Click to add an action. The URL is your contribution to show others useful web content.
-        </p>
-      </div>
+<div class="thumbnail" id="add-new-action">
+  <div class="media">
+    <span class="pull-left">
+      <p class="reminder-month">
+        Action
+      </p>
+      <p class="reminder-day">
+        <i class="fa fa-tasks"></i>
+      </p>
+    </span>
+    <div class="media-body">
+      <h5 class="media-heading">
+        Add a new action
+      </h5>
+      <%= render 'new_action' %>
     </div>
-  <% end %>
+  </div>
 </div>
 
 <ul id="feed-list" class="leaflet-list">
@@ -96,10 +90,17 @@
         <% end %>
 
         <div class="card-content">
-          <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+          <% if l.title == "None" %>
+            No URL added to this action
+          <% else %>
+            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+          <% end %>
         </div>
 
-        <div class="card-footer">
+        <div class="form-edit-action" id="form_edit_action_<%= l.id %>">
+        </div>
+
+        <div class="card-footer" id="card_footer_<%= l.id %>">
           <span class="card-metrics">
             <%= lm.motion_counter.to_s %>/<%= lm.action_counter.to_s %>
             <i class="fa fa-tasks purple"></i>
@@ -109,33 +110,32 @@
           </span>
 
           <span class="card-buttons pull-right">
-            <%= link_to "Action", "#",
-                        data: { toggle: "modal",
-                                target: "#editLeafletModal",
-                                id: l.id,
-                                heapid: lm.heap.id,
-                                collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
-                                goal: lm.leaflet_goal,
-                                note: lm.leaflet_note,
-                                url: l.url,
-                                reminder: reminder_at,
-                                score: lm.current_score,
-                                rating: lm.current_rating,
-                                motioncount: lm.motion_counter,
-                                actioncount: lm.action_counter,
-                                scheduledcount: lm.scheduled_counter,
-                                access: "full",
-                                origin: "scheduled",
-                                slider: "1" },
-                        class: "btn btn-default btn-xs leaflet-edit" %>
             <%= link_to "Delete", 
                         remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "scheduled"),
                         data: { confirm: "Are you sure? You will delete the bookmark also from your rake!" },
                         method: :get,
                         remote: true,
                         class: "btn btn-default btn-xs" %>
+            <%= button_tag "Action",
+                            data: { target: "#edit-action",
+                                    id: l.id,
+                                    heapid: lm.heap.id,
+                                    collapse: "heap_" + "#{lm.heap.leaflet_type_id}",
+                                    goal: lm.leaflet_goal,
+                                    note: lm.leaflet_note,
+                                    url: l.url,
+                                    reminder: reminder_at,
+                                    score: lm.current_score,
+                                    rating: lm.current_rating,
+                                    motioncount: lm.motion_counter,
+                                    actioncount: lm.action_counter,
+                                    scheduledcount: lm.scheduled_counter,
+                                    access: "full",
+                                    origin: "scheduled",
+                                    slider: "1" },
+                                    class: "edit-action-button btn btn-primary btn-xs leaflet-edit",
+                                    id: "edit_action_#{l.id}" %>
           </span>
-
         </div>
       </li>
     <% end %>

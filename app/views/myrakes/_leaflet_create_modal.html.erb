@@ -8,11 +8,19 @@
       </div>
       <%= bootstrap_form_for(@rake) do |f| %>
         <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_field :leaflet_goal, { label: "Define your next action", class: "leaflet-goal" } %>
+            </div>
+            <div class="col-md-12">
+              <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
+            </div>
+          </div>
           <%= f.hidden_field :leaflet_type_id, class: "leaflet-type-id" %>
           <%= f.hidden_field :heap_id, class: "heap-id" %>
           <%= f.hidden_field :collapse, class: "collapse-section" %>
           <%= f.hidden_field :leaflet_title, class: "leaflet-custom-title" %>
-          <%= f.hidden_field :leaflet_url, { label: "Recommended URL", class: "leaflet-url" } %>
+          <%= f.text_field :leaflet_url, { label: "Recommended URL", class: "leaflet-url" } %>
           <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", placeholder: "Automatically filled if empty*", class: "leaflet-custom-title" } %>
           <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", placeholder: "Automatically filled if empty*", class: "leaflet-description" } %>
           <% reminder_period = [] %>
@@ -26,14 +34,6 @@
             <div class="col-md-6">
               <%= f.select :reminder_at, options_for_select(reminder_period), { label: "Set Reminder",  }, id: "reminder_at", class: "reminderat" %>
               <%= f.hidden_field :current_reminder, class: "current-reminder" %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_field :leaflet_goal, { label: "Define your next action (optional)", class: "leaflet-goal" } %>
-            </div>
-            <div class="col-md-12">
-              <%= f.text_area :leaflet_note, { label: "Notes (optional)", rows: 5, class: "leaflet-note" } %>
             </div>
           </div>
           <div class="row">

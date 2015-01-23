@@ -51,7 +51,11 @@
   </div>
 
   <div class="card-title">
-    <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+    <% if l.title == "None" %>
+      No URL added to this action
+    <% else %>
+      <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+    <% end %>
   </div>
 
   <div class="card-content">
