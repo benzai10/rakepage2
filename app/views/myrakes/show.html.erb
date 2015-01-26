@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h5 class="centered">
-        <small>
+        <small><strong>
           <% if user_signed_in? %>
             <%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           <% else %>
@@ -22,7 +22,7 @@
           <% end %>
           &nbsp;|&nbsp;
           <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
-        </small>
+        </strong></small>
       </h5>
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
@@ -30,20 +30,8 @@
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-<!--       <span class="rake-chain-label">
-        <span>
-          <i class="fa fa-angle-down"></i> 30 days ago
-        </span>
-        <span class="pull-right">
-        Today <i class="fa fa-angle-down"></i>
-        </span>
-      </span>
-      <%#= render 'myrakes/top_rake_chain', toprake: @rake %>
- -->
       <% if params[:view].nil? || params[:view] == "tasks" %>
         <%= render 'tasks' %>
-        <%#= render 'leaflet_edit_modal' %>
-        <%#= render 'leaflet_add_modal' %>
       <% elsif params[:view] == "news" %>
         <%= render 'news' %>
         <%= render 'leaflet_save_modal' %>

@@ -12,70 +12,15 @@
           </p>
         </span>
         <div class="media-body">
-          <h5 class="media-heading">Step 1: Choose a Topic (Rake)</h5>
-          <p>
-            If you commit to nothing, you’re distracted by everything.
+          <h5 class="media-heading">Need more than 5 topics?</h5>
+          <p class="rake-links">
+            Click to add a topic
           </p>
         </div>
       </div>
     <% end %>
     <!-- </a> -->
   </div>
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month-purple">
-        Updated
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-rss"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Step 2: Customize News Feed
-      </h5>
-      <p>
-         Choose your favorite news sources for this topic.
-      </p>
-    </div>
-  </div>
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month-purple">
-        Motivated
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-bookmark"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Step 3: Create a Task
-      </h5>
-      <p>
-         Turn bookmarks into tasks with goals, notes and reminders.
-      </p>
-    </div>
-  </div>
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month-purple">
-        Productive
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-tasks"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Step 4: Take Action on Tasks
-      </h5>
-      <p>
-         Rate and track your productivity.
-      </p>
-    </div>
-  </div>
-  <br><br><br>
 <% else %>
   <div class="row">
     <% @other_rakes.each do |r| %>
@@ -100,6 +45,9 @@
                   <p class="rake-links">
                     Due Actions: 
                     <span class="new-rec-alert"><%= r.due_tasks_count %></span>
+                    &nbsp;|&nbsp;
+                    Committed Actions:
+                    <%= r.action_count %>
                   </p>
                 </p>
               </div>

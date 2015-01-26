@@ -5,7 +5,7 @@
     <div class="media">
       <span class="pull-left">
         <p class="reminder-month">
-          Updated
+          News
         </p>
         <p class="reminder-day">
           <i class="fa fa-rss"></i>
@@ -13,10 +13,10 @@
       </span>
       <div class="media-body">
         <h5 class="media-heading">
-          Click to view topic-specific news
+          Get updated
         </h5>
-        <p>
-          Get updated on your personalised blogs and subreddits.
+        <p class="rake-links">
+          Click to read your blogs and subreddits.
         </p>
       </div>
     </div>
@@ -25,6 +25,7 @@
 
 <ul id="feed-list" class="leaflet-list">
   <span class="rake-nav">DUE ACTIONS<hr></span>
+  <%= render 'no_due_actions' %>
   <% leaflet_duplication_array = [] %>
   <% @overdue_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>

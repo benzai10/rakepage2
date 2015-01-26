@@ -1,0 +1,194 @@
+<% if @rake.seo_title.nil? %>
+  <% seo_title = "" %>
+<% else %>
+  <% seo_title = @rake.seo_title %>
+<% end %>
+<% title seo_title %>
+<% meta title: seo_title,
+        description: @rake.description,
+        keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
+<div class="container-fluid">
+  <%= render 'master_rakes/master_rakes_menu' %>
+  <div class="row">
+    <div class="col-md-6 col-centered">
+      <h5 class="centered">
+        <small>
+          <% if user_signed_in? %>
+            <%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+          <% else %>
+            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rake-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+            &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
+            <span class="nav-link">MY RAKES</span>
+          <% end %>
+          &nbsp;|&nbsp;
+          <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+        </small>
+      </h5>
+      <% if !flash.empty? %>
+        <%= render 'shared/flash_message' %>
+      <% end %>
+      <h1 class="centered">
+        <% if user_signed_in? %>
+          <% if !@custom_rake.nil? %>
+            <i class="fa fa-star-o purple"></i>
+          <% end %>
+        <% end %>
+        <%= @rake.name %>
+      </h1>
+      <div class="panel-group" id="accordion-main">
+        <div class="panel panel-default">
+          <div class="panel-heading panel-new-master-rakes">
+            <h2 class="panel-title centered">
+              Commit to your priorities and take action.
+            </h2>
+          </div>
+          <br>
+          <div class="col-md-12">
+            <% if user_signed_in? && !@custom_rake.nil? %>
+
+              <div class="thumbnail">
+                <%= link_to myrake_path(@custom_rake, view: "tasks"), 
+                                        data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'></p><p class='reminder-day'><i class='fa fa-spinner'></i></p></span><div class='media-body'><h5 class='media-heading'>Loading... checking for actions.</h5></div></div>"} do %>
+                  <div class="media rake-index-view">
+                    <span class="pull-left">
+                      <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+                        <%= image_tag("no_image.png", size: "96x54") %>
+                      <% else %>
+                        <%= image_tag(@rake.image_url, size: "96x54") %>
+                      <% end %>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">
+                        Switch to your personal rake
+                      </h5>
+                      <p>
+                        <%= render 'myrakes/top_rake_chain', toprake: @custom_rake %>
+                        <p class="rake-links">
+                          Due Actions: 
+                          <span class="new-rec-alert"><%= @custom_rake.due_tasks_count %></span>
+                        </p>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="thumbnail" id="show-info">
+                <a href="#anchor-master-rake-info">
+                  <div class="media">
+                    <span class="pull-left">
+                      <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+                        <%= image_tag("no_image.png", size: "96x54") %>
+                      <% else %>
+                        <%= image_tag(@rake.image_url, size: "96x54") %>
+                      <% end %>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">Choose this Topic</h5>
+                      <p>
+                        If it's one of your priorities and you want to stay focused on it.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% end %>
+            <div class="thumbnail" id="show-news">
+              <a href="#anchor-master-rake-news">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month-purple">
+                      Updated
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-rss"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">News</h5>
+                    <p>
+                      Get updated and don't miss out on this topic.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+<!--             <div class="thumbnail" id="show-bookmarks">
+              <a href="#anchor-master-rake-bookmarks">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month-purple">
+                      Motivated
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-bookmark"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Bookmarks</h5>
+                    <p>
+                      Discover what others saved.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div> -->
+            <div class="thumbnail" id="show-tasks">
+              <a href="#anchor-master-rake-tasks">
+                <div class="media">
+                  <span class="pull-left">
+                    <p class="reminder-month-purple">
+                      Productive
+                    </p>
+                    <p class="reminder-day">
+                      <i class="fa fa-tasks"></i>
+                    </p>
+                  </span>
+                  <div class="media-body">
+                    <h5 class="media-heading">Actions</h5>
+                    <p>
+                      Turn your findings into actions to track your productivity.
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <br>
+          <div class="panel-collapse collapse in" id="collapse-feed">
+            <div class="panel-body">
+              <a class="anchor" name="anchor-master-rake-info"></a>
+              <div class="master-rake-info <%= 'hidden' if params[:view] == 'news' %>">
+                <%= render 'info' %>
+              </div>
+              <a class="anchor" name="anchor-master-rake-news"></a>
+              <div class="master-rake-news <%= 'hidden' if params[:view] != 'news' %>">
+                <%= render 'news' %>
+              </div>
+<!--               <a class="anchor" name="anchor-master-rake-bookmarks"></a>
+              <div class="master-rake-bookmarks hidden">
+                <%#= render 'bookmarks' %> -->
+              </div>
+              <a class="anchor" name="anchor-master-rake-tasks"></a>
+              <div class="master-rake-tasks hidden">
+                <%= render 'tasks' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if user_signed_in? %>
+  <%= render 'master_rakes/edit_category_modal' %>
+  <% if !@custom_rake.nil? %>
+    <%= render 'master_rakes/leaflet_save_modal' %>
+    <%= render 'master_rakes/leaflet_create_modal' %>
+  <% end %>
+  <%= render 'master_rakes/new_rake_modal' %>
+  <%= render 'master_rakes/add_rss_modal' %>
+  <%= render 'master_rakes/add_subreddit_modal' %>
+<% end %>
+<%= render 'shared/request_modal' %>
+<%= render 'shared/thanks_modal' %>

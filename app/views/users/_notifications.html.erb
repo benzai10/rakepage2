@@ -4,7 +4,12 @@
     <div class="col-md-12">
       <div class="media notifications">
         <span class="pull-left">
-          <p class="reminder-month">
+          <% if current_user.last_notification_read_at.nil? || n.published_at > current_user.last_notification_read_at %>
+            <% notification_flag = "reminder-month" %>
+          <% else %>
+            <% notification_flag = "reminder-month-purple" %>
+          <% end %>
+          <p class=<%= notification_flag %>>
             <%= n.published_at %>
           </p>
           <p class="reminder-day">
@@ -18,6 +23,7 @@
           </p>
         </div>
       </div>
+      <br>
     </div>
   <% end %>
 </div>

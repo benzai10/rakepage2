@@ -17,7 +17,7 @@
             </p>
           </span>
           <div class="media-body">
-            <h5 class="media-heading">Your Current Priorities (<%= @top_rakes.count.to_s %>/5)</h5>
+            <h5 class="media-heading">Add <%= (5 - @top_rakes.count).to_s %> more Topics</h5>
             <p>
               <div class="progress progress-top-5">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (@top_rakes.count * 20).to_s %>%;">
@@ -25,7 +25,7 @@
               </div>
               <p class="rake-links">
                 <% if @top_rakes.count < 5 %>
-                  Add <%= (5 - @top_rakes.count).to_s %> topics
+                  You have Top <%= @top_rakes.count.to_s %> of 5
                 <% else %>
                   Yay, you have your Top 5!
                 <% end %>
@@ -48,7 +48,15 @@
           </p>
         </span>
         <div class="media-body">
-          <h5 class="media-heading">Rakepage News&nbsp;<span class="badge"><%= @notifications.count.to_s %></span></h5>
+          <h5 class="media-heading">Rakepage News&nbsp;
+            <span class="badge alert-danger">
+              <% if current_user.last_notification_read_at.nil? %>
+                <%= @notifications.count.to_s %>
+              <% else %>
+                <%= @notifications.where("published_at > ?", current_user.last_notification_read_at).count.to_s %>
+              <% end %>
+            </span>
+          </h5>
           <p>
           </p>
         </div>

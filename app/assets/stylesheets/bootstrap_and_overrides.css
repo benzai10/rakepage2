@@ -54,14 +54,28 @@ a:hover {
   font-size: 0.8em;
 }
 
+.today-label-left {
+  float: left !important;
+}
+
+.today-label-right {
+  float: right !important;
+}
+
 #edit-action {
   padding-left: 4px;
   padding-right: 4px !important;
 }
 
-.new-action {
-  margin-right: 8px;
+#new-action {
+  margin-right: 15px !important;
 }
+
+#new-action p {
+  color: dimgrey !important;
+  font-weight: 300 !important;
+}
+
 
 .rakepage-form-label {
   font-family: 'Roboto', sans-serif;
@@ -76,6 +90,12 @@ a:hover {
 
 .media .notifications {
   background-color: white !important;
+}
+
+.notification-body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500 !important;
+  font-size: 14px !important;
 }
 
 .rake-settings {
@@ -460,6 +480,12 @@ h5 {
   -webkit-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
   -moz-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
   box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+}
+
+.disabled-thumbnail:hover {
+  box-shadow: none !important;
+  border-color: lightgrey !important;
+  cursor: default !important;
 }
 
 .thumbnail .caption {

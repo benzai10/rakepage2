@@ -1,17 +1,17 @@
 <div>
-  <span class="rake-nav">NEWS<hr></span>
+  <span class="rake-nav">EXPERIENCE<hr></span>
 </div>
 <!-- Nav tabs -->
 <div class="row">
   <ul class="nav nav-tabs" role="tablist">
     <li class="rake-nav active">
       <a href="#feed" id="view-news" data-toggle="tab">
-        FEED
+        NEWS
       </a>
     </li>
     <li class="rake-nav">
-      <a href="#channels" id="view-channels" data-toggle="tab">
-        CHANNELS
+      <a href="#actions" id="view-actions" data-toggle="tab">
+        ACTIONS
       </a>
     </li>
     <li class="rake-nav">
@@ -24,29 +24,15 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane active" id="feed">
+    <br>
+    <div>
+      <span class="rake-nav">DISTRACTION-FREE FEED<hr></span>
+    </div>
     <h5>
       <small>
-        <% if user_signed_in? %>
-          <% if !@rake.refreshed_at.nil? %>
-            updated: <%= time_ago_in_words(@rake.refreshed_at) %> ago
-          <% else %>
-            Click the Refresh button to update the feed
-          <% end %>
-        <% else %>
-          Sign in to refresh the feed
-        <% end %>
-        <span class="pull-right">
-        <% if user_signed_in? %>
-          <%= link_to "Refresh", 
-                      master_rake_path(view: "news", refresh: "yes", anchor: "anchor-master-rake-news"),
-                      { class: "btn btn-xs btn-primary",
-                        id: "ga-my-feed-refresh",
-                        data: {disable_with: "<i class='fa fa-spinner fa-spin white'></i> Refreshing..."} } %>
-        <% end %>
-        </span>
+        Customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. Get updated without distractions and spend your time online more meaningful towards your priorities.
       </small>
     </h5>
-    <hr>
     <% if @added_leaflets.count > 0 %>
     <ul id="feed-list" class="leaflet-list">
       <% @added_leaflets.each do |l| %>
@@ -59,15 +45,48 @@
         <%= render 'card_news', l: l %>
       <% end %>
     </ul>
-  </div>
-  <div class="tab-pane" id="channels">
+    <br>
+    <div>
+      <span class="rake-nav">GET CUSTOMIZED NEWS FEED<hr></span>
+    </div>
     <h5>
       <small>
-        Sign in to customize your feed by adding and removing channels
+        Customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. Get updated without distractions and spend your time online more meaningful towards your priorities.
       </small>
     </h5>
     <br>
-    <%= render 'channels' %>
+    <% if !user_signed_in? %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <p class="rake-links info-text centered">
+            Get started now:
+          </p>
+          <%= link_to "Sign Up", new_user_registration_path,
+                      { data: { disable_with: "<i class='fa fa-spinner white'></i> See you soon!"},
+                      class: "btn btn-primary btn-lg centered",
+                      id: "sign-up" } %>
+          <br><br>
+          <p class="rake-links info-text centered">
+            or <%= link_to "sign in", new_user_session_path %>.
+          </p>
+        </div>
+      </div>
+    <% else %>
+      <% if @customer_rake.nil? %>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <%= link_to "Choose this topic",
+                        create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
+                        { data: { disable_with: "<i class='fa fa-spinner white'></i> Gets created!"}, class: "btn btn-primary btn-lg centered" } %>
+          </div>
+        </div>
+        <br><br>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="actions">
+    <br>
+    <%= render 'actions' %>
   </div>
   <div class="tab-pane" id="related-rakes">
     <br>

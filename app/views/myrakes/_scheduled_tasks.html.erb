@@ -11,15 +11,19 @@
     </span>
     <div class="media-body">
       <h5 class="media-heading">
-        Add a new action
+        Plan a habit, next step or goal
       </h5>
+      <p class="rake-links">
+        Click here to add a new action
+      </p>
       <%= render 'new_action' %>
     </div>
   </div>
 </div>
 
 <ul id="feed-list" class="leaflet-list">
-  <span class="rake-nav">PLANNED ACTIONS (<%= @scheduled_leaflets.count.to_s %>)<hr></span>
+  <span class="rake-nav">PLANNED ACTIONS<hr></span>
+  <%= render 'no_planned_actions' %>
   <% leaflet_duplication_array = [] %>
   <% @scheduled_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>

@@ -22,6 +22,24 @@ class MasterRake < ActiveRecord::Base
   #has_one :category
 
   scope :newly_added, -> { order(created_at: :desc).limit(99) }
+
+  def parent_master_rakes
+    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + self.slug).pluck(:author).map(&:to_i)
+    MasterRake.where("id IN (?)", parent_rakes)
+  end
+
+  def sibling_master_rakes
+    MasterRake.where("id <> ? AND slug IN (?)",
+                      self.id,
+                      Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
+                      self.parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
+  end
+
+  def children_master_rakes
+    MasterRake.where("slug IN (?)",
+                      Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
+                      self.id.to_s).pluck(:url).map{|x| x.partition("master_rakes/").last })
+  end
   
   def add_channel(channel)
     self.channels_master_rakes.create(channel_id: channel.id)

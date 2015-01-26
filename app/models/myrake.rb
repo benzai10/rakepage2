@@ -82,6 +82,10 @@ class Myrake < ActiveRecord::Base
                          Time.now).count
   end
 
+  def action_count
+    History.where("rake_id = ? AND history_int2 > 0", self.id).count
+  end
+
   def no_reminder_tasks_count
     HeapLeafletMap.where("heap_id IN (?) AND reminder_at IS NULL",
                          self.heaps.pluck(:id)).uniq.pluck(:leaflet_id).count

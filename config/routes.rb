@@ -26,7 +26,11 @@ Rakepage2::Application.routes.draw do
 
   resources :histories, only: [:create]
 
-  resources :users, only: [:update, :show]
+  resources :users, only: [:update, :show, :notification_read] do
+    collection do
+      get 'notification_read'
+    end
+  end
 
   resources :channels, except: [:edit, :update, :destroy] do
     member do
@@ -67,6 +71,7 @@ Rakepage2::Application.routes.draw do
 
   resources :myrakes do
     member do
+      get 'create_rake'
       get 'get_url_title'
       get 'add_channel'
       get 'remove_channel'

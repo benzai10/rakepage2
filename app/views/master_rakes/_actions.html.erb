@@ -1,0 +1,113 @@
+<div>
+  <span class="rake-nav">TAKE ACTIONS<hr></span>
+</div>
+<h5>
+  <small>
+    Get the right things done. Only by taking action you achieve a goal or master a priority. Create actions with reminders from the news feed or define new ones from scratch.
+  </small>
+</h5>
+<br>
+<div>
+  <span class="rake-nav">BUILD HABITS<hr></span>
+</div>
+<h5>
+  <small>
+    Inspiration and motivation get you started, habits keep you taking action. Focus on the process and create some streaks. Get a visual overview of days with action goals, action steps and no actions taken.
+  </small>
+</h5>
+<div class="media">
+  <span class="pull-left">
+    <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+      <%= image_tag("no_image.png", size: "96x54") %>
+    <% else %>
+      <%= image_tag(@rake.image_url, size: "96x54") %>
+    <% end %>
+  </span>
+  <div class="media-body">
+    <h5 class="media-heading">
+      <%= @rake.name %>
+    </h5>
+    <p>
+      <div class="progress progress-chain">
+        <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
+                          [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
+                          [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
+                          [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
+                          [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+        <% chain_array.each do |chain_element| %>
+          <% if chain_element[1] == true %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+          <% elsif chain_element[0] == true %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-motion" style="width: 3.33%"></div>
+          <% else %>
+            <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+          <% end %>
+        <% end %>
+      </div>
+    </p>
+    <p class="rake-links">
+      Due Actions: 
+      <span class="new-rec-alert">5</span>
+    </p>
+  </div>
+</div>
+<br>
+<div>
+  <span class="rake-nav">ACCOUNTABILITY<hr></span>
+</div>
+<h5>
+  <small>
+    Stay motivated with tracking your accomplishments and see your actions in numbers.
+  </small>
+</h5>
+<div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail disabled-thumbnail">
+      <span class="progress-count centered purple">42</span>
+      <span class="progress-count-label centered purple">Total Committed Actions</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail disabled-thumbnail">
+      <span class="progress-count centered midnightblue">28</span>
+      <span class="progress-count-label centered purple">Committed Action Steps</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail disabled-thumbnail">
+      <span class="progress-count centered green">14</span>
+      <span class="progress-count-label centered purple">Committed Action Goals</span>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="rake-links info-text centered">
+        Get started now:
+      </p>
+      <%= link_to "Sign Up",
+                  new_user_registration_path,
+                  { data: { disable_with: "<i class='fa fa-spinner white'></i> See you soon!"},
+                  class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+      <br><br>
+      <p class="rake-links info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
+<% else %>
+  <% if @customer_rake.nil? %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= link_to "Choose this topic",
+                    create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
+                    { data: { disable_with: "<i class='fa fa-spinner white'></i> Gets created!"}, 
+                      class: "btn btn-primary btn-lg centered" } %>
+      </div>
+    </div>
+    <br><br>
+  <% end %>
+<% end %>

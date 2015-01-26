@@ -12,6 +12,7 @@ class UsersController < ApplicationController
         @committed_action_steps_count = History.where(user_id: current_user.id, history_int2: 1).count
         @committed_action_goals_count = History.where(user_id: current_user.id, history_int2: 2).count
         @notifications = Notification.all.order(published_at: :desc)
+        @master_rakes_count = MasterRake.all.count
         if params[:view] == "top5"
           @top5_active = "active"
           @status_active = ""
@@ -110,6 +111,17 @@ class UsersController < ApplicationController
       end
     else
       redirect_to master_rakes_path
+    end
+  end
+
+  def notification_read
+    respond_to do |format|
+      format.js {
+        if user_signed_in?
+          User.find(current_user).update_attributes(last_notification_read_at: Time.now)
+          render nothing: true
+        end
+      }
     end
   end
 

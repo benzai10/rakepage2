@@ -6,6 +6,7 @@ $(function() {
     });
 
     $("#notifications-nav").on('click', function() {
+        $.ajax("/users/notification_read")
         $("#notifications").removeClass('hidden');
         $("html, body").animate({ scrollTop: $("#notifications").offset().top }, 700);
         return false;

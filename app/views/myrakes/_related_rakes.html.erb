@@ -257,13 +257,13 @@
       <div class="media-body">
         <h5 class="media-heading">
           <% if @parent_master_rakes.count + @sibling_master_rakes.count + @children_master_rakes.count == 0 %>
-            No related topics yet
+            Missing a related topic here?
           <% else %>
-            Missing a related topic?
+            Missing a related topic here?
           <% end %>
         </h5>
-        <p>
-          Click to request topics.
+        <p class="rake-links">
+          Click to send a request
         </p>
       </div>
     </div>

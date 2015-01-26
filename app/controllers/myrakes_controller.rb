@@ -106,6 +106,30 @@ class MyrakesController < ApplicationController
     end
   end
 
+  def create_rake
+    existing_rake = Myrake.where(user_id: current_user.id).find_by_master_rake_id(params[:master_rake_id])
+    if existing_rake.nil?
+      @rake = Myrake.new(rake_params)
+      @rake.user_id = current_user.id
+      if Myrake.where(user_id: current_user.id, top_rake: 1).count < 5
+        @rake.top_rake = 1
+      else
+        @rake.top_rake = 0
+      end
+      if @rake.save
+        master_rake = MasterRake.find(@rake.master_rake_id)
+        master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
+        master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
+        redirect_to myrake_path(@rake, view: "news", refresh: "yes")
+      else
+        flash[:error] = @rake.errors.full_messages
+        redirect_to :back
+      end
+    else
+      redirect_to myrake_path(existing_rake, view: "tasks")
+    end
+  end
+
   def create
     existing_rake = Myrake.where(user_id: current_user.id).find_by_master_rake_id(params[:myrake][:master_rake_id].to_i)
     if existing_rake.nil?
@@ -114,20 +138,20 @@ class MyrakesController < ApplicationController
         master_rake = MasterRake.find(@rake.master_rake_id)
         master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
         master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
-        if params[:myrake][:copy_recommendations] == "1"
-          @heap_leaflets_maps = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_rake.master_heaps.pluck(:id))
-          @heap_leaflets_maps.each do |hl|
-            leaflet = Leaflet.find(hl.leaflet_id)
-            @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc, "", "", "", 0, 0, 0)
-          end
-        end
-        redirect_to myrake_path(@rake, view: "news", refresh: "yes")
+        # if params[:myrake][:copy_recommendations] == "1"
+        #   @heap_leaflets_maps = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_rake.master_heaps.pluck(:id))
+        #   @heap_leaflets_maps.each do |hl|
+        #     leaflet = Leaflet.find(hl.leaflet_id)
+        #     @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc, "", "", "", 0, 0, 0)
+        #   end
+        # end
+        redirect_to myrake_path(@rake, view: "tasks", refresh: "yes")
       else
         flash[:error] = @rake.errors.full_messages
         redirect_to :back
       end
     else
-      redirect_to myrake_path(existing_rake, view: "news")
+      redirect_to myrake_path(existing_rake, view: "tasks")
     end
   end
 
@@ -439,13 +463,6 @@ class MyrakesController < ApplicationController
                                 :notice => ["Bookmark couldn't be copied. It probably exists already."]
       end
     else
-      @rake.filters.each do |f|
-        f.destroy
-      end
-      filter_array = rake_params[:rake_filters].split(", ")
-      filter_array.each do |f|
-        @rake.add_filter(f, 1)
-      end
       redirect_to myrake_path(@rake, view: "news")
     end
   end
@@ -511,6 +528,6 @@ class MyrakesController < ApplicationController
   protected
 
   def rake_params
-    params.require(:myrake).permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters, :top_rake)
+    params.permit(:name, :master_rake_id, :user_id, :feed_leaflets, :rake_filters, :top_rake)
   end
 end
