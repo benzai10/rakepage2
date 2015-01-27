@@ -282,6 +282,37 @@
   }
 }
 
+.notifications-feed {
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px !important;
+    font-weight: 500 !important;
+    color: slategrey;
+  }
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: slategrey;
+  }
+  h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: slategrey;
+  }
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px !important;
+    font-weight: 300 !important;
+  }
+  li {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px !important;
+    font-weight: 300 !important;
+  }
+}
+
 /* Responsive
 -------------------------------------------------- */
 
