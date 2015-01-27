@@ -53,7 +53,7 @@
           <span id="<%= 'feed_star_icon_' + l.id.to_s %>">
             <% if !@heap_leaflets.nil? %>
               <% if @heap_leaflets.include? l %>
-                &nbsp;<i class="fa fa-bookmark"></i>
+                &nbsp;<i class="fa fa-tasks"></i>
               <% else %>
                 <% if user_signed_in? %>
                   <%= link_to "Save",

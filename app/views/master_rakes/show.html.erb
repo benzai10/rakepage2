@@ -8,20 +8,22 @@
         description: @rake.description,
         keywords: Category.find(@rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
 <div class="container-fluid">
-  <%= render 'master_rakes/master_rakes_menu' %>
+  <%= render 'myrakes/rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-centered">
       <h5 class="centered">
         <small>
           <% if user_signed_in? %>
-            <%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+            <i class="fa fa-home"></i>&nbsp;<%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rake-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
             &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
+            <i class="fa fa-home"></i>&nbsp;
             <span class="nav-link">MY RAKES</span>
           <% end %>
           &nbsp;|&nbsp;
           <%= link_to "ALL TOPICS", master_rakes_path, { class: "nav-link", id: "view-master-rakes-index", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+          &nbsp;<i class="fa fa-sitemap"></i>
         </small>
       </h5>
       <% if !flash.empty? %>
@@ -48,7 +50,7 @@
 
                 <div class="thumbnail">
                   <%= link_to myrake_path(@custom_rake, view: "tasks"), 
-                                          data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'></p><p class='reminder-day'><i class='fa fa-spinner'></i></p></span><div class='media-body'><h5 class='media-heading'>Loading... checking for actions.</h5></div></div>"} do %>
+                                          data: { disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
                     <div class="media rake-index-view">
                       <span class="pull-left">
                         <% if @rake.image_url.nil? || @rake.image_url.empty? %>
@@ -66,6 +68,9 @@
                           <p class="rake-links">
                             Due Actions: 
                             <span class="new-rec-alert"><%= @custom_rake.due_tasks_count %></span>
+                            &nbsp;|&nbsp;
+                            Committed Actions:
+                            <span id="committed-tasks-count"><%= @custom_rake.action_count %></span>
                           </p>
                         </p>
                       </div>
@@ -76,7 +81,7 @@
                 <% if user_signed_in? %>
                   <div class="thumbnail" id="show-info">
                     <%= link_to create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
-                                                        data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Committed!</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin'></i> Please wait...</h5></div><p>Awesomeness gets created</p></div>"} do %>
+                                                        data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Get started!</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin'></i> Please wait...</h5></div><p class='rake-links'>Awesomeness gets created</p></div>"} do %>
                       <div class="media">
                         <span class="pull-left">
                           <% if @rake.image_url.nil? || @rake.image_url.empty? %>
@@ -97,7 +102,7 @@
                 <% else %>
                   <div class="thumbnail" id="show-info">
                     <%= link_to new_user_registration_path, 
-                                data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Committed!</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin'></i> Please wait...</h5></div><p class='rake-links'>Looking forward to see you again!</p></div>"} do %>
+                                data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Get started!</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin'></i> Please wait...</h5></div><p class='rake-links'>Looking forward to see you again!</p></div>"} do %>
                       <div class="media">
                         <span class="pull-left">
                           <% if @rake.image_url.nil? || @rake.image_url.empty? %>

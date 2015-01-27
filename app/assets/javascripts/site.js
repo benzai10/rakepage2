@@ -5,6 +5,13 @@ $(function() {
       $.cookie('timezone', tz.name(), { path: '/' });
     });
 
+    $("#show-top-5").on('click', function() {
+        $("#top-rakes").addClass('active');
+        $("#top-rakes-nav-tab").addClass('active');
+        $("#status").toggleClass('active');
+        $("#status-nav-tab").toggleClass('active');
+    });
+
     $("#notifications-nav").on('click', function() {
         $.ajax("/users/notification_read")
         $("#notifications").removeClass('hidden');
@@ -65,10 +72,10 @@ $(function() {
         $("#new-action").removeClass('hidden');
     });
 
-    $("#abort-edit-action").on('mousedown', function() {
+    $(".abort-edit-action").on('mousedown', function() {
         var leafletid = $(".leaflet-id").val();
         $('#card_footer_' + leafletid).removeClass('hidden');
-        $("#edit-action").addClass('hidden');
+        $("#edit-action-" + leafletid).addClass('hidden');
         $("#add-new-action").removeClass('hidden');
     });
 
@@ -78,8 +85,8 @@ $(function() {
         $('#card_footer_' + leafletid).removeClass('hidden');
         var leafletid = $(this).data('id');
         $('#card_footer_' + leafletid).addClass('hidden');
-        $('#edit-action').insertAfter($('#form_edit_action_' + leafletid));
-        $('#edit-action').removeClass('hidden');
+        // $('#edit-action').insertAfter($('#form_edit_action_' + leafletid));
+        $('#edit-action-' + leafletid).removeClass('hidden');
         $('.history-chain').attr('checked', false);
         $('.task-comment').val('');
         $('.reminderat').val(1);

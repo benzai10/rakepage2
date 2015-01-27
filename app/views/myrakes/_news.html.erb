@@ -6,11 +6,9 @@
         <small class="white">
           <% if @rake.user_id == current_user.id %>
             <%= link_to "VIEW ACTIONS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-            <% if @rake.due_tasks_count > 0 %>
-              <span class="new-rec-alert-bright">
-                <%= @rake.due_tasks_count.to_s %>
-              </span>
-            <% end %>
+            <span class="badge badge-rakepage">
+              <%= @rake.due_tasks_count.to_s %>
+            </span>
             &nbsp;|&nbsp;
           <% end %>
           <i class="fa fa-cog rake-settings white"></i>
@@ -63,10 +61,10 @@
                       <h5 class="media-heading">
                         Your blogs and subreddits in one place.
                       </h5>
-                      <p>
+                      <p class="rake-links">
                         Click to refresh the news feed.
                         <% if !@rake.master_rake.refreshed_at.nil? %>
-                          &nbsp;You updated <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago.
+                          You updated <em><%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago</em>.
                         <% end %>
                       </p>
                     </div>
@@ -89,12 +87,12 @@
                       Updated
                     </p>
                     <p class="reminder-day">
-                      <i class="fa fa-rss"></i>
+                      <i class="fa fa-globe"></i>
                     </p>
                   </span>
                   <div class="media-body">
                     <h5 class="media-heading">This news feed has no channels yet</h5>
-                    <p>
+                    <p class="rake-links">
                       Click here to add a blog (RSS feed) or subreddit.
                     </p>
                   </div>

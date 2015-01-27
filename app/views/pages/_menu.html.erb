@@ -8,7 +8,7 @@
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-home white'></i>".html_safe + "  Home", root_path %>
+          <%= link_to "Start Page", root_path, class: "menu-link" %>
         </h5>
       </div>
     </div>
@@ -16,60 +16,38 @@
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-question white'></i>".html_safe + "  Tutorial / Help", "http://blog.rakepage.com/?page_id=191", target: "_blank" %>
+          <%= link_to "Help", "http://blog.rakepage.com/?page_id=191", target: "_blank", class: "menu-link" %>
         </h5>
       </div>
     </div>
 
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading active panel-heading-menu">
-        <h5 class="panel-title">
-          <% if user_signed_in? %>
-            <i class="fa fa-user green"></i> <%= current_user.username %>
-            <span class="pull-right">
-            <% href_id = "#user" %>
-              <%= link_to '<i class="fa fa-chevron-down green"></i>'.html_safe, href_id, :data => { :toggle => "collapse" } %>
-            </span>
-            <div id="user" class="panel-collapse collapse">
-              <div class="panel-body menu black">
-                <ul class="leaflet-list">
-                  <li class="rake-show-list">
-                    <%= link_to "Terms of Service", pages_terms_of_service_path, class: "purple" %>
-                  </li>
-                  <li class="rake-show-list">
-                    <%= link_to "Privacy Policy", pages_privacy_policy_path, class: "purple" %>
-                  </li>
-                  <li class="rake-show-list">
-                    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "purple" %>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          <% else %>
-            <%= link_to "<i class='fa fa-user white'></i>".html_safe + "  SIGN IN", new_user_session_path %>
-          <% end %>
-        </h5>
-      </div>
-    </div>
-
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "<i class='fa fa-globe white'></i>".html_safe + "  Master Rakes", master_rakes_path, class: "rake_title" %>
-        </h5>
-      </div>
-    </div>
-    
     <% if user_signed_in? %>
       <div class="panel panel-default panel-menu">
         <div class="panel-heading panel-heading-menu">
           <h5 class="panel-title">
-            <%= link_to "<i class='fa fa-sitemap white'></i>".html_safe + "  My Rakes", user_path(current_user), class: "rake_title" %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "menu-link" %>
+          </h5>
+        </div>
+      </div>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "My Rakes", myrakes_path, class: "menu-link" %>
           </h5>
         </div>
       </div>
     <% end %>
 
+    <% if user_signed_in? && current_user.admin? %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "Dashboard", dashboard_users_path, class: "menu-link" %>
+          </h5>
+        </div>
+      </div>
+      <%= render 'master_rakes/add_rss_modal' %>
+      <%= render 'master_rakes/add_subreddit_modal' %>
+    <% end %>
   </div>
-
 </nav>

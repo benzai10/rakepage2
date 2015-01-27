@@ -1,14 +1,14 @@
 <br>
 <div class="thumbnail">
   <%= link_to myrake_path(@rake, view: "news", refresh: "yes"),
-                          data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Updated</p><p class='reminder-day'><i class='fa fa-rss'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Loading...</h5></div></div>"} do %>
+                          data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Updated</p><p class='reminder-day'><i class='fa fa-globe'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Aggregating your blogs and subreddits...</h5></div><p class='rake-links'>Create an action based on your findings.</p></div>"} do %>
     <div class="media">
       <span class="pull-left">
         <p class="reminder-month">
           News
         </p>
         <p class="reminder-day">
-          <i class="fa fa-rss"></i>
+          <i class="fa fa-globe"></i>
         </p>
       </span>
       <div class="media-body">
@@ -55,22 +55,23 @@
                 <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
                 <img src=<%= "#{favicon_path}" %>>
               <% end %>
+              <!-- For Tooltip -->
+              <% channel_name = channel.name %>
+              <% if channel_name == "Title not available." %>
+                <% channel_name = channel.source %>
+              <% end %>
             </a>
           </span>
 
           <span class="card-label">
-            <% channel_name = channel.name %>
-            <% if channel_name == "Title not available." %>
-              <% channel_name = channel.source %>
+            <% if channel.channel_type != 3 %>
+              <%= channel_name %>
             <% end %>
-            Channel: <%= channel_name %>
             <% if l.leaflet_type_id != 0 %>
-              &nbsp;|&nbsp;
               <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              &nbsp;|&nbsp;
-              <% if !l.created_by.nil? %>
-                added by <%= User.find(l.created_by).username %>
-              <% end %>
+              <%# if !l.created_by.nil? %>
+                <!-- added by --> <%#= User.find(l.created_by).username %>
+              <%# end %>
             <% end %>
           </span>
 
@@ -104,6 +105,7 @@
         </div>
 
         <div class="form-edit-action" id="form_edit_action_<%= l.id %>">
+          <%= render 'edit_action', leaflet_id: l.id %>
         </div>
 
         <div class="card-footer" id="card_footer_<%= l.id %>">

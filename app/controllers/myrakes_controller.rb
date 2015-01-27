@@ -219,6 +219,8 @@ class MyrakesController < ApplicationController
           format.html { redirect_to myrake_path(@rake, view: "tasks", origin: params[:myrake][:origin]) }
           format.js {
             @origin = params[:myrake][:origin]
+            @chain_flag = params[:myrake][:current_score].to_i
+            @leaflet_id = @leaflet.id
             if @origin == "due"
               @reload_flag = 0
             else
@@ -417,7 +419,7 @@ class MyrakesController < ApplicationController
                            url,
                            leaflet_author,
                            reminder_at,
-                           params[:myrake][:current_score],
+                           params[:myrake][:current_score].to_i,
                            params[:myrake][:current_rating],
                            params[:myrake][:current_reminder])
       if !leaflet_id.nil?

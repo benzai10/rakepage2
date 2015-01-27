@@ -26,7 +26,7 @@
     <% @other_rakes.each do |r| %>
       <div class="col-md-12">
         <div class="thumbnail">
-          <%= link_to myrake_path(r, view: "tasks"), data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'></p><p class='reminder-day'><i class='fa fa-spinner'></i></p></span><div class='media-body'><h5 class='media-heading'>Loading... checking for actions.</h5></div></div>"} do %>
+          <%= link_to myrake_path(r, view: "tasks"), data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
             <% master_rake = MasterRake.find(r.master_rake_id) %>
             <div class="media rake-index-view" value="<%= r.id %>">
               <span class="pull-left">
@@ -43,8 +43,9 @@
                 <p>
                   <%= render 'myrakes/top_rake_chain', toprake: r %>
                   <p class="rake-links">
-                    Due Actions: 
-                    <span class="new-rec-alert"><%= r.due_tasks_count %></span>
+                    Due Actions:
+                    <% r.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
+                    <span class=<%= count_no_zero %>><%= r.due_tasks_count %></span>
                     &nbsp;|&nbsp;
                     Committed Actions:
                     <%= r.action_count %>

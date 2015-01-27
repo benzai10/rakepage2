@@ -80,7 +80,7 @@
                       </span>
                     </h5>
                     <p>
-                      <i class="fa fa-bookmark"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
+                      <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").sum(:save_count) %>
                       <i class="fa fa-user"></i> <%= c.count_subscribers %>
                       <i class="fa fa-tasks"></i> <%= Leaflet.where("channel_id = '#{c.id}'").count %>
                     </p>

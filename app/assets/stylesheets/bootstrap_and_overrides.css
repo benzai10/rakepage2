@@ -12,6 +12,11 @@ a:hover {
   opacity: 1;
 }
 
+.badge-rakepage {
+  background-color: red !important;
+  color: white !important;
+}
+
 .btn {
   border-radius: 0;
 }
@@ -63,12 +68,8 @@ a:hover {
 }
 
 #edit-action {
+  margin-left: 15px !important;
   padding-left: 4px;
-  padding-right: 4px !important;
-}
-
-#new-action {
-  margin-right: 15px !important;
 }
 
 #new-action p {
@@ -227,8 +228,8 @@ a.anchor {
   border: 1px solid lightgrey;
   padding-top: 10px;
   padding-bottom: 20px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 12px;
+  padding-right: 12px;
   -webkit-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
   -moz-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
   box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
@@ -243,22 +244,21 @@ a.anchor {
 
 .card .card-icon {
   display: inline-block;
-  padding-left: 4px;
 }
 
 .card .card-label {
 }
 
 .card .card-timestamp {
-  padding-right: 4px;
 }
 
 .card .card-title {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
   font-family: 'Roboto', sans-serif;
   font-weight: 500 !important;
   font-size: 16px !important;
   color: #4a2b88 !important;
-  padding: 4px;
 }
 
 .card .card-title a {
@@ -267,7 +267,6 @@ a.anchor {
 }
 
 .card .card-content {
-  padding: 4px;
   max-height: 480px;
   overflow-y: auto;
 }
@@ -299,8 +298,6 @@ a.anchor {
 
 .card .card-footer {
   padding-top: 15px;
-  padding-left: 4px;
-  padding-right: 4px;
   font-weight: 300;
   color: #4a2b88;
 }
@@ -1009,7 +1006,7 @@ a.nav-expander {
   color: #FFFFFF;
   display: block;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   height: 50px;
   margin-right: 0;
   padding: 1em 1.6em 2em;
@@ -1039,7 +1036,7 @@ a.nav-expander.fixed {
 }
  
 .nav-expanded a.nav-expander.fixed {
-  right: 21em;
+  right: 16em;
 }
 
 nav:not(.pagination) {
@@ -1048,10 +1045,10 @@ nav:not(.pagination) {
   height: 100%;
   overflow: auto;
   position: fixed;
-  right: -21em;
+  right: -16em;
   font-size: 15px;
   top: 0;
-  width: 21em;
+  width: 16em;
   z-index: 2000;
  
   transition: right 0.3s ease-in-out 0s;
@@ -1080,14 +1077,14 @@ body.nav-expanded {
 #nav-close {
   font-family: 'Roboto', sans-serif;
   color: #FFFFFF;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 24px;
   padding-right: 20px;
 }
 
 #nav-expander {
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
 }
 
 .main-menu {

@@ -34,7 +34,7 @@
                   <div class="media-body">
                     <h5 class="media-heading"><%= leaflet_type_desc %></h5>
                       <p>
-                        <%= h.leaflets.count %>&nbsp;<i class="fa fa-bookmark purple"></i>
+                        <%= h.leaflets.count %>&nbsp;<i class="fa fa-tasks purple"></i>
                       </p>
                       <p>
                         <% if !@custom_rake.nil? %>
@@ -207,7 +207,7 @@
                           <% user_heap_ids = user_rake.heaps.pluck(:id) %>
                           <% user_heap_leaflet_ids = HeapLeafletMap.where("heap_id IN (?)", user_heap_ids).pluck(:leaflet_id) %>
                           <% if user_heap_leaflet_ids.include? l.id %>
-                            <i class="fa fa-bookmark"></i>
+                            <i class="fa fa-tasks"></i>
                           <% else %>
                             <%= link_to "Save", 
                                   add_leaflet_myrake_path(user_rake), 

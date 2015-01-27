@@ -11,10 +11,10 @@
     <% end %>
   <% end %>
   <% if last_chain[1] == true %>
-    <div class="progress-bar progress-bar-success bookmark-metrics-action" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+    <div class="progress-bar progress-bar-success bookmark-metrics-action current-day" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% elsif last_chain[0] == true %>
-    <div class="progress-bar progress-bar-success bookmark-metrics-motion" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+    <div class="progress-bar progress-bar-success bookmark-metrics-motion current-day" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% else %>
-  <div class="progress-bar progress-bar-success bookmark-metrics" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
+    <div class="progress-bar progress-bar-success bookmark-metrics current-day" id="progress-current-day-toprake-<%= toprake.id.to_s %>" style="width: 3.33%"></div>
   <% end %>
 </div>

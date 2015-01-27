@@ -1,3 +1,4 @@
+<span class="hidden" id="planned-actions-count"><%= @scheduled_leaflets.count.to_s %></span>
 <br>
 <div class="thumbnail" id="add-new-action">
   <div class="media">
@@ -16,10 +17,11 @@
       <p class="rake-links">
         Click here to add a new action
       </p>
-      <%= render 'new_action' %>
     </div>
   </div>
 </div>
+
+<%= render 'new_action' %>
 
 <ul id="feed-list" class="leaflet-list">
   <span class="rake-nav">PLANNED ACTIONS<hr></span>
@@ -53,22 +55,23 @@
                 <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
                 <img src=<%= "#{favicon_path}" %>>
               <% end %>
+              <!-- For Tooltip -->
+              <% channel_name = channel.name %>
+              <% if channel_name == "Title not available." %>
+                <% channel_name = channel.source %>
+              <% end %>
             </a>
           </span>
 
           <span class="card-label">
-            <% channel_name = channel.name %>
-            <% if channel_name == "Title not available." %>
-              <% channel_name = channel.source %>
+            <% if channel.channel_type != 3 %>
+              <%= channel_name %>
             <% end %>
-            Channel: <%= channel_name %>
             <% if l.leaflet_type_id != 0 %>
-              &nbsp;|&nbsp;
               <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              &nbsp;|&nbsp;
-              <% if !l.created_by.nil? %>
-                added by <%= User.find(l.created_by).username %>
-              <% end %>
+              <%# if !l.created_by.nil? %>
+                <!-- added by --> <%#= User.find(l.created_by).username %>
+              <%# end %>
             <% end %>
           </span>
 
@@ -102,6 +105,7 @@
         </div>
 
         <div class="form-edit-action" id="form_edit_action_<%= l.id %>">
+          <%= render 'edit_action', leaflet_id: l.id %>
         </div>
 
         <div class="card-footer" id="card_footer_<%= l.id %>">
@@ -116,7 +120,7 @@
           <span class="card-buttons pull-right">
             <%= link_to "Delete", 
                         remove_leaflet_heap_path(lm.heap, leaflet_id: l.id, origin: "scheduled"),
-                        data: { confirm: "Are you sure? You will delete the bookmark also from your rake!" },
+                        data: { confirm: "Are you sure? You cannot undo this action." },
                         method: :get,
                         remote: true,
                         class: "btn btn-default btn-xs" %>

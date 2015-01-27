@@ -83,7 +83,7 @@ class Myrake < ActiveRecord::Base
   end
 
   def action_count
-    History.where("rake_id = ? AND history_int2 > 0", self.id).count
+    History.where("rake_id = ? AND history_int > 0", self.id).count
   end
 
   def no_reminder_tasks_count

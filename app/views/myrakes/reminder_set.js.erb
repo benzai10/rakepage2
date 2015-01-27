@@ -6,6 +6,28 @@ else {
   if ('<%= @origin %>' == 'due') {
     $('#leaflet_<%= @leaflet.id %>').remove();
     $('#anchor_leaflet_<%= @leaflet.id %>').remove();
-    $('#editLeafletModal').modal('hide');
+    switch (<%= @chain_flag %>) {
+      case 1:
+        if ($('.current-day')[0].contains('bookmark-metrics')) {
+          $('.current-day').addClass('bookmark-metrics-motion');
+        }
+        $('#committed-tasks-count').html(parseInt($("#committed-tasks-count").html()) + 1);
+        break;
+      case 2:
+        if (!$('.current-day')[0].contains('bookmark-action')) {
+          $('.current-day').addClass('bookmark-metrics-action');
+        }
+        $('#committed-tasks-count').html(parseInt($("#committed-tasks-count").html()) + 1);
+        break;
+      default:
+        $('.current-day').addClass('bookmark-metrics');
+        break;
+    }
+    $('#due-tasks-count').html(parseInt($("#due-tasks-count").html()) - 1);
+    if ($('#due-tasks-count').html() == "0") {
+      $('#no-due-actions').removeClass('hidden');
+    }
   }
+  $('#card_footer_' + <%= @leaflet_id %>).removeClass('hidden');
+  $("#add-new-action").removeClass('hidden');
 }

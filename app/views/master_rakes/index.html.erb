@@ -1,19 +1,20 @@
 <%= render 'shared/title' %>
 <div class="container-fluid">
-  <%= render 'master_rakes/master_rakes_menu' %>
+  <%= render 'myrakes/rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-centered">
       <h5 class="centered">
         <small>
           <% if user_signed_in? %>
-            <%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+            <i class="fa fa-home"></i>&nbsp;<%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           <% else %>
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "master-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
             &nbsp;<i class="fa fa-long-arrow-right"></i>&nbsp;
+            <i class="fa fa-home"></i>&nbsp;
             <span class="nav-link">MY RAKES</span>
           <% end %>
           &nbsp;|&nbsp;
-          <span class="nav-link"><strong>ADD TOPICS</strong></span>
+          <span class="nav-link"><strong>ADD TOPICS</strong>&nbsp;<i class="fa fa-plus-square"></i></span>
         </small>
       </h5>
       <% if !flash.empty? %>
