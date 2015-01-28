@@ -1,21 +1,42 @@
-<span class="rake-nav">PROGRESS COUNTS<hr></span>
+<span class="rake-nav">TODAY'S ACTION COUNTS<hr></span>
 <div class="row">
   <div class="col-md-4">
     <div class="thumbnail disabled-thumbnail">
-      <span class="progress-count centered purple"><%= (@committed_action_steps_count + @committed_action_goals_count).to_s %></span>
-      <span class="progress-count-label centered purple">Total Committed Actions</span>
+      <span class="progress-count centered purple"><%= (@today_committed_action_steps.count + @today_committed_action_goals.count).to_s %></span>
+      <span class="progress-count-label centered purple">Committed Actions</span>
     </div>
   </div>
   <div class="col-md-4">
     <div class="thumbnail disabled-thumbnail">
-      <span class="progress-count centered midnightblue"><%= @committed_action_steps_count.to_s %></span>
-      <span class="progress-count-label centered purple">Committed Action Steps</span>
+      <span class="progress-count centered midnightblue"><%= @today_committed_action_steps.count.to_s %></span>
+      <span class="progress-count-label centered purple">Committed Steps</span>
     </div>
   </div>
   <div class="col-md-4">
     <div class="thumbnail disabled-thumbnail">
-      <span class="progress-count centered green"><%= @committed_action_goals_count.to_s %></span>
-      <span class="progress-count-label centered purple">Committed Action Goals</span>
+      <span class="progress-count centered green"><%= @today_committed_action_goals.count.to_s %></span>
+      <span class="progress-count-label centered purple">Committed Goals</span>
+    </div>
+  </div>
+</div>
+<span class="rake-nav">TOTAL ACTION COUNTS<hr></span>
+<div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail disabled-thumbnail">
+      <span class="progress-count centered purple"><%= (@committed_action_steps.count + @committed_action_goals.count).to_s %></span>
+      <span class="progress-count-label centered purple">Total Committed</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail disabled-thumbnail">
+      <span class="progress-count centered midnightblue"><%= @committed_action_steps.count.to_s %></span>
+      <span class="progress-count-label centered purple">Total Steps</span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail disabled-thumbnail">
+      <span class="progress-count centered green"><%= @committed_action_goals.count.to_s %></span>
+      <span class="progress-count-label centered purple">Total Goals</span>
     </div>
   </div>
 </div>

@@ -9,8 +9,10 @@ class UsersController < ApplicationController
         # @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
         @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
         @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
-        @committed_action_steps_count = History.where(user_id: current_user.id, history_int: 1).count
-        @committed_action_goals_count = History.where(user_id: current_user.id, history_int: 2).count
+        @committed_action_steps = History.where(user_id: current_user.id, history_int: 1)
+        @today_committed_action_steps = @committed_action_steps.where("created_at >= ?", Time.zone.now.beginning_of_day)
+        @committed_action_goals = History.where(user_id: current_user.id, history_int: 2)
+        @today_committed_action_goals = @committed_action_goals.where("created_at >= ?", Time.zone.now.beginning_of_day)
         @notifications = Notification.all.order(published_at: :desc)
         @master_rakes_count = MasterRake.all.count
         if params[:view] == "top5"
