@@ -12,7 +12,7 @@
     <%= f.select :reminder_at, options_for_select(reminder_period), { hide_label: true }, id: "reminder_at", class: "reminderat" %>
     <%= f.label "Notes", class: "rakepage-form-label" %>
     <%= f.text_area :leaflet_note, { hide_label: true, rows: 5, class: "leaflet-note" } %>
-    <%= f.label "Add a weblink", class: "rakepage-form-label" %>
+    <%= f.label "Add a weblink (optional)", class: "rakepage-form-label" %>
     <div class="add-url">
       <%= f.text_field :leaflet_url, { hide_label: true, placeholder: "Enter with http://", class: "leaflet-url" } %>
       <% leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>

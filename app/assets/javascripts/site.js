@@ -26,7 +26,8 @@ $(function() {
         $('.leaflet-note').val('');
         $('.leaflet-url').val('');
         $('.reminderat').val(1);
-        $('.current-score-new').val(0);
+        $('.heap-id').val(1);
+        $('#current-score-new').val(0);
         var arrayRatingStars = $(".rating-input .fa");
         for (var i = 0; i < arrayRatingStars.length; i++) {
             arrayRatingStars[i].classList.remove('fa-star');
@@ -35,8 +36,8 @@ $(function() {
         $(".label-score-1-new").removeClass("active");
         $(".label-score-2-new").removeClass("active");
         $(".label-score-0-new").addClass("active");
-        $(".motion-counter-new").html('0');
-        $(".action-counter-new").html('0');
+        $("#motion-counter-new").html('0');
+        $("#action-counter-new").html('0');
         $("#edit-action").addClass('hidden');
         var leafletid = $(".leaflet-id").val();
         $('#card_footer_' + leafletid).removeClass('hidden');
@@ -55,6 +56,7 @@ $(function() {
         $('.leaflet-note').val('');
         $('.leaflet-url').val('');
         $('.reminderat').val(1);
+        $('.heap-id').val(1);
         $('.current-score-new').val(0);
         var arrayRatingStars = $(".rating-input .fa");
         for (var i = 0; i < arrayRatingStars.length; i++) {
