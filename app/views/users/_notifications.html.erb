@@ -1,5 +1,5 @@
 <span class="rake-nav">NOTIFICATIONS<hr></span>
-<div class="row notifications-feed">
+<div class="row">
   <% @notifications.each do |n| %>
     <div class="col-md-12">
       <div class="media notifications">
@@ -18,12 +18,12 @@
         </span>
         <div class="media-body">
           <h5 class="media-heading"><%= n.title %></h5>
-          <p>
-            <%= simple_format(auto_link(n.body, html: { target: '_blank' }), class: "black") %>
-          </p>
+          <%= simple_format(auto_link(n.subtitle), class: "notifications-subtitle") %>
+        </div>
+        <div class="notifications-feed">
+          <%= simple_format(auto_link(n.body, html: { target: '_blank' })) %>
         </div>
       </div>
-      <br>
     </div>
   <% end %>
 </div>

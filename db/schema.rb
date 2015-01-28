@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126070708) do
+ActiveRecord::Schema.define(version: 20150128024346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(version: 20150126070708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "icon"
+    t.text     "subtitle"
   end
 
   create_table "rake_channel_maps", force: true do |t|

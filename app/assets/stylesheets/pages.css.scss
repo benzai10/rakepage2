@@ -282,34 +282,43 @@
   }
 }
 
+.notifications {
+  background-color: white;
+  border: 1px solid lightgrey;
+  -webkit-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+  -moz-box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+  box-shadow: 3px 3px 20px -13px rgba(0,0,0,1);
+  margin-bottom: 15px;
+}
+
+.notifications-subtitle {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: slategrey !important;
+}
+
 .notifications-feed {
-  h1 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 22px !important;
-    font-weight: 500 !important;
-    color: slategrey;
-  }
-  h2 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px !important;
-    font-weight: 500 !important;
-    color: slategrey;
-  }
-  h4 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    color: slategrey;
-  }
+  margin-top: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: slategrey !important;
+  background-color: white !important;
   p {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 13px !important;
     font-weight: 300 !important;
+    color: slategrey !important;
+    background-color: white !important;
   }
-  li {
-    font-family: 'Roboto', sans-serif;
+  .notifications-list {
+    font-family: 'Roboto', sans-serif !important;
     font-size: 13px !important;
     font-weight: 300 !important;
+    color: slategrey !important;
   }
 }
 

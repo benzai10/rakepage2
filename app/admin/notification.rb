@@ -1,5 +1,5 @@
 ActiveAdmin.register Notification do
-  permit_params :title, :body, :notification_type, :icon, :published_at, :user_ids, :master_rake_ids
+  permit_params :title, :subtitle, :body, :notification_type, :icon, :published_at, :user_ids, :master_rake_ids
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -18,6 +18,7 @@ ActiveAdmin.register Notification do
     selectable_column
     id_column
     column :title
+    column :subtitle
     column :body
     column :notification_type
     column :icon
