@@ -10,7 +10,7 @@
             <% notification_flag = "reminder-month-purple" %>
           <% end %>
           <p class=<%= notification_flag %>>
-            <%= n.published_at %>
+            <%= n.published_at.strftime("%Y-%m-%d") %>
           </p>
           <p class="reminder-day">
             <i class="fa <%= n.icon %>"></i>
