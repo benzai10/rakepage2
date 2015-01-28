@@ -1,5 +1,5 @@
 <% if @parent_master_rakes.count > 0 %>
-  <span class="rake-nav"><i class="fa fa-level-up"></i> PARENT RAKES<hr></span>
+  <span class="rake-nav">MAIN TOPICS<hr></span>
   <div class="row">
     <% @parent_master_rakes.each do |pmr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", pmr.master_heaps.pluck(:id)) %>
@@ -80,7 +80,7 @@
 <% end %>
 
 <% if @sibling_master_rakes.count > 0 %>
-  <span class="rake-nav"><i class="fa fa-long-arrow-right"></i> SIBLING RAKES<hr></span>
+  <span class="rake-nav">SIMILAR TOPICS<hr></span>
   <div class="row">
     <% @sibling_master_rakes.each do |smr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", smr.master_heaps.pluck(:id)) %>
@@ -161,7 +161,7 @@
 <% end %>
 
 <% if @children_master_rakes.count > 0 %>
-  <span class="rake-nav"><i class="fa fa-level-down"></i> CHILDREN RAKES<hr></span>
+  <span class="rake-nav">SUBTOPICS<hr></span>
   <div class="row">
     <% @children_master_rakes.each do |cmr| %>
       <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", cmr.master_heaps.pluck(:id)) %>
