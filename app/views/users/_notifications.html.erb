@@ -18,10 +18,18 @@
         </span>
         <div class="media-body">
           <h5 class="media-heading"><%= n.title %></h5>
-          <%= simple_format(auto_link(n.subtitle), class: "notifications-subtitle") %>
+          <% if n.ext_link? %>
+            <%= auto_link(simple_format(n.subtitle, class: "notifications-subtitle"), html: { target: '_blank' }) %>
+          <% else %>
+            <%= simple_format(auto_link(n.subtitle), class: "notifications-subtitle") %>
+          <% end %>
         </div>
         <div class="notifications-feed">
-          <%= simple_format(auto_link(n.body, html: { target: '_blank' })) %>
+          <% if n.ext_link? %>
+            <%= auto_link(simple_format(n.body), html: { target: '_blank' }) %>
+          <% else %>
+            <%= simple_format(auto_link(n.body)) %>
+          <% end %>
         </div>
       </div>
     </div>
