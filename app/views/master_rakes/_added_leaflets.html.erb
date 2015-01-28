@@ -24,14 +24,11 @@
           <% if channel_name == "Title not available." %>
             <% channel_name = Channel.find(l.channel_id).source %>
           <% end %>
-          Channel: <%= channel_name %>
+          <% if l.leaflet_type_id != 3 %>
+            <%= channel_name %>
+          <% end %>
           <% if l.leaflet_type_id != 0 %>
-            &nbsp;|&nbsp;
             <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-            <% if !l.created_by.nil? %>
-              &nbsp;|&nbsp;
-              added by <%= User.find(l.created_by).username %>
-            <% end %>
           <% end %>
           <span class="pull-right-menu">
             <%= time_ago_in_words(l.updated_at) %> ago 
