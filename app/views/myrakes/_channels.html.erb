@@ -152,3 +152,7 @@
     <% end %>
   <% end %>
 </ul>
+<% if user_signed_in? && @rake.user_id == current_user.id %>
+  <%= render 'master_rakes/add_rss_modal' %>
+  <%= render 'master_rakes/add_subreddit_modal' %>
+<% end %>
