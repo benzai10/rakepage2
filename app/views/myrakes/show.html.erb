@@ -47,5 +47,9 @@
     </div>
   </div>
 </div>
+<% if user_signed_in? && current_user.admin? %>
+  <%= render 'master_rakes/add_rss_modal' %>
+  <%= render 'master_rakes/add_subreddit_modal' %>
+<% end %>
 <%= render 'shared/request_modal' %>
 <%= render 'shared/thanks_modal' %>
