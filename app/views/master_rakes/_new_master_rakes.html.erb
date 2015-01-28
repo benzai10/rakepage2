@@ -23,13 +23,13 @@
                 <%= m.name %>
               </h5>
               <p class="rake-links">
-                <% parent_master_rakes = m.parent_master_rakes %>
-                <% children_master_rakes = m.children_master_rakes %>
-                <% sibling_master_rakes = m.sibling_master_rakes %>
-                <% children_master_rakes -= sibling_master_rakes %>
-                <% sibling_master_rakes -= parent_master_rakes %>
-                <% related_rakes = parent_master_rakes.count + sibling_master_rakes.count + children_master_rakes.count %>
-                Related topics: <%= related_rakes.to_s %>
+                <%# parent_master_rakes = m.parent_master_rakes %>
+                <%# children_master_rakes = m.children_master_rakes %>
+                <%# sibling_master_rakes = m.sibling_master_rakes %>
+                <%# children_master_rakes -= sibling_master_rakes %>
+                <%# sibling_master_rakes -= parent_master_rakes %>
+                <%# related_rakes = parent_master_rakes.count + sibling_master_rakes.count + children_master_rakes.count %>
+                <!-- Related topics:  --><%#= related_rakes.to_s %>
               <p>
               </p>
             </div>
