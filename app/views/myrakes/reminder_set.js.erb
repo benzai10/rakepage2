@@ -8,13 +8,13 @@ else {
     $('#anchor_leaflet_<%= @leaflet.id %>').remove();
     switch (<%= @chain_flag %>) {
       case 1:
-        if ($('.current-day')[0].contains('bookmark-metrics')) {
+        if ($('.current-day')[0].classList.contains('bookmark-metrics')) {
           $('.current-day').addClass('bookmark-metrics-motion');
         }
         $('#committed-tasks-count').html(parseInt($("#committed-tasks-count").html()) + 1);
         break;
       case 2:
-        if (!$('.current-day')[0].contains('bookmark-action')) {
+        if (!$('.current-day')[0].classList.contains('bookmark-action')) {
           $('.current-day').addClass('bookmark-metrics-action');
         }
         $('#committed-tasks-count').html(parseInt($("#committed-tasks-count").html()) + 1);
