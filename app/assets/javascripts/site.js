@@ -109,6 +109,7 @@ $(function() {
         $('.task-comment').val('');
         $('.leaflet-goal').val('');
         $('.leaflet-note').val('');
+        $('.heap-id').val(1);
         var arrayRatingStars = $(".rating-input .fa");
         for (var i = 0; i < arrayRatingStars.length; i++) {
             arrayRatingStars[i].classList.remove('fa-star');
