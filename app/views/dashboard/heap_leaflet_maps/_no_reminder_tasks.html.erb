@@ -1,4 +1,4 @@
-<h1>Due Tasks</h1>
+<h1>No Reminder Tasks</h1>
 <table class="table">
   <thead>
     <tr>
@@ -7,7 +7,6 @@
       <th>Task</th>
       <th>HeapLeafletMap</th>
       <th>Goal</th>
-      <th>Reminder at</th>
     </tr>
   </thead>
   <tbody>
@@ -21,11 +20,10 @@
           <% leaflet_title = task.leaflet_title %>
         <% end %>
         <td><%= leaflet_title %></td>
-        <td><%= task.id %>
+        <td><%= task.id %></td>
         <td><%= task.leaflet_goal %></td>
-        <td><%= time_ago_in_words(task.reminder_at) %> ago</td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= paginate @tasks %>
+<%= paginate @tasks_without_reminder %>

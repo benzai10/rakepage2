@@ -5,6 +5,8 @@
     <div class="col-md-10">
       <% if params[:view] == "due_tasks" %>
         <%= render 'due_tasks' %>
+      <% elsif params[:view] == "no_reminder_tasks" %>
+        <%= render 'no_reminder_tasks' %>
       <% else %>
         <h1>Tasks</h1>
         <table class="table">
