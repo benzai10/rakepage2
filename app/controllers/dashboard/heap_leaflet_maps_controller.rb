@@ -3,9 +3,11 @@ class Dashboard::HeapLeafletMapsController < ApplicationController
 
   def index
     if params[:view] == "due_tasks"
-      @tasks = HeapLeafletMap.where("reminder_at < ?", Time.now).order(reminder_at: :asc).page(params[:page]).per(20)
+      @tasks = HeapLeafletMap.where("reminder_at < ?", Time.now).order(reminder_at: :asc).page(params[:page]).per(50)
+    elsif params[:view] == "no_reminder_tasks"
+      @tasks_without_reminder = HeapLeafletMap.where(reminder_at: nil).page(params[:page]).per(50)
     else
-      @tasks = HeapLeafletMap.all.page(params[:page]).per(20)
+      @tasks = HeapLeafletMap.all.page(params[:page]).per(50)
     end
   end
 

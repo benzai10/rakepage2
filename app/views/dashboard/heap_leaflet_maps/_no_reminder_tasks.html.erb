@@ -1,0 +1,31 @@
+<h1>Due Tasks</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Rake</th>
+      <th>Task</th>
+      <th>HeapLeafletMap</th>
+      <th>Goal</th>
+      <th>Reminder at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks_without_reminder.each do |task| %>
+      <tr>
+        <td><%= link_to User.find(task.heap.myrake.user_id).username, dashboard_user_path(User.find(task.heap.myrake.user_id)) %></td>
+        <td><%= Myrake.find(task.heap.myrake).slug %></td>
+        <% if task.leaflet_title.nil? || task.leaflet_title.empty? %>
+          <% leaflet_title = Leaflet.find(task.leaflet_id).title %>
+        <% else %>
+          <% leaflet_title = task.leaflet_title %>
+        <% end %>
+        <td><%= leaflet_title %></td>
+        <td><%= task.id %>
+        <td><%= task.leaflet_goal %></td>
+        <td><%= time_ago_in_words(task.reminder_at) %> ago</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>
