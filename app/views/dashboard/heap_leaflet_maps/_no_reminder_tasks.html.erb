@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% @tasks_without_reminder.each do |task| %>
-      <% if History.where(history_code: "bm_activity", leaflet_id: task.leaflet_id, user_id: task.heap.myrake.user_id).count > 0 %>
+      <% if History.where(history_code: "bm_activity", user_id: task.heap.myrake.user_id).count > 0 %>
         <tr>
           <td><%= link_to User.find(task.heap.myrake.user_id).username, dashboard_user_path(User.find(task.heap.myrake.user_id)) %></td>
           <td><%= Myrake.find(task.heap.myrake).slug %></td>
