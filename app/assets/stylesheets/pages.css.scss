@@ -14,10 +14,10 @@
   h3 {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 32px !important;
+    font-size: 28px !important;
     font-weight: 200 !important;
     letter-spacing: 1.5px !important;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   p {
     color: grey;
@@ -42,6 +42,14 @@
   }
   .landing-feature-text {
     text-align: center;
+    color: #707070 !important;
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.3px;
+    min-height: 70px;
+  }
+  .landing-benefit-text {
+    text-align: center;
     color: black !important;
     font-size: 18px !important;
     font-weight: 300 !important;
@@ -52,7 +60,7 @@
     margin-bottom: 20px;
   }
   .landing-screenshot {
-    margin: 30px;
+    margin-top: 15px;
     border: 1px solid #C0C0C0;
   }
   .landing-screenshot-left {
@@ -84,21 +92,21 @@
   background-color: #4a2b88;
   h1 {
     font-family: 'Roboto', sans-serif;
-    font-size: 52px !important;
+    font-size: 80px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
     text-align: center;
-    margin-top: 58px !important;
+    margin-top: 46px !important;
   }
   h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: 36px !important;
+    font-size: 34px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
     text-align: center;
-    margin-top: 38px !important;
+    margin-top: 22px !important;
     margin-bottom: 50px !important;
   }
   h3 {

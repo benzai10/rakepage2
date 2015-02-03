@@ -365,6 +365,18 @@ a.anchor {
   color: black !important;
 }
 
+.red {
+  color: red !important;
+}
+
+.yellow {
+  color: gold !important;
+}
+
+.orange {
+  color: orange !important;
+}
+
 .in-form-edit {
   padding-top: 10px;
   padding-left: 10px;
