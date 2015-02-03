@@ -368,6 +368,14 @@
     .landing-screenshot-left {
       margin-top: 52px !important;
     }
+    .landing-feature-text {
+      text-align: center;
+      color: #707070 !important;
+      font-size: 16px !important;
+      font-weight: 300 !important;
+      letter-spacing: 0.3px;
+      min-height: 120px;
+    }
   }
 }
 
@@ -377,12 +385,12 @@
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-    .fb-like {
-      display: none !important;
-    }
-    .twitter-follow-button {
-      display: none;
-    }
+  .fb-like {
+    display: none !important;
+  }
+  .twitter-follow-button {
+    display: none;
+  }
 }
 
 /* Landscape phone to portrait tablet */
