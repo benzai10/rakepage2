@@ -9,6 +9,7 @@ Rakepage2::Application.routes.draw do
 
   get 'pages/terms_of_service' => 'pages#terms_of_service'
   get 'pages/privacy_policy' => 'pages#privacy_policy'
+  get 'pages/about' => 'pages#about'
 
   # get 'dashboard/index' => 'dashboard#index'
   # get 'dashboard/users' => 'dashboard#users'
