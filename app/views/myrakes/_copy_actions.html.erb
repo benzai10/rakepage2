@@ -4,10 +4,14 @@
 </p>
 <ul id="feed-list" class="leaflet-list">
   <span class="rake-nav">COPY ACTIONS OF OTHERS<hr></span>
+  <% leaflet_duplication_array = [] %>
   <% @copy_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
-    <% if l.url.first(4) == "http" %>
-      <%= render 'shared/card_news', { l: l, copy_flag: 1 } %>
+    <% if !leaflet_duplication_array.include? l.id %>
+      <% leaflet_duplication_array << l.id %>
+      <% if l.url.first(4) == "http" %>
+        <%= render 'shared/card_news', { l: l, copy_flag: 1 } %>
+      <% end %>
     <% end %>
   <% end %>
   <% if @copy_leaflets.count == 0 %>
