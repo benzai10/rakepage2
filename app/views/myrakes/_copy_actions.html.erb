@@ -6,7 +6,9 @@
   <span class="rake-nav">COPY ACTIONS OF OTHERS<hr></span>
   <% @copy_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
-    <%= render 'shared/card_news', l: l %>
+    <% if l.url.first(4) == "http" %>
+      <%= render 'shared/card_news', l: l %>
+    <% end %>
   <% end %>
   <% if @copy_leaflets.count == 0 %>
     <p class="rake-links">
