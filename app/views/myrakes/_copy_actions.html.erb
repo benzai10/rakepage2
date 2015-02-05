@@ -7,7 +7,7 @@
   <% @copy_leaflets.each do |lm| %>
     <% l = Leaflet.find(lm.leaflet_id) %>
     <% if l.url.first(4) == "http" %>
-      <%= render 'shared/card_news', l: l %>
+      <%= render 'shared/card_news', { l: l, copy_flag: 1 } %>
     <% end %>
   <% end %>
   <% if @copy_leaflets.count == 0 %>

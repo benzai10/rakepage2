@@ -40,13 +40,15 @@
       <% end %>
     </span>
 
-    <span class="pull-right card-timestamp">
-      <% if !l.published_at.nil? %>
-        <%= time_ago_in_words(l.published_at) %> ago 
-      <% else %>
-        <%= time_ago_in_words(l.created_at) %> ago 
-      <% end %>
-    </span>
+    <% if copy_flag.nil? %>
+      <span class="pull-right card-timestamp">
+        <% if !l.published_at.nil? %>
+          <%= time_ago_in_words(l.published_at) %> ago 
+        <% else %>
+          <%= time_ago_in_words(l.created_at) %> ago 
+        <% end %>
+      </span>
+    <% end %>
 
   </div>
 

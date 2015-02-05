@@ -38,9 +38,10 @@ class MyrakesController < ApplicationController
       @heap_leaflets = @overdue_leaflets + @scheduled_leaflets
       myrake_ids = @rake.master_rake.myrakes.pluck(:id)
       heap_ids = Heap.where("myrake_id IN (?)", myrake_ids).pluck(:id)
-      @copy_leaflets = HeapLeafletMap.where("reminder_at IS NOT NULL AND heap_id IN (?) AND leaflet_id NOT IN (?)",
-                                            heap_ids,
-                                            @heap_leaflets.map{|x|x.leaflet_id}).order("reminder_at DESC").limit(20)
+      @copy_leaflets = HeapLeafletMap.where("reminder_at IS NOT NULL AND heap_id IN (?)",
+                                            heap_ids).order("reminder_at DESC").limit(20)
+      leaflet_ids = @heap_leaflets.map{ |x| x.leaflet_id }
+      @copy_leaflets.map!{ |x| x unless leaflet_ids.include?(x.leaflet_id) }.compact!
       if params[:origin] == "due"
         @due_active = "active"
         @scheduled_active = ""
