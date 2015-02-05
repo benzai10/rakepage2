@@ -35,15 +35,29 @@ class MyrakesController < ApplicationController
       @scheduled_leaflets = HeapLeafletMap.includes(:heap).where("heap_id IN (?) AND reminder_at > ?",
                                                  @rake.heaps.pluck(:id).flatten,
                                                  Time.now).order(:reminder_at)
+      myrake_ids = @rake.master_rake.myrakes.pluck(:id)
+      heap_ids = Heap.where("myrake_id IN (?)", myrake_ids).pluck(:id)
+      @copy_leaflets = HeapLeafletMap.where("heap_id IN (?) AND reminder_at > ? AND leaflet_id NOT IN (?)",
+                                            heap_ids,
+                                            Time.now,
+                                            @scheduled_leaflets.pluck(:leaflet_id).flatten).order(:reminder_at).limit(20)
+      @heap_leaflets = @overdue_leaflets + @scheduled_leaflets
       if params[:origin] == "due"
         @due_active = "active"
         @scheduled_active = ""
+        @copy_active = ""
       elsif params[:origin] == "scheduled"
         @due_active = ""
         @scheduled_active = "active"
+        @copy_active = ""
+      elsif params[:origin] == "copy"
+        @due_active = ""
+        @scheduled_active = ""
+        @copy_active = "active"
       else
         @due_active = "active"
         @scheduled_active = ""
+        @copy_active = ""
       end
     elsif params[:view] == "news"
       if user_signed_in? && current_user.admin?

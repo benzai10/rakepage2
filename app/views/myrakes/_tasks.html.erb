@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading panel-tasks">
     <h5 class="panel-title">
-      Stay focused and take action
+      Your Actions
       <span class="pull-right">
         <small class="white">
           <i class="fa fa-cog rake-settings white"></i>
@@ -59,6 +59,11 @@
               PLANNED
             </a>
           </li>
+          <li class="rake-nav <%= @copy_active %>">
+            <a href="#copy-actions" id="view-copy-actions" data-toggle="tab">
+              COPY
+            </a>
+          </li>
           <li class="rake-nav">
             <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
               RELATED
@@ -74,6 +79,9 @@
         <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
           <%= render 'scheduled_tasks' %>
         </div>
+        <div class="tab-pane <%= @copy_active %>" id="copy-actions">
+          <%= render 'copy_actions' %>
+        </div>
         <div class="tab-pane" id="related-rakes">
           <br>
           <%= render 'related_rakes' %>
@@ -82,3 +90,4 @@
     </div>
   </div>
 </div>
+<%= render 'save_action' %>

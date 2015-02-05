@@ -1,0 +1,18 @@
+<br>
+<p class="rake-links">
+  Discover and get inspired by content other users have planned to take action on!
+</p>
+<ul id="feed-list" class="leaflet-list">
+  <span class="rake-nav">COPY ACTIONS OF OTHERS<hr></span>
+  <% @copy_leaflets.each do |lm| %>
+    <% l = Leaflet.find(lm.leaflet_id) %>
+    <%= render 'shared/card_news', l: l %>
+  <% end %>
+  <% if @copy_leaflets.count == 0 %>
+    <p class="rake-links">
+      <small>
+        Unfortunately, there are no other users who have planned actions for this topic. Recommend Rakepage to a friend to  join this topic! Sorry, there's no simple invitation function yet, but coming soon.
+      </small>
+    </p>
+  <% end %> 
+</ul>
