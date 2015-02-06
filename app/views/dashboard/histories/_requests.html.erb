@@ -5,14 +5,24 @@
       <th>User</th>
       <th>Request</th>
       <th>Date</th>
+      <th>Email</th>
     </tr>
   </thead>
   <tbody>
     <% @histories.each do |history| %>
       <tr>
-        <td><%= User.find(history.user_id).username %></td>
+        <% if history.user_id.nil? %>
+          <td>Visitor</td>
+        <% else %>
+          <td><%= User.find(history.user_id).username %></td>
+        <% end %>
         <td><%= history.history_text %></td>
         <td><%= history.created_at %></td>
+        <% if history.history_str.nil? %>
+          <td>N/A</td>
+        <% else %>
+          <td><%= history.history_str %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
