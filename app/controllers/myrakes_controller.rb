@@ -10,6 +10,8 @@ class MyrakesController < ApplicationController
       redirect_to master_rakes_path
       return
     end
+    History.create!(user_id: current_user.id,
+                    history_code: "myrake_show")
     session[:rake_class] = Myrake
     @rake = Myrake.find(params[:id])
     @top_rakes_count = Myrake.where("user_id = ? AND top_rake = 1", @rake.user_id).count
