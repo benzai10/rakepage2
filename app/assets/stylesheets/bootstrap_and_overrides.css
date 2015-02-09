@@ -616,8 +616,9 @@ h5 {
   font-size: 16px;
 }
 
-a.menu-link:hover {
-  color: #4a2b88 !important;
+a.menu-link {
+  font-weight: 400;
+  color: white !important;
   text-decoration: none;
 }
 
