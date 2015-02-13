@@ -21,13 +21,8 @@ class UsersController < ApplicationController
         end
         @notifications = Notification.all.order(published_at: :desc)
         @master_rakes_count = MasterRake.all.count
-        if params[:view] == "top5"
-          @top5_active = "active"
-          @status_active = ""
-        else
-          @top5_active = ""
-          @status_active = "active"
-        end
+        @top5_active = "active"
+        @status_active = ""
       else
         redirect_to master_rakes_path
         return

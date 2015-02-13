@@ -36,11 +36,6 @@
               <!-- Nav tabs -->
               <div class="row">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li class="rake-nav <%= @status_active %>" id="status-nav-tab">
-                    <a href="#status" id="view-status" data-toggle="tab">
-                      STATUS
-                    </a>
-                  </li>
                   <li class="rake-nav <%= @top5_active %>" id="top-rakes-nav-tab">
                     <a href="#top-rakes" id="view-top-rakes" data-toggle="tab">
                       TOP 5
@@ -51,14 +46,15 @@
                       MORE
                     </a>
                   </li>
+                  <li class="rake-nav <%= @status_active %>" id="status-nav-tab">
+                    <a href="#status" id="view-status" data-toggle="tab">
+                      STATUS
+                    </a>
+                  </li>
                 </ul>
               </div>
               <!-- Tab panes -->
               <div class="tab-content">
-                <div class="tab-pane <%= @status_active %>" id="status">
-                  <br>
-                  <%= render 'status' %>
-                </div>
                 <div class="tab-pane <%= @top5_active %>" id="top-rakes">
                   <br>
                   <%= render 'top_rakes' %>
@@ -66,6 +62,10 @@
                 <div class="tab-pane" id="other-rakes">
                   <br>
                   <%= render 'other_rakes' %>
+                </div>
+                <div class="tab-pane <%= @status_active %>" id="status">
+                  <br>
+                  <%= render 'status' %>
                 </div>
               </div>
             </div>
