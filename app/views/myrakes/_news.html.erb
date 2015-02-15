@@ -75,7 +75,7 @@
             <span class="rake-nav">FEED<hr></span>
             <ul id="feed-list" class="leaflet-list">
               <% @feed_leaflets.each do |l| %>
-                <%= render 'shared/card_news', { l: l, copy_flag: nil } %>
+                <%= render 'shared/card_news', { l: l, copy_flag: nil } unless l.url.empty? %>
               <% end %>
             </ul>
           <% else %>
