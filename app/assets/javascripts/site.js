@@ -22,6 +22,11 @@ $(function() {
         $("#back-to-actions").addClass('hidden');
     });
 
+    $('#view-status').on('shown.bs.tab', function () {
+        $.ajax("/users/notification_read")
+        return false;
+    });
+
     $("#notifications-nav").on('click', function() {
         $.ajax("/users/notification_read")
         $("#notifications").removeClass('hidden');
@@ -357,7 +362,6 @@ $(function() {
         var eth = e.target.href;
         var anchorname = eth.substring(eth.indexOf('#') + 1, eth.length);
         scrollToAnchor(anchorname);
-        $('.add-recommendation-form').hide();
     });
 
     $(".add-request").click(function() {

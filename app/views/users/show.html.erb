@@ -34,6 +34,13 @@
           <li class="rake-nav <%= @status_active %>" id="status-nav-tab">
             <a href="#status" id="view-status" data-toggle="tab">
               INFO
+              <span class="new-rec-alert">
+                <% if current_user.last_notification_read_at.nil? %>
+                  <%= @notifications.count.to_s unless @notifications.count == 0 %>
+                <% else %>
+                  <%= @notifications.where("published_at > ?", current_user.last_notification_read_at).count.to_s unless @notifications.where("published_at > ?", current_user.last_notification_read_at).count == 0 %>
+                <% end %>
+              </span>
             </a>
           </li>
         </ul>

@@ -98,14 +98,16 @@
         <span class="mark-action-btn <%= mark_action_btn_display %>">
           <%= link_to "Click if you took action today",
                       mark_day_myrake_path(@rake),
-                      { class: "btn btn-primary btn-check-off",
-                        remote: true } %>
+                      { class: "btn btn-day-unmarked btn-check-off",
+                        remote: true,
+                        disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
         </span>
         <span class="unmark-action-btn <%= unmark_action_btn_display %>">
           <%= link_to "Yay, you took some action today! (Click to undo)",
                       unmark_day_myrake_path(@rake),
                       { class: "btn btn-primary btn-check-off",
-                        remote: true } %>
+                        remote: true,
+                        disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
         </span>
 
         <% if params[:view].nil? || params[:view] == "tasks" %>
