@@ -10,7 +10,7 @@
       <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
         NOW
         <% @rake.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
-        <span class=<%= count_no_zero %> id="due-tasks-count"><%= @rake.due_tasks_count %></span>
+        <span class=<%= count_no_zero %> id="due-tasks-count"><%= @rake.due_tasks_count unless @rake.due_tasks_count == 0 %></span>
       </a>
     </li>
     <li class="rake-nav <%= @scheduled_active %>">
