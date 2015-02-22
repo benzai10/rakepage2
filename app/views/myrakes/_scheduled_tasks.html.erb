@@ -49,6 +49,7 @@
                 <%= image_tag "reddit-32.png", size: "16x16" %>
               <% elsif channel.channel_type == 3 %>
                 <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+                < Comment thread
               <% else %>
                 <% favicon_path = "http://www.google.com/s2/favicons?domain=" + channel.source %>
                 <img src=<%= "#{favicon_path}" %>>
@@ -65,12 +66,12 @@
             <% if channel.channel_type != 3 %>
               <%= channel_name %>
             <% end %>
-            <% if l.leaflet_type_id != 0 %>
-              <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
+            <%# if l.leaflet_type_id != 0 %>
+              <%#= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
               <%# if !l.created_by.nil? %>
                 <!-- added by --> <%#= User.find(l.created_by).username %>
               <%# end %>
-            <% end %>
+            <%# end %>
           </span>
 
           <span class="pull-right card-timestamp">
