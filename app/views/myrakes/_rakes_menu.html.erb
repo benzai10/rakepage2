@@ -5,13 +5,23 @@
     <li class="text-right"><a href="#" id="nav-close">X</a></li>
   </ul>
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= current_user.username %>
-        </h5>
+    <% if user_signed_in? %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= current_user.username %>
+          </h5>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "Sign Up", new_user_registration_path, class: "menu-link" %>
+          </h5>
+        </div>
+      </div>
+    <% end %>
 
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
