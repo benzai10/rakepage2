@@ -1,120 +1,129 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-news">
-    <h5 class="panel-title">
-      Get updated
-      <span class="pull-right">
-        <small class="white">
-          <% if @rake.user_id == current_user.id %>
-            <%= link_to "VIEW ACTIONS", myrake_path(@rake, view: "tasks"), { class: "white", data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-            <span class="badge badge-rakepage">
-              <%= @rake.due_tasks_count.to_s %>
-            </span>
-            &nbsp;|&nbsp;
-          <% end %>
-          <i class="fa fa-cog rake-settings white"></i>
-        </small>
-      </span>
-    </h5>
-  </div>
-  <div class="panel-collapse collapse in" id="collapse-news">
-    <div class="panel-body">
-      <%= render 'rake_settings' %>
-      <!-- Nav tabs -->
-      <div class="row">
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="rake-nav active" id="feed-tab">
-            <a href="#feed" id="view-news" data-toggle="tab">
-              NEWS
-            </a>
-          </li>
-          <li class="rake-nav" id="channels-tab">
-            <a href="#channels" id="view-channels" data-toggle="tab">
-              CHANNELS
-            </a>
-          </li>
-          <li class="rake-nav">
-            <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
-              RELATED
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane active" id="feed">
-          <br>
-          <% if @rake.channels.where(channel_type: [0, 4]).count > 0 %>
-            <% if user_signed_in? && @rake.user_id == current_user.id %>
-              <div class="thumbnail">
-                <%= link_to myrake_path(view: "news", refresh: "yes"),
-                            data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Informed</p><p class='reminder-day'><i class='fa fa-rss'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Refreshing... all blogs and subreddits get aggregated.</h5></div></div>"} do %>
-                  <div class="media">
-                    <span class="pull-left">
-                      <p class="reminder-month">
-                        Informed
-                      </p>
-                      <p class="reminder-day">
-                        <i class="fa fa-rss"></i>
-                      </p>
-                    </span>
-                    <div class="media-body">
-                      <h5 class="media-heading">
-                        Your blogs and subreddits in one place.
-                      </h5>
-                      <p class="rake-links">
-                        Click to refresh the news feed.
-                        <% if !@rake.master_rake.refreshed_at.nil? %>
-                          You updated <em><%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago</em>.
-                        <% end %>
-                      </p>
-                    </div>
-                  </div>
-                <% end %>
+<br>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="rake-nav active" id="feed-tab">
+    <a href="#feed" id="view-news" data-toggle="tab">
+      NEWS
+    </a>
+  </li>
+  <li class="rake-nav" id="channels-tab">
+    <a href="#channels" id="view-channels" data-toggle="tab">
+      CHANNELS
+    </a>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="feed">
+    <br>
+    <% if @rake.channels.where(channel_type: [0, 4]).count > 0 %>
+<!--       <%# if user_signed_in? && @rake.user_id == current_user.id %>
+        <div class="thumbnail">
+          <%#= link_to myrake_path(view: "news", refresh: "yes"),
+                      data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Informed</p><p class='reminder-day'><i class='fa fa-rss'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Refreshing... all blogs and subreddits get aggregated.</h5></div></div>"} do %>
+            <div class="media">
+              <span class="pull-left">
+                <p class="reminder-month">
+                  Informed
+                </p>
+                <p class="reminder-day">
+                  <i class="fa fa-rss"></i>
+                </p>
+              </span>
+              <div class="media-body">
+                <h5 class="media-heading">
+                  Your blogs and subreddits in one place.
+                </h5>
+                <p class="rake-links">
+                  Click to refresh the news feed.
+                  <%# if !@rake.master_rake.refreshed_at.nil? %>
+                    You updated <em><%#= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago</em>.
+                  <%# end %>
+                </p>
               </div>
-            <% end %>
-            <span class="rake-nav">FEED<hr></span>
-            <ul id="feed-list" class="leaflet-list">
-              <% @feed_leaflets.each do |l| %>
-                <%= render 'shared/card_news', { l: l, copy_flag: nil } unless l.url.empty? %>
-              <% end %>
-            </ul>
-          <% else %>
-            <div class="thumbnail" id="show-channels">
-              <!-- <a href="#anchor-master-rake-news"> -->
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Updated
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-globe"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">This news feed has no channels yet</h5>
-                    <p class="rake-links">
-                      Click here to add a blog (RSS feed) or subreddit.
-                    </p>
-                  </div>
-                </div>
-              </a>
             </div>
-            <br><br><br><br><br><br><br><br><br>
-          <% end %>
+          <%# end %>
         </div>
-        <div class="tab-pane" id="channels">
-          <br>
-          <%= render 'channels' %>
-          <% if @rake.channels.where(channel_type: [0, 4]).count == 0 %>
-            <br><br><br><br><br>
-          <% end %>
-        </div>
-        <div class="tab-pane" id="related-rakes">
-          <br>
-          <%= render 'related_rakes' %>
-        </div>
+      <%# end %> -->
+      <span class="rake-nav">Last refresh: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago<hr></span>
+      <ul id="feed-list" class="leaflet-list">
+        <% @feed_leaflets.each do |l| %>
+          <%= render 'shared/card_news', { l: l, copy_flag: nil } unless l.url.empty? %>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="thumbnail" id="show-channels">
+        <!-- <a href="#anchor-master-rake-news"> -->
+          <div class="media">
+            <span class="pull-left">
+              <p class="reminder-month">
+                Updated
+              </p>
+              <p class="reminder-day">
+                <i class="fa fa-globe"></i>
+              </p>
+            </span>
+            <div class="media-body">
+              <h5 class="media-heading">This news feed has no channels yet</h5>
+              <p class="rake-links">
+                Click here to add a blog (RSS feed) or subreddit.
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
-    </div>
+      <br><br><br><br><br><br><br><br><br>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="channels">
+    <br>
+    <%= render 'channels' %>
+    <% if @rake.channels.where(channel_type: [0, 4]).count == 0 %>
+      <br><br><br><br><br>
+    <% end %>
   </div>
 </div>
-<%= render 'save_action' %>
+<script>
+  $("#abort-save-action").on('click', function() {
+      var leafletid = $(".leaflet-id").val();
+      $('#card_footer_' + leafletid).removeClass('hidden');
+      $("#save-action").addClass('hidden');
+  });
+  $(".save-action-button").on('click', function() {
+      $('.history-chain').attr('checked', false);
+      $('.task-comment').val('');
+      $('.leaflet-goal').val('');
+      $('.leaflet-id').val($(this).data('id'));
+      // $('.leaflet-note').val('');
+      $('.heap-id').val(1);
+      // var arrayRatingStars = $(".rating-input .fa");
+      // for (var i = 0; i < arrayRatingStars.length; i++) {
+      //     arrayRatingStars[i].classList.remove('fa-star');
+      //     arrayRatingStars[i].classList.add('fa-star-o');
+      // }
+      //var leafletid = $(".leaflet-id").val();
+      //$('#card_footer_' + leafletid).removeClass('hidden');
+      var leafletid = $(this).data('id');
+      $('#card_footer_' + leafletid).addClass('hidden');
+      $('#save-action').insertAfter($('#form_save_action_' + leafletid));
+      $('#save-action').removeClass('hidden');
+      $('.reminderat').val(1);
+      // $('.current-score').val(0);
+      // $(".label-score-1").removeClass("active");
+      // $(".label-score-2").removeClass("active");
+      // $(".label-score-0").addClass("active");
+      // $(".motion-counter").html('0');
+      // $(".action-counter").html('0');
+  });
+  $(".add-rss-feed").click(function() {
+      var rakeId = $(this).data('rakeid');
+      var channelType = $(this).data('channeltype');
+      $(".rake-id-rss").val(rakeId);
+      $(".channel-type-rss").val(channelType);
+  });
+  $(".add-subreddit-feed").click(function() {
+      var rakeId = $(this).data('rakeid');
+      var channelType = $(this).data('channeltype');
+      $(".rake-id-subreddit").val(rakeId);
+      $(".channel-type-subreddit").val(channelType);
+  });
+</script>

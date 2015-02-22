@@ -1,93 +1,48 @@
-<div class="panel panel-default">
-  <div class="panel-heading panel-tasks">
-    <h5 class="panel-title">
-      Your Actions
-      <span class="pull-right">
-        <small class="white">
-          <i class="fa fa-cog rake-settings white"></i>
-        </small>
-      </span>
-    </h5>
+<div id="news-view">
+</div>
+<div id="task-view">
+  <br>
+  <p>
+    Planned actions for:
+  </p>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="rake-nav <%= @due_active %>">
+      <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
+        NOW
+        <% @rake.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
+        <span class=<%= count_no_zero %> id="due-tasks-count"><%= @rake.due_tasks_count %></span>
+      </a>
+    </li>
+    <li class="rake-nav <%= @scheduled_active %>">
+      <a href="#scheduled-tasks" id="view-scheduled-tasks" data-toggle="tab">
+        LATER
+      </a>
+    </li>
+  </ul>
+  <br>
+  <div>
+    <span>
+      <%= link_to "Create new action",
+                  "#",
+                  { class: "btn btn-default",
+                    id: "add-new-action" } %>
+    </span>
+    <span class="pull-right">
+      <%= link_to "Read personalised feed to get updated",
+                  myrake_path(@rake, view: "news", refresh: "yes"),
+                  { class: "btn btn-primary btn-news",
+                    remote: true,
+                    data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
+    </span>
   </div>
-  <div class="panel-collapse collapse in" id="collapse-news">
-    <div class="panel-body">
-      <%= render 'rake_settings' %>
-      <!-- Nav tabs -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="media">
-            <span class="pull-left">
-              <% if @rake.master_rake.image_url.nil? || @rake.master_rake.image_url.empty? %>
-                <%= image_tag("no_image.png", size: "96x54") %>
-              <% else %>
-                <%= image_tag(@rake.master_rake.image_url, size: "96x54") %>
-              <% end %>
-            </span>
-            <div class="media-body">
-              <p class="media-heading">
-                <small>
-                  <span class="today-label-left">&nbsp;<i class="fa fa-angle-down"></i> 30 days ago</span>
-                  <span class="today-label-right">Today <i class="fa fa-angle-down"></i>&nbsp;</span>
-                </small>
-              </p>
-              <p>
-                <%= render 'myrakes/top_rake_chain', toprake: @rake %>
-              </p>
-              <p class="rake-links">
-                Due Actions:
-                <% @rake.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
-
-                <span class=<%= count_no_zero %> id="due-tasks-count"><%= @rake.due_tasks_count %></span>
-                &nbsp;|&nbsp;
-                Committed Actions:
-                <span id="committed-tasks-count"><%= @rake.action_count %></span>
-              </p>
-            </div>
-            <div>
-              <hr>
-            </div>
-          </div>
-        </div>
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="rake-nav <%= @due_active %>">
-            <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
-              NOW
-            </a>
-          </li>
-          <li class="rake-nav <%= @scheduled_active %>">
-            <a href="#scheduled-tasks" id="view-scheduled-tasks" data-toggle="tab">
-              PLANNED
-            </a>
-          </li>
-          <li class="rake-nav <%= @copy_active %>">
-            <a href="#copy-actions" id="view-copy-actions" data-toggle="tab">
-              COPY
-            </a>
-          </li>
-          <li class="rake-nav">
-            <a href="#related-rakes" id="view-related-rakes" data-toggle="tab">
-              RELATED
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane <%= @due_active %>" id="due-tasks">
-          <%= render 'due_tasks' %>
-        </div>
-        <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
-          <%= render 'scheduled_tasks' %>
-        </div>
-        <div class="tab-pane <%= @copy_active %>" id="copy-actions">
-          <%= render 'copy_actions' %>
-        </div>
-        <div class="tab-pane" id="related-rakes">
-          <br>
-          <%= render 'related_rakes' %>
-        </div>
-      </div>
+  <%= render 'new_action' %>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane <%= @due_active %>" id="due-tasks">
+      <%= render 'due_tasks' %>
+    </div>
+    <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
+      <%= render 'scheduled_tasks' %>
     </div>
   </div>
 </div>
-<%= render 'save_action' %>

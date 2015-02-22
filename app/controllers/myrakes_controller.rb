@@ -15,18 +15,22 @@ class MyrakesController < ApplicationController
     session[:rake_class] = Myrake
     @rake = Myrake.find(params[:id])
     @top_rakes_count = Myrake.where("user_id = ? AND top_rake = 1", @rake.user_id).count
-    parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
-    @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
-    @children_master_rakes = MasterRake.where("slug IN (?)",
-                                Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
-                                        @rake.master_rake_id.to_s).pluck(:url).map{|x| x.partition("master_rakes/").last })
-    @sibling_master_rakes = MasterRake.where("id <> ? AND slug IN (?)",
-                               @rake.master_rake_id,
-                               Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
-                                       @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
-    @children_master_rakes -= @sibling_master_rakes
-    @sibling_master_rakes -= @parent_master_rakes
+    # parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
+    # @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
+    # @children_master_rakes = MasterRake.where("slug IN (?)",
+    #                             Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
+    #                                     @rake.master_rake_id.to_s).pluck(:url).map{|x| x.partition("master_rakes/").last })
+    # @sibling_master_rakes = MasterRake.where("id <> ? AND slug IN (?)",
+    #                            @rake.master_rake_id,
+    #                            Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
+    #                                    @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
+    # @children_master_rakes -= @sibling_master_rakes
+    # @sibling_master_rakes -= @parent_master_rakes
+    @parent_master_rakes = []
+    @sibling_master_rakes = []
+    @children_master_rakes = []
     if params[:view].nil? || params[:view] == "tasks"
+      @news_view = "hidden"
       if @rake.user_id != current_user.id
         redirect_to user_path(current_user)
         return
@@ -38,12 +42,13 @@ class MyrakesController < ApplicationController
                                                  @rake.heaps.pluck(:id).flatten,
                                                  Time.now).order(:reminder_at)
       @heap_leaflets = @overdue_leaflets + @scheduled_leaflets
-      myrake_ids = @rake.master_rake.myrakes.pluck(:id)
-      heap_ids = Heap.where("myrake_id IN (?)", myrake_ids).pluck(:id)
-      @copy_leaflets = HeapLeafletMap.where("reminder_at IS NOT NULL AND heap_id IN (?)",
-                                            heap_ids).order("reminder_at DESC").limit(20)
-      leaflet_ids = @heap_leaflets.map{ |x| x.leaflet_id }
-      @copy_leaflets.map!{ |x| x unless leaflet_ids.include?(x.leaflet_id) }.compact!
+      # myrake_ids = @rake.master_rake.myrakes.pluck(:id)
+      # heap_ids = Heap.where("myrake_id IN (?)", myrake_ids).pluck(:id)
+      # @copy_leaflets = HeapLeafletMap.where("reminder_at IS NOT NULL AND heap_id IN (?)",
+      #                                       heap_ids).order("reminder_at DESC").limit(20)
+      # leaflet_ids = @heap_leaflets.map{ |x| x.leaflet_id }
+      # @copy_leaflets.map!{ |x| x unless leaflet_ids.include?(x.leaflet_id) }.compact!
+      @copy_leaflets = []
       if params[:origin] == "due"
         @due_active = "active"
         @scheduled_active = ""
@@ -61,7 +66,10 @@ class MyrakesController < ApplicationController
         @scheduled_active = ""
         @copy_active = ""
       end
+      @feed_leaflets = []
+      @new_channels = []
     elsif params[:view] == "news"
+      @news_view = ""
       if user_signed_in? && current_user.admin?
         @heaps = @rake.heaps
       else
@@ -84,6 +92,10 @@ class MyrakesController < ApplicationController
                                 .where("channel_type <> 3 AND channel_type <> 5")
                                 .order("created_at DESC")
                                 .limit(5)
+      respond_to do |format|
+        format.html {}
+        format.js { render 'news' }
+      end
     elsif params[:view] == "bookmarks"
       @leaflet_types = CategoryLeafletTypeMap.where(category_id: @rake.master_rake.category_id).pluck(:leaflet_type_id)
       missing_leaflet_types = @leaflet_types - @rake.heaps.pluck(:leaflet_type_id)
@@ -136,7 +148,7 @@ class MyrakesController < ApplicationController
         master_rake = MasterRake.find(@rake.master_rake_id)
         master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
         master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
-        redirect_to myrake_path(@rake, view: "news", refresh: "yes")
+        redirect_to myrake_path(@rake)
       else
         flash[:error] = @rake.errors.full_messages
         redirect_to :back
@@ -161,7 +173,7 @@ class MyrakesController < ApplicationController
         #     @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc, "", "", "", 0, 0, 0)
         #   end
         # end
-        redirect_to myrake_path(@rake, view: "tasks", refresh: "yes")
+        redirect_to myrake_path(@rake)
       else
         flash[:error] = @rake.errors.full_messages
         redirect_to :back
@@ -273,7 +285,7 @@ class MyrakesController < ApplicationController
         reminder_at = nil
       end
       if @rake.add_leaflet(leaflet,
-                        params[:myrake][:leaflet_type_id],
+                        1,
                         params[:myrake][:leaflet_title],
                         params[:myrake][:leaflet_desc],
                         params[:myrake][:leaflet_goal],
@@ -406,7 +418,7 @@ class MyrakesController < ApplicationController
         url_data = @rake.url_data(url)
         title = url_data[:leaflet_title]
         description = url_data[:leaflet_desc]
-        leaflet_type_id = params[:myrake][:leaflet_type_id]
+        leaflet_type_id = 1
       end
       if leaflet_type_id.to_i == 15
         leaflet_author = @rake.master_rake_id.to_s
@@ -435,18 +447,18 @@ class MyrakesController < ApplicationController
                            url,
                            leaflet_author,
                            reminder_at,
-                           params[:myrake][:current_score].to_i,
-                           params[:myrake][:current_rating],
+                           0,
+                           0,
                            params[:myrake][:current_reminder])
       if !leaflet_id.nil?
         History.create!(user_id: current_user.id,
                        rake_id: @rake.id,
                        leaflet_id: leaflet_id,
                        history_code: "bm_activity",
-                       history_int: params[:myrake][:current_score].to_i,
-                       history_int2: params[:myrake][:current_rating].to_i,
-                       history_text: params[:myrake][:task_comment],
-                       history_chain: params[:myrake][:history_chain].to_i)
+                       history_int: 0,
+                       history_int2: 0,
+                       history_text: "",
+                       history_chain: 0)
         redirect_to myrake_path(@rake, view: "tasks", origin: "scheduled")
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
@@ -488,7 +500,39 @@ class MyrakesController < ApplicationController
   def destroy
     rake = Myrake.find(params[:id])
     rake.destroy
-    redirect_to user_path(current_user), :notice => ["Rake deleted."]
+    redirect_to user_path(current_user)
+  end
+
+  def mark_day
+    @rake = Myrake.find(params[:id])
+    History.create!(user_id: @rake.user_id,
+                    rake_id: @rake.id,
+                    history_code: "bm_activity",
+                    history_int: 2)
+    respond_to do |format|
+      format.html { redirect_to myrake_path(@rake, view: "tasks") }
+      format.js { render 'mark_day' }
+    end
+  end
+
+  def unmark_day
+    @rake = Myrake.find(params[:id])
+    history = History.where(user_id: @rake.user_id,
+                            rake_id: @rake.id,
+                            leaflet_id: nil,
+                            history_int: 2)
+    if !Time.find_zone(cookies[:timezone]).nil?
+      history = history.where("created_at >= ?", Time.find_zone(cookies[:timezone]).now.beginning_of_day)
+    else
+      history = history.where("created_at >= ?", Time.now.beginning_of_day)
+    end
+    history.each do |h|
+      h.destroy
+    end
+    respond_to do |format|
+      format.html { redirect_to myrake_path(@rake, view: "tasks") }
+      format.js { render 'unmark_day' }
+    end
   end
 
   def add_channel
@@ -524,13 +568,13 @@ class MyrakesController < ApplicationController
     if @rake.top_rake == 0 
       @rake.update_attributes(top_rake: 1)
       respond_to do |format|
-        format.html { redirect_to myrake_path(@rake, view: "news") }
+        format.html { redirect_to myrake_path(@rake) }
         format.js { render 'add_to_top'}
       end
     else
       @rake.update_attributes(top_rake: 0)
       respond_to do |format|
-        format.html { redirect_to myrake_path(@rake, view: "news") }
+        format.html { redirect_to myrake_path(@rake) }
         format.js { render 'remove_from_top'}
       end
     end

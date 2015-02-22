@@ -74,6 +74,8 @@ Rakepage2::Application.routes.draw do
     member do
       get 'create_rake'
       get 'get_url_title'
+      get 'mark_day'
+      get 'unmark_day'
       get 'add_channel'
       get 'remove_channel'
       get 'add_leaflet'

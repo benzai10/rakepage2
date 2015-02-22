@@ -1,5 +1,6 @@
 if (<%= @reload_flag %> == 1) {
-  document.location.href += "&origin=scheduled";
+  var reload_path = document.location.origin + document.location.pathname + "?view=tasks&origin=scheduled";
+  document.location.href = reload_path;
   // window.location.reload();
 }
 else {

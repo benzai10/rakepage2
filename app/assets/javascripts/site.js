@@ -12,6 +12,16 @@ $(function() {
         $("#status-nav-tab").toggleClass('active');
     });
 
+    $("#back-to-actions").on('click', function() {
+        $("#news-view").addClass('hidden');
+        $("#task-view").removeClass('hidden');
+        $("#back-to-actions").addClass('hidden');
+    });
+
+    $("#back-to-actions").on('mouseup', function() {
+        $("#back-to-actions").addClass('hidden');
+    });
+
     $("#notifications-nav").on('click', function() {
         $.ajax("/users/notification_read")
         $("#notifications").removeClass('hidden');
@@ -78,11 +88,13 @@ $(function() {
         var leafletid = $(".leaflet-id").val();
         $('#card_footer_' + leafletid).removeClass('hidden');
         $("#edit-action-" + leafletid).addClass('hidden');
-        $("#add-new-action").removeClass('hidden');
+        // $("#add-new-action").removeClass('hidden');
+        $('#add-new-action')[0].removeAttribute("disabled");
     });
 
     $(".edit-action-button").on('click', function() {
-        $("#add-new-action").addClass('hidden');
+        // $("#add-new-action").addClass('hidden');
+        $('#add-new-action')[0].setAttribute("disabled", "disabled");
         var leafletid = $(".leaflet-id").val();
         $('#card_footer_' + leafletid).removeClass('hidden');
         var leafletid = $(this).data('id');
@@ -97,40 +109,6 @@ $(function() {
         $(".label-score-2").removeClass("active");
         $(".label-score-0").addClass("active");
     });
-
-    $("#abort-save-action").on('mousedown', function() {
-        var leafletid = $(".leaflet-id").val();
-        $('#card_footer_' + leafletid).removeClass('hidden');
-        $("#save-action").addClass('hidden');
-    });
-
-    $(".save-action-button").on('click', function() {
-        $('.history-chain').attr('checked', false);
-        $('.task-comment').val('');
-        $('.leaflet-goal').val('');
-        $('.leaflet-note').val('');
-        $('.heap-id').val(1);
-        var arrayRatingStars = $(".rating-input .fa");
-        for (var i = 0; i < arrayRatingStars.length; i++) {
-            arrayRatingStars[i].classList.remove('fa-star');
-            arrayRatingStars[i].classList.add('fa-star-o');
-        }
-        var leafletid = $(".leaflet-id").val();
-        $('#card_footer_' + leafletid).removeClass('hidden');
-        var leafletid = $(this).data('id');
-        $('#card_footer_' + leafletid).addClass('hidden');
-        $('#save-action').insertAfter($('#form_save_action_' + leafletid));
-        $('#save-action').removeClass('hidden');
-        $('.reminderat').val(1);
-        $('.current-score').val(0);
-        $(".label-score-1").removeClass("active");
-        $(".label-score-2").removeClass("active");
-        $(".label-score-0").addClass("active");
-        $(".motion-counter").html('0');
-        $(".action-counter").html('0');
-    });
-
-
 
     $("#show-general").on('click', function() {
         $(".master-rake-general").removeClass('hidden');
@@ -182,95 +160,95 @@ $(function() {
         $(".rake-settings-show").toggleClass("hidden");
     });
 
-    $(".label-score-0-new").on('click', function() {
-        var currentScore = $("#current-score-new").val();
-        if (currentScore == "1") {
-            $("#current-score-new").val(0);
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-        } else if (currentScore == "2") {
-            $("#current-score-new").val(0);
-            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-        } else {
-            $("#current-score-new").val(0);
-        }
-    });
+    // $(".label-score-0-new").on('click', function() {
+    //     var currentScore = $("#current-score-new").val();
+    //     if (currentScore == "1") {
+    //         $("#current-score-new").val(0);
+    //         var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+    //         $("#motion-counter-new").html(newMotionCounter.toString());
+    //     } else if (currentScore == "2") {
+    //         $("#current-score-new").val(0);
+    //         var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+    //         $("#action-counter-new").html(newActionCounter.toString());
+    //     } else {
+    //         $("#current-score-new").val(0);
+    //     }
+    // });
 
-    $(".label-score-1-new").on('click', function() {
-        var currentScore = $("#current-score-new").val();
-        if (currentScore == "2") {
-            $("#current-score-new").val(1);
-            var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-        } else if (currentScore != "1") {
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-            $("#current-score-new").val(1);
-        }
-    });
+    // $(".label-score-1-new").on('click', function() {
+    //     var currentScore = $("#current-score-new").val();
+    //     if (currentScore == "2") {
+    //         $("#current-score-new").val(1);
+    //         var newActionCounter = parseInt($("#action-counter-new").html()) - 1;
+    //         $("#action-counter-new").html(newActionCounter.toString());
+    //         var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+    //         $("#motion-counter-new").html(newMotionCounter.toString());
+    //     } else if (currentScore != "1") {
+    //         var newMotionCounter = parseInt($("#motion-counter-new").html()) + 1;
+    //         $("#motion-counter-new").html(newMotionCounter.toString());
+    //         $("#current-score-new").val(1);
+    //     }
+    // });
 
-    $(".label-score-2-new").on('click', function() {
-        var currentScore = $("#current-score-new").val();
-        if (currentScore == "1") {
-            $("#current-score-new").val(2);
-            var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
-            $("#motion-counter-new").html(newMotionCounter.toString());
-            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-        } else if (currentScore != "2") {
-            var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
-            $("#action-counter-new").html(newActionCounter.toString());
-            $("#current-score-new").val(2);
-        }
-    });
+    // $(".label-score-2-new").on('click', function() {
+    //     var currentScore = $("#current-score-new").val();
+    //     if (currentScore == "1") {
+    //         $("#current-score-new").val(2);
+    //         var newMotionCounter = parseInt($("#motion-counter-new").html()) - 1;
+    //         $("#motion-counter-new").html(newMotionCounter.toString());
+    //         var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+    //         $("#action-counter-new").html(newActionCounter.toString());
+    //     } else if (currentScore != "2") {
+    //         var newActionCounter = parseInt($("#action-counter-new").html()) + 1;
+    //         $("#action-counter-new").html(newActionCounter.toString());
+    //         $("#current-score-new").val(2);
+    //     }
+    // });
 
-    $(".label-score-0").on('click', function() {
-        var currentScore = $(".current-score").val();
-        if (currentScore == "1") {
-            $(".current-score").val(0);
-            var newMotionCounter = parseInt($(".motion-counter").html()) - 1;
-            $(".motion-counter").html(newMotionCounter.toString());
-        } else if (currentScore == "2") {
-            $(".current-score").val(0);
-            var newActionCounter = parseInt($(".action-counter").html()) - 1;
-            $(".action-counter").html(newActionCounter.toString());
-        } else {
-            $(".current-score").val(0);
-        }
-    });
+    // $(".label-score-0").on('click', function() {
+    //     var currentScore = $(".current-score").val();
+    //     if (currentScore == "1") {
+    //         $(".current-score").val(0);
+    //         var newMotionCounter = parseInt($(".motion-counter").html()) - 1;
+    //         $(".motion-counter").html(newMotionCounter.toString());
+    //     } else if (currentScore == "2") {
+    //         $(".current-score").val(0);
+    //         var newActionCounter = parseInt($(".action-counter").html()) - 1;
+    //         $(".action-counter").html(newActionCounter.toString());
+    //     } else {
+    //         $(".current-score").val(0);
+    //     }
+    // });
 
-    $(".label-score-1").on('click', function() {
-        var currentScore = $(".current-score").val();
-        if (currentScore == "2") {
-            $(".current-score").val(1);
-            var newActionCounter = parseInt($(".action-counter").html()) - 1;
-            $(".action-counter").html(newActionCounter.toString());
-            var newMotionCounter = parseInt($(".motion-counter").html()) + 1;
-            $(".motion-counter").html(newMotionCounter.toString());
-        } else if (currentScore != "1") {
-            var newMotionCounter = parseInt($(".motion-counter").html()) + 1;
-            $(".motion-counter").html(newMotionCounter.toString());
-            $(".current-score").val(1);
-        }
-    });
+    // $(".label-score-1").on('click', function() {
+    //     var currentScore = $(".current-score").val();
+    //     if (currentScore == "2") {
+    //         $(".current-score").val(1);
+    //         var newActionCounter = parseInt($(".action-counter").html()) - 1;
+    //         $(".action-counter").html(newActionCounter.toString());
+    //         var newMotionCounter = parseInt($(".motion-counter").html()) + 1;
+    //         $(".motion-counter").html(newMotionCounter.toString());
+    //     } else if (currentScore != "1") {
+    //         var newMotionCounter = parseInt($(".motion-counter").html()) + 1;
+    //         $(".motion-counter").html(newMotionCounter.toString());
+    //         $(".current-score").val(1);
+    //     }
+    // });
 
-    $(".label-score-2").on('click', function() {
-        var currentScore = $(".current-score").val();
-        if (currentScore == "1") {
-            $(".current-score").val(2);
-            var newMotionCounter = parseInt($(".motion-counter").html()) - 1;
-            $(".motion-counter").html(newMotionCounter.toString());
-            var newActionCounter = parseInt($(".action-counter").html()) + 1;
-            $(".action-counter").html(newActionCounter.toString());
-        } else if (currentScore != "2") {
-            var newActionCounter = parseInt($(".action-counter").html()) + 1;
-            $(".action-counter").html(newActionCounter.toString());
-            $(".current-score").val(2);
-        }
-    });
+    // $(".label-score-2").on('click', function() {
+    //     var currentScore = $(".current-score").val();
+    //     if (currentScore == "1") {
+    //         $(".current-score").val(2);
+    //         var newMotionCounter = parseInt($(".motion-counter").html()) - 1;
+    //         $(".motion-counter").html(newMotionCounter.toString());
+    //         var newActionCounter = parseInt($(".action-counter").html()) + 1;
+    //         $(".action-counter").html(newActionCounter.toString());
+    //     } else if (currentScore != "2") {
+    //         var newActionCounter = parseInt($(".action-counter").html()) + 1;
+    //         $(".action-counter").html(newActionCounter.toString());
+    //         $(".current-score").val(2);
+    //     }
+    // });
 
     $("#newLeafletModal").on('shown.bs.modal', function(){
         $('.history-chain').attr('checked', false);
@@ -511,20 +489,6 @@ $(function() {
         var selected = $(this);
         var collapseh = $(".collapse .in").height();
         $("html, body").animate({ scrollTop: selected - collapseh }, 700);
-    });
-
-    $(".add-rss-feed").click(function() {
-        var rakeId = $(this).data('rakeid');
-        var channelType = $(this).data('channeltype');
-        $(".rake-id-rss").val(rakeId);
-        $(".channel-type-rss").val(channelType);
-    });
-
-    $(".add-subreddit-feed").click(function() {
-        var rakeId = $(this).data('rakeid');
-        var channelType = $(this).data('channeltype');
-        $(".rake-id-subreddit").val(rakeId);
-        $(".channel-type-subreddit").val(channelType);
     });
 
     $('input.tokenize').tokenfield();

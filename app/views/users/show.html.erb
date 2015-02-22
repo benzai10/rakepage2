@@ -3,72 +3,53 @@
   <%= render 'myrakes/rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-centered">
-      <h5 class="centered">
-        <small>
-          <% if !user_signed_in? %>
-            <span class="nav-link">MY RAKES</span>
-            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
-            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
-          <% else %>
-            <i class="fa fa-home"></i>
-            <span class="nav-link">
-              <strong>MY RAKES</strong>
-            </span>
-          <% end %>
-          &nbsp;|&nbsp;
-          <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
-          &nbsp;<i class="fa fa-plus-square"></i>
-        </small>
-      </h5>
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered"><%= current_user.username %></h1>
-      <div class="panel-group" id="accordion-main">
-        <div class="panel panel-default">
-          <div class="panel-heading panel-myrake">
-            <h5 class="panel-title centered">
-              Stay Focused &mdash; Be Awesome
-            </h5>
+      <h1 class="centered">My Priorities</h1>
+      <h5>
+        <small><strong>
+          <i class="fa fa-plus-square"></i>&nbsp;
+          <%= link_to "ADD TOPIC", master_rakes_path, { data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+        </strong></small>
+      </h5>
+      <div class="rake-title">
+        <h5>
+          Stay Focused &mdash; Be Awesome
+        </h5>
+      </div>
+      <div class="rake-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="rake-nav <%= @top5_active %>" id="top-rakes-nav-tab">
+            <a href="#top-rakes" id="view-top-rakes" data-toggle="tab">
+              TOP 5
+            </a>
+          </li>
+          <li class="rake-nav">
+            <a href="#other-rakes" id="view-other-rakes" data-toggle="tab">
+              MORE
+            </a>
+          </li>
+          <li class="rake-nav <%= @status_active %>" id="status-nav-tab">
+            <a href="#status" id="view-status" data-toggle="tab">
+              INFO
+            </a>
+          </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane <%= @top5_active %>" id="top-rakes">
+            <br>
+            <%= render 'top_rakes' %>
           </div>
-          <div class="panel-collapse collapse in" id="collapse-overview">
-            <div class="panel-body">
-              <!-- Nav tabs -->
-              <div class="row">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="rake-nav <%= @top5_active %>" id="top-rakes-nav-tab">
-                    <a href="#top-rakes" id="view-top-rakes" data-toggle="tab">
-                      TOP 5
-                    </a>
-                  </li>
-                  <li class="rake-nav">
-                    <a href="#other-rakes" id="view-other-rakes" data-toggle="tab">
-                      MORE
-                    </a>
-                  </li>
-                  <li class="rake-nav <%= @status_active %>" id="status-nav-tab">
-                    <a href="#status" id="view-status" data-toggle="tab">
-                      STATUS
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div class="tab-pane <%= @top5_active %>" id="top-rakes">
-                  <br>
-                  <%= render 'top_rakes' %>
-                </div>
-                <div class="tab-pane" id="other-rakes">
-                  <br>
-                  <%= render 'other_rakes' %>
-                </div>
-                <div class="tab-pane <%= @status_active %>" id="status">
-                  <br>
-                  <%= render 'status' %>
-                </div>
-              </div>
-            </div>
+          <div class="tab-pane" id="other-rakes">
+            <br>
+            <%= render 'other_rakes' %>
+          </div>
+          <div class="tab-pane <%= @status_active %>" id="status">
+            <br>
+            <%= render 'status' %>
           </div>
         </div>
       </div>

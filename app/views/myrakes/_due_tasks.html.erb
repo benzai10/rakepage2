@@ -1,30 +1,4 @@
-<br>
-<div class="thumbnail">
-  <%= link_to myrake_path(@rake, view: "news", refresh: "yes"),
-                          data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Updated</p><p class='reminder-day'><i class='fa fa-globe'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Aggregating your blogs and subreddits...</h5></div><p class='rake-links'>Create an action based on your findings.</p></div>"} do %>
-    <div class="media">
-      <span class="pull-left">
-        <p class="reminder-month">
-          News
-        </p>
-        <p class="reminder-day">
-          <i class="fa fa-globe"></i>
-        </p>
-      </span>
-      <div class="media-body">
-        <h5 class="media-heading">
-          Get updated
-        </h5>
-        <p class="rake-links">
-          Click to read your blogs and subreddits.
-        </p>
-      </div>
-    </div>
-  <% end %>
-</div>
-
 <ul id="feed-list" class="leaflet-list">
-  <span class="rake-nav">DUE ACTIONS<hr></span>
   <%= render 'no_due_actions' %>
   <% leaflet_duplication_array = [] %>
   <% @overdue_leaflets.each do |lm| %>
@@ -98,9 +72,9 @@
 
         <div class="card-content">
           <% if l.title == "None" %>
-            No URL added to this action
+            <i class="fa fa-link purple"></i>&nbsp;Action without weblink
           <% else %>
-            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+            <i class="fa fa-link purple"></i>&nbsp;<%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           <% end %>
         </div>
 
@@ -110,11 +84,11 @@
 
         <div class="card-footer" id="card_footer_<%= l.id %>">
           <span class="card-metrics">
-            <%= lm.motion_counter.to_s %>/<%= lm.action_counter.to_s %>
+          <!-- <%#= lm.motion_counter.to_s %>/<%#= lm.action_counter.to_s %>
             <i class="fa fa-tasks purple"></i>
-            &nbsp;|&nbsp;
+            &nbsp;|&nbsp; -->
+            <i class="fa fa-user purple"></i>&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-            <i class="fa fa-user purple"></i>
           </span>
 
           <span class="card-buttons pull-right">
@@ -124,7 +98,7 @@
                         method: :get,
                         remote: true, 
                         class: "btn btn-default btn-xs" %>
-            <%= button_tag "Action",
+            <%= button_tag "Edit",
                             data: { target: "#edit-action",
                                     id: l.id,
                                     heapid: lm.heap.id,

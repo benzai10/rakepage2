@@ -1,6 +1,5 @@
 <span class="hidden" id="planned-actions-count"><%= @scheduled_leaflets.count.to_s %></span>
-<br>
-<div class="thumbnail" id="add-new-action">
+<!-- <div class="thumbnail" id="add-new-action">
   <div class="media">
     <span class="pull-left">
       <p class="reminder-month">
@@ -19,12 +18,11 @@
       </p>
     </div>
   </div>
-</div>
+</div> -->
 
-<%= render 'new_action' %>
+<%#= render 'new_action' %>
 
 <ul id="feed-list" class="leaflet-list">
-  <span class="rake-nav">PLANNED ACTIONS<hr></span>
   <%= render 'no_planned_actions' %>
   <% leaflet_duplication_array = [] %>
   <% @scheduled_leaflets.each do |lm| %>
@@ -98,9 +96,9 @@
 
         <div class="card-content">
           <% if l.title == "None" %>
-            No URL added to this action
+            <i class="fa fa-link purple"></i>&nbsp;Action without weblink
           <% else %>
-            <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
+            <i class="fa fa-link purple"></i>&nbsp;<%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           <% end %>
         </div>
 
@@ -110,11 +108,11 @@
 
         <div class="card-footer" id="card_footer_<%= l.id %>">
           <span class="card-metrics">
-            <%= lm.motion_counter.to_s %>/<%= lm.action_counter.to_s %>
+<!--             <%#= lm.motion_counter.to_s %>/<%#= lm.action_counter.to_s %>
             <i class="fa fa-tasks purple"></i>
-            &nbsp;|&nbsp;
+            &nbsp;|&nbsp; -->
+            <i class="fa fa-user purple"></i>&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-            <i class="fa fa-user purple"></i>
           </span>
 
           <span class="card-buttons pull-right">
@@ -124,7 +122,7 @@
                         method: :get,
                         remote: true,
                         class: "btn btn-default btn-xs" %>
-            <%= button_tag "Action",
+            <%= button_tag "Edit",
                             data: { target: "#edit-action",
                                     id: l.id,
                                     heapid: lm.heap.id,

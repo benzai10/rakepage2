@@ -7,43 +7,120 @@
 <% meta title: seo_title,
         description: @rake.master_rake.description,
         keywords: Category.find(@rake.master_rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>
+<%= render 'save_action' %>
 <div class="container-fluid">
   <%= render 'myrakes/rakes_menu' %>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h5 class="centered">
-        <small><strong>
-          <% if user_signed_in? %>
-            <i class="fa fa-home"></i>&nbsp;
-            <%= link_to "MY RAKES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
-          <% else %>
-            <span class="nav-link">MY RAKES</span>
-            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
-            <i class="fa fa-home"></i>&nbsp;
-            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
-          <% end %>
-          &nbsp;|&nbsp;
-          <%= link_to "ADD TOPICS", master_rakes_path, { class: "nav-link", id: "ga-all-master-rakes", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
-          &nbsp;<i class="fa fa-plus-square"></i>
-        </strong></small>
-      </h5>
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-      <% if params[:view].nil? || params[:view] == "tasks" %>
-        <%= render 'tasks' %>
-      <% elsif params[:view] == "news" %>
-        <%= render 'news' %>
-        <%= render 'leaflet_save_modal' %>
-      <% elsif params[:view] == "bookmarks" %>
-        <%= render 'bookmarks' %>
-        <%= render 'leaflet_edit_modal' %>
-        <%= render 'leaflet_create_modal' %>
-        <%= render 'leaflet_copy_modal' %>
-      <% end %>
+      <h5>
+        <small><strong>
+          <% if user_signed_in? %>
+            <i class="fa fa-home"></i>&nbsp;
+            <%= link_to "MY PRIORITIES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+          <% else %>
+            <span class="nav-link">MY PRIORITIES</span>
+            &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
+            <i class="fa fa-home"></i>&nbsp;
+            <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+          <% end %>
+        </strong></small>
+      </h5>
+
+      <div class="rake-title">
+        <h5>
+          Stay Focused
+          <span class="pull-right">
+            <small class="white">
+              <% if @news_view == "hidden" %>
+                <span class="hidden" id="back-to-actions">
+                  <%= link_to "BACK TO PLANNED ACTIONS", "#", class: "white" %>
+                  &nbsp;|&nbsp;
+                </span>
+              <% else %>
+                <span>
+                  <%= link_to "VIEW PLANNED ACTIONS", myrake_path(@rake), class: "white" %>
+                  &nbsp;|&nbsp;
+                </span>
+              <% end %>
+              <i class="fa fa-cog rake-settings white"></i>
+            </small>
+          </span>
+        </h5>
+        <%= render 'rake_settings' %>
+      </div>
+      <div class="rake-body">
+        <% last_action = History.get_last_motion_or_action(@rake.id) %>
+        <% if !last_action.nil? %>
+          <% if !Time.find_zone(cookies[:timezone]).nil? %>
+            <% if last_action.created_at >= Time.find_zone(cookies[:timezone]).now.beginning_of_day %>
+              <% mark_action_btn_display = "hidden" %>
+              <% unmark_action_btn_display = "" %>
+            <% else %>
+              <% mark_action_btn_display = "" %>
+              <% unmark_action_btn_display = "hidden" %>
+            <% end %>
+          <% else %>
+            <% if last_action.created_at >= Time.now.beginning_of_day %>
+              <% mark_action_btn_display = "hidden" %>
+              <% unmark_action_btn_display = "" %>
+            <% else %>
+              <% mark_action_btn_display = "" %>
+              <% unmark_action_btn_display = "hidden" %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% mark_action_btn_display = "" %>
+          <% unmark_action_btn_display = "hidden" %>
+        <% end %>
+
+        <div class="media">
+          <span class="pull-left">
+            <% if @rake.master_rake.image_url.nil? || @rake.master_rake.image_url.empty? %>
+              <%= image_tag("no_image.png", size: "96x54") %>
+            <% else %>
+              <%= image_tag(@rake.master_rake.image_url, size: "96x54") %>
+            <% end %>
+          </span>
+          <div class="media-body">
+            <p>
+              Last 30 days with taken actions
+            </p>
+            <%= render 'myrakes/top_rake_chain', toprake: @rake %>
+          </div>
+        </div>
+        <br>
+        <span class="mark-action-btn <%= mark_action_btn_display %>">
+          <%= link_to "Click if you took action today",
+                      mark_day_myrake_path(@rake),
+                      { class: "btn btn-primary btn-check-off",
+                        remote: true } %>
+        </span>
+        <span class="unmark-action-btn <%= unmark_action_btn_display %>">
+          <%= link_to "Yay, you took some action today! (Click to undo)",
+                      unmark_day_myrake_path(@rake),
+                      { class: "btn btn-primary btn-check-off",
+                        remote: true } %>
+        </span>
+
+        <% if params[:view].nil? || params[:view] == "tasks" %>
+          <%= render 'tasks' %>
+        <% elsif params[:view] == "news" %>
+          <br>
+          <%= render 'news' %>
+          <%#= render 'leaflet_save_modal' %>
+        <% elsif params[:view] == "bookmarks" %>
+          <%= render 'bookmarks' %>
+          <%= render 'leaflet_edit_modal' %>
+          <%= render 'leaflet_create_modal' %>
+          <%= render 'leaflet_copy_modal' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

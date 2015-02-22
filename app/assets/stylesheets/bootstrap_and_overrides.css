@@ -578,9 +578,27 @@ h5 {
 }
 
 .rake-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /*white-space: nowrap;*/
+  color: white;
+  background-color: #4a2b88;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px !important;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.rake-body {
+  background-color: #F8F8F8;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.rake-settings-show {
+  margin-bottom: 15px;
 }
 
 .rake-list {
@@ -763,12 +781,17 @@ a.menu-link {
   font-size: 11px;
 }
 
+.btn-news {
+}
+
+.btn-check-off {
+  width: 100%;
+}
+
 .nav-tabs {
   font-size: 12px;
   font-weight: 300;
   opacity: 0.88;
-  margin-left: 15px;
-  margin-right: 15px;
 }
 
 .nav-tabs > li.active > a {

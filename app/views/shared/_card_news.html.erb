@@ -65,8 +65,8 @@
 
   <div class="card-footer" id="card_footer_<%= l.id %>">
     <span class="card-metrics">
+      <i class="fa fa-user purple"></i>&nbsp;
       <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
-      <i class="fa fa-user purple"></i>
     </span>
 
     <span class="card-buttons pull-right">
@@ -84,7 +84,7 @@
                                     heapid: l.leaflet_type_id,
                                     title: l.title},
                             class: "btn btn-primary btn-xs leaflet-save" %>
-                <%= button_tag "Save Action",
+                <%= button_tag "Save",
                             data: { target: "#save-action",
                                     id: l.id,
                                     heapid: l.leaflet_type_id,
@@ -97,5 +97,4 @@
       </span>
     </span>
   </div>
-
 </li>
