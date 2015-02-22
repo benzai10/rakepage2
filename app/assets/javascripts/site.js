@@ -89,12 +89,10 @@ $(function() {
         $('#card_footer_' + leafletid).removeClass('hidden');
         $("#edit-action-" + leafletid).addClass('hidden');
         // $("#add-new-action").removeClass('hidden');
-        $('#add-new-action')[0].removeAttribute("disabled");
     });
 
     $(".edit-action-button").on('click', function() {
         // $("#add-new-action").addClass('hidden');
-        $('#add-new-action')[0].setAttribute("disabled", "disabled");
         var leafletid = $(".leaflet-id").val();
         $('#card_footer_' + leafletid).removeClass('hidden');
         var leafletid = $(this).data('id');
