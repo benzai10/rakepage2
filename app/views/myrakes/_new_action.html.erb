@@ -1,6 +1,6 @@
 <div class="hidden" id="new-action">
   <br>
-  <%= bootstrap_form_for(@rake, remote: true) do |f| %>
+  <%= bootstrap_form_for(@rake) do |f| %>
     <%= f.label "Description", class: "rakepage-form-label" %>
     <%= f.text_field :leaflet_goal, { hide_label: true, class: "leaflet-goal" } %>
     <% reminder_period = [] %>

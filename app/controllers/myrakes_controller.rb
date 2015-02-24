@@ -459,7 +459,10 @@ class MyrakesController < ApplicationController
                        history_int2: 0,
                        history_text: "",
                        history_chain: 0)
-        redirect_to myrake_path(@rake, view: "tasks", origin: "scheduled")
+        respond_to do |format|
+          format.html { redirect_to myrake_path(@rake, view: "tasks", origin: "scheduled") }
+          format.js { render 'action_saved'}
+        end
       else
         flash[:error] = @rake.leaflet_errors.full_messages.to_sentence
         redirect_to myrake_path(@rake, view: "tasks", origin: "scheduled")
