@@ -875,7 +875,7 @@ a.menu-link {
 }
 
 .bookmark-metrics {
-  background-color: #F1EDEE !important;
+  background-color: grey !important;
   font-size: 8px !important;
   border-right: 1px solid white;
 }

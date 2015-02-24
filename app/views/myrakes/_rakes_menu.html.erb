@@ -13,6 +13,13 @@
           </h5>
         </div>
       </div>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "My Choices", root_path, class: "menu-link" %>
+          </h5>
+        </div>
+      </div>
     <% else %>
       <div class="panel panel-default panel-menu">
         <div class="panel-heading panel-heading-menu">
@@ -21,15 +28,14 @@
           </h5>
         </div>
       </div>
-    <% end %>
-
-    <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%= link_to "Start Page", root_path, class: "menu-link" %>
-        </h5>
+      <div class="panel panel-default panel-menu">
+        <div class="panel-heading panel-heading-menu">
+          <h5 class="panel-title">
+            <%= link_to "Start Page", root_path, class: "menu-link" %>
+          </h5>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
@@ -39,13 +45,13 @@
       </div>
     </div>
 
-    <div class="panel panel-default panel-menu">
+<!--     <div class="panel panel-default panel-menu">
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
-          <%= link_to "Help", "http://blog.rakepage.com/?page_id=191", target: "_blank", class: "menu-link" %>
+          <%#= link_to "Help", "http://blog.rakepage.com/?page_id=191", target: "_blank", class: "menu-link" %>
         </h5>
       </div>
-    </div>
+    </div> -->
 
     <% if user_signed_in? %>
       <div class="panel panel-default panel-menu">

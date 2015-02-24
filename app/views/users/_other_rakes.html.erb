@@ -42,14 +42,19 @@
                 </h5>
                 <p>
                   <%= render 'myrakes/top_rake_chain', toprake: r %>
-                   <p class="rake-links pull-right">
-                    Open Actions:
-                    <% r.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
-                    <span class=<%= count_no_zero %>><%= r.due_tasks_count %></span>
-                    &nbsp;&nbsp;
-                    <!-- &nbsp;|&nbsp;
-                    Committed Actions: -->
-                    <%#= r.action_count %>
+                  <p class="rake-links">
+                    <span>
+                      Open Actions:
+                      <% r.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
+                      <span class=<%= count_no_zero %>><%= r.due_tasks_count %></span>
+                      <!-- &nbsp;|&nbsp;
+                      Committed Actions: -->
+                      <%#= r.action_count %>
+                    </span>
+                    <span class="pull-right">
+                      Success meter
+                      &nbsp;&nbsp;
+                    </span>
                   </p>
                 </p>
               </div>
