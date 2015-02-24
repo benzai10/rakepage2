@@ -15,7 +15,7 @@
     <% @histories.each do |history| %>
       <tr>
         <td><%= User.find(history.user_id).username %></td>
-        <% if !Leaflet.find(history.leaflet_id).nil? %>
+        <% if history.leaflet_id.nil? %>
           <td>No leaflet</td>
         <% else %>
           <td><%= Leaflet.find(history.leaflet_id).title %></td>
