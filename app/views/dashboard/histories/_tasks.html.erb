@@ -15,7 +15,11 @@
     <% @histories.each do |history| %>
       <tr>
         <td><%= User.find(history.user_id).username %></td>
-        <td><%= Leaflet.find(history.leaflet_id).title %></td>
+        <% if !Leaflet.find(history.leaflet_id).nil? %>
+          <td>No leaflet</td>
+        <% else %>
+          <td><%= Leaflet.find(history.leaflet_id).title %></td>
+        <% end %>
         <% leaflets = HeapLeafletMap.where(leaflet_id: history.leaflet_id) %>
         <% if leaflets.empty? %>
           <td>No leaflet</td>
