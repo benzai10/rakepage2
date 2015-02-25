@@ -10,63 +10,110 @@
  
 <body bgcolor="#FFFFFF" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;height: 100%;width: 100%;">
 
-  <p>
-    Hi&nbsp;<%= @user.username %>,
-  </p>
-  <p>
-    We at Rakepage believe that making choices is the necessary first step to stay focused.
-  </p>
-  <p>
-    Doing so and stick to it on a daily basis leads to habit-building, an effective way to take action and become successful.
-  </p>
-  <p>
-    How is it going with your choices you made on Rakepage?
-  </p>
+<!-- HEADER -->
 
-  <!-- Here comes the rake list -->
-  <ul>
-    <% @user.myrakes.each do |myrake| %>
-      <li><%= myrake.name %></li>
-    <% end %>
-  </ul>
+<!-- BODY -->
+<table class="body-wrap" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;width: 100%;">
+  <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+    <td style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"></td>
+    <td class="container" bgcolor="#FFFFFF" style="margin: 0 auto;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;display: block;max-width: 600px;clear: both;">
 
-  <p>
-    Please check the updated version of Rakepage for the following optimizations:
-  </p>
-  <ul>
-    <li>Overview of your choices with a "success meter" which visualizes the last 30 days you took action.</li>
-    <li>After taking action, reward yourself and build up your success meter with a single click.</li>
-    <li>Stay focused and work on your skill improvement with action reminders and customized news updates in one place.</li>
-  </ul>
-  <p>
-    Sign in to your account: <a href="http://www.rakepage.com/users/sign_in" >http://www.rakepage.com/users/sign_in</a>
-  </p>
-  <p>
-    And as always, we're happy to receive any kind of feedback or requests so we can provide a better user experience.
-  </p>
-  <br>
-  <p>
-    Cheers,
-    <br><br>
-    Mischa
-    <br>
-    <em>Customer Success Manager</em>
-  </p>
-  <br>
-  <p>
-    <em>In dots I trust</em>
-    <br>
-    <a href="http://blog.rakepage.com/2015/02/24/in-dots-i-trust/" >http://blog.rakepage.com/2015/02/24/in-dots-i-trust/</a>
-  </p>
-  <br>
-  <br>
-  <p>
-    <a href="http://rakepage.com" >http://rakepage.com</a>
-    <br>
-    Reach Your Goals
-    <br>
-    Make Choices. Stay Focused. Be Awesome.
-  </p>
+      <div class="content" style="margin: 0 auto;padding: 15px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;max-width: 600px;display: block;">
+      <table style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;width: 100%;">
+        <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+          <td style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              Hi&nbsp;<%= @user.username %>,
+            </p>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              We at Rakepage believe that making choices is the necessary first step to stay focused.
+            </p>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              Doing so and stick to it on a daily basis leads to habit-building, an effective way to take action and become successful.
+            </p>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              How is it going with your choices you made on Rakepage?
+            </p>
+
+            <!-- Here comes the rake list -->
+            <ul>
+              <% @user.myrakes.each do |myrake| %>
+                <li><%= myrake.name %></li>
+              <% end %>
+            </ul>
+
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              Please check the updated version of Rakepage for the following optimizations:
+            </p>
+            <ul>
+              <li>Overview of your choices with a "success meter" which visualizes the last 30 days you took action.</li>
+              <li>After taking action, reward yourself and build up your success meter with a single click.</li>
+              <li>Stay focused and work on your skill improvement with action reminders and customized news updates in one place.</li>
+            </ul>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              Sign in to your account: <a href="http://www.rakepage.com/users/sign_in" >http://www.rakepage.com/users/sign_in</a>
+            </p>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              And as always, we're happy to receive any kind of feedback or requests so we can provide a better user experience.
+            </p>
+            <br>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              Cheers,
+              <br><br>
+              Mischa
+              <br>
+              <em>Customer Success Manager</em>
+            </p>
+            <br style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              <em>In dots I trust</em>
+              <br>
+              <a href="http://blog.rakepage.com/2015/02/24/in-dots-i-trust/" >http://blog.rakepage.com/2015/02/24/in-dots-i-trust/</a>
+            </p>
+            <br style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+            <br style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 12px;line-height: 1.6;">
+              <a href="http://rakepage.com" >http://rakepage.com</a>
+              <br>
+              Reach Your Goals
+              <br>
+              Make Choices. Stay Focused. Be Awesome.
+            </p>
+            <br />
+          </td>
+        </tr>
+      </table>
+      </div>
+                  
+    </td>
+    <td style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"></td>
+  </tr>
+</table><!-- /BODY -->
+
+<!-- FOOTER -->
+<table class="footer-wrap" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;width: 100%;clear: both;">
+  <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+    <td style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"></td>
+    <td class="container" style="margin: 0 auto;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;display: block;max-width: 600px;clear: both;">
+      
+        <!-- content -->
+        <div class="content" style="margin: 0 auto;padding: 15px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;max-width: 600px;display: block;">
+        <table style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;width: 100%;">
+        <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+          <td align="center" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
+              &copy; 2015 - Rakepage. All rights reserved.
+            </p>
+          </td>
+        </tr>
+      </table>
+        </div><!-- /content -->
+        
+    </td>
+    <td style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;"></td>
+  </tr>
+</table><!-- /FOOTER -->
 
 </body>
 </html>
