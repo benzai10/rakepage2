@@ -99,4 +99,14 @@ class UserMailer < ActionMailer::Base
          template_name: "improvements_2015_02_email")
     headers['X-MC-Track'] = "opens, clicks"
   end
+
+  def improvements_2015_02_no_rakes_email(user)
+    @user = user
+    @url = "http://rakepage.com"
+    mail(to: @user.email,
+         subject: "Rakepage is now optimized for habit-building",
+         template_path: "user_mailer",
+         template_name: "improvements_2015_02_no_rakes_email")
+    headers['X-MC-Track'] = "opens, clicks"
+  end
 end
