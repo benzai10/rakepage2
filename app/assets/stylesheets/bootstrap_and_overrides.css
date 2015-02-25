@@ -886,6 +886,12 @@ a.menu-link {
   border-right: 1px solid white;
 }
 
+.bookmark-metrics-pending {
+  background-color: #9E2B25 !important;
+  font-size: 8px !important;
+  border-right: 1px solid white;
+}
+
 .bookmark-metrics-motion {
   background-color: #A3A08F !important;
   font-size: 8px !important;
