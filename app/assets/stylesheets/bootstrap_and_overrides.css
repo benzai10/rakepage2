@@ -2,6 +2,11 @@ body {
   margin-top: 50px;
 }
 
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 a {
   color: #4a2b88;
   opacity: 0.88;
@@ -231,6 +236,8 @@ a.anchor {
 
 .tab-pane {
   min-height: 420px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .getting-started-video > iframe {
@@ -239,6 +246,8 @@ a.anchor {
 }
 
 .card {
+  margin-left: 15px;
+  margin-right: 15px;
   list-style-type: none !important;
   background-color: white;
   border: 1px solid lightgrey;
@@ -421,11 +430,6 @@ a.anchor {
 .pull-right-menu {
   float: right;
   margin-top: 3px;
-}
-
-.row {
-  margin-left: -15px;
-  margin-right: -15px;
 }
 
 .ul {
@@ -1274,22 +1278,22 @@ body.nav-expanded {
 /* Landscape phones and down */
 @media (max-width: 480px) {
 
-/*  html, body {
-    width: auto !important;
-    overflow-x: hidden !important;
-  }*/
+  html, body {
+    padding-left: 0; padding-right: 0; } } 
+  }
+
+  .navbar {
+    margin-left: 0; margin-right: 0;
+  }
 
   .container-fluid {
     padding: 0 !important;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
   }
 
   .panel-title {
     font-size: 14px !important;
-  }
-
-  .card {
-    padding-left: 2px;
-    padding-right: 2px;
   }
 
   .card .card-content {
@@ -1320,11 +1324,6 @@ body.nav-expanded {
 
   h1 {
     font-size: 20px !important;
-  }
-
-  .long-h1 {
-    font-size: 14px !important;
-    font-weight: 700 !important;
   }
 
   h2 {

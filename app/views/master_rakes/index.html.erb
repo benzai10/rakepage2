@@ -2,11 +2,11 @@
 <div class="container-fluid">
   <%= render 'myrakes/rakes_menu' %>
   <div class="row">
-    <div class="col-md-6 col-centered">
+    <div class="col-md-6 col-md-offset-3">
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered long-h1">Stay Focused &mdash; Be Awesome</h1>
+      <h1 class="centered">Stay Focused &mdash; Be Awesome</h1>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
