@@ -231,8 +231,6 @@ a.anchor {
 
 .tab-pane {
   min-height: 420px;
-  margin-left: -15px;
-  margin-right: -15px;
 }
 
 .getting-started-video > iframe {
@@ -241,8 +239,6 @@ a.anchor {
 }
 
 .card {
-  margin-left: 15px;
-  margin-right: 15px;
   list-style-type: none !important;
   background-color: white;
   border: 1px solid lightgrey;
@@ -1301,9 +1297,10 @@ body.nav-expanded {
     max-height: 160px;
   }
 
-  .btn-metrics {
+  .btn {
     padding-left: 2px;
     padding-right: 2px;
+    font-size: 10px;
   }
 
   .fb-like {
