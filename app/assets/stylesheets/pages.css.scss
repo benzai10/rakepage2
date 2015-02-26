@@ -17,35 +17,36 @@
     font-size: 28px !important;
     font-weight: 200 !important;
     letter-spacing: 1.5px !important;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
   p {
     color: grey;
     margin-bottom: 8px;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: 200;
+    font-weight: 300;
     letter-spacing: 0.5px;
   }
   label {
     font-family: 'Roboto', sans-serif;
-    font-weight: 200;
+    font-weight: 400;
   }
   a {
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
   }
   .centered {
     display: block;
     text-align: center;
   }
   .landing-feature-text {
+    padding: 20px;
     text-align: center;
     color: #707070 !important;
-    font-size: 16px !important;
+    font-size: 20px !important;
     font-weight: 300 !important;
-    letter-spacing: 0.3px;
-    min-height: 70px;
+    letter-spacing: 1px;
+    min-height: 180px;
   }
   .landing-benefit-text {
     text-align: center;
@@ -129,11 +130,11 @@
   label {
     color: white;
     font-family: 'Roboto', sans-serif;
-    font-weight: 200;
+    font-weight: 400;
   }
   a {
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
   }
   .centered {
     display: block;
@@ -160,7 +161,7 @@
 .help-block {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 1px;
   color: white !important;
 }
@@ -169,7 +170,7 @@
   color: white !important;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
-  font-weight: 200;  
+  font-weight: 400;  
 }
 
 .has-error {
@@ -196,7 +197,7 @@
   h4 {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 1px;
     color: white;
     text-align: center;
@@ -204,7 +205,7 @@
   a {
     color: white;
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
   }
   .footer-text {
     padding-top: 30px;
@@ -226,7 +227,7 @@
   padding-right: 4px;
   color: white;
   font-family: 'Roboto', sans-serif;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 1.2em;
 }
 
@@ -271,19 +272,19 @@
   h4 {
     font-family: 'Roboto', sans-serif;
     font-size: 16px !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
     color: slategrey;
   }
   p {
     font-family: 'Roboto', sans-serif;
     font-size: 14px !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     color: slategrey !important;
   }
   li {
     font-family: 'Roboto', sans-serif;
     font-size: 14px !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     color: slategrey !important;
   }
 }
@@ -300,7 +301,7 @@
 .notifications-subtitle {
     font-family: 'Roboto', sans-serif !important;
     font-size: 13px !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
     color: slategrey !important;
 }
 
@@ -310,7 +311,7 @@
   padding-right: 12px;
   font-family: 'Roboto', sans-serif !important;
   font-size: 13px !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   color: slategrey !important;
   background-color: white !important;
   p {
