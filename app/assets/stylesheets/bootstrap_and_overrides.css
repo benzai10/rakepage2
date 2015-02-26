@@ -2,11 +2,6 @@ body {
   margin-top: 50px;
 }
 
-.row {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
 a {
   color: #4a2b88;
   opacity: 0.88;
@@ -1279,7 +1274,8 @@ body.nav-expanded {
 @media (max-width: 480px) {
 
   html, body {
-    padding-left: 0; padding-right: 0; } } 
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .navbar {
