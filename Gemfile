@@ -71,6 +71,10 @@ group :development, :test do
   gem 'rack-mini-profiler'
 end
 
+group :development do
+  gem 'better_errors'
+end
+
 #### Default
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
