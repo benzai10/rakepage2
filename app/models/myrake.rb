@@ -43,6 +43,18 @@ class Myrake < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
+  def self.user_rakes(user)
+    where(user_id: user.id)
+  end
+
+  def self.top_rakes
+    where(top_rake: 1)
+  end
+
+  def self.other_rakes
+    where(top_rake: 0)
+  end
+
   def url_data(url)
     url_hash = {leaflet_title: "", leaflet_desc: ""}
     agent = Mechanize.new

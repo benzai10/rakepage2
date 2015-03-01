@@ -5,37 +5,9 @@ class UsersController < ApplicationController
     if user_signed_in?
       if params[:id] == current_user.id || params[:id] == current_user.slug
         write_user_history if session[:user_show] != Time.now.to_s.first(10)
-        # @utc_offset = Time.find_zone(cookies[:timezone]).utc_offset
-        @top_rakes = Myrake.where(user_id: current_user.id, top_rake: 1)
-        @other_rakes = Myrake.where(user_id: current_user.id, top_rake: 0)
-        @committed_action_steps =
-          History.where(
-            user_id: current_user.id,
-            history_int: 1)
-        if !Time.find_zone(cookies[:timezone]).nil?
-          @today_committed_action_steps =
-            @committed_action_steps
-              .where("created_at >= ?",
-                      Time.find_zone(cookies[:timezone]).now.beginning_of_day)
-          @committed_action_goals =
-            History.where(user_id: current_user.id, history_int: 2)
-          @today_committed_action_goals =
-            @committed_action_goals
-              .where("created_at >= ?",
-                      Time.find_zone(cookies[:timezone]).now.beginning_of_day)
-        else
-          @today_committed_action_steps =
-            @committed_action_steps
-              .where("created_at >= ?",
-                      Time.now.beginning_of_day)
-          @committed_action_goals =
-            History.where(user_id: current_user.id, history_int: 2)
-          @today_committed_action_goals =
-            @committed_action_goals
-              .where("created_at >= ?", Time.now.beginning_of_day)
-        end
+        @top_rakes = Myrake.user_rakes(current_user).top_rakes
+        @other_rakes = Myrake.user_rakes(current_user).other_rakes
         @notifications = Notification.all.order(published_at: :desc)
-        @master_rakes_count = MasterRake.all.count
         @top5_active = "active"
         @status_active = ""
       else
