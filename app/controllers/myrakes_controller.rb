@@ -10,22 +10,9 @@ class MyrakesController < ApplicationController
       redirect_to master_rakes_path
       return
     end
-    History.create!(user_id: current_user.id,
-                    history_code: "myrake_show")
     session[:rake_class] = Myrake
     @rake = Myrake.find(params[:id])
-    @top_rakes_count = Myrake.where("user_id = ? AND top_rake = 1", @rake.user_id).count
-    # parent_rakes = Leaflet.where("leaflet_type_id = 15 AND url ILIKE ?", "%master_rakes/" + @rake.master_rake.slug).pluck(:author).map(&:to_i)
-    # @parent_master_rakes = MasterRake.where("id IN (?)", parent_rakes)
-    # @children_master_rakes = MasterRake.where("slug IN (?)",
-    #                             Leaflet.where("leaflet_type_id = 15 AND author IN (?)",
-    #                                     @rake.master_rake_id.to_s).pluck(:url).map{|x| x.partition("master_rakes/").last })
-    # @sibling_master_rakes = MasterRake.where("id <> ? AND slug IN (?)",
-    #                            @rake.master_rake_id,
-    #                            Leaflet.where("leaflet_type_id = 15 AND author IN (?)", 
-    #                                    @parent_master_rakes.pluck(:id).map(&:to_s)).pluck(:url).map{|x| x.partition("master_rakes/").last })
-    # @children_master_rakes -= @sibling_master_rakes
-    # @sibling_master_rakes -= @parent_master_rakes
+    @top_rakes_count = Myrake.user_rakes(@rake.user).top_rakes.count
     @parent_master_rakes = []
     @sibling_master_rakes = []
     @children_master_rakes = []
