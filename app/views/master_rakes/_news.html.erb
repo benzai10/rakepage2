@@ -1,16 +1,16 @@
 <div>
-  <span class="rake-nav">EXPERIENCE<hr></span>
+  <span class="rake-nav">FEATURES<hr></span>
 </div>
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li class="rake-nav active">
-    <a href="#feed" id="view-news" data-toggle="tab">
-      NEWS
+    <a href="#actions" id="view-actions" data-toggle="tab">
+      ACTIONS
     </a>
   </li>
   <li class="rake-nav">
-    <a href="#actions" id="view-actions" data-toggle="tab">
-      ACTIONS
+    <a href="#feed" id="view-news" data-toggle="tab">
+      NEWS
     </a>
   </li>
   <li class="rake-nav">
@@ -21,14 +21,18 @@
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="feed">
+  <div class="tab-pane active" id="actions">
+    <br>
+    <%= render 'actions' %>
+  </div>
+  <div class="tab-pane" id="feed">
     <br>
     <div>
-      <span class="rake-nav">DISTRACTION-FREE FEED<hr></span>
+      <span class="rake-nav">FEWER DISTRACTIONS - SAVE TIME<hr></span>
     </div>
     <h5>
       <small>
-        Customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. Get updated without distractions and spend your time online more meaningful towards your choices.
+        Get updated without distractions and spend your time online more meaningful by focusing on your priorities. If you commit to this priority with your account, you can refresh and customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. You also get the possibility to save news and create actions with reminders.
       </small>
     </h5>
     <% if @added_leaflets.count > 0 %>
@@ -45,11 +49,11 @@
     </ul>
     <br>
     <div>
-      <span class="rake-nav">GET CUSTOMIZED NEWS FEED<hr></span>
+      <span class="rake-nav">FEWER DISTRACTIONS - SAVE TIME<hr></span>
     </div>
     <h5>
       <small>
-        Customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. Get updated without distractions and spend your time online more meaningful towards your priorities.
+        Customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. Get updated without distractions and spend your time online more meaningful by focusing on your priorities.
       </small>
     </h5>
     <br>
@@ -73,18 +77,14 @@
       <% if @customer_rake.nil? %>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <%= link_to "Choose this topic",
+            <%= link_to "Choose this priority",
                         create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
-                        { data: { disable_with: "<i class='fa fa-spinner white'></i> Gets created!"}, class: "btn btn-primary btn-lg centered" } %>
+                        { data: { disable_with: "<i class='fa fa-spinner white'></i> Your rake gets created!"}, class: "btn btn-primary btn-lg centered" } %>
           </div>
         </div>
         <br><br>
       <% end %>
     <% end %>
-  </div>
-  <div class="tab-pane" id="actions">
-    <br>
-    <%= render 'actions' %>
   </div>
   <div class="tab-pane" id="related-rakes">
     <br>

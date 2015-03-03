@@ -1,4 +1,13 @@
 <div>
+  <span class="rake-nav">FOCUS<hr></span>
+</div>
+<h5>
+  <small>
+    Start your day resetting your mindset, by checking out your top 5 priorities. Commit to priorities and take action. This helps you to be more mindful for the rest of the day.
+  </small>
+</h5>
+<br>
+<div>
   <span class="rake-nav">TAKE ACTIONS<hr></span>
 </div>
 <h5>
@@ -12,7 +21,7 @@
 </div>
 <h5>
   <small>
-    Inspiration and motivation get you started, habits keep you taking action. Focus on the process and create some streaks. Get a visual overview of days with action goals, action steps and no actions taken.
+    Build up habits and improve your skills. View your success meter going up and check your discipline. Can you already smell the success?
   </small>
 </h5>
 <div class="media">
@@ -46,40 +55,16 @@
       </div>
     </p>
     <p class="rake-links">
-      Due Actions: 
+      Open Actions: 
       <span class="new-rec-alert">5</span>
+      <span class="pull-right">
+        Success meter
+        &nbsp;&nbsp;
+      </span>
     </p>
   </div>
 </div>
 <br>
-<!-- <div>
-  <span class="rake-nav">ACCOUNTABILITY<hr></span>
-</div>
-<h5>
-  <small>
-    Stay motivated with tracking your accomplishments and see your actions in numbers.
-  </small>
-</h5>
-<div class="row">
-  <div class="col-md-4">
-    <div class="thumbnail disabled-thumbnail">
-      <span class="progress-count centered purple">42</span>
-      <span class="progress-count-label centered purple">Total Committed Actions</span>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="thumbnail disabled-thumbnail">
-      <span class="progress-count centered midnightblue">28</span>
-      <span class="progress-count-label centered purple">Committed Action Steps</span>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="thumbnail disabled-thumbnail">
-      <span class="progress-count centered green">14</span>
-      <span class="progress-count-label centered purple">Committed Action Goals</span>
-    </div>
-  </div>
-</div> -->
 <br>
 <% if !user_signed_in? %>
   <div class="row">
@@ -101,9 +86,9 @@
   <% if @customer_rake.nil? %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <%= link_to "Choose this topic",
+        <%= link_to "Commit to this priority",
                     create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
-                    { data: { disable_with: "<i class='fa fa-spinner white'></i> Gets created!"}, 
+                    { data: { disable_with: "<i class='fa fa-spinner white'></i> Your rake gets created!"}, 
                       class: "btn btn-primary btn-lg centered" } %>
       </div>
     </div>
