@@ -42,12 +42,6 @@
             <% if channel.channel_type != 3 %>
               <%= channel_name %>
             <% end %>
-            <%# if l.leaflet_type_id != 0 %>
-              <%#= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              <%# if !l.created_by.nil? %>
-                <!-- added by --> <%#= User.find(l.created_by).username %>
-              <%# end %>
-            <%# end %>
           </span>
 
           <span class="pull-right card-timestamp new-rec-alert">
@@ -85,9 +79,6 @@
 
         <div class="card-footer" id="card_footer_<%= l.id %>">
           <span class="card-metrics">
-          <!-- <%#= lm.motion_counter.to_s %>/<%#= lm.action_counter.to_s %>
-            <i class="fa fa-tasks purple"></i>
-            &nbsp;|&nbsp; -->
             <i class="fa fa-user purple"></i>&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
           </span>

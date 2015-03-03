@@ -1,26 +1,4 @@
 <span class="hidden" id="planned-actions-count"><%= @scheduled_leaflets.count.to_s %></span>
-<!-- <div class="thumbnail" id="add-new-action">
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month">
-        Action
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-tasks"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Plan a habit, next step or goal
-      </h5>
-      <p class="rake-links">
-        Click here to add a new action
-      </p>
-    </div>
-  </div>
-</div> -->
-
-<%#= render 'new_action' %>
 
 <ul id="feed-list" class="leaflet-list">
   <%= render 'no_planned_actions' %>
@@ -66,12 +44,6 @@
             <% if channel.channel_type != 3 %>
               <%= channel_name %>
             <% end %>
-            <%# if l.leaflet_type_id != 0 %>
-              <%#= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-              <%# if !l.created_by.nil? %>
-                <!-- added by --> <%#= User.find(l.created_by).username %>
-              <%# end %>
-            <%# end %>
           </span>
 
           <span class="pull-right card-timestamp">
@@ -109,9 +81,6 @@
 
         <div class="card-footer" id="card_footer_<%= l.id %>">
           <span class="card-metrics">
-<!--             <%#= lm.motion_counter.to_s %>/<%#= lm.action_counter.to_s %>
-            <i class="fa fa-tasks purple"></i>
-            &nbsp;|&nbsp; -->
             <i class="fa fa-user purple"></i>&nbsp;
             <span class="s_count_<%= l.id %>"><%= l.save_count %></span>
           </span>

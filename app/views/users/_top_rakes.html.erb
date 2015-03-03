@@ -1,23 +1,13 @@
+<div class="landing-page">
+  <h3>Focus</h3>
+  <p class="centered"><i class="fa fa-bullseye fa-2x"></i></p>
+  <p class="landing-feature-text">
+    Start your day resetting your mindset, by checking out your top 5 priorities. Commit to priorities and take action. This helps you to be more mindful for the rest of the day.
+  </p>
+</div>
 <% if @top_rakes.count == 0 %>
-  <div class="thumbnail" id="show-overview">
-    <%= link_to master_rakes_path do %>
-      <div class="media">
-        <span class="pull-left">
-          <p class="reminder-month">
-            Committed
-          </p>
-          <p class="reminder-day">
-            <i class="fa fa-bullseye"></i>
-          </p>
-        </span>
-        <div class="media-body">
-          <h5 class="media-heading">Choose a Priority (Rake)</h5>
-          <p>
-            Click to add a priority to your Top 5
-          </p>
-        </div>
-      </div>
-    <% end %>
+  <div class="col-md-6 col-md-offset-3">
+    <%= link_to "Choose a priority", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
   </div>
 <% else %>
   <div class="row">
@@ -46,9 +36,6 @@
                       Open Actions:
                       <% r.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
                       <span class=<%= count_no_zero %>><%= r.due_tasks_count %></span>
-                      <!-- &nbsp;|&nbsp;
-                      Committed Actions: -->
-                      <%#= r.action_count %>
                     </span>
                     <span class="pull-right">
                       Success meter
@@ -62,5 +49,12 @@
         </div>
       </div>
     <% end %>
+    <% if @top_rakes.count < 5 %>
+      <div class="col-md-6 col-md-offset-3">
+        <br><br>
+        <%= link_to "Add a priority", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
+      </div>
+    <% end %>
   </div>
+  <br><br>
 <% end %>
