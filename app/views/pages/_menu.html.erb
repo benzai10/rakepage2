@@ -9,21 +9,13 @@
       <div class="panel-heading panel-heading-menu">
         <h5 class="panel-title">
           <% if user_signed_in? %>
-            <%= link_to "My Choices", root_path, class: "menu-link" %>
+            <%= link_to "My Priorities", root_path, class: "menu-link" %>
           <% else %>
             <%= link_to "Start Page", root_path, class: "menu-link" %>
           <% end %>
         </h5>
       </div>
     </div>
-
-<!--     <div class="panel panel-default panel-menu">
-      <div class="panel-heading panel-heading-menu">
-        <h5 class="panel-title">
-          <%#= link_to "Help", "http://blog.rakepage.com/?page_id=191", target: "_blank", class: "menu-link" %>
-        </h5>
-      </div>
-    </div> -->
 
     <% if user_signed_in? %>
       <div class="panel panel-default panel-menu">
