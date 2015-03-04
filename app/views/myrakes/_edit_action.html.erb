@@ -46,7 +46,7 @@
                                                   'clearable-icon' => "fa-times" },
                                           class: "rating" } %>
     <%= f.label "Journal entry", class: "rakepage-form-label" %>
-    <%= f.text_area :task_comment, { hide_label: true, placeholder: "You can write journal entries, getting access to the entries is an upcoming feature.", class: "task-comment" } %>
+    <%= f.text_area :task_comment, { hide_label: true, class: "task-comment" } %>
     <span class="pull-right">
       <button type="button" class="btn btn-default btn-xs abort-edit-action">Cancel</button>
       <%= f.button "Update",
