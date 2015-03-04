@@ -1,5 +1,32 @@
 <div class="row">
   <%= render 'search_field' %>
+  <div class="col-md-12 col-lg-6">
+    <div class="thumbnail" id="request">
+      <%= link_to histories_path, 
+                  data: { toggle: "modal",
+                          target: "#requestModal"},
+                  class: "add-request" do %>
+        <div class="media">
+          <span class="pull-left">
+            <p class="reminder-month">
+              Request
+            </p>
+            <p class="reminder-day">
+              <i class="fa fa-sitemap"></i>
+            </p>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading">
+              Couldn't find a Priority?
+            </h5>
+            <p class="rake-links">
+              Click to send a request
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
   <% @new_master_rakes.each do |m| %>
     <% master_leaflets = MasterHeapLeafletMap.where("master_heap_id IN (?)", m.master_heaps.pluck(:id)) %>
     <div class="col-md-12 col-lg-6">
@@ -23,13 +50,7 @@
                 <%= m.name %>
               </h5>
               <p class="rake-links">
-                <%# parent_master_rakes = m.parent_master_rakes %>
-                <%# children_master_rakes = m.children_master_rakes %>
-                <%# sibling_master_rakes = m.sibling_master_rakes %>
-                <%# children_master_rakes -= sibling_master_rakes %>
-                <%# sibling_master_rakes -= parent_master_rakes %>
-                <%# related_rakes = parent_master_rakes.count + sibling_master_rakes.count + children_master_rakes.count %>
-                <!-- Related topics:  --><%#= related_rakes.to_s %>
+                Click to see preview
               <p>
               </p>
             </div>

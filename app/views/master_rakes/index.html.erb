@@ -6,7 +6,7 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered">Get Focused &mdash; Be Awesome</h1>
+      <h1 class="centered">Choose Your Priorities</h1>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
@@ -23,67 +23,9 @@
         <div class="panel panel-default">
           <div class="panel-heading panel-master-rakes-overview">
             <h5 class="panel-title">
-              Make choices and take action
+              Get focused
             </h5>
           </div>
-<!--           <div class="getting-started-video centered">
-            <br>
-            <span class="rake-nav">GETTING STARTED VIDEO<hr></span>
-            <iframe width="560" height="315" src="//www.youtube.com/embed/LN7jb1opVYE" frameborder="0" allowfullscreen></iframe>
-            <br>
-            <hr>
-          </div> -->
-          <div class="col-md-12">
-            <br>
-            <div class="thumbnail" id="show-overview">
-              <a href="#anchor-master-rake-overview">
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Committed
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-bullseye"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">Explore & Choose</h5>
-                    <p class="rake-links">
-                      If you commit to nothing, you’re distracted by everything.
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="thumbnail" id="request">
-              <%= link_to histories_path, 
-                          data: { toggle: "modal",
-                                  target: "#requestModal"},
-                          class: "add-request" do %>
-                <div class="media">
-                  <span class="pull-left">
-                    <p class="reminder-month">
-                      Request
-                    </p>
-                    <p class="reminder-day">
-                      <i class="fa fa-sitemap"></i>
-                    </p>
-                  </span>
-                  <div class="media-body">
-                    <h5 class="media-heading">
-                      Couldn't find a Priority?
-                    </h5>
-                    <p class="rake-links">
-                      Click to request a new priority.
-                    </p>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-            </div>
-          <br>
           <div class="panel-collapse collapse in" id="collapse-overview">
             <div class="panel-body">
               <div class="master-rake-overview">

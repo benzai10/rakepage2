@@ -229,7 +229,6 @@ class MasterRakesController < ApplicationController
     end
   end
 
-
   def add_rake
     ids = current_user.myrakes.pluck(:master_rake_id)
     @master_rakes = MasterRake.where.not(id: ids)
