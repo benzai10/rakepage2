@@ -1,13 +1,6 @@
-<div class="landing-page">
-  <h3>Focus</h3>
-  <p class="centered"><i class="fa fa-bullseye fa-2x"></i></p>
-  <p class="landing-feature-text">
-    Start your day resetting your mindset, by checking out your top 5 priorities. Commit to priorities and take action. This helps you to be more mindful for the rest of the day.
-  </p>
-</div>
 <% if @top_rakes.count == 0 %>
   <div class="col-md-6 col-md-offset-3">
-    <%= link_to "Choose a priority", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
+    <%= link_to "Add a Choice", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
   </div>
 <% else %>
   <div class="row">
@@ -52,7 +45,7 @@
     <% if @top_rakes.count < 5 %>
       <div class="col-md-6 col-md-offset-3">
         <br><br>
-        <%= link_to "Add a priority", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
+        <%= link_to "Add a choice", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
       </div>
     <% end %>
   </div>

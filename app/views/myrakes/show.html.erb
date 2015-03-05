@@ -15,26 +15,25 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered">
-        <%= @rake.name %>
-      </h1>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
             <i class="fa fa-home"></i>&nbsp;
-            <%= link_to "MY PRIORITIES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+            <%= link_to "MY CHOICES", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           <% else %>
-            <span class="nav-link">MY PRIORITIES</span>
+            <span class="nav-link">MY CHOICES</span>
             &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <i class="fa fa-home"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
           <% end %>
         </strong></small>
       </h5>
-
+      <h1 class="centered">
+        <%= @rake.name %>
+      </h1>
       <div class="rake-title">
         <h5>
-          Stay Focused
+          Be Focused
           <span class="pull-right">
             <small class="white">
               <% if @news_view == "hidden" %>

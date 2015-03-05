@@ -1,11 +1,50 @@
-<br>
-<div class="landing-page">
-  <h3>Less Time-Wasting</h3>
-  <p class="centered"><i class="fa fa-history fa-2x green"></i></p>
-  <p class="landing-feature-text">
-    Get updated based on a personalised news feed without distractions. Turn your ideas and inspirations from the news feed into actions with reminders.
-  </p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="thumbnail">
+      <div class="media">
+        <span class="pull-left">
+          <p class="reminder-month">
+            Benefit
+          </p>
+          <p class="reminder-day">
+            <i class="fa fa-bullseye"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading">
+            Become committed
+          </h5>
+          <p class="rake-links">
+            Take mindful actions and build good habits.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="thumbnail">
+      <div class="media">
+        <span class="pull-left">
+          <p class="reminder-month">
+            Benefit
+          </p>
+          <p class="reminder-day">
+            <i class="fa fa-history"></i>
+          </p>
+        </span>
+        <div class="media-body">
+          <h5 class="media-heading">
+            Stop wasting time
+          </h5>
+          <p class="rake-links">
+            Take control what information you consume.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li class="rake-nav active">
@@ -23,14 +62,6 @@
 <div class="tab-content">
   <div class="tab-pane active" id="feed">
     <br>
-    <div>
-      <span class="rake-nav">LESS TIME-WASTING<hr></span>
-    </div>
-    <h5>
-      <small>
-        Get updated without distractions and spend your time online more meaningful by focusing on your priorities. If you commit to this priority with your account, you can refresh and customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. You also get the possibility to save news and create actions with reminders.
-      </small>
-    </h5>
     <% if @added_leaflets.count > 0 %>
     <ul id="feed-list" class="leaflet-list">
       <% @added_leaflets.each do |l| %>
@@ -43,15 +74,6 @@
         <%= render 'card_news', l: l %>
       <% end %>
     </ul>
-    <br>
-    <div>
-      <span class="rake-nav">LESS TIME-WASTING<hr></span>
-    </div>
-    <h5>
-      <small>
-        Customize the news feed to your preferences by adding and deleting blogs (RSS feeds) and subreddits from Reddit.com. Get updated without distractions and spend your time online more meaningful by focusing on your priorities.
-      </small>
-    </h5>
     <br>
     <% if !user_signed_in? %>
       <div class="row">
