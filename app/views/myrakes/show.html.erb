@@ -15,6 +15,10 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
+      <h1 class="centered">
+        <%= @rake.name %>
+      </h1>
+      <h2 class="centered">Make choices. Stop wasting your time. Take action.</h2>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
@@ -28,12 +32,9 @@
           <% end %>
         </strong></small>
       </h5>
-      <h1 class="centered">
-        <%= @rake.name %>
-      </h1>
       <div class="rake-title">
         <h5>
-          Be Focused
+          <%= current_user.username %>
           <span class="pull-right">
             <small class="white">
               <% if @news_view == "hidden" %>

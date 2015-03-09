@@ -1,112 +1,162 @@
-<div>
-  <span class="rake-nav">GET STARTED<hr></span>
-</div>
-<% if @custom_rake.nil? %>
-  <div class="media">
-    <span class="pull-left">
-      <% if @rake.image_url.nil? || @rake.image_url.empty? %>
-        <%= image_tag("no_image.png", size: "96x54") %>
-      <% else %>
-        <%= image_tag(@rake.image_url, size: "96x54") %>
-      <% end %>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        <% if user_signed_in? %>
-          Commit to the topic by creating a Rake
-        <% else %>
-          Commit to the topic by creating a Rake
-        <% end %>
-      </h5>
-      <p>
-        <% if user_signed_in? %>
-          Click the button below
-        <% else %>
-          You have to sign up or sign in first
-        <% end %>
-      </p>
-    </div>
-  </div>
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month">
-        Updated
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-rss"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Customize News Feed
-      </h5>
-      <p>
-         Choose your favorite news sources for this topic.
-      </p>
-    </div>
-  </div>
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month">
-        Productive
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-rocket"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Take Action
-      </h5>
-      <p>
-         Turn your findings into actionable tasks.
-      </p>
-    </div>
-  </div>
-  <div class="media">
-    <span class="pull-left">
-      <p class="reminder-month">
-        Motivated
-      </p>
-      <p class="reminder-day">
-        <i class="fa fa-tasks"></i>
-      </p>
-    </span>
-    <div class="media-body">
-      <h5 class="media-heading">
-        Accountability System
-      </h5>
-      <p>
-         Stay motivated and don't break the chain.
-      </p>
-    </div>
-  </div>
+<div class="row">
   <br>
-  <% if !user_signed_in? %>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <p class="info-text centered">
-          You need an account to create a rake.
-        </p>
-        <%= link_to "Sign Up", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
-        <br><br>
-        <p class="info-text centered">
-          or <%= link_to "sign in", new_user_session_path %>.
-        </p>
-      </div>
+  <div class="col-md-12">
+    <div class="card-quote">
+      <em>Begin doing what you want to do now. We are not living in eternity. We have only this moment, sparkling like a star in our hand and melting like a snowflake.</em>
+      <p>
+        <span class="pull-right">
+          &mdash;Sir Francis Bacon
+        </span>
+      </p>
     </div>
-  <% else %>
-    <br><br>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <%= link_to "Create Rake!", new_myrake_path(master_rake_id: @rake.id),
-                                    data: { toggle: "modal",
-                                            target: "#newCustomRakeModal",
-                                          }, class: "btn btn-primary btn-lg centered" %>
-      </div>
+  </div>
+</div>
+<div class="row">
+  <br>
+  <div class="col-md-12">
+    <ul id="feed-list" class="leaflet-list">
+      <li class="card">
+        <div class="card-header">
+          <span class="card-icon">
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+          </span>
+          <span class="card-label">
+            Getting started
+          </span>
+        </div>
+        <div class="card-title">
+          Keep Track of Your Passions
+        </div>
+        <div class="card-content">
+          <p>
+            You rarely have time for everything you want in this life, so you need to make choices. Rakepage is the place to remind you about your passions and to take action. Get a visual overview (example below) to see if you're on track. Remember: only making continuous progress leads to achievement.
+          </p>
+        </div>
+      </li>
+      <br>
+      <li class="card">
+        <div class="card-header">
+          <span class="card-icon">
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+          </span>
+          <span class="card-label">
+            Getting inspired
+          </span>
+        </div>
+        <div class="card-title">
+          Start Now and Make Choices
+        </div>
+        <div class="card-content">
+          <p>
+            Think about what you really desire, take control and improve your personal leadership to achieve your goals.
+          </p>
+          <p>
+            To <strong>learn more, click on one of the choices below to see more details</strong>. Click on the tabs above to get some inspriration based on existing choices. Are you ready to improve your personal leadership? Sign up for your personal account and add your choices to your Rakepage.
+          </p>
+        </div>
+      </li>
+    </ul>
+    <br>
+    <span class="rake-nav">PREVIEW<hr></span>
+    <div class="thumbnail demo-rake">
+      <%#= link_to myrake_path(r, view: "tasks"), 
+                              data: { disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
+        <div class="media rake-index-view">
+          <span class="pull-left">
+            <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading">
+              Choice 1 (placeholder)
+            </h5>
+            <p>
+              <div class="progress progress-chain">
+                <% chain_array = [[false, true],[false, true],[true, true],[true, false],[true, true],[false, true],
+                                  [false, false],[false, true],[true, true],[true, false],[true, true],[true, false],
+                                  [false, true],[false, true],[false, true],[false, true],[true, false],[false, false],
+                                  [false, true],[false, true],[false, true],[false, false],[true, true],[true, true],
+                                  [true, true],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+                <% chain_array.each do |chain_element| %>
+                  <% if chain_element[1] == true %>
+                    <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+                  <% else %>
+                    <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+                  <% end %>
+                <% end %>
+              </div>
+            </p>
+            <p class="rake-links">
+              <span>
+                Open Actions:
+                <span class="new-rec-alert">2</span>
+              </span>
+              <span class="pull-right">
+                Progress-Meter
+                &nbsp;&nbsp;
+              </span>
+            </p>
+          </div>
+        </div>
+      <%# end %>
     </div>
-    <br><br><br>
-  <% end %>
-<% else %>
-  <h3 class="centered">You already created a personal rake.</h3>
+  </div>
+  <div class="col-md-12">
+    <div class="thumbnail demo-rake">
+      <%#= link_to myrake_path(r, view: "tasks"), 
+                              data: { disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
+        <div class="media rake-index-view">
+          <span class="pull-left">
+            <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
+          </span>
+          <div class="media-body">
+            <h5 class="media-heading">
+              Choice 2 (placeholder)
+            </h5>
+            <p>
+              <div class="progress progress-chain">
+                <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
+                                  [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
+                                  [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
+                                  [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
+                                  [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+                <% chain_array.each do |chain_element| %>
+                  <% if chain_element[1] == true %>
+                    <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+                  <% else %>
+                    <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+                  <% end %>
+                <% end %>
+              </div>
+            </p>
+            <p class="rake-links">
+              <span>
+                Open Actions:
+                <span class="new-rec-alert">2</span>
+              </span>
+              <span class="pull-right">
+                Progress-Meter
+                &nbsp;&nbsp;
+              </span>
+            </p>
+          </div>
+        </div>
+      <%# end %>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= link_to "Sign up",
+                  new_user_registration_path,
+                  { data: { disable_with: "<i class='fa fa-spinner white'></i> See you soon!"},
+                  class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+      <br><br>
+      <p class="rake-links info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
 <% end %>

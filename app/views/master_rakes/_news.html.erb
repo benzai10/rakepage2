@@ -1,53 +1,11 @@
-<div class="row">
-  <div class="col-md-6">
-    <div class="thumbnail">
-      <div class="media">
-        <span class="pull-left">
-          <p class="reminder-month">
-            Benefit
-          </p>
-          <p class="reminder-day">
-            <i class="fa fa-bullseye"></i>
-          </p>
-        </span>
-        <div class="media-body">
-          <h5 class="media-heading">
-            Become committed
-          </h5>
-          <p class="rake-links">
-            Take mindful actions and build good habits.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="thumbnail">
-      <div class="media">
-        <span class="pull-left">
-          <p class="reminder-month">
-            Benefit
-          </p>
-          <p class="reminder-day">
-            <i class="fa fa-history"></i>
-          </p>
-        </span>
-        <div class="media-body">
-          <h5 class="media-heading">
-            Stop wasting time
-          </h5>
-          <p class="rake-links">
-            Take control what information you consume.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
   <li class="rake-nav active">
+    <a href="#actions" id="view-actions" data-toggle="tab">
+      INFO
+    </a>
+  </li>
+  <li class="rake-nav">
     <a href="#feed" id="view-news" data-toggle="tab">
       NEWS
     </a>
@@ -60,20 +18,70 @@
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="feed">
+  <div class="tab-pane active" id="actions">
+    <%= render 'info_choice' %>
+  </div>
+  <div class="tab-pane" id="feed">
     <br>
+    <ul id="feed-list" class="leaflet-list">
+      <li class="card">
+        <div class="card-header">
+          <span class="card-icon">
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+          </span>
+          <span class="card-label">
+            Getting focused
+          </span>
+        </div>
+        <div class="card-title">
+          Stop Wasting Time
+        </div>
+        <div class="card-content">
+          <p>
+            In the age of distractions we are drowning in a sea of irrelevance. Take control of the media you consume by creating a personalized news feed tailored to your choice. <%= link_to "Sign up", new_user_registration_path %> to add your favorite blogs (RSS feeds) and/or subreddits from Reddit.com.
+          </p>
+        </div>
+      </li>
+      <br>
+      <li class="card">
+        <div class="card-header">
+          <span class="card-icon">
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+          </span>
+          <span class="card-label">
+            Getting reminded
+          </span>
+        </div>
+        <div class="card-title">
+          Remember your inspirations
+        </div>
+        <div class="card-content">
+          <p>
+            Save inspirational content from your personalized news feed with a reminder. This guarantees that you don't forget about it and you'll take some action. <%= link_to "Sign up", new_user_registration_path %> to get access to this feature.
+          </p>
+        </div>
+      </li>
+      <br>
+    </ul>
+    <span class="rake-nav">EXAMPLE FEED<hr></span>
     <% if @added_leaflets.count > 0 %>
-    <ul id="feed-list" class="leaflet-list">
-      <% @added_leaflets.each do |l| %>
-        <%= render 'card_added_leaflets', l: l %>
-      <% end %>
-    </ul>
+      <ul id="feed-list" class="leaflet-list">
+        <% @added_leaflets.each do |l| %>
+          <%= render 'card_added_leaflets', l: l %>
+        <% end %>
+      </ul>
     <% end %>
-    <ul id="feed-list" class="leaflet-list">
-      <% @feed_leaflets.each do |l| %>
-        <%= render 'card_news', l: l %>
-      <% end %>
-    </ul>
+    <% if @feed_leaflets.count > 0 %>
+      <ul id="feed-list" class="leaflet-list">
+        <% @feed_leaflets.each do |l| %>
+          <%= render 'card_news', l: l %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="centered rake-links">
+        No feed data available. If you add this choice to your overview, you can personalize the feed.
+      </p>
+    <% end %>
     <br>
     <% if !user_signed_in? %>
       <div class="row">
@@ -95,7 +103,7 @@
       <% if @customer_rake.nil? %>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <%= link_to "Choose this priority",
+            <%= link_to "Add this choice",
                         create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
                         { data: { disable_with: "<i class='fa fa-spinner white'></i> Your rake gets created!"}, class: "btn btn-primary btn-lg centered" } %>
           </div>

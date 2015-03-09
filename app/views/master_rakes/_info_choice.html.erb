@@ -1,0 +1,56 @@
+<div class="row">
+  <br>
+  <div class="col-md-12">
+    <ul id="feed-list" class="leaflet-list">
+      <li class="card">
+        <div class="card-header">
+          <span class="card-icon">
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+          </span>
+          <span class="card-label">
+            Making a choice
+          </span>
+        </div>
+        <div class="card-title">
+          Keep Track of This Passion
+        </div>
+        <div class="card-content">
+          <p>
+            You rarely have time for everything you want in this life, so you need to make choices. Rakepage is the place to remind you about your passions and to take action. You can add several choices you're passionate about to your overview.
+          </p>
+          <p>
+            For each choice, you can track the days you took action and made progress. The progress-meter visualizes the last 30 days and the red box represents the current day. 
+          </p>
+        </div>
+      </li>
+      <br>
+    </ul>
+  </div>
+</div>
+<br>
+<br>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= link_to "Sign up",
+                  new_user_registration_path,
+                  { data: { disable_with: "<i class='fa fa-spinner white'></i> See you soon!"},
+                  class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+      <br><br>
+      <p class="rake-links info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
+<% else %>
+  <% if @customer_rake.nil? %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= link_to "Add this choice",
+                    create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
+                    { data: { disable_with: "<i class='fa fa-spinner white'></i> Your rake gets created!"}, class: "btn btn-primary btn-lg centered" } %>
+      </div>
+    </div>
+    <br><br>
+  <% end %>
+<% end %>

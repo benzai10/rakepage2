@@ -18,19 +18,44 @@
           <% end %>
         </strong></small>
       </h5>
-      <h1 class="centered">Focus On Your Choices</h1>
-      <h2 class="centered">Online tool for people who want to focus on their choices to reach their goals</h2>
+      <h1 class="centered">Keep Track of Your Passions</h1>
+      <h2 class="centered">Make choices. Stop wasting your time. Take action.</h2>
       <div class="panel-group" id="accordion-main">
         <div class="panel panel-default">
           <div class="panel-heading panel-master-rakes-overview">
             <h5 class="panel-title">
-              Available Choices
+              <% if user_signed_in? %>
+                <%= current_user.username %>
+              <% else %>
+                Introduction
+              <% end %>
             </h5>
           </div>
           <div class="panel-collapse collapse in" id="collapse-overview">
             <div class="panel-body">
               <div class="master-rake-overview">
                 <%= render 'overview' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-group hidden" id="accordion-demo-rake">
+        <div class="panel panel-default">
+          <div class="panel-heading panel-master-rakes-overview">
+            <h5 class="panel-title">
+              Make choices
+              <span class="pull-right">
+                <small class="white">
+                  <%= link_to "BACK", "#", { class: "white", id: "demo-rake-back" } %>
+                </small>
+              </span>
+            </h5>
+          </div>
+          <div class="panel-collapse collapse in" id="demo-rake">
+            <div class="panel-body">
+              <div class="demo-rake">
+                <%= render 'demo_rake' %>
               </div>
             </div>
           </div>

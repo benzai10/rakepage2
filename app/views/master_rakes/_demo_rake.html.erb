@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="media rake-index-view">
+      <span class="pull-left">
+        <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
+      </span>
+      <div class="media-body">
+        <h5 class="media-heading">
+          Example
+        </h5>
+        <p>
+          <div class="progress progress-chain">
+            <% chain_array = [[false, true],[false, true],[true, true],[true, false],[true, true],[false, true],
+                              [false, false],[false, true],[true, true],[true, false],[true, true],[true, false],
+                              [false, true],[false, true],[false, true],[false, true],[true, false],[false, false],
+                              [false, true],[false, true],[false, true],[false, false],[true, true],[true, true],
+                              [true, true],[false, true],[true, true],[false, true],[true, true],[false, false]] %>
+            <% last_element = chain_array.pop %>
+            <% chain_array.each do |chain_element| %>
+              <% if chain_element[1] == true %>
+                <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+              <% else %>
+                <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+              <% end %>
+            <% end %>
+            <div class="progress-bar progress-bar-success bookmark-metrics-pending current-day" id="progress-current-day-demo-rake" style="width: 3.33%"></div>
+          </div>
+        </p>
+        <p class="rake-links">
+          <span>
+            Open Actions:
+            <span class="new-rec-alert">2</span>
+          </span>
+          <span class="pull-right">
+            Progress-Meter
+            &nbsp;&nbsp;
+          </span>
+        </p>
+      </div>
+    </div>
+    <br>
+    <span id="mark-action-btn">
+      <%= link_to "Click if you took action today",
+                  "#",
+                  { class: "btn btn-day-unmarked btn-check-off",
+                    id: "demo-rake-btn-action" } %>
+    </span>
+    <span class="hidden" id="unmark-action-btn">
+      <%= link_to "Yay, you increased your progress meter (click to undo)",
+                  "#",
+                  { class: "btn btn-primary btn-check-off",
+                    id: "demo-rake-btn-undo" } %>
+    </span>
+  </div>
+</div>
+<br>
+<p class="rake-links">
+  Features:
+</p>
+<div class="tab-header">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="rake-nav active">
+      <a href="#demo-rake-today" id="view-today" role="tab" data-toggle="tab">ACTIONS</a>
+    </li>
+    <li class="rake-nav">
+      <a href="#demo-rake-news" id="view-new-master-rakes" role="tab" data-toggle="tab">NEWS</a>
+    </li>
+  </ul>
+</div>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="demo-rake-today">
+    <%= render 'demo_rake_today' %>
+  </div>
+  <div class="tab-pane" id="demo-rake-news">
+    <%= render 'demo_rake_news' %>
+  </div>
+</div>

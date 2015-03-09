@@ -22,6 +22,30 @@ $(function() {
         $("#back-to-actions").addClass('hidden');
     });
 
+    $(".demo-rake").on('click', function() {
+        $("#accordion-main").addClass('hidden');
+        $("#accordion-demo-rake").removeClass('hidden');
+    });
+
+    $("#demo-rake-back").on('click', function() {
+        $("#accordion-demo-rake").addClass('hidden');
+        $("#accordion-main").removeClass('hidden');
+    });
+
+    $("#demo-rake-btn-action").on('click', function() {
+        $("#progress-current-day-demo-rake").addClass('bookmark-metrics-action');
+        $("#progress-current-day-demo-rake").removeClass('bookmark-metrics-pending');
+        $("#mark-action-btn").addClass('hidden');
+        $("#unmark-action-btn").removeClass('hidden');
+    });
+
+    $("#demo-rake-btn-undo").on('click', function() {
+        $("#progress-current-day-demo-rake").removeClass('bookmark-metrics-action');
+        $("#progress-current-day-demo-rake").addClass('bookmark-metrics-pending');
+        $("#unmark-action-btn").addClass('hidden');
+        $("#mark-action-btn").removeClass('hidden');
+    });
+
     $('#view-status').on('shown.bs.tab', function () {
         $.ajax("/users/notification_read")
         return false;
