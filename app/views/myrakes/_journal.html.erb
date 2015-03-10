@@ -7,7 +7,7 @@
           <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
         </span>
         <span class="card-label">
-          <%= j.created_at.strftime("%F - %H:%M") %>
+          <%= j.created_at.in_time_zone(cookies[:timezone]).strftime("%F - %H:%M") %>
         </span>
       </div>
       <div class="card-content">
