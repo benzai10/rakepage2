@@ -1,3 +1,24 @@
+<ul id="feed-list" class="leaflet-list">
+  <li class="card">
+    <div class="card-header">
+      <span class="card-icon">
+        <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+      </span>
+      <span class="card-label">
+        Stop Wasting Time
+      </span>
+    </div>
+    <div class="card-title">
+      Create Your Personalized News Feed
+    </div>
+    <div class="card-content">
+      <p>
+        In the age of distractions we are drowning in a sea of irrelevance. Take control of the media you consume by creating a personalized news feed tailored to your priority. Add your favorite blogs (RSS feeds) and/or subreddits from Reddit.com. Remove the ones you don't want.
+      </p>
+    </div>
+  </li>
+</ul>
+<br>
 <% if user_signed_in? && @rake.user_id == current_user.id %>
   <div class="thumbnail">
     <%= link_to new_channel_path(rake_id: @rake.id, channel_type: 0),
@@ -55,34 +76,54 @@
   </div>
 <% end %>
 <br>
-<span class="rake-nav">ACTIVATED CHANNELS<hr></span>
+<span class="rake-nav">YOUR NEWS SOURCES<hr></span>
 <ul class="leaflet-list">
   <% @rake.channels.each do |c| %>
     <% if c.channel_type != 3 %>
-      <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-        <span class="pull-left" >
-          <% if c.channel_type == 4 %>
-            <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-          <% elsif c.channel_type == 3 %>
-            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-          <% else %>
-            <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-            <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-          <% end %>
-        </span>
-        <div class="media-body">
-          <h5 class="media-heading channel-heading">
-            <% channel_name = c.name %>
-            <% if channel_name == "Title not available." %>
-              <% channel_name = c.source %>
-            <% end %>
-            <% if c.channel_type == 0 %> 
-              <%= link_to channel_name, c.source.match(/^http:\/\/[^\/]*/).to_s, class: "external", target: "_blank" %>
-            <% elsif c.channel_type == 4 %>
-              <%= link_to channel_name, "http://www.reddit.com" + c.name, class: "external", target: "_blank" %>
+      <li class="card" id="<%= 'channel_' + c.id.to_s %>">
+        <div class="card-header">
+          <span class="card-icon">
+            <% if c.channel_type == 4 %>
+              <%= image_tag "reddit-32.png", size: "16x16" %>
+            <% elsif c.channel_type == 3 %>
+              <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
             <% else %>
-              <%= channel_name %>
+              <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+              <img src=<%= "#{favicon_path}" %> alt="media image">
             <% end %>
+          </span>
+          <span class="card-label">
+            <% if c.channel_type == 4 %>
+              Subreddit
+            <% elsif c.channel_type == 3 %>
+              Rakepage
+            <% else %>
+              RSS Feed
+            <% end %>
+          </span>
+        </div>
+
+        <div class="card-content">
+          <% channel_name = c.name %>
+          <% if channel_name == "Title not available." %>
+            <% channel_name = c.source %>
+          <% end %>
+          <% if c.channel_type == 0 %> 
+            <%= link_to channel_name, c.source.match(/^http:\/\/[^\/]*/).to_s, class: "external", target: "_blank" %>
+          <% elsif c.channel_type == 4 %>
+            <%= link_to channel_name, "http://www.reddit.com" + c.name, class: "external", target: "_blank" %>
+          <% else %>
+            <%= channel_name %>
+          <% end %>
+        </div>
+
+        <div class="card-footer">
+          <span class="card-metrics">
+            <i class="fa fa-user purple"></i>&nbsp;
+            <%= c.count_subscribers %>
+          </span>
+
+          <span class="card-buttons pull-right">
             <% if user_signed_in? && @rake.user_id == current_user.id %>
               <span class="pull-right">
                 <%= link_to "Remove", remove_channel_myrake_path(@rake, channel: c.id),
@@ -91,64 +132,74 @@
                             class: "btn btn-xs btn-default" %>
               </span>
             <% end %>
-          </h5>
-          <p class="channel-info">
-            <%= c.count_subscribers %>&nbsp;<i class="fa fa-user" title="Count of channel users"></i>
-          </p>
+          </span>
         </div>
-        <br>
       </li>
+      <br>
     <% end %>
   <% end %>
 </ul>
 <% if @rake.user_id == current_user.id %>
   <ul class="leaflet-list">
     <% if (@new_channels - @rake.channels).count > 0 %>
-      <span class="rake-nav">INACTIVE CHANNELS<hr></span>
       <% @new_channels.each do |c| %>
         <% if !@rake.channels.include? c %>
-          <li class="channel-list" id="<%= 'channel_' + c.id.to_s %>">
-            <span class="pull-left">
-              <% if c.channel_type == 4 %>
-                <%= image_tag "reddit-32.png", size: "16x16", class: "media-object img-feed-show" %>
-              <% elsif c.channel_type == 3 %>
-                <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16", class: "media-object img-feed-show" %>
-              <% else %>
-                <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
-                <img class="media-object img-feed-show" src=<%= "#{favicon_path}" %> alt="media image">
-              <% end %>
-            </span>
-            <div class="media-body">
-              <h5 class="media-heading channel-heading">
-                <% channel_name = c.name %>
-                <% if channel_name == "Title not available." %>
-                  <% channel_name = c.source %>
-                <% end %>
-                <% if c.channel_type == 0 %> 
-                  <%= link_to channel_name, c.source.match(/^http:\/\/[^\/]*/).to_s, class: "external", target: "_blank" %>
-                <% elsif c.channel_type == 4 %>
-                  <%= link_to channel_name, "http://www.reddit.com" + c.name, class: "external", target: "_blank" %>
+          <li class="card" id="<%= 'channel_' + c.id.to_s %>">
+            <div class="card-header">
+              <span class="card-icon">
+                <% if c.channel_type == 4 %>
+                  <%= image_tag "reddit-32.png", size: "16x16" %>
+                <% elsif c.channel_type == 3 %>
+                  <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
                 <% else %>
-                  <%= channel_name %>
+                  <% favicon_path = "http://www.google.com/s2/favicons?domain=" + c.source %>
+                  <img src=<%= "#{favicon_path}" %> alt="media image">
                 <% end %>
-                <% if user_signed_in? %>
+              </span>
+              <span class="card-label">
+                <% if c.channel_type == 4 %>
+                  Subreddit
+                <% elsif c.channel_type == 3 %>
+                  Rakepage
+                <% else %>
+                  RSS Feed
+                <% end %>
+              </span>
+            </div>
+
+            <div class="card-content">
+              <% channel_name = c.name %>
+              <% if channel_name == "Title not available." %>
+                <% channel_name = c.source %>
+              <% end %>
+              <% if c.channel_type == 0 %> 
+                <%= link_to channel_name, c.source.match(/^http:\/\/[^\/]*/).to_s, class: "external", target: "_blank" %>
+              <% elsif c.channel_type == 4 %>
+                <%= link_to channel_name, "http://www.reddit.com" + c.name, class: "external", target: "_blank" %>
+              <% else %>
+                <%= channel_name %>
+              <% end %>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-metrics">
+                <i class="fa fa-user purple"></i>&nbsp;
+                <%= c.count_subscribers %>
+              </span>
+
+              <span class="card-buttons pull-right">
+                <% if user_signed_in? && @rake.user_id == current_user.id %>
                   <span class="pull-right">
-                  <%= link_to "Add",
+                    <%= link_to "Add",
                         add_channel_myrake_path(@rake, channel: c.id),
                         title: "Add Channel to own Rake", class: "btn btn-xs btn-default" %>
                   </span>
                 <% end %>
-              </h5>
-              <p class="channel-info">
-                <%= c.count_subscribers %>&nbsp;<i class="fa fa-user" title="Count of channel users"></i>
-              </p>
+              </span>
             </div>
           </li>
         <% end %>
       <% end %>
-    <% else %>
-      <span class="rake-nav">INACTIVE CHANNELS<hr></span>
-      <p class="centered">None</p>
     <% end %>
   </ul>
 <% end %>
