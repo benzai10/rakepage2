@@ -647,6 +647,12 @@ h5 {
   border-bottom: dotted 1px;
 }
 
+.rake-footer {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+
 .category-list {
   padding-left: 0px;
   list-style-type: none;

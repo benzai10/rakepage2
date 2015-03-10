@@ -6,12 +6,12 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered">Keep Track of Your Passions</h1>
-      <h2 class="centered">Make choices. Stop wasting your time. Take action.</h2>
+      <h1 class="centered">Master Your Priorities</h1>
+      <h2 class="centered">Make choices. Stay focused. Track actions.</h2>
       <h5>
         <small><strong>
           <i class="fa fa-plus-square"></i>&nbsp;
-          <%= link_to "ADD A CHOICE", master_rakes_path(collapse: "add"), { data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
+          <%= link_to "ADD A PRIORITY", master_rakes_path(collapse: "add"), { data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
         </strong></small>
       </h5>
       <div class="rake-title">

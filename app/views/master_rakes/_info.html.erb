@@ -2,10 +2,10 @@
   <br>
   <div class="col-md-12">
     <div class="card-quote">
-      <em>Begin doing what you want to do now. We are not living in eternity. We have only this moment, sparkling like a star in our hand and melting like a snowflake.</em>
+      <em>When we strive to become better than we are, everything around us becomes better too.</em>
       <p>
         <span class="pull-right">
-          &mdash;Sir Francis Bacon
+          &mdash;Paulo Coelho
         </span>
       </p>
     </div>
@@ -25,12 +25,88 @@
           </span>
         </div>
         <div class="card-title">
-          Keep Track of Your Passions
+          Make Choices
         </div>
         <div class="card-content">
           <p>
-            You rarely have time for everything you want in this life, so you need to make choices. Rakepage is the place to remind you about your passions and to take action. Get a visual overview (example below) to see if you're on track. Remember: only making continuous progress leads to achievement.
+            You rarely have time for everything you want in this life, so you need to make choices. Rakepage is the place to remind you about your priorities you are passionate about. Get motivated to take actions because only this will bring you to mastery and help you to reach your goals.
           </p>
+          <div class="thumbnail demo-rake">
+            <div class="media rake-index-view">
+              <span class="pull-left">
+                <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
+              </span>
+              <div class="media-body">
+                <h5 class="media-heading">
+                  Priority Example 1
+                </h5>
+                <p>
+                  <div class="progress progress-chain">
+                    <% chain_array = [[false, true],[false, true],[true, true],[true, false],[true, true],[false, true],
+                                      [false, false],[false, true],[true, true],[true, false],[true, true],[true, false],
+                                      [false, true],[false, true],[false, true],[false, true],[true, false],[false, false],
+                                      [false, true],[false, true],[false, true],[false, false],[true, true],[true, true],
+                                      [true, true],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+                    <% chain_array.each do |chain_element| %>
+                      <% if chain_element[1] == true %>
+                        <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+                      <% else %>
+                        <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </p>
+                <div class="rake-footer">
+                  <span>
+                    Open Actions:
+                    <span class="new-rec-alert">2</span>
+                  </span>
+                  <span class="pull-right">
+                    Action-Tracker
+                    &nbsp;&nbsp;
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumbnail demo-rake">
+            <div class="media rake-index-view">
+              <span class="pull-left">
+                <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
+              </span>
+              <div class="media-body">
+                <h5 class="media-heading">
+                  Priority Example 2
+                </h5>
+                <p>
+                  <div class="progress progress-chain">
+                    <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
+                                      [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
+                                      [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
+                                      [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
+                                      [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
+                    <% chain_array.each do |chain_element| %>
+                      <% if chain_element[1] == true %>
+                        <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
+                      <% else %>
+                        <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </p>
+                <div class="rake-footer">
+                  <span>
+                    Open Actions:
+                    <span class="new-rec-alert">2</span>
+                  </span>
+                  <span class="pull-right">
+                    Action-Tracker
+                    &nbsp;&nbsp;
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </li>
       <br>
@@ -44,104 +120,19 @@
           </span>
         </div>
         <div class="card-title">
-          Start Now and Make Choices
+          Start Now
         </div>
         <div class="card-content">
           <p>
-            Think about what you really desire, take control and improve your personal leadership to achieve your goals.
-          </p>
-          <p>
-            To <strong>learn more, click on one of the choices below to see more details</strong>. Click on the tabs above to get some inspriration based on existing choices. Are you ready to improve your personal leadership? Sign up for your personal account and add your choices to your Rakepage.
+            Think about what you really desire, take control and improve your personal leadership to achieve your goals. You can choose available priorities by clicking on the tabs above labelled with "POPULAR" and "NEW". If you don't find your priority, please send a request.
           </p>
         </div>
       </li>
     </ul>
     <br>
-    <span class="rake-nav">PREVIEW<hr></span>
-    <div class="thumbnail demo-rake">
-      <%#= link_to myrake_path(r, view: "tasks"), 
-                              data: { disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
-        <div class="media rake-index-view">
-          <span class="pull-left">
-            <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
-          </span>
-          <div class="media-body">
-            <h5 class="media-heading">
-              Choice 1 (placeholder)
-            </h5>
-            <p>
-              <div class="progress progress-chain">
-                <% chain_array = [[false, true],[false, true],[true, true],[true, false],[true, true],[false, true],
-                                  [false, false],[false, true],[true, true],[true, false],[true, true],[true, false],
-                                  [false, true],[false, true],[false, true],[false, true],[true, false],[false, false],
-                                  [false, true],[false, true],[false, true],[false, false],[true, true],[true, true],
-                                  [true, true],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
-                <% chain_array.each do |chain_element| %>
-                  <% if chain_element[1] == true %>
-                    <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
-                  <% else %>
-                    <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
-                  <% end %>
-                <% end %>
-              </div>
-            </p>
-            <p class="rake-links">
-              <span>
-                Open Actions:
-                <span class="new-rec-alert">2</span>
-              </span>
-              <span class="pull-right">
-                Progress-Meter
-                &nbsp;&nbsp;
-              </span>
-            </p>
-          </div>
-        </div>
-      <%# end %>
-    </div>
   </div>
   <div class="col-md-12">
-    <div class="thumbnail demo-rake">
-      <%#= link_to myrake_path(r, view: "tasks"), 
-                              data: { disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
-        <div class="media rake-index-view">
-          <span class="pull-left">
-            <%= image_tag("rake_img_placeholder_96x54.jpg", size: "96x54") %>
-          </span>
-          <div class="media-body">
-            <h5 class="media-heading">
-              Choice 2 (placeholder)
-            </h5>
-            <p>
-              <div class="progress progress-chain">
-                <% chain_array = [[false, true],[false, false],[true, false],[true, false],[true, false],[false, false],
-                                  [false, false],[false, true],[true, true],[true, false],[true, false],[true, false],
-                                  [false, false],[false, true],[false, false],[false, false],[true, false],[false, false],
-                                  [false, false],[false, true],[false, true],[false, false],[true, false],[true, false],
-                                  [true, false],[false, true],[true, true],[false, true],[true, true],[false, true]] %>
-                <% chain_array.each do |chain_element| %>
-                  <% if chain_element[1] == true %>
-                    <div class="progress-bar progress-bar-success bookmark-metrics-action" style="width: 3.33%"></div>
-                  <% else %>
-                    <div class="progress-bar progress-bar-success bookmark-metrics" style="width: 3.33%"></div>
-                  <% end %>
-                <% end %>
-              </div>
-            </p>
-            <p class="rake-links">
-              <span>
-                Open Actions:
-                <span class="new-rec-alert">2</span>
-              </span>
-              <span class="pull-right">
-                Progress-Meter
-                &nbsp;&nbsp;
-              </span>
-            </p>
-          </div>
-        </div>
-      <%# end %>
-    </div>
+
   </div>
 </div>
 <br>
