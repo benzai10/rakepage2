@@ -49,6 +49,9 @@ class MyrakesController < ApplicationController
       end
       @feed_leaflets = []
       @new_channels = []
+      @journal_entries = History.where(rake_id: @rake.id, history_code: "bm_activity")
+                                .where.not(history_text: "")
+                                .order(created_at: :desc)
     elsif params[:view] == "news"
       @news_view = ""
       if user_signed_in? && current_user.admin?

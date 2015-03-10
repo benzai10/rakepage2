@@ -18,6 +18,11 @@
         LATER
       </a>
     </li>
+    <li class="rake-nav <%= @journal_entries %>">
+      <a href="#journal" id="view-journal" data-toggle="tab">
+        JOURNAL
+      </a>
+    </li>
   </ul>
   <br>
   <div>
@@ -43,6 +48,9 @@
     </div>
     <div class="tab-pane <%= @scheduled_active %>" id="scheduled-tasks">
       <%= render 'scheduled_tasks' %>
+    </div>
+    <div class="tab-pane" id="journal">
+      <%= render 'journal' %>
     </div>
   </div>
 </div>
