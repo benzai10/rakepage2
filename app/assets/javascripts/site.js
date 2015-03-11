@@ -23,6 +23,7 @@ $(function() {
     });
 
     $(".demo-rake").on('click', function() {
+        $("html, body").animate({ scrollTop: 0 }, 0);
         $("#accordion-main").addClass('hidden');
         $("#accordion-demo-rake").removeClass('hidden');
     });
