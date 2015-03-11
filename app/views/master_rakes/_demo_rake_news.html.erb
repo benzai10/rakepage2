@@ -38,3 +38,18 @@
     </div>
   </li>
 </ul>
+<br><br><br>
+<% if !user_signed_in? %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= link_to "Sign Up", new_user_registration_path,
+                  { data: { disable_with: "<i class='fa fa-spinner white'></i> See you soon!"},
+                  class: "btn btn-primary btn-lg centered",
+                  id: "sign-up" } %>
+      <br><br>
+      <p class="rake-links info-text centered">
+        or <%= link_to "sign in", new_user_session_path %>.
+      </p>
+    </div>
+  </div>
+<% end %>
