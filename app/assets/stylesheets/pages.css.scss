@@ -13,6 +13,7 @@
   }
   h3 {
     text-align: center;
+    line-height: 150%;
     font-family: 'Roboto', sans-serif;
     font-size: 28px !important;
     font-weight: 200 !important;
@@ -47,6 +48,13 @@
     font-weight: 300 !important;
     letter-spacing: 1px;
     min-height: 180px;
+  }
+  .landing-quote {
+    padding: 20px;
+    color: #707070 !important;
+    font-size: 20px !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px;
   }
   .landing-benefit-text {
     text-align: center;
@@ -92,7 +100,7 @@
   background-color: #4a2b88;
   h1 {
     font-family: 'Roboto', sans-serif;
-    font-size: 57px !important;
+    font-size: 48px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
@@ -101,7 +109,7 @@
   }
   h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: 19px !important;
+    font-size: 22px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
@@ -142,7 +150,7 @@
     cursor: pointer;
   }
   .sign-up-button {
-    margin-top: 140px !important;
+    margin-top: 150px !important;
   }
 }
 
