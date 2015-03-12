@@ -1,18 +1,44 @@
 <ul id="feed-list" class="leaflet-list">
-  <% @journal_entries.each do |j| %>
-    <br>
-    <li class="card">
-      <div class="card-header">
-        <span class="card-icon">
-          <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
-        </span>
-        <span class="card-label">
-          <%= j.created_at.in_time_zone(cookies[:timezone]).strftime("%F - %H:%M") %>
-        </span>
-      </div>
-      <div class="card-content">
-        <%= j.history_text %>
-      </div>
-    </li>
+  <% if @journal_entries.count == 0 %>
+    <div>
+      <br>
+      <ul id="feed-list" class="leaflet-list">
+        <li class="card">
+          <div class="card-header">
+            <span class="card-icon">
+              <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+            </span>
+            <span class="card-label">
+              Log actions
+            </span>
+          </div>
+          <div class="card-title">
+            Improve Insight and Understanding
+          </div>
+          <div class="card-content">
+            <p>
+              Adding log entries to your actions help you have a better connection with your values, emotions, and goals. It also facilitates your growth.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  <% else %>
+    <% @journal_entries.each do |j| %>
+      <br>
+      <li class="card">
+        <div class="card-header">
+          <span class="card-icon">
+            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+          </span>
+          <span class="card-label">
+            <%= j.created_at.in_time_zone(cookies[:timezone]).strftime("%F - %H:%M") %>
+          </span>
+        </div>
+        <div class="card-content">
+          <%= j.history_text %>
+        </div>
+      </li>
+    <% end %>
   <% end %>
 </ul>

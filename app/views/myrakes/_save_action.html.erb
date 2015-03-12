@@ -8,7 +8,7 @@
     <%= f.hidden_field :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
     <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
     <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
-    <%= f.label "Action description", class: "rakepage-form-label" %>
+    <%= f.label "Planned action:", class: "rakepage-form-label" %>
     <%= f.text_field :leaflet_goal, { hide_label: true, class: "leaflet-goal" } %>
     <% reminder_period = [] %>
     <% reminder_period << ["in 1 hour", 1] %>
@@ -16,7 +16,7 @@
     <% reminder_period << ["in 3 days", 3] %>
     <% reminder_period << ["in 1 week", 4] %>
     <% reminder_period << ["in 1 month", 5] %>
-    <%= f.label "Set a reminder", class: "rakepage-form-label" %>
+    <%= f.label "Shows again in:", class: "rakepage-form-label" %>
     <%= f.select :reminder_at, options_for_select(reminder_period), { hide_label: true }, id: "reminder_at", class: "reminderat" %>
     <%# leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
     <div class="row">
