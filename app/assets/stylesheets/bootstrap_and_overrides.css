@@ -97,7 +97,7 @@ a:hover {
 .rakepage-form-label {
   font-family: 'Roboto', sans-serif;
   color: slategray;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   font-size: 12px !important;
 }
 
@@ -111,7 +111,7 @@ a:hover {
 
 .notification-body {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   font-size: 14px !important;
 }
 
@@ -139,7 +139,7 @@ a.anchor {
 }
 
 .rake-links {
-  font-weight: 500 !important;
+  font-weight: 400 !important;
 }
 
 .thumbnail-top-rake {
@@ -290,7 +290,7 @@ a.anchor {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   font-size: 16px !important;
   color: #4a2b88 !important;
 }
@@ -431,7 +431,7 @@ a.anchor {
   margin-left: 2px;
   margin-right: 4px;
   padding-left: 1px !important;
-  font-weight: 500;
+  font-weight: 400;
   background-color: white !important;
   color: #9E2B25 !important;
 }
@@ -499,7 +499,7 @@ h5 {
 
 .info-list {
   font-family: 'Roboto', sans-serif !important;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   color: #4a2b88;
   padding-left: 15px;
@@ -610,7 +610,7 @@ h5 {
   color: white;
   background-color: #4a2b88;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px !important;
   padding-left: 15px;
   padding-right: 15px;
@@ -712,7 +712,7 @@ a.menu-link {
 
 .channel-info {
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .leaflet-list {
@@ -802,9 +802,9 @@ a.menu-link {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-top: 4px;
+  padding-top: 2px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   color: #4a2b88 !important;
   font-size: 14px !important;
 }
@@ -812,7 +812,7 @@ a.menu-link {
 .media-body p {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 11px;
 }
 
@@ -842,13 +842,13 @@ a.menu-link {
 .leaflet-metrics {
   margin-top: 4px !important;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 10px !important;
 }
 
 .hemingway-metrics {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 10px !important;
 }
 
@@ -889,7 +889,7 @@ a.menu-link {
 .progress-count-label {
   margin-bottom: 8px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 12px !important;
 }
 
@@ -1041,7 +1041,7 @@ input[type=password] {
 .channel-heading {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 0px;
 }
 
@@ -1080,7 +1080,7 @@ a.nav-expander {
   color: #FFFFFF;
   display: block;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   height: 50px;
   margin-right: 0;
   padding: 1em 1.6em 2em;
@@ -1151,14 +1151,14 @@ body.nav-expanded {
 #nav-close {
   font-family: 'Roboto', sans-serif;
   color: #FFFFFF;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 24px;
   padding-right: 20px;
 }
 
 #nav-expander {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .main-menu {

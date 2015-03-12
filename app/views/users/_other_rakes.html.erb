@@ -44,15 +44,12 @@
                   <%= render 'myrakes/top_rake_chain', toprake: r %>
                   <p class="rake-links">
                     <span>
+                      Action-Tracker
+                    </span>
+                    <span class="pull-right">
                       Open Actions:
                       <% r.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
                       <span class=<%= count_no_zero %>><%= r.due_tasks_count %></span>
-                      <!-- &nbsp;|&nbsp;
-                      Committed Actions: -->
-                      <%#= r.action_count %>
-                    </span>
-                    <span class="pull-right">
-                      Action-Tracker
                       &nbsp;&nbsp;
                     </span>
                   </p>
