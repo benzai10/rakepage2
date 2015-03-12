@@ -16,7 +16,7 @@
     <% reminder_period << ["in 3 days", 3] %>
     <% reminder_period << ["in 1 week", 4] %>
     <% reminder_period << ["in 1 month", 5] %>
-    <%= f.label "Shows again in:", class: "rakepage-form-label" %>
+    <%= f.label "Show again in:", class: "rakepage-form-label" %>
     <%= f.select :reminder_at, options_for_select(reminder_period), { hide_label: true }, id: "reminder_at", class: "reminderat" %>
     <%#= f.label "Notes", class: "rakepage-form-label" %>
     <%#= f.text_area :leaflet_note, { hide_label: true, rows: 5, class: "leaflet-note" } %>

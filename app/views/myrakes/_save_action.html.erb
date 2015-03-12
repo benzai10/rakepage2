@@ -16,7 +16,7 @@
     <% reminder_period << ["in 3 days", 3] %>
     <% reminder_period << ["in 1 week", 4] %>
     <% reminder_period << ["in 1 month", 5] %>
-    <%= f.label "Shows again in:", class: "rakepage-form-label" %>
+    <%= f.label "Show again in:", class: "rakepage-form-label" %>
     <%= f.select :reminder_at, options_for_select(reminder_period), { hide_label: true }, id: "reminder_at", class: "reminderat" %>
     <%# leaflet_types_array = LeafletType.where("id IN (?) AND id <> 15", CategoryLeafletTypeMap.where(category_id: MasterRake.find(@rake.master_rake_id).category_id).pluck(:leaflet_type_id)).map { |lt| [lt.leaflet_type_desc, lt.id] } %>
     <div class="row">
