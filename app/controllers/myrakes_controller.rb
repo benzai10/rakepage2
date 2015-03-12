@@ -518,7 +518,7 @@ class MyrakesController < ApplicationController
   def add_channel
     @rake = Myrake.find(params[:id])
     @rake.add_channel(Channel.find(params[:channel]))
-    redirect_to myrake_path(@rake, view: "news")
+    redirect_to myrake_path(@rake, view: "news", refresh: "yes")
   end
 
   def remove_channel

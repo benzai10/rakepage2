@@ -127,8 +127,9 @@
             <% if user_signed_in? && @rake.user_id == current_user.id %>
               <span class="pull-right">
                 <%= link_to "Remove", remove_channel_myrake_path(@rake, channel: c.id),
-                            :data => { :confirm => "Are you sure?" },
-                            :method => :get,
+                            data: { confirm: "Are you sure?" },
+                            method: :get,
+                            remote: true,
                             class: "btn btn-xs btn-default" %>
               </span>
             <% end %>
@@ -198,6 +199,7 @@
               </span>
             </div>
           </li>
+          <br>
         <% end %>
       <% end %>
     <% end %>

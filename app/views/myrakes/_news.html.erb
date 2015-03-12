@@ -16,35 +16,11 @@
   <div class="tab-pane active" id="feed">
     <br>
     <% if @rake.channels.where(channel_type: [0, 4]).count > 0 %>
-<!--       <%# if user_signed_in? && @rake.user_id == current_user.id %>
-        <div class="thumbnail">
-          <%#= link_to myrake_path(view: "news", refresh: "yes"),
-                      data: {disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Informed</p><p class='reminder-day'><i class='fa fa-rss'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner fa-spin '></i> Refreshing... all blogs and subreddits get aggregated.</h5></div></div>"} do %>
-            <div class="media">
-              <span class="pull-left">
-                <p class="reminder-month">
-                  Informed
-                </p>
-                <p class="reminder-day">
-                  <i class="fa fa-rss"></i>
-                </p>
-              </span>
-              <div class="media-body">
-                <h5 class="media-heading">
-                  Your blogs and subreddits in one place.
-                </h5>
-                <p class="rake-links">
-                  Click to refresh the news feed.
-                  <%# if !@rake.master_rake.refreshed_at.nil? %>
-                    You updated <em><%#= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago</em>.
-                  <%# end %>
-                </p>
-              </div>
-            </div>
-          <%# end %>
-        </div>
-      <%# end %> -->
-      <span class="rake-nav">Last refresh: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago<hr></span>
+      <span class="rake-nav">
+        Updated: <%= time_ago_in_words(@rake.master_rake.refreshed_at) %> ago
+        &nbsp;<%= link_to "Refresh", myrake_path(@rake, view: "news", refresh: "yes"), data: { disable_with: "<i class='fa fa-spinner'></i> Loading..." } %>
+        <hr>
+      </span>
       <ul id="feed-list" class="leaflet-list">
         <% @feed_leaflets.each do |l| %>
           <%= render 'shared/card_news', { l: l, copy_flag: nil } unless l.url.empty? %>
