@@ -130,7 +130,7 @@ class MyrakesController < ApplicationController
       end
       if @rake.save
         master_rake = MasterRake.find(@rake.master_rake_id)
-        master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
+        master_rake.channels.each { |channel| @rake.add_channel(channel) unless ( channel.channel_type == 5 || channel.public_channel == false ) }
         master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
         redirect_to myrake_path(@rake)
       else
@@ -150,13 +150,6 @@ class MyrakesController < ApplicationController
         master_rake = MasterRake.find(@rake.master_rake_id)
         master_rake.channels.each { |channel| @rake.add_channel(channel) unless channel.channel_type == 5 }
         master_rake.add_channel(@rake.channels.where(channel_type: 3).first)
-        # if params[:myrake][:copy_recommendations] == "1"
-        #   @heap_leaflets_maps = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_rake.master_heaps.pluck(:id))
-        #   @heap_leaflets_maps.each do |hl|
-        #     leaflet = Leaflet.find(hl.leaflet_id)
-        #     @rake.add_leaflet(leaflet, hl.master_heap.leaflet_type_id, leaflet.title, hl.leaflet_desc, "", "", "", 0, 0, 0)
-        #   end
-        # end
         redirect_to myrake_path(@rake)
       else
         flash[:error] = @rake.errors.full_messages

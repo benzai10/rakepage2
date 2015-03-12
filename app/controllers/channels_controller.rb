@@ -22,6 +22,7 @@ class ChannelsController < ApplicationController
     if Channel.search_by_source(params[:channel][:source]).nil?
       begin
         @channel = Channel.new(channel_params)
+        @channel.public_channel = false
         if params[:channel][:channel_type] == "4"
           @channel.source = params[:channel][:source].scan(/[^\/]+$/).first
         end

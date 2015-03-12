@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309093308) do
+ActiveRecord::Schema.define(version: 20150312015006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,12 +76,13 @@ ActiveRecord::Schema.define(version: 20150309093308) do
   end
 
   create_table "channels", force: true do |t|
-    t.string   "name",         default: "",                    null: false
-    t.text     "source",       default: "",                    null: false
+    t.string   "name",           default: "",                    null: false
+    t.text     "source",         default: "",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "channel_type"
-    t.datetime "last_pull_at", default: '2014-04-29 08:26:48'
+    t.datetime "last_pull_at",   default: '2014-04-29 08:26:48'
+    t.boolean  "public_channel", default: false
   end
 
   add_index "channels", ["source"], name: "index_channels_on_source", unique: true, using: :btree
