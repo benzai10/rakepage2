@@ -1,17 +1,18 @@
-<% if @top_rakes.count == 0 %>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card-quote">
-        <em>When we strive to become better than we are, everything around us becomes better too.</em>
-        <p>
-          <span class="pull-right">
-            &mdash;Paulo Coelho
-          </span>
-        </p>
-      </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-quote">
+      <em>When we strive to become better than we are, everything around us becomes better too.</em>
+      <p>
+        <span class="pull-right">
+          &mdash;Paulo Coelho
+        </span>
+      </p>
     </div>
   </div>
-  <br><br>
+</div>
+<br>
+<% if @top_rakes.count == 0 %>
+  <br>
   <div class="col-md-6 col-md-offset-3">
     <%= link_to "Add Skill", master_rakes_path(collapse: "add"), class: "btn btn-primary btn-lg centered" %>
   </div>
