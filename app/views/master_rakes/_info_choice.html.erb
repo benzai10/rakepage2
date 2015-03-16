@@ -12,14 +12,14 @@
           </span>
         </div>
         <div class="card-title">
-          Commit to this Skill Improvement
+          Choose as Essential
         </div>
         <div class="card-content">
           <p>
-            You rarely have time for everything you want in this life, so you need to make choices. Use Rakepage to oversee your skill improvements on one page. You can add several skill improvements to your overview.
+            You rarely have time for everything you want in this life, so you need to make choices. Use Rakepage to oversee your essentials on one page. You can add several essentials to your overview.
           </p>
           <p>
-            For each skill, you can track the days you took action. The action-tracker visualizes the last 30 days and the red box represents the current day. 
+            For each essential, you can track the days you took action. The action-tracker visualizes the last 30 days and the red box represents the current day. 
           </p>
         </div>
       </li>
@@ -46,7 +46,7 @@
   <% if @customer_rake.nil? %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <%= link_to "Add this Skill",
+        <%= link_to "Add to my essentials",
                     create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
                     { data: { disable_with: "<i class='fa fa-spinner white'></i> Your rake gets created!"}, class: "btn btn-primary btn-lg centered" } %>
       </div>
