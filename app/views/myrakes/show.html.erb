@@ -18,14 +18,14 @@
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-      <h2 class="centered">Track Your Skill Improvements</h2>
+      <h2 class="centered">Simplify Your Digital Life</h2>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
             <i class="fa fa-home"></i>&nbsp;
-            <%= link_to "MY SKILLS", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
+            <%= link_to "MY ESSENTIALS", user_path(current_user), data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } %>
           <% else %>
-            <span class="nav-link">MY SKILLS</span>
+            <span class="nav-link">MY ESSENTIALS</span>
             &nbsp;<i class="fa fa-long-arrow-left"></i>&nbsp;
             <i class="fa fa-home"></i>&nbsp;
             <%= link_to "SIGN IN", new_user_session_path, { class: "nav-link", id: "my-rakes-sign-in", data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Loading..." } } %>
