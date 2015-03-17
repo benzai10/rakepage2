@@ -30,7 +30,7 @@
             <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
           </span>
           <span class="card-label">
-            Getting updated
+            Minimize distractions
           </span>
         </div>
         <div class="card-title">
@@ -38,7 +38,7 @@
         </div>
         <div class="card-content">
           <p>
-            In the age of distractions we are drowning in a sea of irrelevance. With Rakepage you take control of what information you consume for each skill improvement by customizing your news feeds. <strong><%= link_to "Sign up", new_user_registration_path %></strong> to add your favorite blogs (RSS feeds) and/or subreddits from Reddit.com.
+            Take control of what information you consume for your essentials by customizing your news feeds. <strong><%= link_to "Sign up", new_user_registration_path %></strong> to add your favorite blogs (RSS feeds) and/or subreddits from Reddit.com.
           </p>
         </div>
       </li>
@@ -49,15 +49,15 @@
             <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
           </span>
           <span class="card-label">
-            Getting reminded
+            Maximize taking action
           </span>
         </div>
         <div class="card-title">
-          Remember your Inspirations
+          Scheduled Actions
         </div>
         <div class="card-content">
           <p>
-            Save inspirational content from your personalized news feed to make sure it shows up again in your skill view. This guarantees that you don't forget about it and you'll take some action. <strong><%= link_to "Sign up", new_user_registration_path %></strong> to get access to this feature.
+            Turn useful content from your personalized news feed into a scheduled action. This guarantees that you don't forget about it to take some action. It also helps to continuously purge outdated content. <strong><%= link_to "Sign up", new_user_registration_path %></strong> to get access to this features.
           </p>
         </div>
       </li>
@@ -103,7 +103,7 @@
       <% if @customer_rake.nil? %>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <%= link_to "Add this Priority",
+            <%= link_to "Add to Essentials",
                         create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
                         { data: { disable_with: "<i class='fa fa-spinner white'></i> Your rake gets created!"}, class: "btn btn-primary btn-lg centered" } %>
           </div>
