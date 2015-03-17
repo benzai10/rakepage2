@@ -1,9 +1,9 @@
 <% if @rake.master_rake.seo_title.nil? %>
-  <% seo_title = "" %>
+  <% seo_title = "Focus On Your Essentials" %>
 <% else %>
-  <% seo_title = @rake.master_rake.seo_title %>
+  <% seo_title = @rake.master_rake.seo_title + " | Focus On Your Essentials"%>
 <% end %>
-<% title seo_title %>
+<% title seo_title + "| Focus On Your Essentials"%>
 <% meta title: seo_title,
         description: @rake.master_rake.description,
         keywords: Category.find(@rake.master_rake.category_id).leaflet_types.pluck(:leaflet_type_desc) << "Recommendations" << "Bookmarks" << @rake.name %>

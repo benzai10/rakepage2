@@ -1,7 +1,7 @@
 <% if @rake.seo_title.nil? %>
-  <% seo_title = "" %>
+  <% seo_title = "Focus On Your Essentials" %>
 <% else %>
-  <% seo_title = @rake.seo_title %>
+  <% seo_title = @rake.seo_title  + " | Focus On Your Essentials" %>
 <% end %>
 <% title seo_title %>
 <% meta title: seo_title,
