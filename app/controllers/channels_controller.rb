@@ -29,7 +29,7 @@ class ChannelsController < ApplicationController
         if @channel.save
           rake_class.find(rake_id).add_channel(@channel)
           @channel.pull_source
-            redirect_to myrake_path(Myrake.find(rake_id))
+            redirect_to myrake_path(Myrake.find(rake_id), view: "news")
         else
           flash[:error] = @channel.errors.full_messages
           redirect_to myrake_path(rake_id, view: "news")
