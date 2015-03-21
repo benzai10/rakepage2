@@ -18,7 +18,7 @@
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-      <h2 class="centered">Briefing</h2>
+      <h2 class="centered">Minimize distractions. Maximize taking action.</h2>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
@@ -92,6 +92,11 @@
               Last 30 days
             </p>
             <%= render 'myrakes/top_rake_chain', toprake: @rake %>
+            <p class="rake-links">
+              <span>
+                Progress-Tracker
+              </span>
+            </p>
           </div>
         </div>
         <br>

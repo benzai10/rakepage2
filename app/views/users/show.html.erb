@@ -6,7 +6,7 @@
       <% if !flash.empty? %>
         <%= render 'shared/flash_message' %>
       <% end %>
-      <h1 class="centered">My Briefings</h1>
+      <h1 class="centered"><%= current_user.username %></h1>
       <h2 class="centered">Minimize distractions. Maximize taking action.</h2>
       <h5>
         <small><strong>
@@ -16,7 +16,7 @@
       </h5>
       <div class="rake-title">
         <h5>
-          <%= current_user.username %>
+          My Briefings
         </h5>
       </div>
       <div class="rake-body">
