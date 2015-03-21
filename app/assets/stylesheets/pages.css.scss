@@ -90,8 +90,8 @@
 }
 
 .jumbotron {
-  background: url(image-path('landing_page_hero_waterballs_1280x853.jpg'));
-  min-height: 600px;
+  background: url(image-path('landing_page_laptop.jpg'));
+  min-height: 850px;
   // min-width: 948px;
   margin-top: -78px;
   margin-bottom: 0;
@@ -100,21 +100,21 @@
   background-color: #4a2b88;
   h1 {
     font-family: 'Roboto', sans-serif;
-    font-size: 37px !important;
+    font-size: 38px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
     text-align: center;
-    margin-top: 64px !important;
+    margin-top: 100px !important;
   }
   h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: 24px !important;
+    font-size: 23px !important;
     font-weight: 200 !important;
     letter-spacing: 2px !important;
     color: white;
     text-align: center;
-    margin-top: 22px !important;
+    margin-top: 40px !important;
     margin-bottom: 50px !important;
   }
   h3 {
@@ -150,7 +150,7 @@
     cursor: pointer;
   }
   .sign-up-button {
-    margin-top: 150px !important;
+    margin-top: 120px !important;
   }
 }
 
