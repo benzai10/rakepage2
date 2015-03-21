@@ -1,10 +1,7 @@
 <div class="tab-header">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li class="rake-nav <%= @info_collapse %>">
-      <a href="#info" id="view-info" role="tab" data-toggle="tab">INFO</a>
-    </li>
-    <li class="rake-nav <%= @add_collapse %>">
+    <li class="rake-nav active">
       <a href="#featured-rakes" id="view-featured-master-rakes" role="tab" data-toggle="tab">POPULAR</a>
     </li>
     <li class="rake-nav">
@@ -14,10 +11,7 @@
 </div>
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane <%= @info_collapse %>" id="info">
-    <%= render 'info' %>
-  </div>
-  <div class="tab-pane <%= @add_collapse %>" id="featured-rakes">
+  <div class="tab-pane active" id="featured-rakes">
     <%= render 'featured_master_rakes' %>
   </div>
   <div class="tab-pane" id="new-rakes">

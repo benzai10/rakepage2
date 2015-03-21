@@ -49,31 +49,33 @@
             <div class="panel-body">
               <% if user_signed_in? && !@custom_rake.nil? %>
                 <div class="thumbnail">
-                  <%= link_to myrake_path(@custom_rake, view: "tasks"), 
-                                          data: { disable_with: "<div class='media'><span class='pull-left'><p class='reminder-month'>Take Action</p><p class='reminder-day'><i class='fa fa-rocket'></i></p></span><div class='media-body'><h5 class='media-heading'><i class='fa fa-spinner'></i> Loading the Rake...</h5></div><p class='rake-links'>Execute on due actions and get updated</p></div>" } do %>
-                    <div class="media rake-index-view">
-                      <span class="pull-left">
-                        <% if @rake.image_url.nil? || @rake.image_url.empty? %>
-                          <%= image_tag("no_image.png", size: "96x54") %>
-                        <% else %>
-                          <%= image_tag(@rake.image_url, size: "96x54") %>
-                        <% end %>
-                      </span>
-                      <div class="media-body">
-                        <h5 class="media-heading">
-                          Click to switch to your briefings
-                        </h5>
-                        <p>
-                          <%= render 'myrakes/top_rake_chain', toprake: @custom_rake %>
-                          <p class="rake-links">
-                            Open Actions: 
-                            <span class="new-rec-alert"><%= @custom_rake.due_tasks_count %></span>
-                          </p>
+                  <div class="media rake-index-view">
+                    <span class="pull-left">
+                      <% if @rake.image_url.nil? || @rake.image_url.empty? %>
+                        <%= image_tag("no_image.png", size: "96x54") %>
+                      <% else %>
+                        <%= image_tag(@rake.image_url, size: "96x54") %>
+                      <% end %>
+                    </span>
+                    <div class="media-body">
+                      <h5 class="media-heading">
+                        Last 30 days
+                      </h5>
+                      <p>
+                        <%= render 'myrakes/top_rake_chain', toprake: @custom_rake %>
+                        <p class="rake-links">
+                          Open Actions: 
+                          <span class="new-rec-alert"><%= @custom_rake.due_tasks_count %></span>
                         </p>
-                      </div>
+                      </p>
                     </div>
-                  <% end %>
+                  </div>
                 </div>
+                <span id="unmark-action-btn">
+                  <%= link_to "Go to your briefing",
+                              myrake_path(@custom_rake, view: "tasks"),
+                              class: "btn btn-primary btn-check-off" %>
+                </span>
               <% else %>
                 <div class="media rake-index-view">
                   <span class="pull-left">

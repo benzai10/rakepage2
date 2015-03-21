@@ -16,8 +16,6 @@ class MasterRakesController < ApplicationController
     if @search_collapse == "active"
       @new_collapse = ""
     end
-    @add_collapse = params[:collapse] == "add" ? "active" : ""
-    @info_collapse = params[:collapse] == "add" ? "" : "active"
     master_heap_ids = master_heap_ids.flatten
     @new_recommendations = MasterHeapLeafletMap.where("master_heap_id IN (?)", master_heap_ids).order(created_at: :desc).limit(50)
     if user_signed_in? 
