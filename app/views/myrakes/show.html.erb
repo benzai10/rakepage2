@@ -18,7 +18,7 @@
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-      <h2 class="centered">Minimize distractions. Maximize taking action.</h2>
+      <h2 class="centered">Take action and get relevant updates</h2>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
@@ -34,7 +34,7 @@
       </h5>
       <div class="rake-title">
         <h5>
-          <%= current_user.username %>
+          Today's Briefing
           <span class="pull-right">
             <small class="white">
               <% if @news_view == "hidden" %>
@@ -101,14 +101,14 @@
         </div>
         <br>
         <span class="mark-action-btn <%= mark_action_btn_display %>">
-          <%= link_to "Click if you took action today",
+          <%= link_to "Update Progress-Tracker",
                       mark_day_myrake_path(@rake),
                       { class: "btn btn-day-unmarked btn-check-off",
                         remote: true,
                         disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
         </span>
         <span class="unmark-action-btn <%= unmark_action_btn_display %>">
-          <%= link_to "Added to progress-tracker! (click to undo)",
+          <%= link_to "Progress-Tracker is updated! (click to undo)",
                       unmark_day_myrake_path(@rake),
                       { class: "btn btn-primary btn-check-off",
                         remote: true,

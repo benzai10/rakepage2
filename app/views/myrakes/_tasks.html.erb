@@ -2,9 +2,6 @@
 </div>
 <div id="task-view">
   <br>
-  <p class="rake-links">
-    Actions for:
-  </p>
   <ul class="nav nav-tabs" role="tablist">
     <li class="rake-nav <%= @due_active %>">
       <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
@@ -33,9 +30,9 @@
                     id: "add-new-action" } %>
     </span>
     <span class="pull-right">
-      <%= link_to "Read news feed",
+      <%= link_to "Receive News",
                   myrake_path(@rake, view: "news", refresh: "yes"),
-                  { class: "btn btn-default",
+                  { class: "btn btn-primary",
                     remote: true,
                     data: { disable_with: "<i class='fa fa-spinner fa-spin purple'></i> Loading..." } } %>
     </span>
