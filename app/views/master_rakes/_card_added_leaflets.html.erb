@@ -25,18 +25,8 @@
     </span>
 
     <span class="card-label">
-      <% channel_name = channel.name %>
-      <% if channel_name == "Title not available." %>
-        <% channel_name = channel.source %>
-      <% end %>
-      Channel: <%= channel_name %>
-      <% if l.leaflet_type_id != 0 %>
-        &nbsp;|&nbsp;
-        <%= LeafletType.find_by_leaflet_type(l.leaflet_type_id).leaflet_type_desc %>
-        &nbsp;|&nbsp;
-        <% if !l.created_by.nil? %>
-          added by <%= User.find(l.created_by).username %>
-        <% end %>
+      <% if !l.created_by.nil? %>
+        added by <%= User.find(l.created_by).username %>
       <% end %>
     </span>
 
