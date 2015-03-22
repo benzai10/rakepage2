@@ -1,35 +1,35 @@
 <%= render 'shared/title' %>
 <div class="jumbotron">
   <%= image_tag "logo_white_239x50.png", class: "landing-page-logo" %>
-  <span class="pull-right">
-    <%= link_to "Sign in", new_user_session_path, class: "sign-in-label" %>
-    <%= link_to "<i class='fa fa-rocket fa-2x white'></i>".html_safe,
-                new_user_session_path,
-                class: "sign-in-icon" %> 
   </span>
   <%#= render 'shared/share_buttons' %>
   <br>
   <h1>
     Achieve Your Goals Like a Leader
   </h1>
-  <h2>Get Your Daily Briefing On What's Important To You</h2>
-  <div class="sign-up-button col-md-4 col-md-offset-4">
-    <br><br>
-    <%= link_to "Start Today", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+  <h2>Create Briefings On What's Important To You</h2>
+  <div class="col-md-5 benefits">
+    <h3>
+      Rake in success with briefings to get
+    </h3>
+    <h4><i class="fa fa-check white"></i> Determined</h4>
+    <h4><i class="fa fa-check white"></i> Knowledgeable</h4>
+    <h4><i class="fa fa-check white"></i> Discplined</h4>
+  </div>
+  <div class="col-md-4 col-md-offset-1">
+    <div class="sign-up-button">
+      <%= link_to "Start Today", new_user_registration_path, { class: "btn btn-primary btn-lg centered", id: "sign-up" } %>
+    </div>
+    <p class="sign-in-link">
+      or <%= link_to "Sign in", new_user_session_path, class: "white" %>
+    </p>
   </div>
 </div>
 <div class="container landing-page" id="learnmore">
   <br><br>
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <h3>In the age of distractions we are drowning in a sea of irrelevance. Rakepage helps you to achieve your goals with daily briefings on what’s important to you. Get updated without distractions and focus on taking action and tracking your progress.</h3>
-    </div>
-  </div>
-  <br>
-  <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h2>Step 1</h2>
-      <h3>Make Choices</h3>
+      <h3>Be Determined</h3>
       <p class="centered"><i class="fa fa-space-shuttle fa-2x"></i></p>
       <blockquote>
         <p class="landing-quote">
@@ -44,8 +44,7 @@
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h2>Step 2</h2>
-      <h3>Minimize Distractions</h3>
+      <h3>Be Knowledgeable</h3>
       <p class="centered"><i class="fa fa-bullseye fa-2x"></i></p>
       <p class="landing-feature-text">
         In the age of distractions we are drowning in a sea of irrelevance.<br>Choose only essential information sources and reduce wasting time online to get significant news.
@@ -54,8 +53,7 @@
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h2>Step 3</h2>
-      <h3>Maximize Taking Action</h3>
+      <h3>Be Disciplined</h3>
       <p class="centered"><i class="fa fa-tasks fa-2x"></i></p>
       <p class="landing-feature-text">
         Track your progress, know what you want to do and get motivated to take action to achieve your goals.
