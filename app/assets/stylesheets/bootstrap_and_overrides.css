@@ -70,6 +70,12 @@ a:hover {
   color: white !important;
 }
 
+.btn-choose-briefing {
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
 .btn-check-off {
   width: 100%;
 }
@@ -1367,6 +1373,10 @@ body.nav-expanded {
   }
 
   .btn-actions {
+    margin-bottom: 20px;
+  }
+
+  .btn-choose-briefing {
     margin-bottom: 20px;
   }
 

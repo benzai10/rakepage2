@@ -120,18 +120,29 @@
                   </div>
                 </div>
                 <br>
-                <span id="mark-action-btn">
-                  <%= link_to "Update Progress-Tracker",
-                              "#",
-                              { class: "btn btn-day-unmarked btn-check-off",
-                                id: "demo-rake-btn-action" } %>
-                </span>
-                <span class="hidden" id="unmark-action-btn">
-                  <%= link_to "Progress-Tracker updated! (click to undo)",
-                              "#",
-                              { class: "btn btn-primary btn-check-off",
-                                id: "demo-rake-btn-undo" } %>
-                </span>
+                <div class="row">
+                  <div class="col-md-6">
+                    <% if @customer_rake.nil? %>
+                      <%= link_to "Choose this briefing",
+                                  create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
+                                  { data: { disable_with: "<i class='fa fa-spinner white'></i> Your briefing gets created!"}, class: "btn btn-primary btn-choose-briefing" } %>
+                    <% end %>
+                  </div>
+                  <div class="col-md-6">
+                    <span id="mark-action-btn">
+                      <%= link_to "Update Progress-Tracker",
+                                  "#",
+                                  { class: "btn btn-day-unmarked btn-check-off",
+                                    id: "demo-rake-btn-action" } %>
+                    </span>
+                    <span class="hidden" id="unmark-action-btn">
+                      <%= link_to "Progress-Tracker updated! (click to undo)",
+                                  "#",
+                                  { class: "btn btn-primary btn-check-off",
+                                    id: "demo-rake-btn-undo" } %>
+                    </span>
+                  </div>
+                </div>
               <% end %>
               <br><br>
               <%= render 'news' %>
