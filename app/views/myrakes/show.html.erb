@@ -91,18 +91,26 @@
         <br>
         <div class="row">
           <div class="col-md-6">
-            <span id="news-button">
-              <%= link_to "View News",
-                          myrake_path(@rake, view: "news", refresh: "yes"),
-                          { class: "btn btn-news",
-                            remote: true,
-                            data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
-            </span>
-            <span class="hidden" id="back-to-actions">
-              <%= link_to "View Actions",
-                          "#",
-                          class: "btn btn-actions" %>
-            </span>
+            <% if @news_view == "hidden" %>
+              <span id="news-button">
+                <%= link_to "View News",
+                            myrake_path(@rake, view: "news", refresh: "yes"),
+                            { class: "btn btn-news",
+                              remote: true,
+                              data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
+              </span>
+              <span class="hidden" id="back-to-actions">
+                <%= link_to "View Actions",
+                            "#",
+                            class: "btn btn-actions" %>
+              </span>
+            <% else %>
+              <span>
+                <%= link_to "View Actions",
+                            myrake_path(@rake),
+                            class: "btn btn-actions" %>
+              </span>
+            <% end %>
           </div>
           <div class="col-md-6">
             <span class="mark-action-btn <%= mark_action_btn_display %>">
