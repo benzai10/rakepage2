@@ -15,12 +15,13 @@ $(function() {
     $("#back-to-actions").on('click', function() {
         $("#news-view").addClass('hidden');
         $("#task-view").removeClass('hidden');
+        $("#news-button").removeClass('hidden');
         $("#back-to-actions").addClass('hidden');
     });
 
-    $("#back-to-actions").on('mouseup', function() {
-        $("#back-to-actions").addClass('hidden');
-    });
+    // $("#back-to-actions").on('mouseup', function() {
+    //     $("#back-to-actions").addClass('hidden');
+    // });
 
     $(".demo-rake").on('click', function() {
         $("html, body").animate({ scrollTop: 0 }, 0);

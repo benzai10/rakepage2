@@ -18,7 +18,7 @@
       <h1 class="centered">
         <%= @rake.name %>
       </h1>
-      <h2 class="centered">Take action and get relevant updates</h2>
+      <h2 class="centered">Achieve Your Goals Like a Leader</h2>
       <h5>
         <small><strong>
           <% if user_signed_in? %>
@@ -37,17 +37,17 @@
           Today's Briefing
           <span class="pull-right">
             <small class="white">
-              <% if @news_view == "hidden" %>
+<!--               <%# if @news_view == "hidden" %>
                 <span class="hidden" id="back-to-actions">
-                  <%= link_to "BACK TO ACTIONS", "#", class: "white" %>
+                  <%#= link_to "BACK TO ACTIONS", "#", class: "white" %>
                   &nbsp;|&nbsp;
                 </span>
-              <% else %>
+              <%# else %>
                 <span>
-                  <%= link_to "VIEW ACTIONS", myrake_path(@rake), class: "white" %>
+                  <%#= link_to "VIEW ACTIONS", myrake_path(@rake), class: "white" %>
                   &nbsp;|&nbsp;
                 </span>
-              <% end %>
+              <%# end %> -->
               <i class="fa fa-cog rake-settings white"></i>
             </small>
           </span>
@@ -100,20 +100,38 @@
           </div>
         </div>
         <br>
-        <span class="mark-action-btn <%= mark_action_btn_display %>">
-          <%= link_to "Update Progress-Tracker",
-                      mark_day_myrake_path(@rake),
-                      { class: "btn btn-day-unmarked btn-check-off",
-                        remote: true,
-                        disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
-        </span>
-        <span class="unmark-action-btn <%= unmark_action_btn_display %>">
-          <%= link_to "Progress-Tracker is updated! (click to undo)",
-                      unmark_day_myrake_path(@rake),
-                      { class: "btn btn-primary btn-check-off",
-                        remote: true,
-                        disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
-        </span>
+        <div class="row">
+          <div class="col-md-6">
+            <span id="news-button">
+              <%= link_to "View News",
+                          myrake_path(@rake, view: "news", refresh: "yes"),
+                          { class: "btn btn-primary btn-news",
+                            remote: true,
+                            data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
+            </span>
+            <span class="hidden" id="back-to-actions">
+              <%= link_to "View Actions",
+                          "#",
+                          class: "btn btn-primary btn-actions" %>
+            </span>
+          </div>
+          <div class="col-md-6">
+            <span class="mark-action-btn <%= mark_action_btn_display %>">
+              <%= link_to "Update Progress",
+                          mark_day_myrake_path(@rake),
+                          { class: "btn btn-day-unmarked btn-check-off",
+                            remote: true,
+                            disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
+            </span>
+            <span class="unmark-action-btn <%= unmark_action_btn_display %>">
+              <%= link_to "Unmark Progress",
+                          unmark_day_myrake_path(@rake),
+                          { class: "btn btn-primary btn-check-off",
+                            remote: true,
+                            disable_with: "<i class='fa fa-spinner fa-spin white'></i> Updating..." } %>
+            </span>
+          </div>
+        </div>
 
         <% if params[:view].nil? || params[:view] == "tasks" %>
           <%= render 'tasks' %>

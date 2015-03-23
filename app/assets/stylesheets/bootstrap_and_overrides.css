@@ -816,6 +816,14 @@ a.menu-link {
   font-size: 11px;
 }
 
+.btn-news {
+  width: 100%;
+}
+
+.btn-actions {
+  width: 100%;
+}
+
 .btn-check-off {
   width: 100%;
 }
@@ -1338,6 +1346,14 @@ body.nav-expanded {
 
   .btn {
     font-size: 12px;
+  }
+
+  .btn-news {
+    margin-bottom: 20px;
+  }
+
+  .btn-actions {
+    margin-bottom: 20px;
   }
 
   .fb-like {
