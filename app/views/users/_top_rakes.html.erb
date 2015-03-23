@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card-quote">
-      <em>When we strive to become better than we are, everything around us becomes better too.</em>
+      <em>Begin doing what you want to do now. We are not living in eternity. We have only this moment, sparkling like a star in our hand and melting like a snowflake.</em>
       <p>
         <span class="pull-right">
-          &mdash;Paulo Coelho
+          &mdash;Sir Francis Bacon
         </span>
       </p>
     </div>
@@ -12,9 +12,30 @@
 </div>
 <br>
 <% if @top_rakes.count == 0 %>
+  <ul id="feed-list" class="leaflet-list">
+    <li class="card">
+      <div class="card-header">
+        <span class="card-icon">
+          <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+        </span>
+        <span class="card-label">
+          Introduction
+        </span>
+      </div>
+      <div class="card-title">
+        Daily Briefings On What's Important To You
+      </div>
+      <div class="card-content">
+        <p>
+          You don't have any briefings yet. Add briefings for goals you want to achieve. This will help you to get determined, knowledgeable and disciplined to take action and get updated without distractions. Click on the button below to explore available briefings.
+        </p>
+      </div>
+    </li>
+  </ul>
+  <br>
   <br>
   <div class="col-md-6 col-md-offset-3">
-    <%= link_to "Add Briefing", master_rakes_path(collapse: "add"), class: "btn btn-primary btn-lg centered" %>
+    <%= link_to "Add Briefing", master_rakes_path, class: "btn btn-primary btn-lg centered" %>
   </div>
 <% else %>
   <div class="row">

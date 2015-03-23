@@ -10,26 +10,28 @@
       </p>
     </div>
     <br>
-    <ul id="feed-list" class="leaflet-list">
-      <li class="card">
-        <div class="card-header">
-          <span class="card-icon">
-            <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
-          </span>
-          <span class="card-label">
-            Introduction
-          </span>
-        </div>
-        <div class="card-title">
-          Daily Briefings On What's Important To You
-        </div>
-        <div class="card-content">
-          <p>
-            In the age of distractions we are drowning in a sea of irrelevance. Rakepage helps you to achieve your goals with daily briefings on what’s important to you. Get updated without distractions and focus on taking action and tracking your progress.
-          </p>
-        </div>
-      </li>
-    </ul>
+    <% if !user_signed_in? %>
+      <ul id="feed-list" class="leaflet-list">
+        <li class="card">
+          <div class="card-header">
+            <span class="card-icon">
+              <%= image_tag "rakepage_logo_transparent_32x32.png", size: "16x16" %>
+            </span>
+            <span class="card-label">
+              Introduction
+            </span>
+          </div>
+          <div class="card-title">
+            Daily Briefings On What's Important To You
+          </div>
+          <div class="card-content">
+            <p>
+              In the age of distractions we are drowning in a sea of irrelevance. Rakepage helps you to achieve your goals with daily briefings on what’s important to you. Get updated without distractions and focus on taking action and tracking your progress.
+            </p>
+          </div>
+        </li>
+      </ul>
+    <% end %>
   </div>
   <%= render 'search_field' %>
   <div class="col-md-12 col-lg-6">
