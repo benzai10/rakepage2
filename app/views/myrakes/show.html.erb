@@ -37,17 +37,6 @@
           Today's Briefing
           <span class="pull-right">
             <small class="white">
-<!--               <%# if @news_view == "hidden" %>
-                <span class="hidden" id="back-to-actions">
-                  <%#= link_to "BACK TO ACTIONS", "#", class: "white" %>
-                  &nbsp;|&nbsp;
-                </span>
-              <%# else %>
-                <span>
-                  <%#= link_to "VIEW ACTIONS", myrake_path(@rake), class: "white" %>
-                  &nbsp;|&nbsp;
-                </span>
-              <%# end %> -->
               <i class="fa fa-cog rake-settings white"></i>
             </small>
           </span>
@@ -105,14 +94,14 @@
             <span id="news-button">
               <%= link_to "View News",
                           myrake_path(@rake, view: "news", refresh: "yes"),
-                          { class: "btn btn-primary btn-news",
+                          { class: "btn btn-news",
                             remote: true,
                             data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
             </span>
             <span class="hidden" id="back-to-actions">
               <%= link_to "View Actions",
                           "#",
-                          class: "btn btn-primary btn-actions" %>
+                          class: "btn btn-actions" %>
             </span>
           </div>
           <div class="col-md-6">
