@@ -454,6 +454,18 @@
       margin-left: 0 !important;
       margin-right: 0 !important;
     }
+    h3 {
+      font-size: 20px !important;
+      letter-spacing: 0px !important;
+    }
+    .landing-quote {
+      font-size: 16px !important;
+      letter-spacing: 0px !important;
+    }
+    .landing-feature-text {
+      font-size: 16px !important;
+      letter-spacing: 0px !important;
+    }
   }
 
   .jumbotron {
@@ -472,22 +484,22 @@
     min-height: 480px;
     padding-top: 40px;
     h1 {
-      margin-bottom: 2px;
-      margin-top: 20px !important;
+      margin-bottom: 18px !important;
+      margin-top: 8px !important;
       font-family: 'Roboto', sans-serif !important;
-      font-size: 25px !important;
-      font-weight: 700 !important;
-      letter-spacing: 3px !important;
+      font-size: 16px !important;
+      font-weight: 200 !important;
+      letter-spacing: 1px !important;
       color: white !important;
       text-align: center !important;
     }
     h2 {
-      margin-bottom: 2px;
-      margin-top: 5px;
+      margin-bottom: 18px !important;
+      margin-top: 5px !important;
       font-family: 'Roboto', sans-serif;
-      font-size: 20px !important;
-      font-weight: 700 !important;
-      letter-spacing: 0px;
+      font-size: 14px !important;
+      font-weight: 200 !important;
+      letter-spacing: 1px !important;
       color: white;
       text-align: center;
     }
@@ -511,6 +523,27 @@
     }
     .sign-up-button {
       margin-top: 10px !important;
+    }
+    .benefits {
+      margin-top: 0px !important;
+      margin-left: 0px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #FFFFFF;
+      h3 {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+        font-weight: 200 !important;
+        letter-spacing: 0px !important;
+      }
+      h4 {
+      font-family: 'Roboto', sans-serif;
+      letter-spacing: 1px !important;
+      margin-bottom: 10px !important;
+      font-weight: 200 !important;
+      font-size: 16px !important;
+      color: white;
+      }
     }
   }
 
