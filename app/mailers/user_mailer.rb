@@ -112,7 +112,7 @@ class UserMailer < ActionMailer::Base
 
   def send_email(user_array)
     user_array.each do |user|
-      self.status_overview_email(User.find(user)).deliver
+      self.status_overview_email(user).deliver
     end
   end
 end

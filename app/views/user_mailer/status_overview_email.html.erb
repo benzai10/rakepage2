@@ -26,7 +26,7 @@
       Open Actions: <%= myrake.due_tasks_count.to_s %> - Last progress marked: 
       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
       <% if last_motion_or_action.nil? %>
-        No entries yet
+        None (go to your briefing to add actions)
       <% else %>
         <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
       <% end %>
@@ -34,7 +34,7 @@
     <% myrake.open_actions.each do |action| %>
       <% action_desc = action.leaflet_goal %>
       <% if action_desc.empty? %>
-        + No action description available.
+        + No action description defined.
       <% else %>
         + <%= action_desc %>
       <% end %>
