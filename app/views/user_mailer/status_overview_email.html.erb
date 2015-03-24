@@ -9,19 +9,18 @@
 </head>
 <body>
 
-Hi&nbsp;<%= @user.username %>,
-<br>
+<p>Hi&nbsp;<%= @user.username %>,</p>
 <p>Rake in success with briefings to get determined, knowledgeable and disciplined.</p>
-<br>
-<p><strong>Your Briefings</strong></p>
-<br>
+<p>
+  <strong>Your Briefings in the Top 5</strong> (<a href="http://www.rakepage.com/users/sign_in" >sign in to check others</a>)
+</p>
 <% top_rakes = @user.myrakes.where(top_rake: 1) %>
 <% other_rakes = @user.myrakes.where(top_rake: 0) %>
 <% if top_rakes.count > 0 %>
   <% top_rakes.each do |myrake| %>
 
     <!-- Top 5 rakes -->
-    <strong><%= myrake.name %></strong> <%= link_to "Link to Briefing", "http://rakepage.com/myrakes/#{myrake.slug}" %>
+    <strong><%= myrake.name %></strong> <%= link_to "[link to briefing]", "http://rakepage.com/myrakes/#{myrake.slug}" %>
     <p>
       Open Actions: <%= myrake.due_tasks_count.to_s %> - Last action taken: 
       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
@@ -31,24 +30,20 @@ Hi&nbsp;<%= @user.username %>,
         <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
       <% end %>
     </p>
-    <br>
     <% myrake.open_actions.each do |action| %>
-      <p>
-        <% action_desc = action.leaflet_goal %>
-        <% if action_desc.empty? %>
-          - No action description available.
-        <% else %>
-          - <%= action_desc %>
-        <% end %>
-      </p>
-      <p>
-        <% leaflet = Leaflet.find(action.leaflet_id) %>
-        <% if !leaflet.url.empty? %>
-          -> Link: <%= link_to "#{leaflet.url}", leaflet.url %>
-        <% else %>
-          -> No link
-        <% end %>
-      </p>
+      <% action_desc = action.leaflet_goal %>
+      <% if action_desc.empty? %>
+        + No action description available.
+      <% else %>
+        + <%= action_desc %>
+      <% end %>
+      <% leaflet = Leaflet.find(action.leaflet_id) %>
+      <% if !leaflet.url.empty? %>
+        (<%= link_to "#{leaflet.title}", leaflet.url %>)
+      <% else %>
+        (no link)
+      <% end %>
+      <br>
     <% end %>
     <br><br>
   <% end %>
@@ -57,9 +52,8 @@ Hi&nbsp;<%= @user.username %>,
     You have no briefings in your "Top 5". Sign in to create briefings or to check the other ones.
   </p>
 <% end %>
-<br>
 <p>
-  Sign in to your account: <a href="http://www.rakepage.com/users/sign_in" >http://www.rakepage.com/users/sign_in</a>
+  Sign in to your account to mark progress, re-schedule actions and read your customized news feeds: <a href="http://www.rakepage.com/users/sign_in" >http://www.rakepage.com/users/sign_in</a>
 </p>
 <br>
 <p>
