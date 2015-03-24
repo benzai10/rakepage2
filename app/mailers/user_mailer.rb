@@ -63,11 +63,11 @@ class UserMailer < ActionMailer::Base
   def status_overview_email(user)
     @user = user
     @url = "http://rakepage.com"
+    headers['X-MC-Track'] = "opens, clicks"
     mail(to: @user.email,
          subject: "Achieve Your Goals Like a Leader - Weekly Briefing",
          template_path: "user_mailer",
          template_name: "status_overview_email")
-    headers['X-MC-Track'] = "opens, clicks"
   end
 
   def status_overview_email_with_video(user)
@@ -111,8 +111,12 @@ class UserMailer < ActionMailer::Base
   end
 
   def send_email(user_array)
+    email_array = []
     user_array.each do |user|
-      self.status_overview_email(user).deliver
+      email_array << self.status_overview_email(User.find(user))
+    end
+    email_array.each do |email|
+      email.deliver
     end
   end
 end
