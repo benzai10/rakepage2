@@ -45,10 +45,12 @@
             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
               Hi&nbsp;<%= @user.username %>,
             </p>
+            <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;"><img src="http://blog.rakepage.com/wp-content/uploads/2015/03/landing_page_headline_800x300.jpg" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;max-width: 100%;"></p>
             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
-              Here's your current overview of your Top 5 rakes. Refresh your customized news feed to read some updates about your favorite topics and get things done based on your tasks. Maybe you find some inspirations today!
+              Rake in success with briefings to get determined, knowledgeable and disciplined.
             </p>
 
+            <h3 style="margin: 0;padding: 0;font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue Light&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 500;font-size: 27px;">Your Briefings</h3>
             <!-- Here comes the rake list -->
             <br />
             <% top_rakes = @user.myrakes.where(top_rake: 1) %>
@@ -60,17 +62,17 @@
                 <table class="rakes" width="100%" style="margin: 0;padding: 0;font-size: 12px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;background-color: #ebebeb;width: 100%;">
                   <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                     <th style="margin: 0;text-align: left;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                      <%= myrake.name %>
+                      <%= link_to "#{myrake.name}", myrake_path(myrake) %>
                     </th>
                   </tr>
                   <tr style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                     <td style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                      Last Motion/Action
+                      Last action taken:
                     </td>
                     <td style="margin: 0;text-align: right;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
                       <% if last_motion_or_action.nil? %>
-                        No journal entries yet
+                        No entries yet
                       <% else %>
                         <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
                       <% end %>
@@ -78,26 +80,36 @@
                   </tr>
                   <tr style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                     <td style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                      Due Tasks
+                      Open Actions:
                     </td>
                     <td style="margin: 0;text-align: right;color: #ff0000;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
                       <%= myrake.due_tasks_count.to_s %>
                     </td>
                   </tr>
-                  <tr style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                    <td style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                      Scheduled Tasks
-                    </td>
-                    <td style="margin: 0;text-align: right;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
-                      <%= myrake.scheduled_tasks_count.to_s %>
-                    </td>
-                  </tr>
+                  <% myrake.open_actions.each do |action| %>
+                    <tr style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+                      <td style="margin: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+                        <% action_desc = action.leaflet_goal %>
+                        <% if action_desc.empty? %>
+                          No action description available.
+                        <% else %>
+                          <%= action_desc %>
+                        <% end %>
+                      </td>
+                      <td style="margin: 0;color: #ff0000;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+                        <% leaflet = Leaflet.find(action.leaflet_id) %>
+                        <% if !leaflet.url.empty? %>
+                          <%= link_to "#{leaflet.url}", leaflet.url %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
                 </table><!-- /Top 5 Rakes -->
                 <br>
               <% end %>
             <% else %>
               <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
-                You have no "Top 5" rakes but one or more other rakes. You have to sign in to add rakes to the Top 5 (click on the cog icon).
+                You have no briefings in your "Top 5". Sign in to create briefings or to check the other ones.
               </p>
             <% end %>
             <br>
@@ -106,10 +118,10 @@
             </p>
             <br>
             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
-              Stay focused and be awesome!
+              Have an awesome day!
             </p>
             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
-              &mdash; Mischa
+              &mdash;Mischa, Founder Rakepage
             </p>
             <br>
             <p style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">

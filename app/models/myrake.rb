@@ -82,6 +82,12 @@ class Myrake < ActiveRecord::Base
     current_user
   end
 
+  def open_actions
+    HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
+                         self.heaps.pluck(:id),
+                         Time.now)
+  end
+
   def due_tasks_count
     HeapLeafletMap.where("heap_id IN (?) AND reminder_at < ?",
                          self.heaps.pluck(:id),
