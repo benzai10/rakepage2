@@ -65,7 +65,7 @@ class UserMailer < ActionMailer::Base
     @url = "http://rakepage.com"
     headers['X-MC-Track'] = "opens, clicks"
     mail(to: @user.email,
-         subject: "Achieve Your Goals Like a Leader - Weekly Briefing",
+         subject: "Achieve Your Goals Like a Leader - Your Briefings",
          template_path: "user_mailer",
          template_name: "status_overview_email")
   end
@@ -111,12 +111,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def send_email(user_array)
-    email_array = []
     user_array.each do |user|
-      email_array << self.status_overview_email(User.find(user))
-    end
-    email_array.each do |email|
-      email.deliver
+      self.status_overview_email(User.find(user)).deliver
     end
   end
 end

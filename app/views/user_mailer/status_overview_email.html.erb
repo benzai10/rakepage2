@@ -13,7 +13,7 @@
 <p>Rake in success with briefings to get determined, knowledgeable and disciplined.</p>
 <p>
   <% user_url = "http://www.rakepage.com/users/" + @user.username.downcase %>
-  <strong>Your Briefings in the Top 5</strong> (<a href=<%= user_url %> >sign in to check others</a>)
+  <strong>Your Briefings in the Top 5</strong> (<a href=<%= user_url %> >check all briefings</a>)
 </p>
 <% top_rakes = @user.myrakes.where(top_rake: 1) %>
 <% other_rakes = @user.myrakes.where(top_rake: 0) %>
@@ -26,7 +26,7 @@
       Open Actions: <%= myrake.due_tasks_count.to_s %> - Last progress marked: 
       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
       <% if last_motion_or_action.nil? %>
-        None (go to your briefing to add actions)
+        None
       <% else %>
         <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
       <% end %>
