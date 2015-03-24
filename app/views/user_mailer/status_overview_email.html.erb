@@ -12,18 +12,18 @@
 Hi&nbsp;<%= @user.username %>,
 <br>
 <p>Rake in success with briefings to get determined, knowledgeable and disciplined.</p>
-
-<h3 style="margin: 0;padding: 0;font-family: &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue Light&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 500;font-size: 27px;">Your Briefings</h3>
-<br />
+<br>
+<p><strong>Your Briefings</strong></p>
+<br>
 <% top_rakes = @user.myrakes.where(top_rake: 1) %>
 <% other_rakes = @user.myrakes.where(top_rake: 0) %>
 <% if top_rakes.count > 0 %>
   <% top_rakes.each do |myrake| %>
 
     <!-- Top 5 rakes -->
-    <%= link_to "#{myrake.name}", "http://rakepage.com/myrakes/#{myrake.slug}" %>
+    <strong><%= myrake.name %></strong> <%= link_to "Link to Briefing", "http://rakepage.com/myrakes/#{myrake.slug}" %>
     <p>
-      Last action taken: 
+      Open Actions: <%= myrake.due_tasks_count.to_s %> - Last action taken: 
       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
       <% if last_motion_or_action.nil? %>
         No entries yet
@@ -31,20 +31,26 @@ Hi&nbsp;<%= @user.username %>,
         <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
       <% end %>
     </p>
-    Open Actions: <%= myrake.due_tasks_count.to_s %>
-    <% myrake.open_actions.each do |action| %>
-      <% action_desc = action.leaflet_goal %>
-      <% if action_desc.empty? %>
-        - No action description available.
-      <% else %>
-        - <%= action_desc %>
-      <% end %>
-      <% leaflet = Leaflet.find(action.leaflet_id) %>
-      <% if !leaflet.url.empty? %>
-        - URL: <%= link_to "#{leaflet.url}", leaflet.url %>
-      <% end %>
-    <% end %>
     <br>
+    <% myrake.open_actions.each do |action| %>
+      <p>
+        <% action_desc = action.leaflet_goal %>
+        <% if action_desc.empty? %>
+          - No action description available.
+        <% else %>
+          - <%= action_desc %>
+        <% end %>
+      </p>
+      <p>
+        <% leaflet = Leaflet.find(action.leaflet_id) %>
+        <% if !leaflet.url.empty? %>
+          -> Link: <%= link_to "#{leaflet.url}", leaflet.url %>
+        <% else %>
+          -> No link
+        <% end %>
+      </p>
+    <% end %>
+    <br><br>
   <% end %>
 <% else %>
   <p>
@@ -66,6 +72,7 @@ Hi&nbsp;<%= @user.username %>,
 <p>
   PS: I'm genuinely interested in your feedback. Please tell me if you have feature requests, bug reports or anything to help increasing your experience with Rakepage. You can simply reply to this email and I will get back to you.
 </p>
+<br><br><br>
 <p style="text-align: center">
   &copy; 2015 - Rakepage. All rights reserved.
 </p>
