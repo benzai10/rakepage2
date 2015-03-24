@@ -12,7 +12,8 @@
 <p>Hi&nbsp;<%= @user.username %>,</p>
 <p>Rake in success with briefings to get determined, knowledgeable and disciplined.</p>
 <p>
-  <strong>Your Briefings in the Top 5</strong> (<a href="http://www.rakepage.com/users/sign_in" >sign in to check others</a>)
+  <% user_url = "http://www.rakepage.com/users/" + @user.username.downcase %>
+  <strong>Your Briefings in the Top 5</strong> (<a href=<%= user_url %> >sign in to check others</a>)
 </p>
 <% top_rakes = @user.myrakes.where(top_rake: 1) %>
 <% other_rakes = @user.myrakes.where(top_rake: 0) %>
@@ -22,7 +23,7 @@
     <!-- Top 5 rakes -->
     <strong><%= myrake.name %></strong> <%= link_to "[link to briefing]", "http://rakepage.com/myrakes/#{myrake.slug}" %>
     <p>
-      Open Actions: <%= myrake.due_tasks_count.to_s %> - Last action taken: 
+      Open Actions: <%= myrake.due_tasks_count.to_s %> - Last progress marked: 
       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
       <% if last_motion_or_action.nil? %>
         No entries yet
@@ -53,7 +54,7 @@
   </p>
 <% end %>
 <p>
-  Sign in to your account to mark progress, re-schedule actions and read your customized news feeds: <a href="http://www.rakepage.com/users/sign_in" >http://www.rakepage.com/users/sign_in</a>
+  Sign in to your account to mark progress, re-schedule actions and read your customized news feeds: <a href=<%= user_url %>><%= user_url %></a>
 </p>
 <br>
 <p>
@@ -61,6 +62,13 @@
 </p>
 <p>
   &mdash;Mischa, Founder Rakepage
+</p>
+<p>
+  <a href="http://rakepage.com">http://rakepage.com</a>
+  <br>
+  Achieve Your Goals Like a Leader
+  <br>
+  Daily Briefing On What's Important To You
 </p>
 <br>
 <p>

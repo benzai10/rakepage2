@@ -109,4 +109,10 @@ class UserMailer < ActionMailer::Base
          template_name: "improvements_2015_02_no_rakes_email")
     headers['X-MC-Track'] = "opens, clicks"
   end
+
+  def send_email(user_array)
+    user_array.each do |user|
+      self.status_overview_email(User.find(user)).deliver
+    end
+  end
 end
