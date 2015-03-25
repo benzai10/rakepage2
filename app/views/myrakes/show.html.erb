@@ -94,7 +94,7 @@
             <% if @news_view == "hidden" %>
               <span id="news-button">
                 <%= link_to "View News",
-                            myrake_path(@rake, view: "news"),
+                            myrake_path(@rake, view: "news", refresh: "yes"),
                             { class: "btn btn-news",
                               remote: true,
                               data: { disable_with: "<i class='fa fa-spinner fa-spin white'></i> Loading..." } } %>
