@@ -23,7 +23,7 @@
   </div>
   <div class="tab-pane" id="feed">
     <br>
-    <span class="rake-nav">EXAMPLE FEED<hr></span>
+    <span class="rake-nav">EXAMPLE FEED (to refresh <%= link_to "sign up", new_user_registration_path %>)<hr></span>
     <% if @added_leaflets.count > 0 %>
       <ul id="feed-list" class="leaflet-list">
         <% @added_leaflets.each do |l| %>
