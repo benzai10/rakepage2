@@ -122,10 +122,16 @@
                 <br>
                 <div class="row">
                   <div class="col-md-6">
-                    <% if @customer_rake.nil? %>
-                      <%= link_to "Choose this briefing",
-                                  create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
-                                  { data: { disable_with: "<i class='fa fa-spinner white'></i> Your briefing gets created!"}, class: "btn btn-primary btn-choose-briefing" } %>
+                    <% if user_signed_in? %>
+                      <% if @customer_rake.nil? %>
+                        <%= link_to "Choose this briefing",
+                                    create_rake_myrake_path(master_rake_id: @rake.id, name: @rake.name, channels: @rake.channels),
+                                    { data: { disable_with: "<i class='fa fa-spinner white'></i> Your briefing gets created!"}, class: "btn btn-primary btn-choose-briefing" } %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to "Sign up to start", new_user_registration_path,
+                                  { data: { disable_with: "<i class='fa fa-spinner white'></i> See you soon!"},
+                                  class: "btn btn-primary btn-choose-briefing" } %>
                     <% end %>
                   </div>
                   <div class="col-md-6">
