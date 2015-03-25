@@ -23,11 +23,11 @@ class UserMailer < ActionMailer::Base
   def welcome_email_with_rake(user)
     @user = user
     @url = "http://rakepage.com"
+    headers['X-MC-Track'] = "opens, clicks"
     mail(to: @user.email,
-         subject: "Hi #{@user.username}, you're ready to take action!",
+         subject: "Hi #{@user.username}, achieve your goals like a leader with customized briefings",
          template_path: "user_mailer",
          template_name: "welcome_email_with_rake")
-    headers['X-MC-Track'] = "opens, clicks"
   end
 
   def reminder_email_no_rake(user)
