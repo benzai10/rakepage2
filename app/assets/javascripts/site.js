@@ -17,6 +17,10 @@ $(function() {
         $("#task-view").removeClass('hidden');
         $("#news-button").removeClass('hidden');
         $("#back-to-actions").addClass('hidden');
+        $("#nav-due-tasks").addClass('active');
+        $("#due-tasks").addClass('active');
+        $("#nav-scheduled-tasks").removeClass('active');
+        $("#scheduled-tasks").removeClass('active');
     });
 
     // $("#back-to-actions").on('mouseup', function() {

@@ -3,14 +3,14 @@
 <div id="task-view">
   <br>
   <ul class="nav nav-tabs" role="tablist">
-    <li class="rake-nav <%= @due_active %>">
+    <li class="rake-nav <%= @due_active %>" id="nav-due-tasks">
       <a href="#due-tasks" id="view-due-tasks" data-toggle="tab">
         NOW
         <% @rake.due_tasks_count > 0 ? count_no_zero = "new-rec-alert" : count_no_zero = "" %>
         <span class=<%= count_no_zero %> id="due-tasks-count"><%= @rake.due_tasks_count unless @rake.due_tasks_count == 0 %></span>
       </a>
     </li>
-    <li class="rake-nav <%= @scheduled_active %>">
+    <li class="rake-nav <%= @scheduled_active %>" id="nav-scheduled_tasks">
       <a href="#scheduled-tasks" id="view-scheduled-tasks" data-toggle="tab">
         LATER
       </a>
