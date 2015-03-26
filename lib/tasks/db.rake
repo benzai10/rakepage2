@@ -10,7 +10,7 @@ namespace :rakepage_migration do
   desc "Change page descriptions"
   task :change_page_descriptions => :environment do
     MasterRake.all.each do |mr|
-      mr.update_attributes(description: "#{mr.name} | Focus On Your Essentials")
+      mr.update_attributes(description: "#{mr.name} | Achieve Your Goals Like a Leader")
     end
   end
 
