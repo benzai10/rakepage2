@@ -70,6 +70,16 @@ class UserMailer < ActionMailer::Base
          template_name: "status_overview_email")
   end
 
+  def friday_briefing(user)
+    @user = user
+    @url = "http://rakepage.com"
+    headers['X-MC-Track'] = "opens, clicks"
+    mail(to: @user.email,
+         subject: "Your Friday Briefing",
+         template_path: "user_mailer",
+         template_name: "friday_briefing")
+  end
+
   def status_overview_email_with_video(user)
     @user = user
     @url = "http://rakepage.com"
@@ -113,6 +123,12 @@ class UserMailer < ActionMailer::Base
   def send_email(user_array)
     user_array.each do |user|
       self.status_overview_email(User.find(user)).deliver
+    end
+  end
+
+  def send_friday_briefings(user_array)
+    user_array.each do |user|
+      self.friday_briefing(User.find(user)).deliver
     end
   end
 end
