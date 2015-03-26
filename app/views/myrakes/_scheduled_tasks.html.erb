@@ -56,7 +56,7 @@
           <% if !lm.leaflet_goal.empty? %>
             <%= lm.leaflet_goal %>
           <% else %>
-            No specific action defined.
+            No specific task defined.
           <% end %>
         </div>
 
@@ -69,7 +69,7 @@
 
         <div class="card-content">
           <% if l.title == "None" %>
-            Action without weblink
+            Task without weblink
           <% else %>
             <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
           <% end %>

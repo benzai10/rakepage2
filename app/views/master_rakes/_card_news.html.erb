@@ -49,7 +49,7 @@
 
   <div class="card-title">
     <% if l.title == "None" %>
-      No URL added to this action
+      No weblink added to this task
     <% else %>
       <%= link_to l.title.html_safe, l.url, class: "external", value: l.id, target: "_blank" %>
     <% end %>

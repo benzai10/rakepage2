@@ -8,7 +8,7 @@
     <%= f.hidden_field :leaflet_url, { label: "URL", disabled: true, class: "leaflet-url" } %>
     <%= f.hidden_field :leaflet_title, { label: "Bookmark Title", class: "leaflet-custom-title" } %>
     <%= f.hidden_field :leaflet_desc, { label: "Bookmark Description (optional)", class: "leaflet-description" } %>
-    <%= f.label "Planned action:", class: "rakepage-form-label" %>
+    <%= f.label "Task description:", class: "rakepage-form-label" %>
     <%= f.text_field :leaflet_goal, { hide_label: true, class: "leaflet-goal" } %>
     <% reminder_period = [] %>
     <% reminder_period << ["in 1 hour", 1] %>

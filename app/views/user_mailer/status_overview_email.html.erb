@@ -23,7 +23,7 @@
     <!-- Top 5 rakes -->
     <strong><%= myrake.name %></strong> <%= link_to "[link to briefing]", "http://rakepage.com/myrakes/#{myrake.slug}" %>
     <p>
-      Open Actions: <%= myrake.due_tasks_count.to_s %> - Last progress marked: 
+      Open Tasks: <%= myrake.due_tasks_count.to_s %> - Last progress marked: 
       <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
       <% if last_motion_or_action.nil? %>
         None
@@ -34,7 +34,7 @@
     <% myrake.open_actions.each do |action| %>
       <% action_desc = action.leaflet_goal %>
       <% if action_desc.empty? %>
-        + No action description defined.
+        + No task description defined.
       <% else %>
         + <%= action_desc %>
       <% end %>
@@ -56,7 +56,7 @@
   <br>
 <% end %>
 <p>
-  Sign in to your account to mark progress, re-schedule actions and read your customized news feeds: <a href=<%= user_url %>><%= user_url %></a>
+  Sign in to your account to mark progress, re-schedule tasks and read your customized news feeds: <a href=<%= user_url %>><%= user_url %></a>
 </p>
 <br>
 <p>
