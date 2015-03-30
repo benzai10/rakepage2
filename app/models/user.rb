@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   attr_accessor :history_chain
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:username]
 
   #Only Digits, Numbers, dash and underscore allowed, dash/underscore only
