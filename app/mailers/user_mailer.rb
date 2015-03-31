@@ -80,6 +80,16 @@ class UserMailer < ActionMailer::Base
          template_name: "monday_briefing")
   end
 
+  def wednesday_briefing(user)
+    @user = user
+    @url = "http://rakepage.com"
+    headers['X-MC-Track'] = "opens, clicks"
+    mail(to: @user.email,
+         subject: "Your Wednesday Briefing",
+         template_path: "user_mailer",
+         template_name: "wednesday_briefing")
+  end
+
   def friday_briefing(user)
     @user = user
     @url = "http://rakepage.com"
@@ -139,6 +149,12 @@ class UserMailer < ActionMailer::Base
   def send_monday_briefings(user_array)
     user_array.each do |user|
       self.monday_briefing(User.find(user)).deliver
+    end
+  end
+
+  def send_wednesday_briefings(user_array)
+    user_array.each do |user|
+      self.wednesday_briefing(User.find(user)).deliver
     end
   end
 

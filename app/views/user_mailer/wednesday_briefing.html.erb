@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+<head style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+<!-- If you delete this tag, the sky will fall on your head -->
+<meta name="viewport" content="width=device-width" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">
+<title style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;">Rakepage Email</title>
+</head>
+<body>
+
+<p>Hi&nbsp;<%= @user.username %>,</p>
+<p>
+  <em>Do you want to know who you are? Don't ask. Act! Action will delineate and define you.</em>
+  <br>
+  -Thomas Jefferson
+</p>
+<p>Visit Rakepage to get updated with your customizable news feed and check your progress-tracker.</p>
+<p>
+  <% user_url = "http://www.rakepage.com/users/" + @user.username.downcase %>
+  <strong>Your Briefings in the Top 5</strong> (<a href=<%= user_url %> >check all briefings</a>)
+</p>
+<% top_rakes = @user.myrakes.where(top_rake: 1) %>
+<% other_rakes = @user.myrakes.where(top_rake: 0) %>
+<% if top_rakes.count > 0 %>
+  <% top_rakes.each do |myrake| %>
+
+    <!-- Top 5 rakes -->
+    <strong><%= myrake.name %></strong> <%= link_to "[link to briefing]", "http://rakepage.com/myrakes/#{myrake.slug}" %>
+    <p>
+      Open Tasks: <%= myrake.due_tasks_count.to_s %> - Last progress marked: 
+      <% last_motion_or_action = History.get_last_motion_or_action(myrake.id) %>
+      <% if last_motion_or_action.nil? %>
+        None
+      <% else %>
+        <%= time_ago_in_words(last_motion_or_action.created_at) %> ago
+      <% end %>
+    </p>
+    <% myrake.open_actions.each do |action| %>
+      <% action_desc = action.leaflet_goal %>
+      <% if action_desc.empty? %>
+        + No task description defined.
+      <% else %>
+        + <%= action_desc %>
+      <% end %>
+      <% leaflet = Leaflet.find(action.leaflet_id) %>
+      <% if !leaflet.url.empty? %>
+        (<%= link_to "#{leaflet.title}", leaflet.url %>)
+      <% else %>
+        (no link)
+      <% end %>
+      <br>
+    <% end %>
+    <br><br>
+  <% end %>
+<% else %>
+  <p>
+    You have no briefings in your "Top 5". Sign in to create briefings or to check the other ones.
+  </p>
+  <br>
+  <br>
+<% end %>
+<p>
+  Sign in to your account to mark progress, re-schedule tasks and read your customized news feeds: <a href=<%= user_url %>><%= user_url %></a>
+</p>
+<br>
+<p>
+  Have an awesome day!
+</p>
+<p>
+  &mdash;Mischa, Founder Rakepage
+</p>
+<p>
+  <a href="http://rakepage.com">http://rakepage.com</a>
+  <br>
+  Achieve Your Goals Like a Leader
+  <br>
+  Daily Briefing On What's Important To You
+</p>
+<br>
+<p>
+  PS: I'm genuinely interested in your feedback. Please tell me if you have feature requests, bug reports or anything to help increasing your experience with Rakepage. You can simply reply to this email and I will get back to you.
+</p>
+<br><br><br>
+<p style="text-align: center">
+  &copy; 2015 - Rakepage. All rights reserved. <%= link_to "Unsubscribe", "http://rakepage.us7.list-manage.com/unsubscribe?u=b1aef4aadef5ae267e7a4e6f9&id=543cc4421a" %>
+</p>
+
+</body>
+</html>
