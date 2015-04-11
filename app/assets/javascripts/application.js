@@ -19,5 +19,4 @@
 //= require bootstrap-tokenfield
 //= require bootstrap-rating-input.min.js
 //= require facebook
-//= require social-share-button
 //= require_tree .
