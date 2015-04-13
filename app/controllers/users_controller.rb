@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     if user_signed_in?
-      if params[:id] == current_user.id || params[:id] == current_user.slug
+      if params[:id] == current_user.slug || params[:id] == current_user.id
         write_user_history if session[:user_show] != Time.now.to_s.first(10)
         @top_rakes = Myrake.user_rakes(current_user).top_rakes
         @other_rakes = Myrake.user_rakes(current_user).other_rakes
